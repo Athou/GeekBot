@@ -1,0 +1,13 @@
+Edit the following files to your preferences:
+/src/main/resources/config.properties
+/src/main/resources/META-INF/persistence.xml
+
+Build:
+mvn package
+
+Run:
+java -jar target/geekbot-1.0.0.jar
+
+Or use the script (will start a new screen called 'gb'): 
+chmod +x start.sh
+./start.sh

@@ -9,7 +9,7 @@ One of the features of the bot is to store sentences said on the channel and giv
 
 There are also basic commands like Google Web and Images search, Wikipedia search, Youtube title fetching when linking a video, Horoscope, RSS Fetching, IMGUR images mirroring, and much more.
 
-All commands are available in the be.hehehe.geekbot.commands and you can add your own.
+All commands are available in the be.hehehe.geekbot.commands package and you can add your own.
 
 
 Installation

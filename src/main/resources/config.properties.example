@@ -1,0 +1,24 @@
+# Bot nickname
+botname=GeekBot
+
+# IRC Server to use
+server=irc.quakenet.org
+
+# Channel to join
+channel=\#botchannel
+
+# directory where lucene will store its index
+lucene=/var/geekbot/index/
+
+# Java package to scan for commands (recursively)
+commands.package=be.hehehe
+
+# Bitly credentials
+bitly.login=
+bitly.apikey=
+
+# Imgur credentials
+imgur.apikey=
+
+# VDM api key
+vdm.apikey=

@@ -1,3 +1,11 @@
+Introduction
+------------
+
+GeekBot is an IRC Bot and a framework built around the excellent PircBot Java IRC Bot library.
+
+The bot is bundled with plenty of commands already, and allows you to create new bot commands easily with annotations.
+
+
 Installation
 ------------
 

@@ -3,7 +3,13 @@ Introduction
 
 GeekBot is an IRC Bot and a framework built around the excellent PircBot Java IRC Bot library.
 
-The bot is bundled with plenty of commands already, and allows you to create new bot commands easily with annotations.
+The bot is bundled with plenty of commands already, and allows you to create new commands easily with annotations.
+
+One of the features of the bot is to store sentences said on the channel and give those back at some point in the future randomly in a conversation or when directly addressed.
+
+There are also basic commands like Google Web and Images search, Wikipedia search, Youtube title fetching when linking a video, Horoscope, RSS Fetching, IMGUR images mirroring, and much more.
+
+All commands are available in the be.hehehe.geekbot.commands and you can add your own.
 
 
 Installation
@@ -25,5 +31,7 @@ Run
 java -jar target/geekbot-1.0.0.jar
 
 Or use the 'start.sh' script (will start a new screen called 'gb'): 
+
 chmod +x start.sh
+
 ./start.sh

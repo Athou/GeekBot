@@ -6,6 +6,9 @@
 	<version>1.0.0</version>
 	<name>GeekBot</name>
 	<description>GeekBot IRC Bot</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<!-- Fix to ignore Eclipse error: maven-dependency-plugin (goals "copy-dependencies", 
 			"unpack") is not supported by m2e. http://dev.eclipse.org/mhonarc/lists/m2e-users/msg00875.html 
@@ -43,6 +46,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -51,6 +55,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -62,7 +67,9 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>

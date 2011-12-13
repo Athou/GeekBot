@@ -134,12 +134,13 @@ public class BotUtils {
 	public static HashAndByteCount calculateHashAndByteCount(String urlString) {
 		HashAndByteCount hashAndByteCount = new HashAndByteCount();
 
-		byte[] bytes = BotUtils.getContent(urlString, "image/").getBytes();
+		String content = BotUtils.getContent(urlString, "image/");
+		if (content != null) {
+			byte[] bytes = content.getBytes();
 
-		hashAndByteCount.setHash(DigestUtils.md5Hex(bytes));
-		hashAndByteCount.setByteCount(new Long(bytes.length));
-
+			hashAndByteCount.setHash(DigestUtils.md5Hex(bytes));
+			hashAndByteCount.setByteCount(new Long(bytes.length));
+		}
 		return hashAndByteCount;
 	}
-
 }

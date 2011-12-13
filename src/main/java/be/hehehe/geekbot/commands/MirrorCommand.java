@@ -14,12 +14,13 @@ import org.json.simple.parser.JSONParser;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.BundleUtil;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class MirrorCommand {
-	public static String LASTURL;
+	private static String LASTURL;
 
 	@Trigger("!mirror")
 	public String getMirrorImage() {
@@ -34,6 +35,17 @@ public class MirrorCommand {
 	public String getMirrorImage2(String message) {
 		String result = handleImage(message);
 		return result;
+	}
+
+	@Trigger(type = TriggerType.EVERYTHING)
+	public String storeLastURL(String message, String author,
+			boolean nickInMessage) {
+
+		String url = BotUtils.extractURL(message);
+		if (url != null) {
+			LASTURL = url;
+		}
+		return null;
 	}
 
 	private String handleImage(String message) {

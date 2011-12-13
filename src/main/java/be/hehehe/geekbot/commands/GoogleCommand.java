@@ -89,7 +89,6 @@ public class GoogleCommand {
 				String s = json.getJSONObject("responseData")
 						.getJSONArray("results").getJSONObject(0)
 						.getString("unescapedUrl");
-				MirrorCommand.LASTURL = s;
 				result.add(IRCUtils.bold(s));
 			}
 

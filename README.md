@@ -28,7 +28,7 @@ mvn package
 
 Run
 ---
-java -jar target/geekbot-1.0.0.jar
+java -jar target/GeekBot-1.0.0.jar
 
 Or use the 'start.sh' script (will start a new screen called 'gb'): 
 

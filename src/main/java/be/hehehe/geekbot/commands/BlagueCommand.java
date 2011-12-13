@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -20,32 +22,28 @@ public class BlagueCommand {
 		List<String> toReturn = new ArrayList<String>();
 		try {
 			String url = "http://www.la-blague-du-jour.com/blagues_au_hasard/Une_blague_aleatoire.html";
-			String result = BotUtils.getContent(url);
-			String cat = result
-					.substring(result
-							.indexOf("Voici une blague au hasard de la catégorie : ") + 50);
-			cat = cat.substring(cat.indexOf(">") + 1);
+			Document doc = Jsoup.parse(BotUtils.getContent(url));
+
+			String cat = doc.select("p.Paratexte").select("b").select("a")
+					.text();
 			if (cat.startsWith("Monsieur et Madame")) {
 				return getRandomBlague();
 			}
-
 			cat = cat.substring(0, cat.indexOf("("));
 
-			result = result
-					.substring(result.indexOf("<p class='TexteBlague'>") + 23);
-			result = result.substring(0, result.indexOf("</p>"));
-			List<String> lines = Arrays.asList(result.split("<br>"));
-
-			for (String s : lines) {
-				String toAdd = StringEscapeUtils.unescapeHtml(
-						s.replaceAll("\\<.*?\\>", "")).replaceAll("\\s+", " ");
-				while (toAdd.length() > 400) {
-					toReturn.add(toAdd.substring(0, 400));
-					toAdd = toAdd.substring(400);
+			String blague = doc.select("p.TexteBlague").html();
+			List<String> lines = Arrays.asList(blague.split("<br />"));
+			for (String line : lines) {
+				line = StringEscapeUtils.unescapeHtml(line);
+				while (line.length() > 400) {
+					toReturn.add(line.substring(0, 400));
+					line = line.substring(400);
 				}
-				toReturn.add(toAdd);
+				toReturn.add(line);
 			}
+
 			if (toReturn.size() > 5) {
+				// joke too long
 				return getRandomBlague();
 			}
 

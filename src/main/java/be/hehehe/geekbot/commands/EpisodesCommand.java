@@ -1,6 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;

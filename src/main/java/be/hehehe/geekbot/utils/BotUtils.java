@@ -15,10 +15,24 @@ import com.google.common.collect.Maps;
 
 public class BotUtils {
 
+	/**
+	 * Get the content of the specified URL
+	 * 
+	 * @param urlString
+	 * @return
+	 */
 	public static String getContent(String urlString) {
 		return getContent(urlString, null);
 	}
 
+	/**
+	 * Get the content of the specified URL only if the MIME type of the target
+	 * starts with mimeTypePrefix or if mimeTypePrefix is null.
+	 * 
+	 * @param urlString
+	 * @param mimeTypePrefix
+	 * @return
+	 */
 	public static String getContent(String urlString, String mimeTypePrefix) {
 		String result = null;
 		InputStream is = null;
@@ -43,30 +57,42 @@ public class BotUtils {
 		return result;
 	}
 
-	public static String bitly(String urlz) {
-		String result = "";
+	/**
+	 * Shortens the specified url if possible, returning the original url if
+	 * not.
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String bitly(String url) {
+		String result = url;
 		InputStream is = null;
 		String login = BundleUtil.getBitlyLogin();
 		String apiKey = BundleUtil.getBitlyApiKey();
-		if (StringUtils.isBlank(login) || StringUtils.isBlank(apiKey)) {
-			return urlz;
-		}
-		try {
-			URL url = new URL(
-					"http://api.bit.ly/shorten?version=2.0.1&longUrl=" + urlz
-							+ "&login=" + login + "&apiKey=" + apiKey);
-			result = IOUtils.toString(url.openStream());
-			JSONObject json = new JSONObject(result);
-			result = json.getJSONObject("results").getJSONObject(urlz)
-					.getString("shortUrl");
-		} catch (Exception e) {
-			LOG.handle(e);
-		} finally {
-			IOUtils.closeQuietly(is);
+		if (StringUtils.isNotBlank(login) && StringUtils.isNotBlank(apiKey)) {
+			try {
+				URL urlObject = new URL(
+						"http://api.bit.ly/shorten?version=2.0.1&longUrl="
+								+ url + "&login=" + login + "&apiKey=" + apiKey);
+				result = IOUtils.toString(urlObject.openStream());
+				JSONObject json = new JSONObject(result);
+				result = json.getJSONObject("results").getJSONObject(url)
+						.getString("shortUrl");
+			} catch (Exception e) {
+				LOG.handle(e);
+			} finally {
+				IOUtils.closeQuietly(is);
+			}
 		}
 		return result;
 	}
 
+	/**
+	 * Parses an url and return a map of request parameters
+	 * 
+	 * @param url
+	 * @return
+	 */
 	public static Map<String, String> getRequestParametersFromURL(String url) {
 		Map<String, String> map = Maps.newHashMap();
 		int index;
@@ -79,6 +105,13 @@ public class BotUtils {
 		return map;
 	}
 
+	/**
+	 * Returns the first url found in the given string, or null if no url is
+	 * found.
+	 * 
+	 * @param message
+	 * @return
+	 */
 	public static String extractURL(String message) {
 		String url = null;
 		for (String s : message.split("[ ]")) {

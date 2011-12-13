@@ -56,8 +56,6 @@ public class HoroscopeCommand {
 					.first();
 			horo = horo.select(".ast-description p").first();
 			line = horo.text();
-			line = line.replace("\u2019", "'");
-			line = line.replace("\u2026", "...");
 
 		} catch (Exception e) {
 			LOG.handle(e);

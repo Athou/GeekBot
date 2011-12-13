@@ -299,14 +299,15 @@ public class GeekBot extends PircBot {
 	}
 
 	/**
-	 * Sends the message, splitting it if too long
+	 * Sends the message, splitting it if too long.
 	 * 
 	 * @param message
 	 */
 	private void sendMessage(String message) {
 		while (message.length() > 400) {
-			sendMessage(channel, message.substring(0, 400));
-			message = message.substring(400);
+			int lastSpace = message.substring(0, 400).lastIndexOf(' ');
+			sendMessage(channel, message.substring(0, lastSpace));
+			message = message.substring(lastSpace + 1);
 		}
 		sendMessage(channel, message);
 	}

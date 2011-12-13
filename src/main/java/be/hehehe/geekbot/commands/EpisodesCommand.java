@@ -1,7 +1,7 @@
 package be.hehehe.geekbot.commands;
 
 import java.io.InputStream;
-import java.net.URL;
+import java.io.StringReader;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import org.apache.commons.lang.time.DateUtils;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -28,13 +29,11 @@ public class EpisodesCommand {
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	public List<String> getNextEpisode(String seriesName) {
 		Map<String, String> showInfos = new HashMap<String, String>();
-		InputStream is = null;
 		try {
-			URL url = new URL(
-					"http://services.tvrage.com/tools/quickinfo.php?show="
-							+ URLEncoder.encode(seriesName, "UTF-8"));
-			is = url.openStream();
-			for (String line : IOUtils.readLines(is)) {
+			String url = "http://services.tvrage.com/tools/quickinfo.php?show="
+					+ URLEncoder.encode(seriesName, "UTF-8");
+			for (String line : IOUtils.readLines(new StringReader(BotUtils
+					.getContent(url)))) {
 				String[] split = line.split("@");
 				if (split.length == 2) {
 					showInfos.put(split[0], split[1]);
@@ -42,10 +41,7 @@ public class EpisodesCommand {
 			}
 		} catch (Exception e) {
 			LOG.handle(e);
-		} finally {
-			IOUtils.closeQuietly(is);
 		}
-
 		return buildStrings(showInfos);
 	}
 

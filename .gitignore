@@ -1,3 +1,11 @@
+# Local config files
 src/main/resources/META-INF/persistence.xml
 src/main/resources/config.properties
+
+# Maven build directory
 target
+
+# Eclipse files
+.project
+.classpath
+.settings

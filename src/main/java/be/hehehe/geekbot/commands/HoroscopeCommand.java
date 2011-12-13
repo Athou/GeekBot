@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.commands;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.jsoup.Jsoup;
@@ -14,8 +13,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
-
-import com.google.common.collect.Lists;
 
 @BotCommand
 public class HoroscopeCommand {
@@ -45,12 +42,12 @@ public class HoroscopeCommand {
 	}
 
 	@Trigger(value = "!horoscope", type = TriggerType.STARTSWITH)
-	public List<String> getHoroscope(String sign) {
+	public String getHoroscope(String sign) {
 		if ("poisson".equals(sign)) {
 			sign = "poissons";
 		}
 
-		List<String> result = Lists.newArrayList();
+		String line = null;
 		try {
 			Document doc = Jsoup
 					.parse(BotUtils
@@ -58,7 +55,7 @@ public class HoroscopeCommand {
 			Element horo = doc.select("div#ast-sign-" + mapping.get(sign))
 					.first();
 			horo = horo.select(".ast-description p").first();
-			String line = horo.text();
+			line = horo.text();
 			line = line.replace("\u2019", "'");
 			line = line.replace("\u2026", "...");
 
@@ -66,6 +63,6 @@ public class HoroscopeCommand {
 			LOG.handle(e);
 		}
 
-		return result;
+		return line;
 	}
 }

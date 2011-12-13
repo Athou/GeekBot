@@ -285,7 +285,7 @@ public class GeekBot extends PircBot {
 	private void handleResultOfInvoke(Object o) {
 		if (o != null) {
 			if (o instanceof String) {
-				sendMessage(channel, (String) o);
+				sendMessage((String) o);
 			} else if (o instanceof List<?>) {
 				sendMessages((List<String>) o);
 			}
@@ -294,8 +294,20 @@ public class GeekBot extends PircBot {
 
 	private void sendMessages(List<String> list) {
 		for (String s : list) {
-			sendMessage(channel, s);
+			sendMessage(s);
 		}
 	}
 
+	/**
+	 * Sends the message, splitting it if too long
+	 * 
+	 * @param message
+	 */
+	private void sendMessage(String message) {
+		while (message.length() > 400) {
+			sendMessage(channel, message.substring(0, 400));
+			message = message.substring(400);
+		}
+		sendMessage(channel, message);
+	}
 }

@@ -35,11 +35,6 @@ public class BlagueCommand {
 			List<String> lines = Arrays.asList(blague.split("<br />"));
 			for (String line : lines) {
 				line = StringEscapeUtils.unescapeHtml(line);
-				while (line.length() > 400) {
-					toReturn.add(line.substring(0, 400));
-					line = line.substring(400);
-				}
-				toReturn.add(line);
 			}
 
 			if (toReturn.size() > 5) {

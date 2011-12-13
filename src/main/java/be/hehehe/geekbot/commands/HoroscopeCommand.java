@@ -1,6 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import org.jsoup.nodes.Element;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -49,14 +49,15 @@ public class HoroscopeCommand {
 
 		String result = "";
 		try {
-			Document doc = Jsoup.parse(new URL(
-					"http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0"), 10000);
+			Document doc = Jsoup
+					.parse(BotUtils
+							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0"));
 			Element horo = doc.select("div#ast-sign-" + mapping.get(sign))
 					.first();
 			horo = horo.select(".ast-description p").first();
 			result = horo.text();
-			result = result.replace('’', '\'');
-			result = result.replaceAll("…", "...");
+			result = result.replace("\u2019", "'");
+			result = result.replace("\u2026", "...");
 		} catch (Exception e) {
 			LOG.handle(e);
 		}

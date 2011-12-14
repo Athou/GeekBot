@@ -12,6 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Singleton;
+
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +31,7 @@ import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
+@Singleton
 public class GeekBot extends PircBot {
 
 	private String botname;
@@ -35,6 +39,11 @@ public class GeekBot extends PircBot {
 	private String channel;
 	private List<Method> triggers;
 	private List<Method> randoms;
+
+	@PostConstruct
+	public void init() {
+		LOG.info("test");
+	}
 
 	public GeekBot(String botName, String channel, String server) {
 		try {

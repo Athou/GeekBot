@@ -8,6 +8,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
 import be.hehehe.geekbot.persistence.model.Connerie;
@@ -21,14 +22,13 @@ public class ConnerieCommand {
 	private static final int MAXSENTENCES = 3;
 
 	@Trigger(type = TriggerType.EVERYTHING)
-	public List<String> storeEveryLines(String message, String author,
-			boolean nickInMessage) {
-
+	public List<String> storeEveryLines(TriggerEvent event) {
+		String message = event.getMessageWithoutTrigger();
 		List<String> result = new ArrayList<String>();
 		String url = BotUtils.extractURL(message);
 		if (url == null) {
 			pushSentence(message);
-			if (!nickInMessage && message.length() > 9
+			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
 					&& !message.startsWith("!")) {
 				ConnerieDAO dao = new ConnerieDAO();
@@ -49,7 +49,8 @@ public class ConnerieCommand {
 
 	@RandomAction(3)
 	@Trigger(type = TriggerType.BOTNAME)
-	public String getRandomLine(String message) {
+	public String getRandomLine(TriggerEvent event) {
+		String message = event.getMessageWithoutTrigger();
 		String botName = BundleUtil.getBotName();
 		message = message.replace(botName, "");
 		message = message.replace("?", "");

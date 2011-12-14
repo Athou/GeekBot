@@ -18,6 +18,7 @@ import org.apache.commons.lang.time.DateUtils;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -26,7 +27,8 @@ import be.hehehe.geekbot.utils.LOG;
 public class EpisodesCommand {
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
-	public List<String> getNextEpisode(String seriesName) {
+	public List<String> getNextEpisode(TriggerEvent event) {
+		String seriesName = event.getMessageWithoutTrigger();
 		Map<String, String> showInfos = new HashMap<String, String>();
 		try {
 			String url = "http://services.tvrage.com/tools/quickinfo.php?show="

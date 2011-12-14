@@ -7,6 +7,7 @@ import java.util.List;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.QuoteDAO;
 import be.hehehe.geekbot.persistence.model.Quote;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -24,7 +25,9 @@ public class QuoteCommand {
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
-	public List<String> getQuote(String quoteIds) throws NumberFormatException {
+	public List<String> getQuote(TriggerEvent event)
+			throws NumberFormatException {
+		String quoteIds = event.getMessageWithoutTrigger();
 		List<String> quotes = new ArrayList<String>();
 		QuoteDAO dao = new QuoteDAO();
 		String[] splitQuotes = quoteIds.split("[ ]");
@@ -41,17 +44,18 @@ public class QuoteCommand {
 	}
 
 	@Trigger(value = "!addquote", type = TriggerType.STARTSWITH)
-	public String addQuote(String quote) {
+	public String addQuote(TriggerEvent event) {
 		Quote quoteObj = new Quote();
-		quoteObj.setQuote(quote);
+		quoteObj.setQuote(event.getMessageWithoutTrigger());
 		QuoteDAO dao = new QuoteDAO();
 		dao.save(quoteObj);
 		return "Quote added: " + (dao.getCount());
 	}
 
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
-	public String findQuote(String keywords) {
-		List<String> keywordList = Arrays.asList(keywords.split("[ ]"));
+	public String findQuote(TriggerEvent event) {
+		List<String> keywordList = Arrays.asList(event
+				.getMessageWithoutTrigger().split("[ ]"));
 		QuoteDAO dao = new QuoteDAO();
 		List<Quote> quotes = dao.findByKeywords(keywordList);
 		String result = "";

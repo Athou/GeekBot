@@ -5,14 +5,16 @@ import org.apache.commons.lang.StringUtils;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
 
 @BotCommand
 public class RandomCommand {
 	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
-	public String getRandQuote(String keywords) {
+	public String getRandQuote(TriggerEvent event) {
 		String r = null;
+		String keywords = event.getMessageWithoutTrigger();
 		if (StringUtils.isNotBlank(keywords)) {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {

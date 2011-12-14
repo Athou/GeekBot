@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -42,7 +43,8 @@ public class HoroscopeCommand {
 	}
 
 	@Trigger(value = "!horoscope", type = TriggerType.STARTSWITH)
-	public String getHoroscope(String sign) {
+	public String getHoroscope(TriggerEvent event) {
+		String sign = event.getMessageWithoutTrigger();
 		if ("poisson".equals(sign)) {
 			sign = "poissons";
 		}

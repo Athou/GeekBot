@@ -3,6 +3,8 @@ package be.hehehe.geekbot.bot;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
@@ -70,7 +74,7 @@ public class GeekBot extends PircBot {
 				@Override
 				public void run() {
 					try {
-						handleResultOfInvoke(invoke(method, new Object[0]));
+						handleResultOfInvoke(invoke(method, buildEvent()));
 					} catch (Exception e) {
 						LOG.handle(e);
 					}
@@ -151,6 +155,7 @@ public class GeekBot extends PircBot {
 	 */
 	private void handlePossibleTrigger(String message, String author) {
 		boolean triggered = false;
+
 		for (Method triggerMethod : triggers) {
 			Trigger trig = triggerMethod.getAnnotation(Trigger.class);
 			String trigger = trig.value();
@@ -161,25 +166,31 @@ public class GeekBot extends PircBot {
 
 			case EXACTMATCH:
 				if (StringUtils.equals(trigger, message)) {
-					result = invoke(triggerMethod, new Object[0]);
+					TriggerEvent triggerEvent = buildEvent(message, author,
+							trigger);
+					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
 			case STARTSWITH:
 				if (StringUtils.startsWith(message, triggerStartsWith)) {
-					result = invoke(triggerMethod,
-							message.substring(triggerStartsWith.length()));
+					TriggerEvent triggerEvent = buildEvent(message, author,
+							triggerStartsWith);
+					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
 			case BOTNAME:
 				if (botNameInMessage(message)) {
-					result = invoke(triggerMethod, message);
+					TriggerEvent triggerEvent = buildEvent(message, author,
+							botname);
+					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
 
 			case EVERYTHING:
 				if (!isMessageTrigger(message) && !botNameInMessage(message)) {
-					result = invoke(triggerMethod, message, author,
-							nickInMessage(message));
+					TriggerEvent triggerEvent = buildEvent(message, author,
+							null);
+					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
 			}
@@ -198,7 +209,9 @@ public class GeekBot extends PircBot {
 				int probability = random.getAnnotation(RandomAction.class)
 						.value();
 				if (rand <= probability) {
-					handleResultOfInvoke(invoke(random, message));
+					TriggerEvent triggerEvent = buildEvent(message, author,
+							null);
+					handleResultOfInvoke(invoke(random, triggerEvent));
 					break;
 				}
 			}
@@ -244,13 +257,15 @@ public class GeekBot extends PircBot {
 	 */
 	private boolean nickInMessage(String message) {
 		boolean nickInMessage = false;
-		String[] split = message.split(" ");
-		for (User user : getUsers(channel)) {
-			for (String token : split) {
-				if (token.equalsIgnoreCase(user.getNick())
-						|| token.equalsIgnoreCase(user.getNick() + ":")) {
-					nickInMessage = true;
-					break;
+		if (message != null) {
+			String[] split = message.split(" ");
+			for (User user : getUsers(channel)) {
+				for (String token : split) {
+					if (token.equalsIgnoreCase(user.getNick())
+							|| token.equalsIgnoreCase(user.getNick() + ":")) {
+						nickInMessage = true;
+						break;
+					}
 				}
 			}
 		}
@@ -264,17 +279,37 @@ public class GeekBot extends PircBot {
 	 * @param args
 	 * @return
 	 */
-	private static Object invoke(Method method, Object... args) {
+	private static Object invoke(Method method, TriggerEvent event) {
 		Object result = null;
 		try {
 			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 					+ "#" + method.getName());
+
+			Object arg = event;
+			if (method.getParameterTypes().length == 0) {
+				arg = new Object[0];
+			}
 			result = method.invoke(method.getDeclaringClass().newInstance(),
-					args);
+					arg);
 		} catch (Exception e) {
 			LOG.handle(e);
 		}
 		return result;
+	}
+
+	private TriggerEvent buildEvent() {
+		return buildEvent(null, null, null);
+	}
+
+	@SuppressWarnings("unchecked")
+	private TriggerEvent buildEvent(String message, String author,
+			String trigger) {
+		Collection<String> users = CollectionUtils.collect(
+				Arrays.asList(getUsers(channel)),
+				new BeanToPropertyValueTransformer("nick"));
+		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
+				users, nickInMessage(message), botNameInMessage(message));
+		return event;
 	}
 
 	/**

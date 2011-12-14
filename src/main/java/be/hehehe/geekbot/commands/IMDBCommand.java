@@ -12,6 +12,9 @@ import org.json.JSONObject;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
+import be.hehehe.geekbot.commands.GoogleCommand.Lang;
+import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -20,9 +23,11 @@ import be.hehehe.geekbot.utils.LOG;
 public class IMDBCommand {
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
-	public List<String> getResult(String keywords) {
-		List<String> googleResult = new GoogleCommand().getResult(
-				"site:http://www.imdb.com/title " + keywords, "en", "web");
+	public List<String> getResult(TriggerEvent event) {
+		String keywords = event.getMessageWithoutTrigger();
+		List<String> googleResult = GoogleCommand.google(
+				"site:http://www.imdb.com/title " + keywords, Lang.ENGLISH,
+				Mode.WEB);
 		String[] split = googleResult.get(0).split("/");
 		String imdbID = null;
 

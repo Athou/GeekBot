@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.SkanditeDAO;
 import be.hehehe.geekbot.persistence.model.Skandite;
 import be.hehehe.geekbot.utils.BotUtils;
@@ -24,11 +25,10 @@ import be.hehehe.geekbot.utils.LOG;
 public class SkanditeCommand {
 
 	@Trigger(type = TriggerType.EVERYTHING)
-	public List<String> handleSkandites(String message, String author,
-			boolean nickInMessage) {
+	public List<String> handleSkandites(TriggerEvent event) {
 
 		List<String> result = new ArrayList<String>();
-		String url = BotUtils.extractURL(message);
+		String url = BotUtils.extractURL(event.getMessageWithoutTrigger());
 		if (url != null) {
 			SkanditeDAO dao = new SkanditeDAO();
 			Skandite skandite = dao.findByURL(url);
@@ -55,7 +55,7 @@ public class SkanditeCommand {
 				skandite = new Skandite();
 				skandite.setUrl(url);
 				skandite.setPostedDate(new Date());
-				skandite.setAuthor(author);
+				skandite.setAuthor(event.getAuthor());
 				skandite.setCount(1l);
 				if (hashAndByteCount != null) {
 					skandite.setHash(hashAndByteCount.getHash());

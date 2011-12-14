@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtils;
 import be.hehehe.geekbot.utils.BundleUtil;
 import be.hehehe.geekbot.utils.LOG;
@@ -32,16 +33,15 @@ public class MirrorCommand {
 	}
 
 	@Trigger(value = "!mirror", type = TriggerType.STARTSWITH)
-	public String getMirrorImage2(String message) {
-		String result = handleImage(message);
+	public String getMirrorImage2(TriggerEvent event) {
+		String result = handleImage(event.getMessageWithoutTrigger());
 		return result;
 	}
 
 	@Trigger(type = TriggerType.EVERYTHING)
-	public String storeLastURL(String message, String author,
-			boolean nickInMessage) {
+	public String storeLastURL(TriggerEvent event) {
 
-		String url = BotUtils.extractURL(message);
+		String url = BotUtils.extractURL(event.getMessageWithoutTrigger());
 		if (url != null) {
 			LASTURL = url;
 		}

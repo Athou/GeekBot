@@ -285,12 +285,12 @@ public class GeekBot extends PircBot {
 			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 					+ "#" + method.getName());
 
-			Object arg = event;
+			Object newInstance = method.getDeclaringClass().newInstance();
 			if (method.getParameterTypes().length == 0) {
-				arg = new Object[0];
+				result = method.invoke(newInstance, new Object[0]);
+			} else {
+				result = method.invoke(newInstance, event);
 			}
-			result = method.invoke(method.getDeclaringClass().newInstance(),
-					arg);
 		} catch (Exception e) {
 			LOG.handle(e);
 		}

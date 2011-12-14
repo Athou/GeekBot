@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
+import org.reflections.util.ConfigurationBuilder;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
@@ -75,8 +76,9 @@ public class ScannerHelper {
 
 	private static Set<Class<?>> getAnnotatedClasses(
 			Class<? extends Annotation> klass) {
-		Reflections reflections = new Reflections(
-				BundleUtil.getCommandsPackage());
+		String packages = BundleUtil.getCommandsPackage();
+
+		Reflections reflections = new Reflections(packages.split(","));
 		return reflections.getTypesAnnotatedWith(klass);
 	}
 

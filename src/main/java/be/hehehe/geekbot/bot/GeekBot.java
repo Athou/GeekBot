@@ -195,11 +195,7 @@ public class GeekBot extends PircBot {
 				break;
 			}
 
-			if (result != null) {
-				triggered = true;
-				handleResultOfInvoke(result);
-			}
-
+			triggered |= handleResultOfInvoke(result);
 		}
 
 		// nothing triggered so far, try to proc a random action
@@ -317,14 +313,20 @@ public class GeekBot extends PircBot {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	private void handleResultOfInvoke(Object o) {
+	private boolean handleResultOfInvoke(Object o) {
+		boolean triggered = false;
 		if (o != null) {
 			if (o instanceof String) {
-				sendMessage((String) o);
+				String message = (String) o;
+				triggered = StringUtils.isNotBlank(message);
+				sendMessage(message);
 			} else if (o instanceof List<?>) {
-				sendMessages((List<String>) o);
+				List<String> messages = (List<String>) o;
+				triggered = !messages.isEmpty();
+				sendMessages(messages);
 			}
 		}
+		return triggered;
 	}
 
 	private void sendMessages(List<String> list) {

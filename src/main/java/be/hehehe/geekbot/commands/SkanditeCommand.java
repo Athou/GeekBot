@@ -76,8 +76,7 @@ public class SkanditeCommand {
 						+ videoParam;
 				try {
 					String content = BotUtils.getContent(data);
-					SAXBuilder builder = new SAXBuilder();
-					Document doc = builder.build(new StringReader(content));
+					Document doc = BotUtils.parseXML(content);
 					Element root = doc.getRootElement();
 					String title = "";
 					for (Object o : root.getChildren()) {

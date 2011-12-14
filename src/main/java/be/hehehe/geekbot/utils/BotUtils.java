@@ -1,6 +1,8 @@
 package be.hehehe.geekbot.utils;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
@@ -9,6 +11,9 @@ import java.util.Map;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jdom.Document;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
@@ -175,5 +180,12 @@ public class BotUtils {
 			hashAndByteCount.setByteCount(new Long(bytes.length));
 		}
 		return hashAndByteCount;
+	}
+
+	public static Document parseXML(String xml) throws JDOMException,
+			IOException {
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = builder.build(new StringReader(xml));
+		return doc;
 	}
 }

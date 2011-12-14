@@ -38,6 +38,12 @@ public class GeekBot extends PircBot {
 
 	public GeekBot(String botName, String channel, String server) {
 		try {
+
+			triggers = ScannerHelper.scanTriggers();
+			randoms = ScannerHelper.scanRandom();
+			startTimers(ScannerHelper.scanTimers());
+			ConnerieIndex.startRebuildingIndexThread();
+
 			this.botname = botName;
 			this.channel = channel;
 			this.setMessageDelay(2000);
@@ -50,11 +56,6 @@ public class GeekBot extends PircBot {
 			this.startIdentServer();
 			this.connect(server);
 			this.joinChannel(channel);
-
-			triggers = ScannerHelper.scanTriggers();
-			randoms = ScannerHelper.scanRandom();
-			startTimers(ScannerHelper.scanTimers());
-			ConnerieIndex.startRebuildingIndexThread();
 
 		} catch (NickAlreadyInUseException e) {
 			LOG.error("Nick already in use !");

@@ -15,7 +15,7 @@ public class WikiCommand {
 	@Trigger(value = "!wiki", type = TriggerType.STARTSWITH)
 	public List<String> getWikiResults(TriggerEvent event) {
 		return GoogleCommand.google(
-				"wikipedia " + event.getMessageWithoutTrigger(), Lang.ENGLISH,
+				"wikipedia " + event.getMessage(), Lang.ENGLISH,
 				Mode.WEB);
 	}
 
@@ -27,7 +27,7 @@ public class WikiCommand {
 	@Trigger(value = "!wikifr", type = TriggerType.STARTSWITH)
 	public List<String> getWikiResultsfr(TriggerEvent event) {
 		return GoogleCommand.google(
-				"wikipedia " + event.getMessageWithoutTrigger(), Lang.FRENCH,
+				"wikipedia " + event.getMessage(), Lang.FRENCH,
 				Mode.WEB);
 	}
 

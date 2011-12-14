@@ -44,7 +44,7 @@ public class HoroscopeCommand {
 
 	@Trigger(value = "!horoscope", type = TriggerType.STARTSWITH)
 	public String getHoroscope(TriggerEvent event) {
-		String sign = event.getMessageWithoutTrigger();
+		String sign = event.getMessage();
 		if ("poisson".equals(sign)) {
 			sign = "poissons";
 		}

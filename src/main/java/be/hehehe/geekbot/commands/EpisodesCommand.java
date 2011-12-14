@@ -28,7 +28,7 @@ public class EpisodesCommand {
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	public List<String> getNextEpisode(TriggerEvent event) {
-		String seriesName = event.getMessageWithoutTrigger();
+		String seriesName = event.getMessage();
 		Map<String, String> showInfos = new HashMap<String, String>();
 		try {
 			String url = "http://services.tvrage.com/tools/quickinfo.php?show="

@@ -23,7 +23,7 @@ public class ConnerieCommand {
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> storeEveryLines(TriggerEvent event) {
-		String message = event.getMessageWithoutTrigger();
+		String message = event.getMessage();
 		List<String> result = new ArrayList<String>();
 		String url = BotUtils.extractURL(message);
 		if (url == null) {
@@ -50,7 +50,7 @@ public class ConnerieCommand {
 	@RandomAction(3)
 	@Trigger(type = TriggerType.BOTNAME)
 	public String getRandomLine(TriggerEvent event) {
-		String message = event.getMessageWithoutTrigger();
+		String message = event.getMessage();
 		String botName = BundleUtil.getBotName();
 		message = message.replace(botName, "");
 		message = message.replace("?", "");

@@ -24,7 +24,7 @@ public class IMDBCommand {
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
 	public List<String> getResult(TriggerEvent event) {
-		String keywords = event.getMessageWithoutTrigger();
+		String keywords = event.getMessage();
 		List<String> googleResult = GoogleCommand.google(
 				"site:http://www.imdb.com/title " + keywords, Lang.ENGLISH,
 				Mode.WEB);

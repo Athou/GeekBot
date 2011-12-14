@@ -27,7 +27,7 @@ public class QuoteCommand {
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
 	public List<String> getQuote(TriggerEvent event)
 			throws NumberFormatException {
-		String quoteIds = event.getMessageWithoutTrigger();
+		String quoteIds = event.getMessage();
 		List<String> quotes = new ArrayList<String>();
 		QuoteDAO dao = new QuoteDAO();
 		String[] splitQuotes = quoteIds.split("[ ]");
@@ -46,7 +46,7 @@ public class QuoteCommand {
 	@Trigger(value = "!addquote", type = TriggerType.STARTSWITH)
 	public String addQuote(TriggerEvent event) {
 		Quote quoteObj = new Quote();
-		quoteObj.setQuote(event.getMessageWithoutTrigger());
+		quoteObj.setQuote(event.getMessage());
 		QuoteDAO dao = new QuoteDAO();
 		dao.save(quoteObj);
 		return "Quote added: " + (dao.getCount());
@@ -55,7 +55,7 @@ public class QuoteCommand {
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
 	public String findQuote(TriggerEvent event) {
 		List<String> keywordList = Arrays.asList(event
-				.getMessageWithoutTrigger().split("[ ]"));
+				.getMessage().split("[ ]"));
 		QuoteDAO dao = new QuoteDAO();
 		List<Quote> quotes = dao.findByKeywords(keywordList);
 		String result = "";

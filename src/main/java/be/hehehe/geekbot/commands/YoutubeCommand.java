@@ -15,7 +15,7 @@ public class YoutubeCommand {
 	@Trigger(value = "!youtube", type = TriggerType.STARTSWITH)
 	public List<String> getYoutubeResults(TriggerEvent event) {
 		return GoogleCommand.google(
-				"site:www.youtube.com " + event.getMessageWithoutTrigger(),
+				"site:www.youtube.com " + event.getMessage(),
 				Lang.ENGLISH, Mode.WEB);
 	}
 }

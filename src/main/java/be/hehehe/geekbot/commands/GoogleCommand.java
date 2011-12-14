@@ -52,23 +52,23 @@ public class GoogleCommand {
 
 	@Trigger(value = "!google", type = TriggerType.STARTSWITH)
 	public List<String> google(TriggerEvent event) {
-		return google(event.getMessageWithoutTrigger(), Lang.ENGLISH, Mode.WEB);
+		return google(event.getMessage(), Lang.ENGLISH, Mode.WEB);
 	}
 
 	@Trigger(value = "!googlefr", type = TriggerType.STARTSWITH)
 	public List<String> googlefr(TriggerEvent event) {
-		return google(event.getMessageWithoutTrigger(), Lang.FRENCH, Mode.WEB);
+		return google(event.getMessage(), Lang.FRENCH, Mode.WEB);
 	}
 
 	@Trigger(value = "!image", type = TriggerType.STARTSWITH)
 	public List<String> image(TriggerEvent event) {
-		return google(event.getMessageWithoutTrigger(), Lang.ENGLISH,
+		return google(event.getMessage(), Lang.ENGLISH,
 				Mode.IMAGE);
 	}
 
 	@Trigger(value = "!imagefr", type = TriggerType.STARTSWITH)
 	public List<String> imagefr(TriggerEvent event) {
-		return google(event.getMessageWithoutTrigger(), Lang.FRENCH, Mode.IMAGE);
+		return google(event.getMessage(), Lang.FRENCH, Mode.IMAGE);
 	}
 
 	public static List<String> google(String keywords, Lang lang, Mode mode) {

@@ -34,14 +34,14 @@ public class MirrorCommand {
 
 	@Trigger(value = "!mirror", type = TriggerType.STARTSWITH)
 	public String getMirrorImage2(TriggerEvent event) {
-		String result = handleImage(event.getMessageWithoutTrigger());
+		String result = handleImage(event.getMessage());
 		return result;
 	}
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public String storeLastURL(TriggerEvent event) {
 
-		String url = BotUtils.extractURL(event.getMessageWithoutTrigger());
+		String url = BotUtils.extractURL(event.getMessage());
 		if (url != null) {
 			LASTURL = url;
 		}

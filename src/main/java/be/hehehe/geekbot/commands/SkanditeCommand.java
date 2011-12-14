@@ -28,7 +28,7 @@ public class SkanditeCommand {
 	public List<String> handleSkandites(TriggerEvent event) {
 
 		List<String> result = new ArrayList<String>();
-		String url = BotUtils.extractURL(event.getMessageWithoutTrigger());
+		String url = BotUtils.extractURL(event.getMessage());
 		if (url != null) {
 			SkanditeDAO dao = new SkanditeDAO();
 			Skandite skandite = dao.findByURL(url);

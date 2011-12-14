@@ -28,12 +28,8 @@ public class TriggerEventImpl implements TriggerEvent {
 	}
 
 	@Override
-	public String getMessage() {
+	public String getOriginalMessage() {
 		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 
 	@Override
@@ -41,17 +37,9 @@ public class TriggerEventImpl implements TriggerEvent {
 		return author;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
 	@Override
 	public Collection<String> getUsers() {
 		return users;
-	}
-
-	public void setUsers(Collection<String> users) {
-		this.users = users;
 	}
 
 	@Override
@@ -59,26 +47,14 @@ public class TriggerEventImpl implements TriggerEvent {
 		return nickInMessage;
 	}
 
-	public void setNickInMessage(boolean nickInMessage) {
-		this.nickInMessage = nickInMessage;
-	}
-
 	@Override
 	public boolean isBotInMessage() {
 		return botInMessage;
 	}
 
-	public void setBotInMessage(boolean botInMessage) {
-		this.botInMessage = botInMessage;
-	}
-
 	@Override
-	public String getMessageWithoutTrigger() {
+	public String getMessage() {
 		return messageWithoutTrigger;
-	}
-
-	public void setMessageWithoutTrigger(String messageWithoutTrigger) {
-		this.messageWithoutTrigger = messageWithoutTrigger;
 	}
 
 }

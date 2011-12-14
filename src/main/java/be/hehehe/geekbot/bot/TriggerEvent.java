@@ -5,19 +5,19 @@ import java.util.Collection;
 public interface TriggerEvent {
 
 	/**
-	 * Returns the message that triggered this command.
+	 * Returns the message that triggered this command, unaltered.
 	 * 
 	 * @return the original message, null for methods annotated with TimedAction
 	 */
-	public String getMessage();
+	public String getOriginalMessage();
 
 	/**
-	 * Returns the message that triggered this command, without the trigger. 
+	 * Returns the message that triggered this command, without the trigger.
 	 * 
-	 * @returnthe the message without the trigger, null for methods annotated
-	 *            with TimedAction
+	 * @return the the message without the trigger, null for methods annotated
+	 *         with TimedAction
 	 */
-	public String getMessageWithoutTrigger();
+	public String getMessage();
 
 	/**
 	 * Returns the name of the author of the message;

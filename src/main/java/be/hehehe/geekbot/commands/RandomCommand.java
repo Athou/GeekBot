@@ -14,7 +14,7 @@ public class RandomCommand {
 	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
 	public String getRandQuote(TriggerEvent event) {
 		String r = null;
-		String keywords = event.getMessageWithoutTrigger();
+		String keywords = event.getMessage();
 		if (StringUtils.isNotBlank(keywords)) {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {

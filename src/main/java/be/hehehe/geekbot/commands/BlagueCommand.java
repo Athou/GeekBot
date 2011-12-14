@@ -34,7 +34,7 @@ public class BlagueCommand {
 			String blague = doc.select("p.TexteBlague").html();
 			List<String> lines = Arrays.asList(blague.split("<br />"));
 			for (String line : lines) {
-				line = StringEscapeUtils.unescapeHtml(line);
+				toReturn.add(StringEscapeUtils.unescapeHtml(line));
 			}
 
 			if (toReturn.size() > 5) {

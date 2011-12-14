@@ -37,8 +37,8 @@ public class Own3dCommand {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {
 					alerts.add(IRCUtils.bold(stream.getName())
-							+ " is now live on http://www.own3d.tv/"
-							+ stream.getName());
+							+ " is now live on http://www.own3d.tv/live/"
+							+ stream.getId() + "/" + stream.getName());
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {

@@ -1,13 +1,11 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 import org.json.JSONArray;
 
 import be.hehehe.geekbot.annotations.BotCommand;

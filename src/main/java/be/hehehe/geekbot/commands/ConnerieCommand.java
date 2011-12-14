@@ -13,7 +13,6 @@ import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtils;
-import be.hehehe.geekbot.utils.BundleUtil;
 
 @BotCommand
 public class ConnerieCommand {
@@ -51,8 +50,6 @@ public class ConnerieCommand {
 	@Trigger(type = TriggerType.BOTNAME)
 	public String getRandomLine(TriggerEvent event) {
 		String message = event.getMessage();
-		String botName = BundleUtil.getBotName();
-		message = message.replace(botName, "");
 		message = message.replace("?", "");
 		List<String> list = ConnerieIndex.findRelated(message, lastSentences);
 		Random random = new Random();

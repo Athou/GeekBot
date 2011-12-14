@@ -10,6 +10,10 @@ public class TriggerEventImpl implements TriggerEvent {
 	private boolean nickInMessage;
 	private boolean botInMessage;
 
+	public TriggerEventImpl(String messageWithoutTrigger) {
+		this.messageWithoutTrigger = messageWithoutTrigger;
+	}
+
 	public TriggerEventImpl(String message, String author, String trigger,
 			Collection<String> users, boolean nickInMessage,
 			boolean botInMessage) {

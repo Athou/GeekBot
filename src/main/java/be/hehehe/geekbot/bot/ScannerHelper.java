@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
-import org.reflections.util.ConfigurationBuilder;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;

@@ -17,6 +17,8 @@ Installation
 
 Copy /src/main/resources/config.properties.example to /src/main/resources/config.properties
 
+Copy /src/main/resources/own3d.properties.example to /src/main/resources/own3d.properties
+
 Copy /src/main/resources/META-INF/persistence.xml.example to /src/main/resources/META-INF/persistence.xml
 
 Edit those two new files to reflect your local configuration

@@ -16,8 +16,8 @@ public class QuoteCommandTest {
 
 	@BeforeClass
 	public static void init() {
-		TriggerEvent event = new TriggerEventImpl(QUOTE1);
-		new QuoteCommand().addQuote(event);
+		//TriggerEvent event = new TriggerEventImpl(QUOTE1);
+		//new QuoteCommand().addQuote(event);
 	}
 
 	@Test

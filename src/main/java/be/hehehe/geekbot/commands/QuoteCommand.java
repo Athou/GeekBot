@@ -3,6 +3,7 @@ package be.hehehe.geekbot.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -22,10 +23,8 @@ public class QuoteCommand {
 
 	@Trigger("!quote")
 	public String getRandomQuote() {
-		double rand = Math.floor(Math.random() * dao.getCount()) + 1;
-		int irand = (int) rand;
-		return IRCUtils.bold("" + irand) + ". "
-				+ dao.findById(irand).getQuote();
+		int rand = new Random().nextInt((int) dao.getCount()) + 1;
+		return IRCUtils.bold("" + rand) + ". " + dao.findById(rand).getQuote();
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)

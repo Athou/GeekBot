@@ -1,31 +1,46 @@
 package be.hehehe.geekbot.commands;
 
+import javax.inject.Inject;
+
 import junit.framework.Assert;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldTest;
+import be.hehehe.geekbot.WeldRunner;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.bot.TriggerEventImpl;
+import be.hehehe.geekbot.persistence.dao.QuoteDAO;
+import be.hehehe.geekbot.persistence.model.Quote;
 import be.hehehe.geekbot.utils.IRCUtils;
 
-public class QuoteCommandTest extends WeldTest {
+@RunWith(WeldRunner.class)
+public class QuoteCommandTest {
 
 	private static final String QUOTE1 = "quote1 content";
 
-	@BeforeClass
-	public static void init() {
+	@Inject
+	private QuoteCommand quoteCommand;
+
+	@Inject
+	private QuoteDAO dao;
+
+	@Before
+	public void init() {
+		for (Quote quote : dao.findAll()) {
+			dao.delete(quote);
+		}
+
 		TriggerEvent event = new TriggerEventImpl(QUOTE1);
-		lookup(QuoteCommand.class).addQuote(event);
+		quoteCommand.addQuote(event);
 	}
 
 	@Test
 	public void quoteTest() {
 		TriggerEvent event = new TriggerEventImpl("1");
 		String expected = IRCUtils.bold("1") + ". " + QUOTE1;
-		String actual = lookup(QuoteCommand.class).getQuote(event).iterator()
-				.next();
+		String actual = quoteCommand.getQuote(event).iterator().next();
 		Assert.assertEquals(expected, actual);
 	}
 
@@ -33,7 +48,7 @@ public class QuoteCommandTest extends WeldTest {
 	public void findQuoteTest() {
 		TriggerEvent event = new TriggerEventImpl(QUOTE1);
 		String expected = IRCUtils.bold("Matching quotes:") + " 1";
-		String actual = lookup(QuoteCommand.class).findQuote(event);
+		String actual = quoteCommand.findQuote(event);
 		Assert.assertEquals(expected, actual);
 	}
 
@@ -41,7 +56,7 @@ public class QuoteCommandTest extends WeldTest {
 	public void addQuoteTest() {
 		String expected = "Quote added: 2";
 		TriggerEvent event = new TriggerEventImpl("cc");
-		String actual = lookup(QuoteCommand.class).addQuote(event);
+		String actual = quoteCommand.addQuote(event);
 
 		Assert.assertEquals(expected, actual);
 	}

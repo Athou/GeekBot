@@ -13,6 +13,7 @@ public class Quote {
 	private Long id;
 	@Column(length = 512)
 	private String quote;
+	private Integer number;
 
 	public Long getId() {
 		return id;
@@ -28,6 +29,14 @@ public class Quote {
 
 	public void setQuote(String quote) {
 		this.quote = quote;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 }

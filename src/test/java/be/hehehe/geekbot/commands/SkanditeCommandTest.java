@@ -25,7 +25,5 @@ public class SkanditeCommandTest {
 		Assert.assertTrue(result.isEmpty());
 		result = skanditeCommand.handleSkandites(event);
 		Assert.assertFalse(result.isEmpty());
-
 	}
-
 }

@@ -8,6 +8,12 @@ import com.google.common.collect.Lists;
 
 public class QuoteDAO extends GenericDAO<Quote> {
 
+	@Override
+	public void save(Quote object) {
+		object.setNumber((int) getCount() + 1);
+		super.save(object);
+	}
+
 	public List<Quote> findByKeywords(List<String> keywords) {
 		List<Quote> quotes = Lists.newArrayList();
 		int i = 1;
@@ -29,7 +35,20 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	}
 
 	@Override
-	public Quote findById(long id) {
-		return findAll().get((int) id - 1);
+	public void delete(Quote object) {
+		super.delete(object);
+		int i = 1;
+		List<Quote> quotes = findAll();
+		for (Quote quote : quotes) {
+			quote.setNumber(i);
+			i++;
+		}
+		update(quotes.toArray(new Quote[0]));
+	}
+
+	public Quote findByNumber(int number) {
+		Quote quote = new Quote();
+		quote.setNumber(number);
+		return findByExample(quote).iterator().next();
 	}
 }

@@ -24,7 +24,7 @@ public class QuoteCommand {
 	@Trigger("!quote")
 	public String getRandomQuote() {
 		int rand = new Random().nextInt((int) dao.getCount()) + 1;
-		return IRCUtils.bold("" + rand) + ". " + dao.findById(rand).getQuote();
+		return IRCUtils.bold("" + rand) + ". " + dao.findByNumber(rand).getQuote();
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
@@ -39,7 +39,7 @@ public class QuoteCommand {
 				throw new NumberFormatException();
 			}
 			quotes.add(IRCUtils.bold("" + id) + ". "
-					+ dao.findById(id).getQuote());
+					+ dao.findByNumber(id).getQuote());
 		}
 		return quotes;
 

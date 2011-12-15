@@ -26,6 +26,9 @@ public class ConnerieCommand {
 	private BotUtilsService utilsService;
 
 	@Inject
+	private ConnerieDAO dao;
+
+	@Inject
 	private ConnerieIndexService connerieIndexService;
 
 	@Trigger(type = TriggerType.EVERYTHING)
@@ -38,7 +41,6 @@ public class ConnerieCommand {
 			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
 					&& !message.startsWith("!")) {
-				ConnerieDAO dao = new ConnerieDAO();
 				Connerie connerie = new Connerie(message);
 				dao.save(connerie);
 			}

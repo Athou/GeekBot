@@ -28,6 +28,9 @@ public class BuzzCommand {
 	@Inject
 	private BotUtilsService utilsService;
 
+	@Inject
+	private RSSFeedDAO dao;
+
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")
 	public List<String> getLatestBuzz() {
@@ -41,7 +44,6 @@ public class BuzzCommand {
 			String message = null;
 			while (it.hasNext()) {
 				SyndEntry item = it.next();
-				RSSFeedDAO dao = new RSSFeedDAO();
 				String guid = item.getUri();
 				RSSFeed buzz = dao.findByGUID(guid);
 				if (buzz == null) {

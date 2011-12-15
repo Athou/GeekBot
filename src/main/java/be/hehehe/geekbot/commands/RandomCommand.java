@@ -1,5 +1,7 @@
 package be.hehehe.geekbot.commands;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
@@ -11,6 +13,10 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 
 @BotCommand
 public class RandomCommand {
+
+	@Inject
+	private ConnerieDAO dao;
+
 	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
 	public String getRandQuote(TriggerEvent event) {
 		String r = null;
@@ -18,7 +24,6 @@ public class RandomCommand {
 		if (StringUtils.isNotBlank(keywords)) {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {
-				ConnerieDAO dao = new ConnerieDAO();
 				Connerie connerie = dao.getRandomMatching(keywords
 						.split("[  ]"));
 				if (connerie != null) {

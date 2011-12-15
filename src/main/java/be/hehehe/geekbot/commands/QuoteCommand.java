@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -15,9 +17,11 @@ import be.hehehe.geekbot.utils.IRCUtils;
 @BotCommand
 public class QuoteCommand {
 
+	@Inject
+	private QuoteDAO dao;
+
 	@Trigger("!quote")
 	public String getRandomQuote() {
-		QuoteDAO dao = new QuoteDAO();
 		double rand = Math.floor(Math.random() * dao.getCount()) + 1;
 		int irand = (int) rand;
 		return IRCUtils.bold("" + irand) + ". "
@@ -29,7 +33,6 @@ public class QuoteCommand {
 			throws NumberFormatException {
 		String quoteIds = event.getMessage();
 		List<String> quotes = new ArrayList<String>();
-		QuoteDAO dao = new QuoteDAO();
 		String[] splitQuotes = quoteIds.split("[ ]");
 		for (int i = 0; i < splitQuotes.length && i <= 4; i++) {
 			int id = Integer.parseInt(splitQuotes[i]);
@@ -47,16 +50,14 @@ public class QuoteCommand {
 	public String addQuote(TriggerEvent event) {
 		Quote quoteObj = new Quote();
 		quoteObj.setQuote(event.getMessage());
-		QuoteDAO dao = new QuoteDAO();
 		dao.save(quoteObj);
 		return "Quote added: " + (dao.getCount());
 	}
 
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
 	public String findQuote(TriggerEvent event) {
-		List<String> keywordList = Arrays.asList(event
-				.getMessage().split("[ ]"));
-		QuoteDAO dao = new QuoteDAO();
+		List<String> keywordList = Arrays.asList(event.getMessage()
+				.split("[ ]"));
 		List<Quote> quotes = dao.findByKeywords(keywordList);
 		String result = "";
 		if (quotes.isEmpty()) {

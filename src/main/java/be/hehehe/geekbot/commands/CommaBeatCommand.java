@@ -28,6 +28,9 @@ public class CommaBeatCommand {
 
 	@Inject
 	private BotUtilsService utilsService;
+	
+	@Inject
+	private RSSFeedDAO dao;
 
 	@TimedAction(value = 1)
 	public List<String> getLatestPost() {
@@ -43,7 +46,6 @@ public class CommaBeatCommand {
 			while (it.hasNext()) {
 				Object o = it.next();
 				SyndEntry item = (SyndEntry) o;
-				RSSFeedDAO dao = new RSSFeedDAO();
 				String guid = item.getUri();
 				RSSFeed beat = dao.findByGUID(guid);
 				if (beat == null) {

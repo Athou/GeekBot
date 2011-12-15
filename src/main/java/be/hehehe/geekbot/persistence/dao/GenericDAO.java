@@ -3,6 +3,7 @@ package be.hehehe.geekbot.persistence.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
@@ -12,6 +13,7 @@ import org.hibernate.criterion.Projections;
 
 import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
+@Named
 public abstract class GenericDAO<T> {
 
 	protected EntityManager em;

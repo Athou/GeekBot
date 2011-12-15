@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
+import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
@@ -28,6 +29,9 @@ public class SteamCommand {
 	@Inject
 	private BotUtilsService utilsService;
 
+	@Inject
+	private RSSFeedDAO dao;
+
 	@SuppressWarnings("unchecked")
 	@TimedAction(value = 1)
 	public List<String> getLatestPost() {
@@ -41,7 +45,6 @@ public class SteamCommand {
 			String message = null;
 			while (it.hasNext()) {
 				SyndEntry item = it.next();
-				RSSFeedDAO dao = new RSSFeedDAO();
 				String guid = item.getUri();
 				RSSFeed steam = dao.findByGUID(guid);
 				if (steam == null) {

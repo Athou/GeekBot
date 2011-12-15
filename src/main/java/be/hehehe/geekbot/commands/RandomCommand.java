@@ -24,8 +24,7 @@ public class RandomCommand {
 		if (StringUtils.isNotBlank(keywords)) {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {
-				Connerie connerie = dao.getRandomMatching(keywords
-						.split("[  ]"));
+				Connerie connerie = dao.getRandomMatching(keywords.split(" "));
 				if (connerie != null) {
 					r = connerie.getValue();
 				}

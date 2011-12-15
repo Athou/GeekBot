@@ -35,4 +35,11 @@ public class BotUtilsServiceTest {
 				botUtilsService.extractURL("dezfzeg " + url + " fzegerh"));
 	}
 
+	@Test
+	public void testGetRequestParametersFromURL() {
+		String url = "http://youtu.be/?c=d";
+		Assert.assertEquals("d",
+				botUtilsService.getRequestParametersFromURL(url).get("c"));
+	}
+
 }

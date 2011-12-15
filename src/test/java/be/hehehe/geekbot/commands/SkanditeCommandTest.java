@@ -16,7 +16,7 @@ import be.hehehe.geekbot.bot.TriggerEventImpl;
 public class SkanditeCommandTest {
 
 	@Inject
-	private SkanditeCommand skanditeCommand;
+	SkanditeCommand skanditeCommand;
 
 	@Test
 	public void skanditeTest() {

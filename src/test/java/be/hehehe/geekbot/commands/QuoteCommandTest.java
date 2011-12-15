@@ -21,10 +21,10 @@ public class QuoteCommandTest {
 	private static final String QUOTE1 = "quote1 content";
 
 	@Inject
-	private QuoteCommand quoteCommand;
+	QuoteCommand quoteCommand;
 
 	@Inject
-	private QuoteDAO dao;
+	QuoteDAO dao;
 
 	@Before
 	public void init() {

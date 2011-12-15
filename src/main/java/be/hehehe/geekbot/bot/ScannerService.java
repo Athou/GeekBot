@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Named;
+
 import org.reflections.Reflections;
 
 import be.hehehe.geekbot.annotations.BotCommand;
@@ -20,14 +22,15 @@ import com.google.common.collect.Lists;
  * 
  * 
  */
-public class ScannerHelper {
+@Named
+public class ScannerService {
 
 	/**
 	 * Returns a list of methods annotated with the @Trigger annotation in
 	 * classes with the @BotCommand annotation.
 	 * 
 	 */
-	public static List<Method> scanTriggers() {
+	public List<Method> scanTriggers() {
 		List<Method> methods = Lists.newArrayList();
 		for (Class<?> klass : getAnnotatedClasses(BotCommand.class)) {
 			for (Method m : klass.getMethods()) {
@@ -44,7 +47,7 @@ public class ScannerHelper {
 	 * classes with the @BotCommand annotation.
 	 * 
 	 */
-	public static List<Method> scanRandom() {
+	public List<Method> scanRandom() {
 		List<Method> random = Lists.newArrayList();
 		for (Class<?> klass : getAnnotatedClasses(BotCommand.class)) {
 			for (Method m : klass.getMethods()) {
@@ -61,7 +64,7 @@ public class ScannerHelper {
 	 * classes with the @BotCommand annotation.
 	 * 
 	 */
-	public static List<Method> scanTimers() {
+	public List<Method> scanTimers() {
 		List<Method> timers = Lists.newArrayList();
 		for (Class<?> klass : getAnnotatedClasses(BotCommand.class)) {
 			for (Method m : klass.getMethods()) {
@@ -73,7 +76,7 @@ public class ScannerHelper {
 		return timers;
 	}
 
-	private static Set<Class<?>> getAnnotatedClasses(
+	private Set<Class<?>> getAnnotatedClasses(
 			Class<? extends Annotation> klass) {
 		String packages = BundleUtil.getCommandsPackage();
 

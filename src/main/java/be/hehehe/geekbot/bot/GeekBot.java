@@ -13,6 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
@@ -41,6 +42,9 @@ public class GeekBot extends PircBot {
 	private List<Method> triggers;
 	private List<Method> randoms;
 
+	@Inject
+	private ScannerService scannerService;
+
 	@PostConstruct
 	public void init() {
 		botName = BundleUtil.getBotName();
@@ -48,9 +52,9 @@ public class GeekBot extends PircBot {
 		String server = BundleUtil.getServer();
 		try {
 
-			triggers = ScannerHelper.scanTriggers();
-			randoms = ScannerHelper.scanRandom();
-			startTimers(ScannerHelper.scanTimers());
+			triggers = scannerService.scanTriggers();
+			randoms = scannerService.scanRandom();
+			startTimers(scannerService.scanTimers());
 			ConnerieIndex.startRebuildingIndexThread();
 
 			this.setMessageDelay(2000);
@@ -283,7 +287,7 @@ public class GeekBot extends PircBot {
 	 * @param args
 	 * @return
 	 */
-	private static Object invoke(Method method, TriggerEvent event) {
+	private Object invoke(Method method, TriggerEvent event) {
 		Object result = null;
 		try {
 			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()

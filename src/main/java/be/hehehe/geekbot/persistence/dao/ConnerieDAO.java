@@ -2,11 +2,14 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import be.hehehe.geekbot.persistence.model.Connerie;
 
+@Singleton
 public class ConnerieDAO extends GenericDAO<Connerie> {
 
 	public Connerie getRandomMatching(String... keywords) {

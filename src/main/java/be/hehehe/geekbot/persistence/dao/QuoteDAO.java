@@ -2,10 +2,14 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import be.hehehe.geekbot.persistence.model.Quote;
 
-import com.google.common.collect.Lists;
-
+@Singleton
 public class QuoteDAO extends GenericDAO<Quote> {
 
 	@Override
@@ -14,24 +18,13 @@ public class QuoteDAO extends GenericDAO<Quote> {
 		super.save(object);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Quote> findByKeywords(List<String> keywords) {
-		List<Quote> quotes = Lists.newArrayList();
-		int i = 1;
-		for (Quote quote : findAll()) {
-			boolean match = true;
-			for (String keyword : keywords) {
-				if (!quote.getQuote().contains(keyword)) {
-					match = false;
-					break;
-				}
-			}
-			if (match) {
-				quote.setId((long) i);
-				quotes.add(quote);
-			}
-			i++;
+		Criteria crit = createCriteria();
+		for (String keyword : keywords) {
+			crit.add(Restrictions.ilike("quote", "%" + keyword + "%"));
 		}
-		return quotes;
+		return crit.list();
 	}
 
 	@Override
@@ -47,8 +40,7 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	}
 
 	public Quote findByNumber(int number) {
-		Quote quote = new Quote();
-		quote.setNumber(number);
-		return findByExample(quote).iterator().next();
+		return (Quote) createCriteria().add(Restrictions.eq("number", number))
+				.uniqueResult();
 	}
 }

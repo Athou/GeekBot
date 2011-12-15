@@ -3,7 +3,7 @@ package be.hehehe.geekbot.persistence.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.inject.Named;
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
@@ -13,19 +13,18 @@ import org.hibernate.criterion.Projections;
 
 import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
-@Named
 public abstract class GenericDAO<T> {
 
-	protected EntityManager em;
+	protected static EntityManager em;
 	private Class<T> genericType;
 
 	@SuppressWarnings("unchecked")
-	public GenericDAO() {
-		em = EntityManagerHelper.getInstance().createEntityManager();
+	@PostConstruct
+	public void init() {
 		ParameterizedType type = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		genericType = (Class<T>) type.getActualTypeArguments()[0];
-
+		em = EntityManagerHelper.createEntityManager();
 	}
 
 	public void save(T object) {

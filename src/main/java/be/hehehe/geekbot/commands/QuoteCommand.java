@@ -62,7 +62,7 @@ public class QuoteCommand {
 			result = " none.";
 		} else {
 			for (Quote q : quotes) {
-				result += " " + q.getId();
+				result += " " + q.getNumber();
 			}
 		}
 		result = IRCUtils.bold("Matching quotes:") + result;

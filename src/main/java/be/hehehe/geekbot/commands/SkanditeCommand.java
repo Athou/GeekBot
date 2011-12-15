@@ -26,6 +26,9 @@ public class SkanditeCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject 
+	SkanditeDAO dao;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> handleSkandites(TriggerEvent event) {
@@ -33,7 +36,6 @@ public class SkanditeCommand {
 		List<String> result = new ArrayList<String>();
 		String url = utilsService.extractURL(event.getMessage());
 		if (url != null) {
-			SkanditeDAO dao = new SkanditeDAO();
 			Skandite skandite = dao.findByURL(url);
 			HashAndByteCount hashAndByteCount = null;
 			if (skandite == null) {

@@ -23,7 +23,7 @@ import com.google.common.collect.Maps;
 public class BotUtilsService {
 
 	@Inject
-	private BundleService bundleService;
+	BundleService bundleService;
 
 	/**
 	 * Get the content of the specified URL

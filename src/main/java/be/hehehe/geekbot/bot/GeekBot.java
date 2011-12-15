@@ -28,13 +28,14 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
+import be.hehehe.geekbot.utils.BundleUtil;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @Singleton
 public class GeekBot extends PircBot {
 
-	private String botname;
+	private String botName;
 
 	private String channel;
 	private List<Method> triggers;
@@ -42,10 +43,9 @@ public class GeekBot extends PircBot {
 
 	@PostConstruct
 	public void init() {
-		LOG.info("test");
-	}
-
-	public GeekBot(String botName, String channel, String server) {
+		botName = BundleUtil.getBotName();
+		channel = BundleUtil.getChannel();
+		String server = BundleUtil.getServer();
 		try {
 
 			triggers = ScannerHelper.scanTriggers();
@@ -53,8 +53,6 @@ public class GeekBot extends PircBot {
 			startTimers(ScannerHelper.scanTimers());
 			ConnerieIndex.startRebuildingIndexThread();
 
-			this.botname = botName;
-			this.channel = channel;
 			this.setMessageDelay(2000);
 			this.setName(botName);
 			this.setLogin(botName);
@@ -99,8 +97,8 @@ public class GeekBot extends PircBot {
 	protected void onMessage(String channel, String sender, String login,
 			String hostname, String message) {
 		// change nick everytime someone talks
-		if (!getNick().equals(botname)) {
-			changeNick(botname);
+		if (!getNick().equals(botName)) {
+			changeNick(botName);
 		}
 
 		if (message.equalsIgnoreCase("!help")) {
@@ -133,7 +131,7 @@ public class GeekBot extends PircBot {
 	protected void onKick(String channel, String kickerNick,
 			String kickerLogin, String kickerHostname, String recipientNick,
 			String reason) {
-		if (recipientNick.equals(botname)) {
+		if (recipientNick.equals(botName)) {
 			this.joinChannel(channel);
 		}
 	}
@@ -191,7 +189,7 @@ public class GeekBot extends PircBot {
 			case BOTNAME:
 				if (botNameInMessage(message)) {
 					TriggerEvent triggerEvent = buildEvent(message, author,
-							botname);
+							botName);
 					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
@@ -253,7 +251,7 @@ public class GeekBot extends PircBot {
 	 * @return true if the name of the bot is in the message
 	 */
 	private boolean botNameInMessage(String message) {
-		return StringUtils.containsIgnoreCase(message, botname);
+		return StringUtils.containsIgnoreCase(message, botName);
 	}
 
 	/**

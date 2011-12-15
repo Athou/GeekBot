@@ -22,7 +22,7 @@ public class Own3dCommand {
 	private static final List<Stream> STREAMS = Lists.newArrayList();
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	static {
 		ResourceBundle bundle = ResourceBundle.getBundle("own3d");

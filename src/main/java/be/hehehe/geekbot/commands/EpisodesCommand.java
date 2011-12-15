@@ -29,7 +29,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class EpisodesCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	public List<String> getNextEpisode(TriggerEvent event) {

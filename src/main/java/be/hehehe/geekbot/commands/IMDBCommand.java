@@ -25,9 +25,9 @@ import be.hehehe.geekbot.utils.LOG;
 public class IMDBCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 	@Inject
-	private GoogleCommand googleCommand;
+	GoogleCommand googleCommand;
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
 	public List<String> getResult(TriggerEvent event) {

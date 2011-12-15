@@ -25,10 +25,10 @@ public class MirrorCommand {
 	private static String LASTURL;
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Inject
-	private BundleService bundleService;
+	BundleService bundleService;
 
 	@Trigger("!mirror")
 	public String getMirrorImage() {

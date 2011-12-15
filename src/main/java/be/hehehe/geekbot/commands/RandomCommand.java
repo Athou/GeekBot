@@ -15,7 +15,7 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 public class RandomCommand {
 
 	@Inject
-	private ConnerieDAO dao;
+	ConnerieDAO dao;
 
 	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
 	public String getRandQuote(TriggerEvent event) {

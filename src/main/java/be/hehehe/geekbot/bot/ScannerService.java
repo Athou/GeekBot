@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 public class ScannerService {
 
 	@Inject
-	private BundleService bundleService;
+	BundleService bundleService;
 
 	/**
 	 * Returns a list of methods annotated with the @Trigger annotation in

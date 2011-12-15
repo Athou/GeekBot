@@ -25,7 +25,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class SkanditeCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> handleSkandites(TriggerEvent event) {

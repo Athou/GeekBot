@@ -15,7 +15,7 @@ import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 public class WikiCommand {
 
 	@Inject
-	private GoogleCommand googleCommand;
+	GoogleCommand googleCommand;
 
 	@Trigger(value = "!wiki", type = TriggerType.STARTSWITH)
 	public List<String> getWikiResults(TriggerEvent event) {

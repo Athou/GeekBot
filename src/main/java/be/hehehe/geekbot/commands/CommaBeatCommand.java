@@ -27,10 +27,10 @@ import com.sun.syndication.io.XmlReader;
 public class CommaBeatCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 	
 	@Inject
-	private RSSFeedDAO dao;
+	RSSFeedDAO dao;
 
 	@TimedAction(value = 1)
 	public List<String> getLatestPost() {

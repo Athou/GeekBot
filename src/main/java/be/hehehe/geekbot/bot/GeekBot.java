@@ -44,16 +44,16 @@ public class GeekBot extends PircBot {
 	private List<Method> randoms;
 
 	@Inject
-	private ScannerService scannerService;
+	ScannerService scannerService;
 
 	@Inject
-	private BundleService bundleService;
+	BundleService bundleService;
 
 	@Inject
-	private ConnerieIndexService connerieIndexService;
+	ConnerieIndexService connerieIndexService;
 	
 	@Inject
-	private WeldContainer container;
+	WeldContainer container;
 
 	@PostConstruct
 	public void init() {

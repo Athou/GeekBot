@@ -20,7 +20,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class BlagueCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Trigger("!blague")
 	public List<String> getRandomBlague() {

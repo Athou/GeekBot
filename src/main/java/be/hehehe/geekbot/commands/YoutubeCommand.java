@@ -15,7 +15,7 @@ import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 public class YoutubeCommand {
 
 	@Inject
-	private GoogleCommand googleCommand;
+	GoogleCommand googleCommand;
 
 	@Trigger(value = "!youtube", type = TriggerType.STARTSWITH)
 	public List<String> getYoutubeResults(TriggerEvent event) {

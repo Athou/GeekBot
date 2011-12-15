@@ -22,7 +22,7 @@ public class HoroscopeCommand {
 
 	private static final Map<String, String> mapping = new HashMap<String, String>();
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	static {
 		mapping.put("belier", "0");

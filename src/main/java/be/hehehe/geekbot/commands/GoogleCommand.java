@@ -23,7 +23,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class GoogleCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	public enum Lang {
 		FRENCH("fr"), ENGLISH("en");

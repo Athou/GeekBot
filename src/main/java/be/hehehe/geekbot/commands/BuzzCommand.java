@@ -26,10 +26,10 @@ import com.sun.syndication.io.XmlReader;
 public class BuzzCommand {
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Inject
-	private RSSFeedDAO dao;
+	RSSFeedDAO dao;
 
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")

@@ -26,13 +26,13 @@ public class ConnerieCommand {
 	private static final int MAX_STORED_SENTENCES = 5;
 
 	@Inject
-	private BotUtilsService utilsService;
+	BotUtilsService utilsService;
 
 	@Inject
-	private ConnerieDAO dao;
+	ConnerieDAO dao;
 
 	@Inject
-	private ConnerieIndexService connerieIndexService;
+	ConnerieIndexService connerieIndexService;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> storeEveryLines(TriggerEvent event) {

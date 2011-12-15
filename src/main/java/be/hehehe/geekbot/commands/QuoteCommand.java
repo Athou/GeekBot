@@ -19,7 +19,7 @@ import be.hehehe.geekbot.utils.IRCUtils;
 public class QuoteCommand {
 
 	@Inject
-	private QuoteDAO dao;
+	QuoteDAO dao;
 
 	@Trigger("!quote")
 	public String getRandomQuote() {

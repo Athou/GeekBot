@@ -21,7 +21,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class VDMCommand {
 
 	@Inject
-	private BundleService bundleService;
+	BundleService bundleService;
 
 	@Trigger("!vdm")
 	public List<String> getRandomVDM() {

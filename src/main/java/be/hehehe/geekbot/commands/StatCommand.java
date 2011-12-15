@@ -15,7 +15,7 @@ import be.hehehe.geekbot.utils.IRCUtils;
 public class StatCommand {
 
 	@Inject
-	private ConnerieDAO dao;
+	ConnerieDAO dao;
 
 	@Trigger(value = "!stat", type = TriggerType.STARTSWITH)
 	public String getStatCount(TriggerEvent event) {

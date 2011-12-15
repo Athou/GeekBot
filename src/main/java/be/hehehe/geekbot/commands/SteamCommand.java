@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
-import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;

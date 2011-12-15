@@ -23,7 +23,7 @@ public class ConnerieCommand {
 	private static final List<String> lastReadSentences = new ArrayList<String>();
 	private static final List<String> lastSpokenSentences = new ArrayList<String>();
 
-	private static final int MAX_STORED_SENTENCES = 3;
+	private static final int MAX_STORED_SENTENCES = 5;
 
 	@Inject
 	private BotUtilsService utilsService;

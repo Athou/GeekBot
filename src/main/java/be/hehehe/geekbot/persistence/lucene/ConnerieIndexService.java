@@ -42,8 +42,6 @@ public class ConnerieIndexService {
 	@Inject
 	private BundleService bundleService;
 
-	private final String INDEXDIR = bundleService.getLuceneDirectory();
-
 	public void startRebuildingIndexThread() {
 		ScheduledExecutorService scheduler = Executors
 				.newScheduledThreadPool(1);
@@ -120,7 +118,7 @@ public class ConnerieIndexService {
 	}
 
 	private Directory openDirectory() throws IOException {
-		return FSDirectory.open(new File(INDEXDIR));
+		return FSDirectory.open(new File(bundleService.getLuceneDirectory()));
 	}
 
 }

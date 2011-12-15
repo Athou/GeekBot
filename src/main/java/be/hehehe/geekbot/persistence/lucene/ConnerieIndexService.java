@@ -88,7 +88,7 @@ public class ConnerieIndexService {
 
 	}
 
-	public List<String> findRelated(String keywords, List<String> otherMessages) {
+	public List<String> findRelated(String keywords, List<String> otherMessages, int howMany) {
 		List<String> matchingConnerie = new ArrayList<String>();
 		IndexReader reader = null;
 		IndexSearcher searcher = null;
@@ -100,7 +100,7 @@ public class ConnerieIndexService {
 					"value", new FrenchAnalyzer(Version.LUCENE_34));
 
 			Query query = queryParser.parse(QueryParser.escape(keywords));
-			TopDocs documents = searcher.search(query, 3);
+			TopDocs documents = searcher.search(query, howMany);
 
 			for (ScoreDoc scoreDoc : documents.scoreDocs) {
 				Document doc = searcher.doc(scoreDoc.doc);

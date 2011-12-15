@@ -1,6 +1,7 @@
 package be.hehehe.geekbot.commands;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,8 +20,10 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 @BotCommand
 public class ConnerieCommand {
 
-	private static final List<String> lastSentences = new ArrayList<String>();
-	private static final int MAXSENTENCES = 3;
+	private static final List<String> lastReadSentences = new ArrayList<String>();
+	private static final List<String> lastSpokenSentences = new ArrayList<String>();
+
+	private static final int MAX_STORED_SENTENCES = 3;
 
 	@Inject
 	private BotUtilsService utilsService;
@@ -37,7 +40,7 @@ public class ConnerieCommand {
 		List<String> result = new ArrayList<String>();
 		String url = utilsService.extractURL(message);
 		if (url == null) {
-			pushSentence(message);
+			pushSentence(message, lastReadSentences);
 			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
 					&& !message.startsWith("!")) {
@@ -49,10 +52,10 @@ public class ConnerieCommand {
 		return result;
 	}
 
-	private void pushSentence(String message) {
-		lastSentences.add(0, message);
-		if (lastSentences.size() > MAXSENTENCES) {
-			lastSentences.remove(MAXSENTENCES);
+	private void pushSentence(String message, List<String> sentences) {
+		sentences.add(0, message);
+		while (sentences.size() > MAX_STORED_SENTENCES) {
+			sentences.remove(sentences.size() - 1);
 		}
 	}
 
@@ -62,11 +65,21 @@ public class ConnerieCommand {
 		String message = event.getMessage();
 		message = message.replace("?", "");
 		List<String> list = connerieIndexService.findRelated(message,
-				lastSentences);
+				lastReadSentences, MAX_STORED_SENTENCES);
+		Iterator<String> it = list.iterator();
+		while (it.hasNext()) {
+			String line = it.next();
+			if (lastSpokenSentences.contains(line)) {
+				it.remove();
+			}
+		}
+
 		Random random = new Random();
 		int irand = random.nextInt(list.size());
-		String msg = list.get(irand);
-		return msg;
+
+		message = list.get(irand);
+		pushSentence(message, lastSpokenSentences);
+		return message;
 	}
 
 }

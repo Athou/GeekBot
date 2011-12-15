@@ -19,6 +19,7 @@ import javax.inject.Singleton;
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jboss.weld.environment.se.WeldContainer;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
@@ -45,8 +46,12 @@ public class GeekBot extends PircBot {
 	@Inject
 	private ScannerService scannerService;
 
+	@Inject
+	private WeldContainer container;
+
 	@PostConstruct
 	public void init() {
+
 		botName = BundleUtil.getBotName();
 		channel = BundleUtil.getChannel();
 		String server = BundleUtil.getServer();
@@ -293,11 +298,13 @@ public class GeekBot extends PircBot {
 			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 					+ "#" + method.getName());
 
-			Object newInstance = method.getDeclaringClass().newInstance();
+			Object commandInstance = container.instance()
+					.select(method.getDeclaringClass()).get();
+
 			if (method.getParameterTypes().length == 0) {
-				result = method.invoke(newInstance, new Object[0]);
+				result = method.invoke(commandInstance, new Object[0]);
 			} else {
-				result = method.invoke(newInstance, event);
+				result = method.invoke(commandInstance, event);
 			}
 		} catch (Exception e) {
 			LOG.handle(e);

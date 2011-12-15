@@ -10,8 +10,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -27,9 +26,9 @@ public class MirrorCommand {
 
 	@Inject
 	private BotUtilsService utilsService;
-	
+
 	@Inject
-	private BundleService bundleService; 
+	private BundleService bundleService;
 
 	@Trigger("!mirror")
 	public String getMirrorImage() {
@@ -61,7 +60,7 @@ public class MirrorCommand {
 		if (message.endsWith(".png") || message.endsWith(".jpg")
 				|| message.endsWith(".gif") || message.endsWith(".bmp")) {
 			try {
-				result = writeImageFile(message);
+				result = mirror(message);
 			} catch (Exception e) {
 				result = "Error retrieving file";
 			}
@@ -69,7 +68,7 @@ public class MirrorCommand {
 		return result;
 	}
 
-	private String writeImageFile(String urlString) {
+	private String mirror(String urlString) {
 		String result = null;
 		OutputStreamWriter wr = null;
 		InputStream is = null;
@@ -96,14 +95,15 @@ public class MirrorCommand {
 			wr.flush();
 			is = apiCon.getInputStream();
 			String json = IOUtils.toString(is);
-			JSONObject root = (JSONObject) new JSONParser().parse(json);
-			JSONObject node = (JSONObject) root.get("upload");
-			node = (JSONObject) node.get("links");
-			String url = (String) node.get("original");
+			JSONObject root = new JSONObject(json);
+			JSONObject node = root.getJSONObject("upload").getJSONObject(
+					"links");
 
-			node = (JSONObject) root.get("upload");
-			node = (JSONObject) node.get("image");
-			Long size = (Long) node.get("size");
+			String url = node.getString("original");
+
+			node = root.getJSONObject("upload");
+			node = node.getJSONObject("image");
+			Long size = node.getLong("size");
 			size = size / 1000;
 			result = url + " [Size: " + size + " kb]";
 		} catch (Exception e) {

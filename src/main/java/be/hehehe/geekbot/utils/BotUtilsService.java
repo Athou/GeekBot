@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
 
-public class BotUtils {
+public class BotUtilsService {
 
 	/**
 	 * Get the content of the specified URL
@@ -26,7 +26,7 @@ public class BotUtils {
 	 * @param urlString
 	 * @return
 	 */
-	public static String getContent(String urlString) {
+	public String getContent(String urlString) {
 		return getContent(urlString, null);
 	}
 
@@ -38,7 +38,7 @@ public class BotUtils {
 	 * @param mimeTypePrefix
 	 * @return
 	 */
-	public static String getContent(String urlString, String mimeTypePrefix) {
+	public String getContent(String urlString, String mimeTypePrefix) {
 		String result = null;
 		InputStream is = null;
 		try {
@@ -69,7 +69,7 @@ public class BotUtils {
 	 * @param url
 	 * @return
 	 */
-	public static String bitly(String url) {
+	public String bitly(String url) {
 		String result = url;
 		InputStream is = null;
 		String login = BundleUtil.getBitlyLogin();
@@ -98,7 +98,7 @@ public class BotUtils {
 	 * @param url
 	 * @return
 	 */
-	public static Map<String, String> getRequestParametersFromURL(String url) {
+	public Map<String, String> getRequestParametersFromURL(String url) {
 		Map<String, String> map = Maps.newHashMap();
 		int index;
 		if ((index = url.indexOf("?")) != -1) {
@@ -117,7 +117,7 @@ public class BotUtils {
 	 * @param message
 	 * @return
 	 */
-	public static String extractURL(String message) {
+	public String extractURL(String message) {
 		String url = null;
 		for (String s : message.split("[ ]")) {
 			if (s.contains("http://") || s.contains("https://")
@@ -127,8 +127,7 @@ public class BotUtils {
 				}
 
 				if (s.contains("youtube.com")) {
-					String videoParam = BotUtils.getRequestParametersFromURL(s)
-							.get("v");
+					String videoParam = getRequestParametersFromURL(s).get("v");
 					if (videoParam != null) {
 						s = "http://www.youtube.com/watch?v=" + videoParam;
 					}
@@ -136,8 +135,7 @@ public class BotUtils {
 					String videoParam = extractIDFromYoutuDotBeURL(s);
 					s = "http://www.youtube.com/watch?v=" + videoParam;
 				} else {
-					Map<String, String> map = BotUtils
-							.getRequestParametersFromURL(s);
+					Map<String, String> map = getRequestParametersFromURL(s);
 					URLBuilder urlBuilder = new URLBuilder(s.split("[?]")[0]);
 					for (Map.Entry<String, String> e : map.entrySet()) {
 						urlBuilder.addParam(e.getKey(), e.getValue());
@@ -151,7 +149,7 @@ public class BotUtils {
 		return url;
 	}
 
-	public static String extractIDFromYoutuDotBeURL(String url) {
+	public String extractIDFromYoutuDotBeURL(String url) {
 		String videoParam = url.substring(url.lastIndexOf("/") + 1);
 		int indexOfSlash = videoParam.indexOf("?");
 		if (indexOfSlash > -1) {
@@ -160,7 +158,7 @@ public class BotUtils {
 		return videoParam;
 	}
 
-	public static String getTimeDifference(Date pastDate) {
+	public String getTimeDifference(Date pastDate) {
 		long millis = System.currentTimeMillis() - pastDate.getTime();
 		long diffMins = (millis / (60 * 1000)) % 60;
 		long diffHours = (millis / (60 * 60 * 1000)) % 24;
@@ -169,10 +167,10 @@ public class BotUtils {
 				diffHours, diffMins);
 	}
 
-	public static HashAndByteCount calculateHashAndByteCount(String urlString) {
+	public HashAndByteCount calculateHashAndByteCount(String urlString) {
 		HashAndByteCount hashAndByteCount = new HashAndByteCount();
 
-		String content = BotUtils.getContent(urlString, "image/");
+		String content = getContent(urlString, "image/");
 		if (content != null) {
 			byte[] bytes = content.getBytes();
 
@@ -182,8 +180,7 @@ public class BotUtils {
 		return hashAndByteCount;
 	}
 
-	public static Document parseXML(String xml) throws JDOMException,
-			IOException {
+	public Document parseXML(String xml) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(new StringReader(xml));
 		return doc;

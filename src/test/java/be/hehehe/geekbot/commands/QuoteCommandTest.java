@@ -3,6 +3,7 @@ package be.hehehe.geekbot.commands;
 import junit.framework.Assert;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -20,6 +21,7 @@ public class QuoteCommandTest {
 	}
 
 	@Test
+	@Ignore
 	public void quoteTest() {
 		TriggerEvent event = new TriggerEventImpl("1");
 		String expected = IRCUtils.bold("1") + ". " + QUOTE1;
@@ -28,6 +30,7 @@ public class QuoteCommandTest {
 	}
 
 	@Test
+	@Ignore
 	public void findQuoteTest() {
 		TriggerEvent event = new TriggerEventImpl(QUOTE1);
 		String expected = IRCUtils.bold("Matching quotes:") + " 1";
@@ -36,6 +39,7 @@ public class QuoteCommandTest {
 	}
 
 	@Test
+	@Ignore
 	public void addQuoteTest() {
 		String expected = "Quote added: 2";
 		TriggerEvent event = new TriggerEventImpl("cc");

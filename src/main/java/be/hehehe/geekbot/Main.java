@@ -11,6 +11,5 @@ public class Main {
 
 		WeldContainer weld = new Weld().initialize();
 		weld.instance().select(GeekBot.class).get();
-		new GeekBot();
 	}
 }

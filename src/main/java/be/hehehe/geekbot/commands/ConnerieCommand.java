@@ -12,7 +12,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
-import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
+import be.hehehe.geekbot.persistence.lucene.ConnerieIndexService;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
 
@@ -24,6 +24,9 @@ public class ConnerieCommand {
 
 	@Inject
 	private BotUtilsService utilsService;
+
+	@Inject
+	private ConnerieIndexService connerieIndexService;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> storeEveryLines(TriggerEvent event) {
@@ -56,7 +59,8 @@ public class ConnerieCommand {
 	public String getRandomLine(TriggerEvent event) {
 		String message = event.getMessage();
 		message = message.replace("?", "");
-		List<String> list = ConnerieIndex.findRelated(message, lastSentences);
+		List<String> list = connerieIndexService.findRelated(message,
+				lastSentences);
 		Random random = new Random();
 		int irand = random.nextInt(list.size());
 		String msg = list.get(irand);

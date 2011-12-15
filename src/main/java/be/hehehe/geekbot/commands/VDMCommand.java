@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -11,17 +13,20 @@ import org.jdom.input.SAXBuilder;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
-import be.hehehe.geekbot.utils.BundleUtil;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class VDMCommand {
 
+	@Inject
+	private BundleService bundleService;
+
 	@Trigger("!vdm")
 	public List<String> getRandomVDM() {
 		List<String> toReturn = new ArrayList<String>();
-		String key = BundleUtil.getVDMApiKey();
+		String key = bundleService.getVDMApiKey();
 		if (StringUtils.isBlank(key)) {
 			toReturn.add("VDM API key not set.");
 			return toReturn;

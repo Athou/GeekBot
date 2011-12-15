@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.reflections.Reflections;
@@ -13,7 +14,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
-import be.hehehe.geekbot.utils.BundleUtil;
+import be.hehehe.geekbot.utils.BundleService;
 
 import com.google.common.collect.Lists;
 
@@ -24,6 +25,9 @@ import com.google.common.collect.Lists;
  */
 @Named
 public class ScannerService {
+
+	@Inject
+	private BundleService bundleService;
 
 	/**
 	 * Returns a list of methods annotated with the @Trigger annotation in
@@ -76,9 +80,8 @@ public class ScannerService {
 		return timers;
 	}
 
-	private Set<Class<?>> getAnnotatedClasses(
-			Class<? extends Annotation> klass) {
-		String packages = BundleUtil.getCommandsPackage();
+	private Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> klass) {
+		String packages = bundleService.getCommandsPackage();
 
 		Reflections reflections = new Reflections(packages.split(","));
 		return reflections.getTypesAnnotatedWith(klass);

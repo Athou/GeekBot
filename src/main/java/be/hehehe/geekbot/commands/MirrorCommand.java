@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.BundleUtil;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
@@ -27,6 +27,9 @@ public class MirrorCommand {
 
 	@Inject
 	private BotUtilsService utilsService;
+	
+	@Inject
+	private BundleService bundleService; 
 
 	@Trigger("!mirror")
 	public String getMirrorImage() {
@@ -71,7 +74,7 @@ public class MirrorCommand {
 		OutputStreamWriter wr = null;
 		InputStream is = null;
 		try {
-			String apiKey = BundleUtil.getImgurApiKey();
+			String apiKey = bundleService.getImgurApiKey();
 			if (StringUtils.isBlank(apiKey)) {
 				return "Imgur api key not set.";
 			}

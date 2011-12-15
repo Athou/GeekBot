@@ -8,6 +8,8 @@ import java.net.URLConnection;
 import java.util.Date;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -19,6 +21,9 @@ import org.json.JSONObject;
 import com.google.common.collect.Maps;
 
 public class BotUtilsService {
+
+	@Inject
+	private BundleService bundleService;
 
 	/**
 	 * Get the content of the specified URL
@@ -72,8 +77,8 @@ public class BotUtilsService {
 	public String bitly(String url) {
 		String result = url;
 		InputStream is = null;
-		String login = BundleUtil.getBitlyLogin();
-		String apiKey = BundleUtil.getBitlyApiKey();
+		String login = bundleService.getBitlyLogin();
+		String apiKey = bundleService.getBitlyApiKey();
 		if (StringUtils.isNotBlank(login) && StringUtils.isNotBlank(apiKey)) {
 			try {
 				URL urlObject = new URL(

@@ -8,6 +8,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
@@ -30,24 +33,29 @@ import org.apache.lucene.util.Version;
 
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
-import be.hehehe.geekbot.utils.BundleUtil;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.LOG;
 
-public class ConnerieIndex {
-	private static final String INDEXDIR = BundleUtil.getLuceneDirectory();
+@Singleton
+public class ConnerieIndexService {
 
-	public static void startRebuildingIndexThread() {
+	@Inject
+	private BundleService bundleService;
+
+	private final String INDEXDIR = bundleService.getLuceneDirectory();
+
+	public void startRebuildingIndexThread() {
 		ScheduledExecutorService scheduler = Executors
 				.newScheduledThreadPool(1);
 
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			public void run() {
-				ConnerieIndex.rebuildIndex();
+				rebuildIndex();
 			}
 		}, 5, 60 * 60 * 24, TimeUnit.SECONDS);
 	}
 
-	public static void rebuildIndex() {
+	public void rebuildIndex() {
 		IndexWriter indexWriter = null;
 		try {
 			IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_34,
@@ -82,8 +90,7 @@ public class ConnerieIndex {
 
 	}
 
-	public static List<String> findRelated(String keywords,
-			List<String> otherMessages) {
+	public List<String> findRelated(String keywords, List<String> otherMessages) {
 		List<String> matchingConnerie = new ArrayList<String>();
 		IndexReader reader = null;
 		IndexSearcher searcher = null;
@@ -112,7 +119,7 @@ public class ConnerieIndex {
 		return matchingConnerie;
 	}
 
-	private static Directory openDirectory() throws IOException {
+	private Directory openDirectory() throws IOException {
 		return FSDirectory.open(new File(INDEXDIR));
 	}
 

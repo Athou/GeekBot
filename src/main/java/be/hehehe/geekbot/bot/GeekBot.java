@@ -29,8 +29,8 @@ import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
-import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
-import be.hehehe.geekbot.utils.BundleUtil;
+import be.hehehe.geekbot.persistence.lucene.ConnerieIndexService;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -47,20 +47,26 @@ public class GeekBot extends PircBot {
 	private ScannerService scannerService;
 
 	@Inject
+	private BundleService bundleService;
+
+	@Inject
+	private ConnerieIndexService connerieIndexService;
+	
+	@Inject
 	private WeldContainer container;
 
 	@PostConstruct
 	public void init() {
 
-		botName = BundleUtil.getBotName();
-		channel = BundleUtil.getChannel();
-		String server = BundleUtil.getServer();
+		botName = bundleService.getBotName();
+		channel = bundleService.getChannel();
+		String server = bundleService.getServer();
 		try {
 
 			triggers = scannerService.scanTriggers();
 			randoms = scannerService.scanRandom();
 			startTimers(scannerService.scanTimers());
-			ConnerieIndex.startRebuildingIndexThread();
+			connerieIndexService.startRebuildingIndexThread();
 
 			this.setMessageDelay(2000);
 			this.setName(botName);

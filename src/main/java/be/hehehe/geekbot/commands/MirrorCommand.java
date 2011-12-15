@@ -6,6 +6,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import javax.inject.Inject;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.simple.JSONObject;
@@ -15,13 +17,16 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleUtil;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class MirrorCommand {
 	private static String LASTURL;
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	@Trigger("!mirror")
 	public String getMirrorImage() {
@@ -41,7 +46,7 @@ public class MirrorCommand {
 	@Trigger(type = TriggerType.EVERYTHING)
 	public String storeLastURL(TriggerEvent event) {
 
-		String url = BotUtils.extractURL(event.getMessage());
+		String url = utilsService.extractURL(event.getMessage());
 		if (url != null) {
 			LASTURL = url;
 		}

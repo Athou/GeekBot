@@ -4,6 +4,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -15,17 +17,22 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.commands.GoogleCommand.Lang;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class IMDBCommand {
 
+	@Inject
+	private BotUtilsService utilsService;
+	@Inject
+	private GoogleCommand googleCommand;
+
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
 	public List<String> getResult(TriggerEvent event) {
 		String keywords = event.getMessage();
-		List<String> googleResult = GoogleCommand.google(
+		List<String> googleResult = googleCommand.google(
 				"site:http://www.imdb.com/title " + keywords, Lang.ENGLISH,
 				Mode.WEB);
 		String[] split = googleResult.get(0).split("/");
@@ -40,7 +47,7 @@ public class IMDBCommand {
 		split = googleResult.get(0).split("[(]");
 
 		String result = "";
-		result = BotUtils
+		result = utilsService
 				.getContent("http://app.imdb.com/title/maindetails?tconst="
 						+ imdbID);
 		return parse(result);

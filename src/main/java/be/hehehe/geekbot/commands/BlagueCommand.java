@@ -4,25 +4,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class BlagueCommand {
 
+	@Inject
+	private BotUtilsService utilsService;
+
 	@Trigger("!blague")
 	public List<String> getRandomBlague() {
 		List<String> toReturn = new ArrayList<String>();
 		try {
 			String url = "http://www.la-blague-du-jour.com/blagues_au_hasard/Une_blague_aleatoire.html";
-			Document doc = Jsoup.parse(BotUtils.getContent(url));
+			Document doc = Jsoup.parse(utilsService.getContent(url));
 
 			String cat = doc.select("p.Paratexte").select("b").select("a")
 					.text();

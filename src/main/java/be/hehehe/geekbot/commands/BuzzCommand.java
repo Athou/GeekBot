@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.jsoup.Jsoup;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -22,6 +24,9 @@ import com.sun.syndication.io.XmlReader;
 
 @BotCommand
 public class BuzzCommand {
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")
@@ -43,7 +48,7 @@ public class BuzzCommand {
 					buzz = new RSSFeed();
 					buzz.setGuid(item.getUri());
 					dao.save(buzz);
-					String urlBitly = BotUtils.bitly(item.getLink());
+					String urlBitly = utilsService.bitly(item.getLink());
 					String content = Jsoup
 							.parse(item.getDescription().getValue())
 							.select("p").get(0).text();

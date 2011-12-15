@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -19,12 +21,15 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class EpisodesCommand {
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	public List<String> getNextEpisode(TriggerEvent event) {
@@ -33,7 +38,7 @@ public class EpisodesCommand {
 		try {
 			String url = "http://services.tvrage.com/tools/quickinfo.php?show="
 					+ URLEncoder.encode(seriesName, "UTF-8");
-			for (String line : IOUtils.readLines(new StringReader(BotUtils
+			for (String line : IOUtils.readLines(new StringReader(utilsService
 					.getContent(url)))) {
 				String[] split = line.split("@");
 				if (split.length == 2) {

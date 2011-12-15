@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.json.JSONArray;
@@ -14,7 +16,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.SkanditeDAO;
 import be.hehehe.geekbot.persistence.model.Skandite;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.HashAndByteCount;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -22,17 +24,20 @@ import be.hehehe.geekbot.utils.LOG;
 @BotCommand
 public class SkanditeCommand {
 
+	@Inject
+	private BotUtilsService utilsService;
+
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> handleSkandites(TriggerEvent event) {
 
 		List<String> result = new ArrayList<String>();
-		String url = BotUtils.extractURL(event.getMessage());
+		String url = utilsService.extractURL(event.getMessage());
 		if (url != null) {
 			SkanditeDAO dao = new SkanditeDAO();
 			Skandite skandite = dao.findByURL(url);
 			HashAndByteCount hashAndByteCount = null;
 			if (skandite == null) {
-				hashAndByteCount = BotUtils.calculateHashAndByteCount(url);
+				hashAndByteCount = utilsService.calculateHashAndByteCount(url);
 				if (hashAndByteCount != null) {
 					skandite = dao.findByHashAndByteCount(
 							hashAndByteCount.getHash(),
@@ -41,11 +46,13 @@ public class SkanditeCommand {
 			}
 
 			if (skandite != null) {
-				String line = IRCUtils.bold("Skandite! ") + skandite.getUrl()
+				String line = IRCUtils.bold("Skandite! ")
+						+ skandite.getUrl()
 						+ " linked "
-						+ BotUtils.getTimeDifference(skandite.getPostedDate())
-						+ " ago by " + skandite.getAuthor() + " ("
-						+ skandite.getCount() + "x).";
+						+ utilsService.getTimeDifference(skandite
+								.getPostedDate()) + " ago by "
+						+ skandite.getAuthor() + " (" + skandite.getCount()
+						+ "x).";
 				result.add(line);
 				skandite.setCount(skandite.getCount() + 1);
 				dao.save(skandite);
@@ -65,16 +72,16 @@ public class SkanditeCommand {
 			if (url.contains("youtube.com") || url.contains("youtu.be")) {
 				String videoParam = null;
 				if (url.contains("youtube.com")) {
-					videoParam = BotUtils.getRequestParametersFromURL(url).get(
-							"v");
+					videoParam = utilsService.getRequestParametersFromURL(url)
+							.get("v");
 				} else {
-					videoParam = BotUtils.extractIDFromYoutuDotBeURL(url);
+					videoParam = utilsService.extractIDFromYoutuDotBeURL(url);
 				}
 				String data = "http://gdata.youtube.com/feeds/api/videos/"
 						+ videoParam;
 				try {
-					String content = BotUtils.getContent(data);
-					Document doc = BotUtils.parseXML(content);
+					String content = utilsService.getContent(data);
+					Document doc = utilsService.parseXML(content);
 					Element root = doc.getRootElement();
 					String title = "";
 					for (Object o : root.getChildren()) {
@@ -92,11 +99,12 @@ public class SkanditeCommand {
 			}
 
 			if (url.contains("vimeo.com")) {
-				String videoParam = BotUtils.extractIDFromYoutuDotBeURL(url);
+				String videoParam = utilsService
+						.extractIDFromYoutuDotBeURL(url);
 				String data = "http://vimeo.com/api/v2/video/" + videoParam
 						+ ".json";
 				try {
-					String content = BotUtils.getContent(data);
+					String content = utilsService.getContent(data);
 					JSONArray array = new JSONArray(content);
 					String title = array.getJSONObject(0).getString("title");
 					String line = IRCUtils.bold("Vimeo") + " - " + title;

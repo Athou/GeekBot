@@ -6,13 +6,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -23,6 +25,9 @@ import com.sun.syndication.io.XmlReader;
 
 @BotCommand
 public class CommaBeatCommand {
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	@TimedAction(value = 1)
 	public List<String> getLatestPost() {
@@ -44,7 +49,7 @@ public class CommaBeatCommand {
 				if (beat == null) {
 					message = IRCUtils.bold("CommaBeat!") + " "
 							+ StringEscapeUtils.unescapeXml(item.getTitle())
-							+ " - " + BotUtils.bitly(item.getLink());
+							+ " - " + utilsService.bitly(item.getLink());
 					toReturn.add(message);
 					beat = new RSSFeed();
 					beat.setGuid(guid);

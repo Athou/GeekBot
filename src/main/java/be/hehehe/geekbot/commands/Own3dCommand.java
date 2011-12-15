@@ -4,11 +4,13 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import org.jdom.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -18,6 +20,9 @@ import com.google.common.collect.Lists;
 public class Own3dCommand {
 
 	private static final List<Stream> STREAMS = Lists.newArrayList();
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	static {
 		ResourceBundle bundle = ResourceBundle.getBundle("own3d");
@@ -52,7 +57,7 @@ public class Own3dCommand {
 	private boolean getStreamStatus(Stream stream) throws Exception {
 		String url = "http://api.own3d.tv/liveCheck.php?live_id="
 				+ stream.getId();
-		Document doc = BotUtils.parseXML(BotUtils.getContent(url));
+		Document doc = utilsService.parseXML(utilsService.getContent(url));
 		String isLive = doc.getRootElement().getChild("liveEvent")
 				.getChild("isLive").getText();
 		return Boolean.parseBoolean(isLive);

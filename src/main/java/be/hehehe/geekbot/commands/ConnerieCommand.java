@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -12,7 +14,7 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.lucene.ConnerieIndex;
 import be.hehehe.geekbot.persistence.model.Connerie;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 
 @BotCommand
 public class ConnerieCommand {
@@ -20,11 +22,14 @@ public class ConnerieCommand {
 	private static final List<String> lastSentences = new ArrayList<String>();
 	private static final int MAXSENTENCES = 3;
 
+	@Inject
+	private BotUtilsService utilsService;
+
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> storeEveryLines(TriggerEvent event) {
 		String message = event.getMessage();
 		List<String> result = new ArrayList<String>();
-		String url = BotUtils.extractURL(message);
+		String url = utilsService.extractURL(message);
 		if (url == null) {
 			pushSentence(message);
 			if (!event.isNickInMessage() && message.length() > 9

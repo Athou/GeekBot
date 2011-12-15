@@ -3,6 +3,8 @@ package be.hehehe.geekbot.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +13,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -19,6 +21,8 @@ import be.hehehe.geekbot.utils.LOG;
 public class HoroscopeCommand {
 
 	private static final Map<String, String> mapping = new HashMap<String, String>();
+	@Inject
+	private BotUtilsService utilsService;
 
 	static {
 		mapping.put("belier", "0");
@@ -52,7 +56,7 @@ public class HoroscopeCommand {
 		String line = null;
 		try {
 			Document doc = Jsoup
-					.parse(BotUtils
+					.parse(utilsService
 							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0"));
 			Element horo = doc.select("div#ast-sign-" + mapping.get(sign))
 					.first();

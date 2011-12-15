@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,12 +15,15 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.utils.BotUtils;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand
 public class GoogleCommand {
+
+	@Inject
+	private BotUtilsService utilsService;
 
 	public enum Lang {
 		FRENCH("fr"), ENGLISH("en");
@@ -62,8 +67,7 @@ public class GoogleCommand {
 
 	@Trigger(value = "!image", type = TriggerType.STARTSWITH)
 	public List<String> image(TriggerEvent event) {
-		return google(event.getMessage(), Lang.ENGLISH,
-				Mode.IMAGE);
+		return google(event.getMessage(), Lang.ENGLISH, Mode.IMAGE);
 	}
 
 	@Trigger(value = "!imagefr", type = TriggerType.STARTSWITH)
@@ -71,7 +75,7 @@ public class GoogleCommand {
 		return google(event.getMessage(), Lang.FRENCH, Mode.IMAGE);
 	}
 
-	public static List<String> google(String keywords, Lang lang, Mode mode) {
+	public List<String> google(String keywords, Lang lang, Mode mode) {
 		String result = "";
 		try {
 			String GOOGLE_API_URL = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&safe=off&lr=lang_"
@@ -84,14 +88,14 @@ public class GoogleCommand {
 			} else {
 				url = GOOGLE_API_IMAGES + URLEncoder.encode(keywords, "UTF-8");
 			}
-			result = BotUtils.getContent(url);
+			result = utilsService.getContent(url);
 		} catch (Exception e) {
 			LOG.handle(e);
 		}
 		return parse(result, keywords, mode);
 	}
 
-	private static List<String> parse(String source, String keywords, Mode mode) {
+	private List<String> parse(String source, String keywords, Mode mode) {
 		List<String> result = new ArrayList<String>();
 		try {
 			JSONObject json = new JSONObject(source);

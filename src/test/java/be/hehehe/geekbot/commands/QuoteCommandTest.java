@@ -19,6 +19,7 @@ import be.hehehe.geekbot.utils.IRCUtils;
 public class QuoteCommandTest {
 
 	private static final String QUOTE1 = "quote1 content";
+	private static final String QUOTE2 = "quote2 content";
 
 	@Inject
 	QuoteCommand quoteCommand;
@@ -32,8 +33,9 @@ public class QuoteCommandTest {
 			dao.delete(quote);
 		}
 
-		TriggerEvent event = new TriggerEventImpl(QUOTE1);
-		quoteCommand.addQuote(event);
+		dao.save(new Quote(QUOTE1));
+		dao.save(new Quote(QUOTE2));
+
 	}
 
 	@Test
@@ -41,6 +43,11 @@ public class QuoteCommandTest {
 		TriggerEvent event = new TriggerEventImpl("1");
 		String expected = IRCUtils.bold("1") + ". " + QUOTE1;
 		String actual = quoteCommand.getQuote(event).iterator().next();
+		Assert.assertEquals(expected, actual);
+
+		event = new TriggerEventImpl("2");
+		expected = IRCUtils.bold("2") + ". " + QUOTE2;
+		actual = quoteCommand.getQuote(event).iterator().next();
 		Assert.assertEquals(expected, actual);
 	}
 
@@ -50,11 +57,26 @@ public class QuoteCommandTest {
 		String expected = IRCUtils.bold("Matching quotes:") + " 1";
 		String actual = quoteCommand.findQuote(event);
 		Assert.assertEquals(expected, actual);
+
+		event = new TriggerEventImpl(QUOTE2);
+		expected = IRCUtils.bold("Matching quotes:") + " 2";
+		actual = quoteCommand.findQuote(event);
+		Assert.assertEquals(expected, actual);
+		
+		dao.delete(dao.findByNumber(1));
+		expected = IRCUtils.bold("Matching quotes:") + " 1";
+		actual = quoteCommand.findQuote(event);
+		Assert.assertEquals(expected, actual);
+		
+		dao.delete(dao.findByNumber(1));
+		expected = IRCUtils.bold("Matching quotes:") + " none.";
+		actual = quoteCommand.findQuote(event);
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void addQuoteTest() {
-		String expected = "Quote added: 2";
+		String expected = "Quote added: 3";
 		TriggerEvent event = new TriggerEventImpl("cc");
 		String actual = quoteCommand.addQuote(event);
 

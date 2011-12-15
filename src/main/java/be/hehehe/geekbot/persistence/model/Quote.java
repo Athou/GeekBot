@@ -15,6 +15,13 @@ public class Quote {
 	private String quote;
 	private Integer number;
 
+	public Quote() {
+	}
+
+	public Quote(String quote) {
+		this.quote = quote;
+	}
+
 	public Long getId() {
 		return id;
 	}

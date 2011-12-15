@@ -49,6 +49,13 @@ public abstract class GenericDAO<T> {
 		em.getTransaction().commit();
 	}
 
+	public void deleteById(Object id) {
+		em.getTransaction().begin();
+		Object ref = em.getReference(genericType, id);
+		em.remove(ref);
+		em.getTransaction().commit();
+	}
+
 	public T findById(long id) {
 		T t = em.find(genericType, id);
 		return t;

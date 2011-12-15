@@ -24,7 +24,8 @@ public class QuoteCommand {
 	@Trigger("!quote")
 	public String getRandomQuote() {
 		int rand = new Random().nextInt((int) dao.getCount()) + 1;
-		return IRCUtils.bold("" + rand) + ". " + dao.findByNumber(rand).getQuote();
+		return IRCUtils.bold("" + rand) + ". "
+				+ dao.findByNumber(rand).getQuote();
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
@@ -47,9 +48,7 @@ public class QuoteCommand {
 
 	@Trigger(value = "!addquote", type = TriggerType.STARTSWITH)
 	public String addQuote(TriggerEvent event) {
-		Quote quoteObj = new Quote();
-		quoteObj.setQuote(event.getMessage());
-		dao.save(quoteObj);
+		dao.save(new Quote(event.getMessage()));
 		return "Quote added: " + (dao.getCount());
 	}
 

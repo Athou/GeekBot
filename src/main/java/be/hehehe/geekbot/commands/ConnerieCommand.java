@@ -58,14 +58,12 @@ public class ConnerieCommand {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@RandomAction(3)
 	@Trigger(type = TriggerType.BOTNAME)
 	public String getRandomLine(TriggerEvent event) {
 		String message = event.getMessage();
 		List<String> list = connerieIndexService.findRelated(message,
 				lastReadSentences, MAX_STORED_SENTENCES);
-		//list = ListUtils.removeAll(list, lastSpokenSentences);
 
 		Random random = new Random();
 		int rand = random.nextInt(list.size());

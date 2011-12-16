@@ -44,6 +44,9 @@ public class ConnerieIndexService {
 	@Inject
 	private BundleService bundleService;
 
+	@Inject
+	ConnerieDAO dao;
+
 	public void startRebuildingIndexThread() {
 		ScheduledExecutorService scheduler = Executors
 				.newScheduledThreadPool(1);
@@ -62,7 +65,7 @@ public class ConnerieIndexService {
 					new FrenchAnalyzer(VERSION));
 			config.setOpenMode(OpenMode.CREATE);
 			indexWriter = new IndexWriter(openDirectory(), config);
-			List<Connerie> conneries = new ConnerieDAO().findAll();
+			List<Connerie> conneries = dao.findAll();
 			int step = conneries.size() / 20;
 			for (int i = 0; i < conneries.size() - 1; i++) {
 				Document doc = new Document();
@@ -80,7 +83,6 @@ public class ConnerieIndexService {
 					}
 				}
 			}
-			indexWriter.optimize();
 
 		} catch (Exception e) {
 			LOG.handle(e);
@@ -102,7 +104,9 @@ public class ConnerieIndexService {
 			QueryParser queryParser = new QueryParser(VERSION, "value",
 					new FrenchAnalyzer(VERSION));
 
-			Query query = queryParser.parse(QueryParser.escape(keywords));
+			String escaped = QueryParser.escape(keywords);
+			LOG.debug("Querying lucene with: " + escaped);
+			Query query = queryParser.parse(escaped);
 			TopDocs documents = searcher.search(query, howMany);
 
 			for (ScoreDoc scoreDoc : documents.scoreDocs) {
@@ -121,7 +125,9 @@ public class ConnerieIndexService {
 	}
 
 	private Directory openDirectory() throws IOException {
-		return FSDirectory.open(new File(bundleService.getLuceneDirectory()));
+		File directory = new File(bundleService.getLuceneDirectory());
+		directory.mkdirs();
+		return FSDirectory.open(directory);
 	}
 
 }

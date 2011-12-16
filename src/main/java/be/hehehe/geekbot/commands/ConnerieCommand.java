@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.commands;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -59,25 +58,19 @@ public class ConnerieCommand {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@RandomAction(3)
 	@Trigger(type = TriggerType.BOTNAME)
 	public String getRandomLine(TriggerEvent event) {
 		String message = event.getMessage();
-		message = message.replace("?", "");
 		List<String> list = connerieIndexService.findRelated(message,
 				lastReadSentences, MAX_STORED_SENTENCES);
-		Iterator<String> it = list.iterator();
-		while (it.hasNext()) {
-			String line = it.next();
-			if (lastSpokenSentences.contains(line)) {
-				it.remove();
-			}
-		}
+		//list = ListUtils.removeAll(list, lastSpokenSentences);
 
 		Random random = new Random();
-		int irand = random.nextInt(list.size());
+		int rand = random.nextInt(list.size());
 
-		message = list.get(irand);
+		message = list.get(rand);
 		pushSentence(message, lastSpokenSentences);
 		return message;
 	}

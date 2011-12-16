@@ -39,6 +39,8 @@ import be.hehehe.geekbot.utils.LOG;
 @Singleton
 public class ConnerieIndexService {
 
+	private static final Version VERSION = Version.LUCENE_35;
+
 	@Inject
 	private BundleService bundleService;
 
@@ -56,8 +58,8 @@ public class ConnerieIndexService {
 	public void rebuildIndex() {
 		IndexWriter indexWriter = null;
 		try {
-			IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_34,
-					new FrenchAnalyzer(Version.LUCENE_34));
+			IndexWriterConfig config = new IndexWriterConfig(VERSION,
+					new FrenchAnalyzer(VERSION));
 			config.setOpenMode(OpenMode.CREATE);
 			indexWriter = new IndexWriter(openDirectory(), config);
 			List<Connerie> conneries = new ConnerieDAO().findAll();
@@ -88,7 +90,8 @@ public class ConnerieIndexService {
 
 	}
 
-	public List<String> findRelated(String keywords, List<String> otherMessages, int howMany) {
+	public List<String> findRelated(String keywords,
+			List<String> otherMessages, int howMany) {
 		List<String> matchingConnerie = new ArrayList<String>();
 		IndexReader reader = null;
 		IndexSearcher searcher = null;
@@ -96,8 +99,8 @@ public class ConnerieIndexService {
 		try {
 			reader = IndexReader.open(openDirectory());
 			searcher = new IndexSearcher(reader);
-			QueryParser queryParser = new QueryParser(Version.LUCENE_34,
-					"value", new FrenchAnalyzer(Version.LUCENE_34));
+			QueryParser queryParser = new QueryParser(VERSION, "value",
+					new FrenchAnalyzer(VERSION));
 
 			Query query = queryParser.parse(QueryParser.escape(keywords));
 			TopDocs documents = searcher.search(query, howMany);

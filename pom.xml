@@ -181,7 +181,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.7.Final</version>
+			<version>4.0.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>

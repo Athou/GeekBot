@@ -10,9 +10,6 @@ channel=\#botchannel
 # directory where lucene will store its index
 lucene=/var/geekbot/index/
 
-# Comma separated list of Java packages to scan for commands (recursively)
-commands.package=be.hehehe
-
 # Bitly credentials
 bitly.login=
 bitly.apikey=

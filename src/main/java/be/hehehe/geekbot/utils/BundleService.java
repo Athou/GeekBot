@@ -25,10 +25,6 @@ public class BundleService {
 		return getValue("lucene");
 	}
 
-	public String getCommandsPackage() {
-		return getValue("commands.package");
-	}
-
 	public String getBitlyLogin() {
 		return getValue("bitly.login");
 	}

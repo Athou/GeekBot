@@ -9,19 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<repositories>
-		<repository>
-			<id>jboss-repository</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
+	
 	<build>
 		<!-- Fix to ignore Eclipse error: maven-dependency-plugin (goals "copy-dependencies", 
 			"unpack") is not supported by m2e. http://dev.eclipse.org/mhonarc/lists/m2e-users/msg00875.html 
@@ -141,7 +129,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
+			<version>1.2.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -162,11 +150,6 @@
 			<groupId>pircbot</groupId>
 			<artifactId>pircbot</artifactId>
 			<version>1.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.rome</groupId>
@@ -202,12 +185,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-ext</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.4</version>
 		</dependency>
 
 		<dependency>

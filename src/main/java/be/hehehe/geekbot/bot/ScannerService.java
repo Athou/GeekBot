@@ -5,10 +5,13 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.reflections.Reflections;
+import org.jboss.weld.environment.se.WeldContainer;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
@@ -17,6 +20,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BundleService;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * utility methods for scanning triggers and actions.
@@ -28,6 +32,9 @@ public class ScannerService {
 
 	@Inject
 	BundleService bundleService;
+
+	@Inject
+	WeldContainer container;
 
 	/**
 	 * Returns a list of methods annotated with the @Trigger annotation in
@@ -80,11 +87,22 @@ public class ScannerService {
 		return timers;
 	}
 
-	private Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> klass) {
-		String packages = bundleService.getCommandsPackage();
+	@SuppressWarnings("serial")
+	private Set<Class<?>> getAnnotatedClasses(
+			Class<? extends Annotation> annotation) {
+		Set<Class<?>> set = Sets.newHashSet();
+		Set<Bean<?>> beans = container.getBeanManager().getBeans(Object.class,
+				new AnnotationLiteral<Default>() {
 
-		Reflections reflections = new Reflections(packages.split(","));
-		return reflections.getTypesAnnotatedWith(klass);
+				});
+		for (Bean<?> bean : beans) {
+			Class<?> klass = bean.getBeanClass();
+			if (klass.isAnnotationPresent(annotation)) {
+				set.add(klass);
+			}
+		}
+
+		return set;
 	}
 
 }

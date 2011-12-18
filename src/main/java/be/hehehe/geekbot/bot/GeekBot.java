@@ -51,7 +51,7 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	ConnerieIndexService connerieIndexService;
-	
+
 	@Inject
 	WeldContainer container;
 
@@ -89,10 +89,10 @@ public class GeekBot extends PircBot {
 	}
 
 	private void startTimers(List<Method> timers) {
+		ScheduledExecutorService scheduler = Executors
+				.newScheduledThreadPool(1);
 		for (final Method method : timers) {
 			int interval = method.getAnnotation(TimedAction.class).value();
-			ScheduledExecutorService scheduler = Executors
-					.newScheduledThreadPool(1);
 			Runnable thread = new Runnable() {
 				@Override
 				public void run() {

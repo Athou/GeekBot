@@ -15,13 +15,13 @@ All commands are available in the be.hehehe.geekbot.commands package and you can
 Installation
 ------------
 
-Copy /src/main/resources/config.properties.example to /src/main/resources/config.properties
+Copy `/src/main/resources/config.properties.example` to `/src/main/resources/config.properties`
 
-Copy /src/main/resources/own3d.properties.example to /src/main/resources/own3d.properties
+Copy `/src/main/resources/own3d.properties.example` to `/src/main/resources/own3d.properties`
 
-Copy /src/main/resources/META-INF/persistence.xml.example to /src/main/resources/META-INF/persistence.xml
+Copy `/src/main/resources/META-INF/persistence.xml.example` to `/src/main/resources/META-INF/persistence.xml`
 
-Edit those new files to reflect your local configuration
+Edit those new files to reflect your local configuration (bot name, irc server and channel, database connection ...)
 
 Build
 -----

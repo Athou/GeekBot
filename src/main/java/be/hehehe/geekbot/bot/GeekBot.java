@@ -68,7 +68,7 @@ public class GeekBot extends PircBot {
 			randoms = scannerService.scanRandom();
 			startTimers(scannerService.scanTimers());
 			connerieIndexService.startRebuildingIndexThread();
-			
+
 			startChangeNickThread();
 
 			// set parameters and connect to IRC
@@ -129,10 +129,6 @@ public class GeekBot extends PircBot {
 	@Override
 	protected void onMessage(String channel, String sender, String login,
 			String hostname, String message) {
-		// change nick everytime someone talks
-		if (!getNick().equals(botName)) {
-			changeNick(botName);
-		}
 
 		if (message.equalsIgnoreCase("!help")) {
 			printHelp();

@@ -63,11 +63,15 @@ public class GeekBot extends PircBot {
 		String server = bundleService.getServer();
 		try {
 
+			// scan for commands
 			triggers = scannerService.scanTriggers();
 			randoms = scannerService.scanRandom();
 			startTimers(scannerService.scanTimers());
 			connerieIndexService.startRebuildingIndexThread();
+			
+			startChangeNickThread();
 
+			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
 			this.setName(botName);
 			this.setLogin(botName);
@@ -106,6 +110,20 @@ public class GeekBot extends PircBot {
 			scheduler.scheduleAtFixedRate(thread, interval * 60, interval * 60,
 					TimeUnit.SECONDS);
 		}
+	}
+
+	private void startChangeNickThread() {
+		ScheduledExecutorService scheduler = Executors
+				.newScheduledThreadPool(1);
+		Runnable thread = new Runnable() {
+			@Override
+			public void run() {
+				if (!StringUtils.equals(botName, getNick())) {
+					changeNick(botName);
+				}
+			}
+		};
+		scheduler.scheduleAtFixedRate(thread, 1, 1, TimeUnit.MINUTES);
 	}
 
 	@Override
@@ -329,7 +347,8 @@ public class GeekBot extends PircBot {
 				Arrays.asList(getUsers(channel)),
 				new BeanToPropertyValueTransformer("nick"));
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
-				users, nickInMessage(message), botNameInMessage(message));
+				users, nickInMessage(message), botNameInMessage(message),
+				isMessageTrigger(message));
 		return event;
 	}
 

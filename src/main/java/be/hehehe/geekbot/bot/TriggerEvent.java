@@ -51,4 +51,13 @@ public interface TriggerEvent {
 	 */
 	public boolean isBotInMessage();
 
+	/**
+	 * Returns true if the message starts with an existing trigger. Useful for
+	 * commands with TriggerType.EVERYTHING
+	 * 
+	 * @return true if the message starts with an existing trigger registered in
+	 *         the bot.
+	 */
+	public boolean isStartsWithTrigger();
+
 }

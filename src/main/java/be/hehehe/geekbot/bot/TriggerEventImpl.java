@@ -9,6 +9,7 @@ public class TriggerEventImpl implements TriggerEvent {
 	private Collection<String> users;
 	private boolean nickInMessage;
 	private boolean botInMessage;
+	private boolean startsWithTrigger;
 
 	public TriggerEventImpl(String messageWithoutTrigger) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
@@ -16,12 +17,13 @@ public class TriggerEventImpl implements TriggerEvent {
 
 	public TriggerEventImpl(String message, String author, String trigger,
 			Collection<String> users, boolean nickInMessage,
-			boolean botInMessage) {
+			boolean botInMessage, boolean startsWithTrigger) {
 		this.message = message;
 		this.author = author;
 		this.users = users;
 		this.nickInMessage = nickInMessage;
 		this.botInMessage = botInMessage;
+		this.startsWithTrigger = startsWithTrigger;
 
 		if (message != null && trigger != null) {
 			this.messageWithoutTrigger = message.replace(trigger, "");
@@ -59,6 +61,15 @@ public class TriggerEventImpl implements TriggerEvent {
 	@Override
 	public String getMessage() {
 		return messageWithoutTrigger;
+	}
+
+	@Override
+	public boolean isStartsWithTrigger() {
+		return startsWithTrigger;
+	}
+
+	public void setStartsWithTrigger(boolean startsWithTrigger) {
+		this.startsWithTrigger = startsWithTrigger;
 	}
 
 }

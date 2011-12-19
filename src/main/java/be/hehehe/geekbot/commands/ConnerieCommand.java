@@ -42,7 +42,7 @@ public class ConnerieCommand {
 			pushSentence(message, lastReadSentences);
 			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
-					&& !message.startsWith("!")) {
+					&& !event.isStartsWithTrigger()) {
 				Connerie connerie = new Connerie(message);
 				dao.save(connerie);
 			}

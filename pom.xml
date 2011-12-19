@@ -9,7 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<build>
 		<!-- Fix to ignore Eclipse error: maven-dependency-plugin (goals "copy-dependencies", 
 			"unpack") is not supported by m2e. http://dev.eclipse.org/mhonarc/lists/m2e-users/msg00875.html 
@@ -177,8 +177,12 @@
 			<version>1.1.4.Final</version>
 			<exclusions>
 				<exclusion>
-					<artifactId>slf4j-ext</artifactId>
 					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-ext</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

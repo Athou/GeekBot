@@ -17,6 +17,11 @@ import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
+/**
+ * Gives back a random VDM (French)
+ * @author Ano
+ *
+ */
 @BotCommand
 public class VDMCommand {
 

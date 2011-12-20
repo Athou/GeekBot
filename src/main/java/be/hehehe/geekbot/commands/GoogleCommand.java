@@ -19,6 +19,10 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
+/**
+ * Google search, web or images
+ * 
+ */
 @BotCommand
 public class GoogleCommand {
 

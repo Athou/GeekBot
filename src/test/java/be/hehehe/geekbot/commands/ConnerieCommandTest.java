@@ -15,15 +15,15 @@ import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
 
 @RunWith(WeldRunner.class)
-public class RandomCommandTest {
+public class ConnerieCommandTest {
 
 	@Inject
-	RandomCommand randomCommand;
+	ConnerieCommand connerieCommand;
 
 	@Before
 	public void init() {
 		ConnerieDAO dao = EasyMock.createMock(ConnerieDAO.class);
-		randomCommand.dao = dao;
+		connerieCommand.dao = dao;
 	}
 
 	@Test
@@ -31,24 +31,24 @@ public class RandomCommandTest {
 		String keywords = "hello test";
 		String result = "blabla hello test blabla";
 		EasyMock.expect(
-				randomCommand.dao.getRandomMatching(keywords.split(" ")))
+				connerieCommand.dao.getRandomMatching(keywords.split(" ")))
 				.andReturn(new Connerie(result));
-		EasyMock.replay(randomCommand.dao);
+		EasyMock.replay(connerieCommand.dao);
 		Assert.assertEquals(result,
-				randomCommand.getRandQuote(new TriggerEventImpl(keywords)));
-		EasyMock.verify(randomCommand.dao);
+				connerieCommand.getRandQuote(new TriggerEventImpl(keywords)));
+		EasyMock.verify(connerieCommand.dao);
 	}
 
 	@Test
 	public void test2() {
 		String keywords = "hello test";
 		EasyMock.expect(
-				randomCommand.dao.getRandomMatching(keywords.split(" ")))
+				connerieCommand.dao.getRandomMatching(keywords.split(" ")))
 				.andReturn(null);
-		EasyMock.replay(randomCommand.dao);
+		EasyMock.replay(connerieCommand.dao);
 		Assert.assertEquals(null,
-				randomCommand.getRandQuote(new TriggerEventImpl(keywords)));
-		EasyMock.verify(randomCommand.dao);
+				connerieCommand.getRandQuote(new TriggerEventImpl(keywords)));
+		EasyMock.verify(connerieCommand.dao);
 	}
 
 }

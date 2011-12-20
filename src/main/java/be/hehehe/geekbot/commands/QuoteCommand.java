@@ -15,6 +15,10 @@ import be.hehehe.geekbot.persistence.dao.QuoteDAO;
 import be.hehehe.geekbot.persistence.model.Quote;
 import be.hehehe.geekbot.utils.IRCUtils;
 
+/**
+ * Quote engine. Store, find and get random quotes.
+ * 
+ */
 @BotCommand
 public class QuoteCommand {
 

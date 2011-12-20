@@ -11,6 +11,10 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.commands.GoogleCommand.Lang;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 
+/**
+ * Wikipedia search
+ * 
+ */
 @BotCommand
 public class WikiCommand {
 

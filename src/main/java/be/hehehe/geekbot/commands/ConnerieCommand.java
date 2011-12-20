@@ -6,6 +6,8 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.StringUtils;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -15,7 +17,15 @@ import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.lucene.ConnerieIndexService;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
+import be.hehehe.geekbot.utils.IRCUtils;
 
+/**
+ * Stores all lines spoken on the channel. The bot will also give one of those
+ * sentences back when addressed or randomly in a conversation. The bot tries to
+ * find a sentence that match the context of the current conversation.
+ * 
+ * 
+ */
 @BotCommand
 public class ConnerieCommand {
 
@@ -71,6 +81,37 @@ public class ConnerieCommand {
 		message = list.get(rand);
 		pushSentence(message, lastSpokenSentences);
 		return message;
+	}
+
+	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
+	public String getRandQuote(TriggerEvent event) {
+		String r = null;
+		String keywords = event.getMessage();
+		if (StringUtils.isNotBlank(keywords)) {
+			keywords = keywords.trim();
+			if (keywords.length() > 1) {
+				Connerie connerie = dao.getRandomMatching(keywords.split(" "));
+				if (connerie != null) {
+					r = connerie.getValue();
+				}
+			}
+		}
+		return r;
+	}
+
+	@Trigger(value = "!stat", type = TriggerType.STARTSWITH)
+	public String getStatCount(TriggerEvent event) {
+		String r = null;
+		String keywords = event.getMessage();
+		if (StringUtils.isNotBlank(keywords)) {
+			keywords = keywords.trim();
+			if (keywords.length() > 1) {
+				int count = dao.getCountMatching(keywords.split("[  ]"));
+				r = IRCUtils.bold("Stat count for \"" + keywords + "\" : ")
+						+ count;
+			}
+		}
+		return r;
 	}
 
 }

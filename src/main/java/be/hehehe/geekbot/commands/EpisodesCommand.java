@@ -25,6 +25,10 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
+/**
+ * Finds out the next air date of tv shows.
+ * 
+ */
 @BotCommand
 public class EpisodesCommand {
 

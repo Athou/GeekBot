@@ -22,6 +22,10 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+/**
+ * Fetches a random post from jeanmarcmorandini.com (French)
+ *
+ */
 @BotCommand
 public class BuzzCommand {
 

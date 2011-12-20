@@ -16,6 +16,11 @@ import be.hehehe.geekbot.utils.LOG;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Check own3d.tv feed status (configure feeds in own3d.properties)
+ * 
+ * 
+ */
 @BotCommand
 public class Own3dCommand {
 

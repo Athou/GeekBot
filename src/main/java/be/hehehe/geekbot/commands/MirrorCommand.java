@@ -20,6 +20,12 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.LOG;
 
+/**
+ * Mirrors images on imgur.com, useful for image hosts blocked at work. when the
+ * trigger is invoked without arguments, the last url on the channel will be
+ * mirrored.
+ * 
+ */
 @BotCommand
 public class MirrorCommand {
 	private static String LASTURL;

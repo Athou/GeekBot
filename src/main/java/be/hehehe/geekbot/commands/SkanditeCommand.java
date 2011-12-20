@@ -21,13 +21,18 @@ import be.hehehe.geekbot.utils.HashAndByteCount;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
+/**
+ * Stores all links and gives an alert when a link has already been posted on
+ * the chan.
+ * 
+ */
 @BotCommand
 public class SkanditeCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
-	@Inject 
+
+	@Inject
 	SkanditeDAO dao;
 
 	@Trigger(type = TriggerType.EVERYTHING)

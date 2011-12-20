@@ -29,7 +29,7 @@ public class BotUtilsService {
 	 * Get the content of the specified URL
 	 * 
 	 * @param urlString
-	 * @return
+	 * @return the content of the url, null if unable to fetch.
 	 */
 	public String getContent(String urlString) {
 		return getContent(urlString, null);
@@ -41,7 +41,7 @@ public class BotUtilsService {
 	 * 
 	 * @param urlString
 	 * @param mimeTypePrefix
-	 * @return
+	 * @return the content of the url, null if unable to fetch.
 	 */
 	public String getContent(String urlString, String mimeTypePrefix) {
 		String result = null;
@@ -72,7 +72,7 @@ public class BotUtilsService {
 	 * not.
 	 * 
 	 * @param url
-	 * @return
+	 * @return the shorten url, the original url if unable to do so.
 	 */
 	public String bitly(String url) {
 		String result = url;
@@ -101,7 +101,7 @@ public class BotUtilsService {
 	 * Parses an url and return a map of request parameters
 	 * 
 	 * @param url
-	 * @return
+	 * @return the map of request parameters
 	 */
 	public Map<String, String> getRequestParametersFromURL(String url) {
 		Map<String, String> map = Maps.newHashMap();
@@ -120,7 +120,7 @@ public class BotUtilsService {
 	 * found.
 	 * 
 	 * @param message
-	 * @return
+	 * @return an url string or null if none found.
 	 */
 	public String extractURL(String message) {
 		String url = null;

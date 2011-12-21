@@ -55,7 +55,7 @@ public class ConnerieIndexService {
 			public void run() {
 				rebuildIndex();
 			}
-		}, 5, 60 * 60 * 24, TimeUnit.SECONDS);
+		}, 0, 1, TimeUnit.HOURS);
 	}
 
 	public void rebuildIndex() {

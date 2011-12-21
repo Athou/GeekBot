@@ -36,7 +36,7 @@ public class CommaBeatCommand {
 	@Inject
 	RSSFeedDAO dao;
 
-	@TimedAction(value = 1)
+	@TimedAction(1)
 	public List<String> getLatestPost() {
 		List<String> toReturn = new ArrayList<String>();
 		try {

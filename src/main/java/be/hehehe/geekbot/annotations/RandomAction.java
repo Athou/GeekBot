@@ -14,5 +14,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RandomAction {
+	/**
+	 * Proc percentage (default: 1%).
+	 * 
+	 */
 	public int value() default 1;
 }

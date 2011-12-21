@@ -14,7 +14,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Trigger {
+	/**
+	 * The string that will trigger the command.
+	 * 
+	 */
 	public String value() default "";
 
+	/**
+	 * The trigger type.
+	 * 
+	 */
 	public TriggerType type() default be.hehehe.geekbot.annotations.TriggerType.EXACTMATCH;
 }

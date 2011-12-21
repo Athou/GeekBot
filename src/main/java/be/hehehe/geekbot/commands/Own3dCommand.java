@@ -39,7 +39,7 @@ public class Own3dCommand {
 		}
 	}
 
-	@TimedAction(value = 1)
+	@TimedAction(1)
 	public List<String> updateStreams() {
 		List<String> alerts = Lists.newArrayList();
 		for (Stream stream : STREAMS) {

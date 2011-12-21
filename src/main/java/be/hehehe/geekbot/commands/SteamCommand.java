@@ -36,7 +36,7 @@ public class SteamCommand {
 	RSSFeedDAO dao;
 
 	@SuppressWarnings("unchecked")
-	@TimedAction(value = 1)
+	@TimedAction(1)
 	public List<String> getLatestPost() {
 		List<String> toReturn = new ArrayList<String>();
 		try {

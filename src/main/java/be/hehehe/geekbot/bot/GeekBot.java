@@ -97,6 +97,8 @@ public class GeekBot extends PircBot {
 				.newScheduledThreadPool(1);
 		for (final Method method : timers) {
 			int interval = method.getAnnotation(TimedAction.class).value();
+			TimeUnit timeUnit = method.getAnnotation(TimedAction.class)
+					.timeUnit();
 			Runnable thread = new Runnable() {
 				@Override
 				public void run() {
@@ -107,8 +109,7 @@ public class GeekBot extends PircBot {
 					}
 				}
 			};
-			scheduler.scheduleAtFixedRate(thread, interval * 60, interval * 60,
-					TimeUnit.SECONDS);
+			scheduler.scheduleAtFixedRate(thread, 0, interval, timeUnit);
 		}
 	}
 

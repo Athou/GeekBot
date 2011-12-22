@@ -16,7 +16,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 	public Connerie getRandom() {
 		int count = (int) getCount();
 		int rand = new Random().nextInt(count);
-		return findAll(rand, 1).iterator().next();
+		return findAll(rand + 1, 1).iterator().next();
 	}
 
 	public Connerie getRandomMatching(String... keywords) {

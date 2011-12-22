@@ -7,9 +7,6 @@ server=irc.quakenet.org
 # Channel to join
 channel=\#botchannel
 
-# directory where lucene will store its index
-lucene=/var/geekbot/index/
-
 # Bitly credentials
 bitly.login=
 bitly.apikey=

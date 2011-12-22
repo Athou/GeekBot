@@ -1,6 +1,7 @@
 package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Singleton;
 
@@ -11,6 +12,12 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 
 @Singleton
 public class ConnerieDAO extends GenericDAO<Connerie> {
+
+	public Connerie getRandom() {
+		int count = (int) getCount();
+		int rand = new Random().nextInt(count);
+		return findAll(rand, 1).iterator().next();
+	}
 
 	public Connerie getRandomMatching(String... keywords) {
 		Connerie con = getConnerie(true, keywords);

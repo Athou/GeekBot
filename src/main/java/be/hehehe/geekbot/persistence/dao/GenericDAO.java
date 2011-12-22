@@ -62,7 +62,7 @@ public abstract class GenericDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> findByExample(T exampleInstance) {
-		Criteria crit = getSession().createCriteria(genericType);
+		Criteria crit = createCriteria();
 		Example example = Example.create(exampleInstance);
 		crit.add(example);
 		return crit.list();
@@ -70,13 +70,20 @@ public abstract class GenericDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		Criteria crit = getSession().createCriteria(genericType);
+		return createCriteria().list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(int startIndex, int count) {
+		Criteria crit = createCriteria();
+		crit.setMaxResults(count);
+		crit.setFirstResult(startIndex);
 		return crit.list();
 	}
 
 	public long getCount() {
-		Number number = (Number) getSession().createCriteria(genericType)
-				.setProjection(Projections.rowCount()).uniqueResult();
+		Number number = (Number) createCriteria().setProjection(
+				Projections.rowCount()).uniqueResult();
 		return number.longValue();
 	}
 

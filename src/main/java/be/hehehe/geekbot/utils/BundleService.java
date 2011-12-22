@@ -21,10 +21,6 @@ public class BundleService {
 		return getValue("server");
 	}
 
-	public String getLuceneDirectory() {
-		return getValue("lucene");
-	}
-
 	public String getBitlyLogin() {
 		return getValue("bitly.login");
 	}

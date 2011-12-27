@@ -305,36 +305,32 @@ public class GeekBot extends PircBot {
 			return;
 		}
 
-		try {
-			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
-					+ "#" + method.getName());
+		LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
+				+ "#" + method.getName());
 
-			final Object commandInstance = container.instance()
-					.select(method.getDeclaringClass()).get();
+		final Object commandInstance = container.instance()
+				.select(method.getDeclaringClass()).get();
 
-			ExecutorService executor = Executors.newCachedThreadPool();
-			Runnable runnable = new Runnable() {
-				@Override
-				public void run() {
-					try {
-						Object result = null;
-						if (method.getParameterTypes().length == 0) {
-							result = method.invoke(commandInstance,
-									new Object[0]);
-						} else {
-							result = method.invoke(commandInstance, event);
-						}
-
-						handleResultOfInvoke(result);
-					} catch (Exception e) {
-						LOG.handle(e);
+		ExecutorService executor = Executors.newCachedThreadPool();
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Object result = null;
+					if (method.getParameterTypes().length == 0) {
+						result = method.invoke(commandInstance, new Object[0]);
+					} else {
+						result = method.invoke(commandInstance, event);
 					}
+
+					handleResultOfInvoke(result);
+				} catch (Exception e) {
+					LOG.handle(e);
 				}
-			};
-			executor.submit(runnable);
-		} catch (Exception e) {
-			LOG.handle(e);
-		}
+			}
+		};
+		executor.submit(runnable);
+
 	}
 
 	private TriggerEvent buildEvent() {

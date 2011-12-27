@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
@@ -27,7 +26,7 @@ import com.sun.syndication.io.XmlReader;
  * Polls for new images on Imgur
  * 
  */
-@BotCommand
+//@BotCommand
 public class ImgurGalleryCommand {
 
 	@Inject

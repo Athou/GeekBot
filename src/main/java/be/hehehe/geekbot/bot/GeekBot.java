@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -98,13 +99,14 @@ public class GeekBot extends PircBot {
 				@Override
 				public void run() {
 					try {
-						handleResultOfInvoke(invoke(method, buildEvent()));
+						invoke(method, buildEvent());
 					} catch (Exception e) {
 						LOG.handle(e);
 					}
 				}
 			};
-			scheduler.scheduleAtFixedRate(thread, 0, interval, timeUnit);
+			scheduler.scheduleAtFixedRate(thread, 1,
+					timeUnit.toMinutes(interval), TimeUnit.MINUTES);
 		}
 	}
 
@@ -187,60 +189,50 @@ public class GeekBot extends PircBot {
 	 * @param author
 	 */
 	private void handlePossibleTrigger(String message, String author) {
-		boolean triggered = false;
 
 		for (Method triggerMethod : triggers) {
 			Trigger trig = triggerMethod.getAnnotation(Trigger.class);
 			String trigger = trig.value();
 			String triggerStartsWith = trigger + " ";
 
-			Object result = null;
+			TriggerEvent triggerEvent = null;
 			switch (trig.type()) {
 
 			case EXACTMATCH:
 				if (StringUtils.equals(trigger, message)) {
-					TriggerEvent triggerEvent = buildEvent(message, author,
-							trigger);
-					result = invoke(triggerMethod, triggerEvent);
+					triggerEvent = buildEvent(message, author, trigger);
 				}
 				break;
 			case STARTSWITH:
 				if (StringUtils.startsWith(message, triggerStartsWith)) {
-					TriggerEvent triggerEvent = buildEvent(message, author,
+					triggerEvent = buildEvent(message, author,
 							triggerStartsWith);
-					result = invoke(triggerMethod, triggerEvent);
 				}
 				break;
 			case BOTNAME:
 				if (botNameInMessage(message)) {
-					TriggerEvent triggerEvent = buildEvent(message, author,
-							botName);
-					result = invoke(triggerMethod, triggerEvent);
+					triggerEvent = buildEvent(message, author, botName);
 				}
 				break;
 
 			case EVERYTHING:
 				if (!isMessageTrigger(message) && !botNameInMessage(message)) {
-					TriggerEvent triggerEvent = buildEvent(message, author,
-							null);
-					result = invoke(triggerMethod, triggerEvent);
+					triggerEvent = buildEvent(message, author, null);
 				}
 				break;
 			}
 
-			triggered |= handleResultOfInvoke(result);
+			invoke(triggerMethod, triggerEvent);
 		}
 
-		// nothing triggered so far, try to proc a random action
-		if (!triggered) {
+		if (!isMessageTrigger(message)) {
+			// this message is not a trigger, try to proc something randomly
 			for (Method random : randoms) {
 				int rand = new Random().nextInt(100) + 1;
 				int probability = random.getAnnotation(RandomAction.class)
 						.value();
 				if (rand <= probability) {
-					TriggerEvent triggerEvent = buildEvent(message, author,
-							null);
-					handleResultOfInvoke(invoke(random, triggerEvent));
+					invoke(random, buildEvent(message, author, null));
 					break;
 				}
 			}
@@ -302,30 +294,47 @@ public class GeekBot extends PircBot {
 	}
 
 	/**
-	 * Invoke the trigger
+	 * Invokes the trigger and handles its response.
 	 * 
 	 * @param method
 	 * @param args
 	 * @return
 	 */
-	private Object invoke(Method method, TriggerEvent event) {
-		Object result = null;
+	private void invoke(final Method method, final TriggerEvent event) {
+		if (event == null) {
+			return;
+		}
+
 		try {
 			LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 					+ "#" + method.getName());
 
-			Object commandInstance = container.instance()
+			final Object commandInstance = container.instance()
 					.select(method.getDeclaringClass()).get();
 
-			if (method.getParameterTypes().length == 0) {
-				result = method.invoke(commandInstance, new Object[0]);
-			} else {
-				result = method.invoke(commandInstance, event);
-			}
+			ExecutorService executor = Executors.newCachedThreadPool();
+			Runnable runnable = new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Object result = null;
+						if (method.getParameterTypes().length == 0) {
+							result = method.invoke(commandInstance,
+									new Object[0]);
+						} else {
+							result = method.invoke(commandInstance, event);
+						}
+
+						handleResultOfInvoke(result);
+					} catch (Exception e) {
+						LOG.handle(e);
+					}
+				}
+			};
+			executor.submit(runnable);
 		} catch (Exception e) {
 			LOG.handle(e);
 		}
-		return result;
 	}
 
 	private TriggerEvent buildEvent() {

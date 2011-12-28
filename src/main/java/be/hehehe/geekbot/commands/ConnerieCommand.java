@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
+import org.jibble.jmegahal.JMegaHal;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
@@ -16,6 +17,7 @@ import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.LOG;
 
 /**
  * Stores all lines spoken on the channel. The bot will also give one of those
@@ -84,6 +86,15 @@ public class ConnerieCommand {
 			}
 		}
 		return r;
+	}
+
+	@Trigger(value = "!pouet")
+	public String buildSentence() {
+		JMegaHal hal = new JMegaHal();
+		for (Connerie connerie : dao.findAll()) {
+			hal.add(connerie.getValue());
+		}
+		return hal.getSentence();
 	}
 
 }

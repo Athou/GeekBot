@@ -87,14 +87,4 @@ public class ConnerieCommand {
 		}
 		return r;
 	}
-
-	@Trigger(value = "!pouet")
-	public String buildSentence() {
-		JMegaHal hal = new JMegaHal();
-		for (Connerie connerie : dao.findAll()) {
-			hal.add(connerie.getValue());
-		}
-		return hal.getSentence();
-	}
-
 }

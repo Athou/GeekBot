@@ -186,14 +186,6 @@
 			<artifactId>slf4j-ext</artifactId>
 			<version>1.6.4</version>
 		</dependency>
-		<dependency>
-			<groupId>jmegahal</groupId>
-			<artifactId>jmegahal</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/JMegaHal.jar</systemPath>
-		</dependency>
-
 
 		<dependency>
 			<groupId>junit</groupId>

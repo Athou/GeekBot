@@ -354,20 +354,16 @@ public class GeekBot extends PircBot {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	private boolean handleResultOfInvoke(Object o) {
-		boolean triggered = false;
+	private void handleResultOfInvoke(Object o) {
 		if (o != null) {
 			if (o instanceof String) {
 				String message = (String) o;
-				triggered = StringUtils.isNotBlank(message);
 				sendMessage(message);
 			} else if (o instanceof List<?>) {
 				List<String> messages = (List<String>) o;
-				triggered = !messages.isEmpty();
 				sendMessages(messages);
 			}
 		}
-		return triggered;
 	}
 
 	private void sendMessages(List<String> list) {

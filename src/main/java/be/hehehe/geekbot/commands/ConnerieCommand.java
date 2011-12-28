@@ -91,7 +91,7 @@ public class ConnerieCommand {
 	@Trigger(value = "!pouet")
 	public String buildSentence() {
 		JMegaHal hal = new JMegaHal();
-		for (Connerie connerie : dao.findAll()) {
+		for (Connerie connerie : dao.findAll(1000, 5000)) {
 			hal.add(connerie.getValue());
 		}
 		return hal.getSentence();

@@ -1,7 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.IOException;
-
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.LOG;
@@ -13,7 +11,7 @@ public class UpdateCommand {
 		String message = "";
 		try {
 			Runtime.getRuntime().exec("sh update.sh");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOG.handle(e);
 			message = "Could not update !";
 		}

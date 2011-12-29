@@ -88,7 +88,6 @@ public class HoroscopeCommand {
 		String result = "";
 		for (int i = 0; i < 3; i++) {
 			String generated = hal.getSentence();
-			System.out.println(generated.charAt(generated.length() - 1));
 			if (Character.isLetter(generated.charAt(generated.length() - 1))) {
 				generated += ".";
 			}

@@ -16,9 +16,17 @@ $Id: JMegaHal.java,v 1.4 2004/02/01 13:24:06 pjm2 Exp $
 
 package org.jibble.jmegahal;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Random;
 
 @SuppressWarnings("serial")
 public class JMegaHal implements Serializable {
@@ -43,7 +51,7 @@ public class JMegaHal implements Serializable {
 	public void addDocument(String uri) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				new URL(uri).openStream()));
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		int ch = 0;
 		while ((ch = reader.read()) != -1) {
 			buffer.append((char) ch);
@@ -52,7 +60,7 @@ public class JMegaHal implements Serializable {
 				sentence = sentence.replace('\r', ' ');
 				sentence = sentence.replace('\n', ' ');
 				add(sentence);
-				buffer = new StringBuffer();
+				buffer = new StringBuilder();
 			}
 		}
 		add(buffer.toString());
@@ -69,7 +77,7 @@ public class JMegaHal implements Serializable {
 		char[] chars = sentence.toCharArray();
 		int i = 0;
 		boolean punctuation = false;
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		while (i < chars.length) {
 			char ch = chars[i];
 			if ((WORD_CHARS.indexOf(ch) >= 0) == punctuation) {
@@ -78,7 +86,7 @@ public class JMegaHal implements Serializable {
 				if (token.length() > 0) {
 					parts.add(token);
 				}
-				buffer = new StringBuffer();
+				buffer = new StringBuilder();
 				// i++;
 				continue;
 			}
@@ -195,7 +203,7 @@ public class JMegaHal implements Serializable {
 			parts.addFirst(previousToken);
 		}
 
-		StringBuffer sentence = new StringBuffer();
+		StringBuilder sentence = new StringBuilder();
 		Iterator<String> it = parts.iterator();
 		while (it.hasNext()) {
 			String token = (String) it.next();

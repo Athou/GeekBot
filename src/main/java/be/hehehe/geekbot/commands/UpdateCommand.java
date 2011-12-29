@@ -8,7 +8,7 @@ import be.hehehe.geekbot.utils.LOG;
 public class UpdateCommand {
 	@Trigger(value = "!update")
 	public String update() {
-		String message = "";
+		String message = "brb";
 		try {
 			Runtime.getRuntime().exec("sh update.sh");
 		} catch (Exception e) {

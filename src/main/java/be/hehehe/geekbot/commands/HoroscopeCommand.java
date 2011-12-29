@@ -80,9 +80,23 @@ public class HoroscopeCommand {
 		JMegaHal hal = new JMegaHal();
 		for (String id : mapping.values()) {
 			String line = getLineFor(doc, id);
-			hal.add(line);
+			for (String sentence : line.split("\\.")) {
+				hal.add(sentence.trim());
+			}
 		}
-		return hal.getSentence();
+
+		String result = "";
+		for (int i = 0; i < 3; i++) {
+			String generated = hal.getSentence();
+			System.out.println(generated.charAt(generated.length() - 1));
+			if (Character.isLetter(generated.charAt(generated.length() - 1))) {
+				generated += ".";
+			}
+			generated += " ";
+			result += generated;
+		}
+
+		return result;
 	}
 
 	private String getLineFor(Document doc, String id) {

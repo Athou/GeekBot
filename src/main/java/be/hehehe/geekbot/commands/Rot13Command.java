@@ -2,6 +2,8 @@ package be.hehehe.geekbot.commands;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.LOG;
 
 @BotCommand

@@ -19,7 +19,7 @@ public class Rot13Command {
 				c -= 13;
 			else if (c >= 'A' && c <= 'M')
 				c += 13;
-			else if (c >= 'A' && c <= 'Z')
+			else if (c >= 'N' && c <= 'Z')
 				c -= 13;
 			message.append(c);
 		}

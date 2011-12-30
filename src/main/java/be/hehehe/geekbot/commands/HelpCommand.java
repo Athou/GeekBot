@@ -14,6 +14,7 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 import com.google.common.collect.Lists;
@@ -43,13 +44,14 @@ public class HelpCommand {
 	}
 
 	@Trigger(value = "!help", type = TriggerType.STARTSWITH)
-	public List<String> helpCommand() {
+	public List<String> helpCommand(TriggerEvent event) {
 		List<String> result = Lists.newArrayList();
 		for (Method m : triggers) {
 			if (m.isAnnotationPresent(Help.class)) {
 				Trigger trigger = m.getAnnotation(Trigger.class);
 				String help = m.getAnnotation(Help.class).value();
-				if (StringUtils.isNotBlank(help)) {
+				if (StringUtils.equals(event.getMessage(), trigger.value())
+						&& StringUtils.isNotBlank(help)) {
 					TriggerType type = trigger.type();
 					String line = trigger.value();
 					if (type == TriggerType.STARTSWITH) {

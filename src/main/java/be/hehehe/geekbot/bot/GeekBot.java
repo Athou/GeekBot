@@ -45,11 +45,11 @@ public class GeekBot extends PircBot {
 	private List<Method> randoms;
 
 	@Inject
-	ScannerService scannerService;
+	GeekBotCDIExtension extension;
 
 	@Inject
 	BundleService bundleService;
-	
+
 	@Inject
 	BotUtilsService utilsService;
 
@@ -65,9 +65,9 @@ public class GeekBot extends PircBot {
 		try {
 
 			// scan for commands
-			triggers = scannerService.scanTriggers();
-			randoms = scannerService.scanRandom();
-			startTimers(scannerService.scanTimers());
+			triggers = extension.getTriggers();
+			randoms = extension.getRandoms();
+			startTimers(extension.getTimers());
 
 			startChangeNickThread();
 
@@ -348,7 +348,8 @@ public class GeekBot extends PircBot {
 				Arrays.asList(getUsers(channel)),
 				new BeanToPropertyValueTransformer("nick"));
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
-				users, utilsService.extractURL(message), nickInMessage(message), botNameInMessage(message),
+				users, utilsService.extractURL(message),
+				nickInMessage(message), botNameInMessage(message),
 				isMessageTrigger(message));
 		return event;
 	}

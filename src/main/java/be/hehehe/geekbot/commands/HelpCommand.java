@@ -50,16 +50,15 @@ public class HelpCommand {
 			if (m.isAnnotationPresent(Help.class)) {
 				Trigger trigger = m.getAnnotation(Trigger.class);
 				String help = m.getAnnotation(Help.class).value();
-				if (StringUtils.equals(event.getMessage(), trigger.value())
+				if (StringUtils.equals(event.getMessage().trim(),
+						trigger.value())
 						&& StringUtils.isNotBlank(help)) {
-					TriggerType type = trigger.type();
-					String line = trigger.value();
-					if (type == TriggerType.STARTSWITH) {
-						line += " <arguments>";
+					StringBuilder line = new StringBuilder(trigger.value());
+					if (trigger.type() == TriggerType.STARTSWITH) {
+						line.append(" <arguments>");
 					}
-					line += " : ";
-					line = IRCUtils.bold(line);
-					line += help;
+					line.append(" : ");
+					result.add(IRCUtils.bold(line.toString()) + help);
 				}
 			}
 		}

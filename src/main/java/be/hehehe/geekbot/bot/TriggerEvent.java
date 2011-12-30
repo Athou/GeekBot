@@ -35,6 +35,20 @@ public interface TriggerEvent {
 	public Collection<String> getUsers();
 
 	/**
+	 * Returns true if the message contains an url.
+	 * 
+	 * @return true if an url was found in the message.
+	 */
+	public boolean hasURL();
+
+	/**
+	 * Returns the first url found in the message.
+	 * 
+	 * @return the first url found in the message.
+	 */
+	public String getURL();
+
+	/**
 	 * Returns true if the message contains a nickname from one of the users on
 	 * the chan
 	 * 

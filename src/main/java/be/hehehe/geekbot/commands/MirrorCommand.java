@@ -31,9 +31,6 @@ public class MirrorCommand {
 	private static String LASTURL;
 
 	@Inject
-	BotUtilsService utilsService;
-
-	@Inject
 	BundleService bundleService;
 
 	@Trigger("!mirror")
@@ -54,9 +51,8 @@ public class MirrorCommand {
 	@Trigger(type = TriggerType.EVERYTHING)
 	public String storeLastURL(TriggerEvent event) {
 
-		String url = utilsService.extractURL(event.getMessage());
-		if (url != null) {
-			LASTURL = url;
+		if (event.hasURL()) {
+			LASTURL = event.getURL();
 		}
 		return null;
 	}

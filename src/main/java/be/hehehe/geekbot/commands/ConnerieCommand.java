@@ -14,7 +14,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
-import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 /**
@@ -27,17 +26,13 @@ import be.hehehe.geekbot.utils.IRCUtils;
 public class ConnerieCommand {
 
 	@Inject
-	BotUtilsService utilsService;
-
-	@Inject
 	ConnerieDAO dao;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> storeEveryLines(TriggerEvent event) {
 		String message = event.getMessage();
 		List<String> result = new ArrayList<String>();
-		String url = utilsService.extractURL(message);
-		if (url == null) {
+		if (!event.hasURL()) {
 			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
 					&& !event.isStartsWithTrigger()) {

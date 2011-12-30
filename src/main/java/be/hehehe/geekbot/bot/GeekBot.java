@@ -30,6 +30,7 @@ import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -48,6 +49,9 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	BundleService bundleService;
+	
+	@Inject
+	BotUtilsService utilsService;
 
 	@Inject
 	WeldContainer container;
@@ -344,7 +348,7 @@ public class GeekBot extends PircBot {
 				Arrays.asList(getUsers(channel)),
 				new BeanToPropertyValueTransformer("nick"));
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
-				users, nickInMessage(message), botNameInMessage(message),
+				users, utilsService.extractURL(message), nickInMessage(message), botNameInMessage(message),
 				isMessageTrigger(message));
 		return event;
 	}

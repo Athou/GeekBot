@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import javax.inject.Inject;
 
-import org.h2.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;

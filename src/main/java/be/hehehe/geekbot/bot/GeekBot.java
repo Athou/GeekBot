@@ -2,10 +2,8 @@ package be.hehehe.geekbot.bot;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -30,9 +28,9 @@ import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
 
 @Singleton
@@ -41,6 +39,8 @@ public class GeekBot extends PircBot {
 	private String botName;
 
 	private String channel;
+	@Inject
+	@Triggers
 	private List<Method> triggers;
 	private List<Method> randoms;
 
@@ -65,7 +65,7 @@ public class GeekBot extends PircBot {
 		try {
 
 			// scan for commands
-			triggers = extension.getTriggers();
+			//triggers = extension.getTriggers();
 			randoms = extension.getRandoms();
 			startTimers(extension.getTimers());
 
@@ -132,11 +132,8 @@ public class GeekBot extends PircBot {
 	protected void onMessage(String channel, String sender, String login,
 			String hostname, String message) {
 
-		if (message.equalsIgnoreCase("!help")) {
-			printHelp();
-		} else {
-			handlePossibleTrigger(message, sender);
-		}
+		handlePossibleTrigger(message, sender);
+
 	}
 
 	@Override
@@ -165,25 +162,6 @@ public class GeekBot extends PircBot {
 		if (recipientNick.equals(botName)) {
 			this.joinChannel(channel);
 		}
-	}
-
-	/**
-	 * Print available triggers
-	 */
-	private void printHelp() {
-		List<String> result = new ArrayList<String>();
-		result.add(IRCUtils.bold("Triggers: "));
-		LinkedHashSet<String> set = new LinkedHashSet<String>();
-		for (Method m : triggers) {
-			Trigger trigger = m.getAnnotation(Trigger.class);
-			TriggerType type = trigger.type();
-			if (type == TriggerType.EXACTMATCH
-					|| type == TriggerType.STARTSWITH) {
-				set.add(trigger.value().trim());
-			}
-		}
-		result.add(StringUtils.join(set, " "));
-		sendMessages(result);
 	}
 
 	/**

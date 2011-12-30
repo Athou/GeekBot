@@ -124,6 +124,9 @@ public class BotUtilsService {
 	 */
 	public String extractURL(String message) {
 		String url = null;
+		if (message == null) {
+			return null;
+		}
 		for (String s : message.split(" ")) {
 			if (s.contains("http://") || s.contains("https://")
 					|| s.contains("www.")) {

@@ -68,7 +68,7 @@ public class ConnerieCommand {
 	}
 
 	@Trigger(value = "!stat", type = TriggerType.STARTSWITH)
-	@Help("Count for the given arguments in our database.")
+	@Help("Count for sentences containing the given arguments in our database.")
 	public String getStatCount(TriggerEvent event) {
 		String r = null;
 		String keywords = event.getMessage();

@@ -12,6 +12,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -39,8 +40,6 @@ public class GeekBot extends PircBot {
 	private String botName;
 
 	private String channel;
-	@Inject
-	@Triggers
 	private List<Method> triggers;
 	private List<Method> randoms;
 
@@ -65,7 +64,7 @@ public class GeekBot extends PircBot {
 		try {
 
 			// scan for commands
-			//triggers = extension.getTriggers();
+			triggers = extension.getTriggers();
 			randoms = extension.getRandoms();
 			startTimers(extension.getTimers());
 
@@ -368,4 +367,10 @@ public class GeekBot extends PircBot {
 		}
 		sendMessage(channel, message);
 	}
+
+	@Produces @Triggers
+	public List<Method> getTriggers() {
+		return triggers;
+	}
+	
 }

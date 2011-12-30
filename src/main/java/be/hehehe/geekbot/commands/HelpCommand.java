@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
@@ -25,7 +26,7 @@ public class HelpCommand {
 	List<Method> triggers;
 
 	@Trigger(value = "!help")
-	public List<String> help() {
+	public List<String> helpGeneral() {
 		List<String> result = Lists.newArrayList();
 		result.add(IRCUtils.bold("Triggers: "));
 		Set<String> set = new LinkedHashSet<String>();
@@ -38,6 +39,28 @@ public class HelpCommand {
 			}
 		}
 		result.add(StringUtils.join(set, " "));
+		return result;
+	}
+
+	@Trigger(value = "!help", type = TriggerType.STARTSWITH)
+	public List<String> helpCommand() {
+		List<String> result = Lists.newArrayList();
+		for (Method m : triggers) {
+			if (m.isAnnotationPresent(Help.class)) {
+				Trigger trigger = m.getAnnotation(Trigger.class);
+				String help = m.getAnnotation(Help.class).value();
+				if (StringUtils.isNotBlank(help)) {
+					TriggerType type = trigger.type();
+					String line = trigger.value();
+					if (type == TriggerType.STARTSWITH) {
+						line += " <arguments>";
+					}
+					line += " : ";
+					line = IRCUtils.bold(line);
+					line += help;
+				}
+			}
+		}
 		return result;
 	}
 }

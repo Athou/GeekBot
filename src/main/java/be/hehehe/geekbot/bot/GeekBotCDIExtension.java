@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
@@ -12,7 +11,6 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
-import be.hehehe.geekbot.annotations.Triggers;
 
 import com.google.common.collect.Lists;
 
@@ -44,8 +42,6 @@ public class GeekBotCDIExtension implements Extension {
 		}
 	}
 
-	@Produces
-	@Triggers
 	public List<Method> getTriggers() {
 		return triggers;
 	}

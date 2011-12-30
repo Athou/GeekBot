@@ -13,7 +13,12 @@ public class TriggerEventImpl implements TriggerEvent {
 	private boolean startsWithTrigger;
 
 	public TriggerEventImpl(String messageWithoutTrigger) {
+		this(messageWithoutTrigger, null);
+	}
+	
+	public TriggerEventImpl(String messageWithoutTrigger, String url) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
+		this.url = url;
 	}
 
 	public TriggerEventImpl(String message, String author, String trigger,

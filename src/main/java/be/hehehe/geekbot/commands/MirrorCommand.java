@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -33,6 +34,7 @@ public class MirrorCommand {
 	BundleService bundleService;
 
 	@Trigger("!mirror")
+	@Help("Mirrors the last image pasted on the chan.")
 	public String getMirrorImage() {
 		String result = null;
 		if (LASTURL != null) {
@@ -42,6 +44,7 @@ public class MirrorCommand {
 	}
 
 	@Trigger(value = "!mirror", type = TriggerType.STARTSWITH)
+	@Help("Mirrors the given url.")
 	public String getMirrorImage2(TriggerEvent event) {
 		String result = handleImage(event.getMessage());
 		return result;
@@ -49,7 +52,6 @@ public class MirrorCommand {
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public String storeLastURL(TriggerEvent event) {
-
 		if (event.hasURL()) {
 			LASTURL = event.getURL();
 		}

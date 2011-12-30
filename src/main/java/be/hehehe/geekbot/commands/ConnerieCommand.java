@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -67,6 +68,7 @@ public class ConnerieCommand {
 	}
 
 	@Trigger(value = "!stat", type = TriggerType.STARTSWITH)
+	@Help("Count for the given arguments in our database.")
 	public String getStatCount(TriggerEvent event) {
 		String r = null;
 		String keywords = event.getMessage();

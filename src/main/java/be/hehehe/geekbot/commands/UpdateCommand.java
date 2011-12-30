@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
@@ -28,6 +29,7 @@ public class UpdateCommand {
 	BotUtilsService utilsService;
 
 	@Trigger(value = "!update")
+	@Help("Update from GitHub and restarts the bot.")
 	public String update() {
 		restart();
 		return "brb";

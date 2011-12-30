@@ -12,6 +12,7 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -28,6 +29,7 @@ public class VDMCommand {
 	BundleService bundleService;
 
 	@Trigger("!vdm")
+	@Help("Prints a random VDM.")
 	public List<String> getRandomVDM() {
 		List<String> toReturn = new ArrayList<String>();
 		String key = bundleService.getVDMApiKey();

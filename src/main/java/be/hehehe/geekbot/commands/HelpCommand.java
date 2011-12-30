@@ -27,6 +27,7 @@ public class HelpCommand {
 	List<Method> triggers;
 
 	@Trigger(value = "!help")
+	@Help("Prints all triggers.")
 	public List<String> helpGeneral() {
 		List<String> result = Lists.newArrayList();
 		result.add(IRCUtils.bold("Triggers: "));

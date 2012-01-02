@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.jsoup.Jsoup;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
@@ -24,7 +25,7 @@ import com.sun.syndication.io.XmlReader;
 
 /**
  * Fetches a random post from jeanmarcmorandini.com (French)
- *
+ * 
  */
 @BotCommand
 public class BuzzCommand {
@@ -37,6 +38,7 @@ public class BuzzCommand {
 
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")
+	@Help("Fetches one of the latest posts from jeanmarcmorandini.com")
 	public List<String> getLatestBuzz() {
 		List<String> toReturn = new ArrayList<String>();
 		try {

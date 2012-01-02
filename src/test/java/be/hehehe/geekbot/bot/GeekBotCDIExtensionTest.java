@@ -10,23 +10,23 @@ import org.junit.runner.RunWith;
 import be.hehehe.geekbot.WeldRunner;
 
 @RunWith(WeldRunner.class)
-public class ScannerServiceTest {
+public class GeekBotCDIExtensionTest {
 
 	@Inject
-	private ScannerService scannerService;
+	private GeekBotCDIExtension extension;
 
 	@Test
 	public void testTriggers() {
-		Assert.assertTrue(scannerService.scanTriggers().size() > 0);
+		Assert.assertTrue(extension.getTriggers().size() > 0);
 	}
 
 	@Test
 	public void testRandoms() {
-		Assert.assertTrue(scannerService.scanRandom().size() > 0);
+		Assert.assertTrue(extension.getRandoms().size() > 0);
 	}
 
 	@Test
 	public void testTimers() {
-		Assert.assertTrue(scannerService.scanTimers().size() > 0);
+		Assert.assertTrue(extension.getTimers().size() > 0);
 	}
 }

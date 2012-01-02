@@ -33,8 +33,8 @@ public class URLContentCommand {
 	public List<String> handleLinks(TriggerEvent event) {
 		List<String> result = new ArrayList<String>();
 
-		String url = utilsService.extractURL(event.getMessage());
-		if (url != null) {
+		if (event.hasURL()) {
+			String url = event.getURL();
 			// youtube
 			if (url.contains("youtube.com") || url.contains("youtu.be")) {
 				String videoParam = null;

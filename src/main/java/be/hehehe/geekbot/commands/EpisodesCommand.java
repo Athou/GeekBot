@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -36,6 +37,7 @@ public class EpisodesCommand {
 	BotUtilsService utilsService;
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
+	@Help("Information about a TV show from TVRage.com")
 	public List<String> getNextEpisode(TriggerEvent event) {
 		String seriesName = event.getMessage();
 		Map<String, String> showInfos = new HashMap<String, String>();

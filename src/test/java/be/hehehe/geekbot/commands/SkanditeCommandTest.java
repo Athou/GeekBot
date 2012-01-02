@@ -20,7 +20,8 @@ public class SkanditeCommandTest {
 
 	@Test
 	public void skanditeTest() {
-		TriggerEvent event = new TriggerEventImpl("http://www.commabeat.com");
+		TriggerEvent event = new TriggerEventImpl("http://www.commabeat.com",
+				"http://www.commabeat.com");
 		List<String> result = skanditeCommand.handleSkandites(event);
 		Assert.assertTrue(result.isEmpty());
 		result = skanditeCommand.handleSkandites(event);

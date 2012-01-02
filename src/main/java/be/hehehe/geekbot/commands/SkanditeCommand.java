@@ -34,8 +34,8 @@ public class SkanditeCommand {
 	public List<String> handleSkandites(TriggerEvent event) {
 
 		List<String> result = new ArrayList<String>();
-		String url = utilsService.extractURL(event.getMessage());
-		if (url != null) {
+		if (event.hasURL()) {
+			String url = event.getURL();
 			Skandite skandite = dao.findByURL(url);
 			HashAndByteCount hashAndByteCount = null;
 			if (skandite == null) {

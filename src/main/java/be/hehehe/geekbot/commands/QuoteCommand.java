@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -26,6 +27,7 @@ public class QuoteCommand {
 	QuoteDAO dao;
 
 	@Trigger("!quote")
+	@Help("Prints a random quote.")
 	public String getRandomQuote() {
 		int rand = new Random().nextInt((int) dao.getCount()) + 1;
 		return IRCUtils.bold("" + rand) + ". "
@@ -33,6 +35,7 @@ public class QuoteCommand {
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
+	@Help("Prints the specified quote.")
 	public List<String> getQuote(TriggerEvent event)
 			throws NumberFormatException {
 		String quoteIds = event.getMessage();
@@ -51,12 +54,14 @@ public class QuoteCommand {
 	}
 
 	@Trigger(value = "!addquote", type = TriggerType.STARTSWITH)
+	@Help("Add the quote in the system.")
 	public String addQuote(TriggerEvent event) {
 		dao.save(new Quote(event.getMessage()));
 		return "Quote added: " + (dao.getCount());
 	}
 
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
+	@Help("Prints a list of quotes matching the giben keywords.")
 	public String findQuote(TriggerEvent event) {
 		List<String> keywordList = Arrays.asList(event.getMessage()
 				.split("[ ]"));

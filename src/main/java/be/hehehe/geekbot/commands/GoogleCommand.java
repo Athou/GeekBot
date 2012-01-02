@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -60,21 +61,25 @@ public class GoogleCommand {
 	}
 
 	@Trigger(value = "!google", type = TriggerType.STARTSWITH)
+	@Help("Google search.")
 	public List<String> google(TriggerEvent event) {
 		return google(event.getMessage(), Lang.ENGLISH, Mode.WEB);
 	}
 
 	@Trigger(value = "!googlefr", type = TriggerType.STARTSWITH)
+	@Help("Google search (French).")
 	public List<String> googlefr(TriggerEvent event) {
 		return google(event.getMessage(), Lang.FRENCH, Mode.WEB);
 	}
 
 	@Trigger(value = "!image", type = TriggerType.STARTSWITH)
+	@Help("Google Image search.")
 	public List<String> image(TriggerEvent event) {
 		return google(event.getMessage(), Lang.ENGLISH, Mode.IMAGE);
 	}
 
 	@Trigger(value = "!imagefr", type = TriggerType.STARTSWITH)
+	@Help("Google Image search (French).")
 	public List<String> imagefr(TriggerEvent event) {
 		return google(event.getMessage(), Lang.FRENCH, Mode.IMAGE);
 	}

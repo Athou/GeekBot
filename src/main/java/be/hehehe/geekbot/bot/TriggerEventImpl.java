@@ -7,20 +7,27 @@ public class TriggerEventImpl implements TriggerEvent {
 	private String author;
 	private String messageWithoutTrigger;
 	private Collection<String> users;
+	private String url;
 	private boolean nickInMessage;
 	private boolean botInMessage;
 	private boolean startsWithTrigger;
 
 	public TriggerEventImpl(String messageWithoutTrigger) {
+		this(messageWithoutTrigger, null);
+	}
+	
+	public TriggerEventImpl(String messageWithoutTrigger, String url) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
+		this.url = url;
 	}
 
 	public TriggerEventImpl(String message, String author, String trigger,
-			Collection<String> users, boolean nickInMessage,
+			Collection<String> users, String url, boolean nickInMessage,
 			boolean botInMessage, boolean startsWithTrigger) {
 		this.message = message;
 		this.author = author;
 		this.users = users;
+		this.url = url;
 		this.nickInMessage = nickInMessage;
 		this.botInMessage = botInMessage;
 		this.startsWithTrigger = startsWithTrigger;
@@ -49,6 +56,16 @@ public class TriggerEventImpl implements TriggerEvent {
 	}
 
 	@Override
+	public boolean hasURL() {
+		return url != null;
+	}
+
+	@Override
+	public String getURL() {
+		return url;
+	}
+
+	@Override
 	public boolean isNickInMessage() {
 		return nickInMessage;
 	}
@@ -66,10 +83,6 @@ public class TriggerEventImpl implements TriggerEvent {
 	@Override
 	public boolean isStartsWithTrigger() {
 		return startsWithTrigger;
-	}
-
-	public void setStartsWithTrigger(boolean startsWithTrigger) {
-		this.startsWithTrigger = startsWithTrigger;
 	}
 
 }

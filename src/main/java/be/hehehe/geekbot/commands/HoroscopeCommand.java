@@ -11,6 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -46,6 +47,7 @@ public class HoroscopeCommand {
 	}
 
 	@Trigger(value = "!horoscope", type = TriggerType.EXACTMATCH)
+	@Help("Prints help on how to use this command.")
 	public String getHoroscopeHelp() {
 		return IRCUtils.bold("!horoscope <signe>")
 				+ " - Available signs : belier, taureau, gemeaux, cancer, lion, vierge, balance, scorpion, sagittaire, capricorne, verseau, poisson, random";
@@ -80,9 +82,22 @@ public class HoroscopeCommand {
 		JMegaHal hal = new JMegaHal();
 		for (String id : mapping.values()) {
 			String line = getLineFor(doc, id);
-			hal.add(line);
+			for (String sentence : line.split("\\.")) {
+				hal.add(sentence.trim());
+			}
 		}
-		return hal.getSentence();
+
+		String result = "";
+		for (int i = 0; i < 3; i++) {
+			String generated = hal.getSentence();
+			if (Character.isLetter(generated.charAt(generated.length() - 1))) {
+				generated += ".";
+			}
+			generated += " ";
+			result += generated;
+		}
+
+		return result;
 	}
 
 	private String getLineFor(Document doc, String id) {

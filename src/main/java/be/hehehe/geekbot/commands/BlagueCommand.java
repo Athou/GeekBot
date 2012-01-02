@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -28,14 +29,14 @@ public class BlagueCommand {
 	BotUtilsService utilsService;
 
 	@Trigger("!blague")
+	@Help("Fetches a random blague from la-blague-du-jour.com")
 	public List<String> getRandomBlague() {
 		List<String> toReturn = new ArrayList<String>();
 		try {
 			String url = "http://www.la-blague-du-jour.com/blagues_au_hasard/Une_blague_aleatoire.html";
 			Document doc = Jsoup.parse(utilsService.getContent(url));
 
-			String cat = doc.select("p.Paratexte").select("b").select("a")
-					.text();
+			String cat = doc.select("p.Paratexte b a").text();
 			if (cat.startsWith("Monsieur et Madame")) {
 				return getRandomBlague();
 			}

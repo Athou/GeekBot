@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
@@ -34,6 +35,7 @@ public class IMDBCommand {
 	GoogleCommand googleCommand;
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
+	@Help("IMDb Movie search.")
 	public List<String> getResult(TriggerEvent event) {
 		String keywords = event.getMessage();
 		List<String> googleResult = googleCommand.google(

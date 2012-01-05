@@ -85,23 +85,34 @@ public class URLContentCommand {
 			// twitter
 
 			if (url.contains("twitter.com") && url.contains("/status/")) {
-				String statusId = utilsService.extractIDFromYoutuDotBeURL(url);
-				String data = "https://api.twitter.com/1/statuses/show.json?id="
-						+ statusId + "&include_entities=true";
-				String content = utilsService.getContent(data);
-				String name = null;
-				String text = null;
 
-				try {
-					JSONObject root = new JSONObject(content);
-					name = root.getJSONObject("user").getString("name");
-					text = root.getString("text");
-				} catch (Exception e) {
-					LOG.handle(e);
+				String[] split = url.split("/");
+				String statusId = null;
+				for (int i = 0; i < split.length; i++) {
+					String token = split[i];
+					if ("status".equals(token) && i + 1 < split.length) {
+						statusId = split[i + 1];
+						break;
+					}
 				}
-				String line = IRCUtils.bold(name + ": ") + text;
-				result.add(line);
+				if (statusId != null) {
+					String data = "https://api.twitter.com/1/statuses/show.json?id="
+							+ statusId + "&include_entities=true";
+					String content = utilsService.getContent(data);
+					String name = null;
+					String text = null;
 
+					try {
+						JSONObject root = new JSONObject(content);
+						name = root.getJSONObject("user").getString("name");
+						text = root.getString("text");
+					} catch (Exception e) {
+						LOG.handle(e);
+					}
+					String line = IRCUtils.bold(name + ": ") + text;
+					result.add(line);
+
+				}
 			}
 		}
 		return result;

@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -68,23 +72,32 @@ public abstract class GenericDAO<T> {
 		return crit.list();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		return createCriteria().list();
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(genericType);
+		query.from(genericType);
+		return em.createQuery(query).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(int startIndex, int count) {
-		Criteria crit = createCriteria();
-		crit.setMaxResults(count);
-		crit.setFirstResult(startIndex);
-		return crit.list();
+
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(genericType);
+		query.from(genericType);
+		TypedQuery<T> q = em.createQuery(query);
+		q.setMaxResults(count);
+		q.setFirstResult(startIndex);
+		return q.getResultList();
+
 	}
 
 	public long getCount() {
-		Number number = (Number) createCriteria().setProjection(
-				Projections.rowCount()).uniqueResult();
-		return number.longValue();
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Long> query = builder.createQuery(Long.class);
+		Root<T> root = query.from(genericType);
+		query.select(builder.count(root));
+		return em.createQuery(query).getSingleResult();
 	}
 
 	protected Session getSession() {

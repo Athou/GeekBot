@@ -49,6 +49,9 @@ public class QuoteCommandTest {
 		expected = IRCUtils.bold("2") + ". " + QUOTE2;
 		actual = quoteCommand.getQuote(event).iterator().next();
 		Assert.assertEquals(expected, actual);
+		
+		Assert.assertEquals(2, dao.findAll().size());
+		Assert.assertEquals(2, dao.getCount());
 	}
 
 	@Test

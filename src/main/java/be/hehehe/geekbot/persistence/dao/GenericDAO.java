@@ -11,9 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-
 import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
 public abstract class GenericDAO<T> {
@@ -97,14 +94,6 @@ public abstract class GenericDAO<T> {
 		Root<T> root = query.from(genericType);
 		query.where(builder.equal(root.get(field), value));
 		return em.createQuery(query).getResultList();
-	}
-
-	protected Session getSession() {
-		return (Session) em.getDelegate();
-	}
-
-	protected Criteria createCriteria() {
-		return getSession().createCriteria(genericType);
 	}
 
 }

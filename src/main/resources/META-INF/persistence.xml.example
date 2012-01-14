@@ -6,7 +6,6 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/geekbot" />
-			<property name="hibernate.default_schema" value="geekbot" />
 			<property name="javax.persistence.jdbc.user" value="geekbot" />
 			<property name="javax.persistence.jdbc.password" value="geekbot" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />

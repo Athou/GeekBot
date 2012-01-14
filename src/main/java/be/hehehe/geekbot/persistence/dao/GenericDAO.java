@@ -12,14 +12,13 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Projections;
 
 import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
 public abstract class GenericDAO<T> {
 
 	protected static EntityManager em;
+	protected CriteriaBuilder builder;
 	private Class<T> genericType;
 
 	@SuppressWarnings("unchecked")
@@ -29,6 +28,7 @@ public abstract class GenericDAO<T> {
 				.getGenericSuperclass();
 		genericType = (Class<T>) type.getActualTypeArguments()[0];
 		em = EntityManagerHelper.createEntityManager();
+		builder = em.getCriteriaBuilder();
 	}
 
 	public void save(T object) {
@@ -64,14 +64,6 @@ public abstract class GenericDAO<T> {
 		return t;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<T> findByExample(T exampleInstance) {
-		Criteria crit = createCriteria();
-		Example example = Example.create(exampleInstance);
-		crit.add(example);
-		return crit.list();
-	}
-
 	public List<T> findAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<T> query = builder.createQuery(genericType);
@@ -79,7 +71,6 @@ public abstract class GenericDAO<T> {
 		return em.createQuery(query).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> findAll(int startIndex, int count) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();

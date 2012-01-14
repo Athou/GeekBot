@@ -3,11 +3,16 @@ package be.hehehe.geekbot.persistence.dao;
 import java.util.List;
 
 import javax.inject.Singleton;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
+import com.google.common.collect.Iterables;
+
 import be.hehehe.geekbot.persistence.model.Quote;
+import be.hehehe.geekbot.persistence.model.Quote_;
 
 @Singleton
 public class QuoteDAO extends GenericDAO<Quote> {
@@ -40,7 +45,12 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	}
 
 	public Quote findByNumber(int number) {
-		return (Quote) createCriteria().add(Restrictions.eq("number", number))
-				.uniqueResult();
+		CriteriaQuery<Quote> query = builder.createQuery(Quote.class);
+		Root<Quote> root = query.from(Quote.class);
+		query.where(builder.equal(root.get(Quote_.number), number));
+		return Iterables.getOnlyElement(em.createQuery(query).getResultList());
+
+//		return (Quote) createCriteria().add(Restrictions.eq("number", number))
+//				.uniqueResult();
 	}
 }

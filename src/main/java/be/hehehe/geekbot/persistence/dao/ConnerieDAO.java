@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 import javax.inject.Singleton;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import be.hehehe.geekbot.persistence.model.Connerie;
+import be.hehehe.geekbot.persistence.model.Connerie_;
+
+import com.google.common.collect.Lists;
 
 @Singleton
 public class ConnerieDAO extends GenericDAO<Connerie> {
@@ -40,23 +44,29 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		List<Connerie> list = getConneries(spaces, keywords);
 		Connerie con = null;
 		if (!list.isEmpty()) {
-			double rand = Math.random();
-			double index = Math.floor(rand * list.size());
-			con = list.get((int) index);
+			con = list.get(new Random().nextInt(list.size()));
 		}
 		return con;
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Connerie> getConneries(boolean spaces, String... keywords) {
-		Criteria crit = createCriteria();
+		CriteriaQuery<Connerie> query = builder.createQuery(Connerie.class);
+		Root<Connerie> root = query.from(Connerie.class);
+		Path<String> value = root.get(Connerie_.value);
+
+		List<Predicate> predicates = Lists.newArrayList();
 		for (String keyword : keywords) {
+			Predicate p = null;
 			if (spaces) {
-				crit.add(Restrictions.ilike("value", "% " + keyword + " %"));
+				p = builder.like(builder.lower(value),
+						"% " + keyword.toLowerCase() + " %");
 			} else {
-				crit.add(Restrictions.ilike("value", "%" + keyword + "%"));
+				p = builder.like(builder.lower(value),
+						"%" + keyword.toLowerCase() + "%");
 			}
+			predicates.add(p);
 		}
-		return crit.list();
+		query.where(predicates.toArray(new Predicate[] {}));
+		return em.createQuery(query).getResultList();
 	}
 }

@@ -4,15 +4,15 @@ import java.util.List;
 
 import javax.inject.Singleton;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import com.google.common.collect.Iterables;
 
 import be.hehehe.geekbot.persistence.model.Quote;
 import be.hehehe.geekbot.persistence.model.Quote_;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 @Singleton
 public class QuoteDAO extends GenericDAO<Quote> {
@@ -23,13 +23,20 @@ public class QuoteDAO extends GenericDAO<Quote> {
 		super.save(object);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Quote> findByKeywords(List<String> keywords) {
-		Criteria crit = createCriteria();
+		CriteriaQuery<Quote> query = builder.createQuery(Quote.class);
+		Root<Quote> root = query.from(Quote.class);
+		Path<String> value = root.get(Quote_.quote);
+
+		List<Predicate> predicates = Lists.newArrayList();
 		for (String keyword : keywords) {
-			crit.add(Restrictions.ilike("quote", "%" + keyword + "%"));
+			Predicate p = builder.like(builder.lower(value),
+					"%" + keyword.toLowerCase() + "%");
+			predicates.add(p);
 		}
-		return crit.list();
+		query.where(predicates.toArray(new Predicate[] {}));
+		return em.createQuery(query).getResultList();
+
 	}
 
 	@Override
@@ -45,12 +52,7 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	}
 
 	public Quote findByNumber(int number) {
-		CriteriaQuery<Quote> query = builder.createQuery(Quote.class);
-		Root<Quote> root = query.from(Quote.class);
-		query.where(builder.equal(root.get(Quote_.number), number));
-		return Iterables.getOnlyElement(em.createQuery(query).getResultList());
-
-//		return (Quote) createCriteria().add(Restrictions.eq("number", number))
-//				.uniqueResult();
+		return Iterables.getOnlyElement(findByField(Quote_.number, number),
+				null);
 	}
 }

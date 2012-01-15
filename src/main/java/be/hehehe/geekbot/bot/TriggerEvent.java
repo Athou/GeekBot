@@ -9,7 +9,7 @@ public interface TriggerEvent {
 	 * 
 	 * @return the original message, null for methods annotated with TimedAction
 	 */
-	public String getOriginalMessage();
+	String getOriginalMessage();
 
 	/**
 	 * Returns the message that triggered this command, without the trigger.
@@ -17,7 +17,7 @@ public interface TriggerEvent {
 	 * @return the the message without the trigger, null for methods annotated
 	 *         with TimedAction
 	 */
-	public String getMessage();
+	String getMessage();
 
 	/**
 	 * Returns the name of the author of the message;
@@ -25,28 +25,28 @@ public interface TriggerEvent {
 	 * @return the nick name of the author, null for methods annotated with
 	 *         TimedAction
 	 */
-	public String getAuthor();
+	String getAuthor();
 
 	/**
 	 * Returns a list of users on the channel
 	 * 
 	 * @return a list of users
 	 */
-	public Collection<String> getUsers();
+	Collection<String> getUsers();
 
 	/**
 	 * Returns true if the message contains an url.
 	 * 
 	 * @return true if an url was found in the message.
 	 */
-	public boolean hasURL();
+	boolean hasURL();
 
 	/**
 	 * Returns the first url found in the message.
 	 * 
 	 * @return the first url found in the message.
 	 */
-	public String getURL();
+	String getURL();
 
 	/**
 	 * Returns true if the message contains a nickname from one of the users on
@@ -55,7 +55,7 @@ public interface TriggerEvent {
 	 * @return true if someone was highlighted, false if not or for methods
 	 *         annotated with TimedAction
 	 */
-	public boolean isNickInMessage();
+	boolean isNickInMessage();
 
 	/**
 	 * Returns true if the name of the bot is in the message
@@ -63,7 +63,7 @@ public interface TriggerEvent {
 	 * @return true if the bot was highlighted, false if not or for methods
 	 *         annotated with TimedAction
 	 */
-	public boolean isBotInMessage();
+	boolean isBotInMessage();
 
 	/**
 	 * Returns true if the message starts with an existing trigger. Useful for
@@ -72,6 +72,6 @@ public interface TriggerEvent {
 	 * @return true if the message starts with an existing trigger registered in
 	 *         the bot.
 	 */
-	public boolean isStartsWithTrigger();
+	boolean isStartsWithTrigger();
 
 }

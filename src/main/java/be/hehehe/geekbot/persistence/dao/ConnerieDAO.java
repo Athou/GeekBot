@@ -12,15 +12,20 @@ import javax.persistence.criteria.Root;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.persistence.model.Connerie_;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 @Singleton
 public class ConnerieDAO extends GenericDAO<Connerie> {
 
 	public Connerie getRandom() {
+		Connerie connerie = null;
 		int count = (int) getCount();
-		int rand = new Random().nextInt(count);
-		return findAll(rand + 1, 1).iterator().next();
+		if (count > 0) {
+			int rand = new Random().nextInt(count) + 1;
+			connerie = Iterables.getOnlyElement(findAll(rand, 1), null);
+		}
+		return connerie;
 	}
 
 	public Connerie getRandomMatching(String... keywords) {

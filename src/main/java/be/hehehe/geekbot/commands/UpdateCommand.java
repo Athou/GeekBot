@@ -12,6 +12,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.LOG;
 
@@ -23,7 +24,8 @@ import com.sun.syndication.io.XmlReader;
 @BotCommand
 public class UpdateCommand {
 
-	private static String LATEST_VERSION;
+	@Inject
+	State state;
 
 	@Inject
 	BotUtilsService utilsService;
@@ -48,13 +50,14 @@ public class UpdateCommand {
 			Iterator<?> it = items.iterator();
 			SyndEntry item = (SyndEntry) it.next();
 			String guid = item.getUri();
-			if (LATEST_VERSION != null
-					&& !StringUtils.equals(LATEST_VERSION, guid)) {
+			String latestVersion = state.get(String.class);
+			if (latestVersion != null
+					&& !StringUtils.equals(latestVersion, guid)) {
 				result = "New version detected, restarting... "
 						+ utilsService.bitly(item.getLink());
 				restart();
 			}
-			LATEST_VERSION = guid;
+			state.put(latestVersion);
 
 		} catch (Exception e) {
 			LOG.handle(e);

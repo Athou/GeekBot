@@ -16,6 +16,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.LOG;
@@ -28,7 +29,9 @@ import be.hehehe.geekbot.utils.LOG;
  */
 @BotCommand
 public class MirrorCommand {
-	private static String LASTURL;
+
+	@Inject
+	State state;
 
 	@Inject
 	BundleService bundleService;
@@ -37,8 +40,9 @@ public class MirrorCommand {
 	@Help("Mirrors the last image pasted on the chan.")
 	public String getMirrorImage() {
 		String result = null;
-		if (LASTURL != null) {
-			result = handleImage(LASTURL);
+		String lastUrl = state.get(String.class);
+		if (lastUrl != null) {
+			result = handleImage(lastUrl);
 		}
 		return result;
 	}
@@ -51,11 +55,11 @@ public class MirrorCommand {
 	}
 
 	@Trigger(type = TriggerType.EVERYTHING)
-	public String storeLastURL(TriggerEvent event) {
+	public void storeLastURL(TriggerEvent event) {
 		if (event.hasURL()) {
-			LASTURL = event.getURL();
+			state.put(event.getURL());
 		}
-		return null;
+		return;
 	}
 
 	private String handleImage(String message) {

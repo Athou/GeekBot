@@ -4,12 +4,14 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.jdom.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
+import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
@@ -24,25 +26,35 @@ import com.google.common.collect.Lists;
 @BotCommand
 public class Own3dCommand {
 
-	private static final List<Stream> STREAMS = Lists.newArrayList();
-
 	@Inject
 	BotUtilsService utilsService;
 
-	static {
-		ResourceBundle bundle = ResourceBundle.getBundle("own3d");
-		Enumeration<String> keys = bundle.getKeys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			String value = bundle.getString(key);
-			STREAMS.add(new Stream(key, value));
+	@Inject
+	State state;
+
+	@PostConstruct
+	@SuppressWarnings("unchecked")
+	public void init() {
+		List<Stream> streams = state.get(List.class);
+		if (streams == null) {
+			streams = Lists.newArrayList();
+			ResourceBundle bundle = ResourceBundle.getBundle("own3d");
+			Enumeration<String> keys = bundle.getKeys();
+			while (keys.hasMoreElements()) {
+				String key = keys.nextElement();
+				String value = bundle.getString(key);
+				streams.add(new Stream(key, value));
+			}
+			state.put(streams);
 		}
 	}
 
 	@TimedAction(1)
+	@SuppressWarnings("unchecked")
 	public List<String> updateStreams() {
 		List<String> alerts = Lists.newArrayList();
-		for (Stream stream : STREAMS) {
+		List<Stream> streams = state.get(List.class);
+		for (Stream stream : streams) {
 			try {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {

@@ -1,11 +1,11 @@
 package be.hehehe.geekbot.commands;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.jibble.jmegahal.JMegaHal;
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,10 +14,13 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 import be.hehehe.geekbot.utils.LOG;
+
+import com.google.common.collect.Maps;
 
 /**
  * Horoscope from astrocenter.fr (French)
@@ -26,33 +29,44 @@ import be.hehehe.geekbot.utils.LOG;
 @BotCommand
 public class HoroscopeCommand {
 
-	private static final Map<String, String> mapping = new HashMap<String, String>();
+	@Inject
+	State state;
+
 	@Inject
 	BotUtilsService utilsService;
 
-	static {
-		mapping.put("belier", "0");
-		mapping.put("taureau", "1");
-		mapping.put("gemeaux", "2");
-		mapping.put("cancer", "3");
-		mapping.put("lion", "4");
-		mapping.put("vierge", "5");
-		mapping.put("balance", "6");
-		mapping.put("scorpion", "7");
-		mapping.put("sagittaire", "8");
-		mapping.put("capricorne", "9");
-		mapping.put("verseau", "10");
-		mapping.put("poissons", "11");
-
+	@PostConstruct
+	@SuppressWarnings("unchecked")
+	public void init() {
+		Map<String, String> mapping = state.get(Map.class);
+		if (mapping == null) {
+			mapping = Maps.newLinkedHashMap();
+			mapping.put("belier", "0");
+			mapping.put("taureau", "1");
+			mapping.put("gemeaux", "2");
+			mapping.put("cancer", "3");
+			mapping.put("lion", "4");
+			mapping.put("vierge", "5");
+			mapping.put("balance", "6");
+			mapping.put("scorpion", "7");
+			mapping.put("sagittaire", "8");
+			mapping.put("capricorne", "9");
+			mapping.put("verseau", "10");
+			mapping.put("poissons", "11");
+			state.put(mapping);
+		}
 	}
 
 	@Trigger(value = "!horoscope", type = TriggerType.EXACTMATCH)
 	@Help("Prints help on how to use this command.")
 	public String getHoroscopeHelp() {
-		return IRCUtils.bold("!horoscope <signe>")
-				+ " - Available signs : belier, taureau, gemeaux, cancer, lion, vierge, balance, scorpion, sagittaire, capricorne, verseau, poisson, random";
+		String availableSigns = StringUtils.join(state.get(Map.class).keySet(),
+				", ");
+		return IRCUtils.bold("!horoscope <signe>") + " - Available signs : "
+				+ availableSigns;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Trigger(value = "!horoscope", type = TriggerType.STARTSWITH)
 	public String getHoroscope(TriggerEvent event) {
 		String sign = event.getMessage();
@@ -65,39 +79,14 @@ public class HoroscopeCommand {
 			Document doc = Jsoup
 					.parse(utilsService
 							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0"));
-			if ("random".equals(sign)) {
-				line = getGenerated(doc);
-			} else {
-				line = getLineFor(doc, mapping.get(sign));
-			}
+			Map<String, String> mapping = state.get(Map.class);
+			line = getLineFor(doc, mapping.get(sign));
 
 		} catch (Exception e) {
 			LOG.handle(e);
 		}
 
 		return line;
-	}
-
-	private String getGenerated(Document doc) {
-		JMegaHal hal = new JMegaHal();
-		for (String id : mapping.values()) {
-			String line = getLineFor(doc, id);
-			for (String sentence : line.split("\\.")) {
-				hal.add(sentence.trim());
-			}
-		}
-
-		String result = "";
-		for (int i = 0; i < 3; i++) {
-			String generated = hal.getSentence();
-			if (Character.isLetter(generated.charAt(generated.length() - 1))) {
-				generated += ".";
-			}
-			generated += " ";
-			result += generated;
-		}
-
-		return result;
 	}
 
 	private String getLineFor(Document doc, String id) {

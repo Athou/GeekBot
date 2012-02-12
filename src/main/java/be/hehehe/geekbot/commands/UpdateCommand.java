@@ -2,6 +2,7 @@ package be.hehehe.geekbot.commands;
 
 import java.io.StringReader;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.inject.Inject;
@@ -43,19 +44,16 @@ public class UpdateCommand {
 			String url = "https://github.com/Athou/GeekBot/commits/master.atom";
 			SyndFeed rss = new SyndFeedInput().build(new StringReader(
 					utilsService.getContent(url)));
-
-			Collection<?> items = rss.getEntries();
-			Iterator<?> it = items.iterator();
-			SyndEntry item = (SyndEntry) it.next();
-			String guid = item.getUri();
-			String latestVersion = state.get(String.class);
-			if (latestVersion != null
-					&& !StringUtils.equals(latestVersion, guid)) {
+			Date publishedDate = rss.getPublishedDate();
+			Long newDate = publishedDate.getTime();
+			Long oldDate = state.get(Long.class);
+			if (oldDate != null && newDate > oldDate) {
 				result = "New version detected, restarting... "
-						+ utilsService.bitly(item.getLink());
+						+ utilsService
+								.bitly("https://github.com/Athou/GeekBot/commits/master/");
 				restart();
 			}
-			state.put(latestVersion);
+			state.put(newDate);
 
 		} catch (Exception e) {
 			LOG.handle(e);

@@ -38,11 +38,11 @@ public class BundleService {
 	}
 
 	public String getWebServerRootPath() {
-		return "http://localhost/";
+		return getValue("webserver.hostname");
 	}
 
 	public int getWebServerPort() {
-		return Integer.parseInt("11223");
+		return Integer.parseInt(getValue("webserver.port"));
 	}
 
 	private String getValue(String key) {

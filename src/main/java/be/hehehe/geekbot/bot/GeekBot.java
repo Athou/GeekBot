@@ -15,10 +15,22 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
@@ -26,6 +38,7 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
 import be.hehehe.geekbot.annotations.RandomAction;
+import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -69,6 +82,7 @@ public class GeekBot extends PircBot {
 			startTimers(extension.getTimers());
 
 			startChangeNickThread();
+			startHTTPServer();
 
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
@@ -82,13 +96,56 @@ public class GeekBot extends PircBot {
 			this.connect(server);
 			this.joinChannel(channel);
 
-		} catch (NickAlreadyInUseException e) {
-			LOG.error("Nick already in use !");
-		} catch (IOException e) {
-			LOG.handle(e);
-		} catch (IrcException e) {
+		} catch (Exception e) {
 			LOG.handle(e);
 		}
+	}
+
+	private void startHTTPServer() throws Exception {
+		final List<Method> servletMethods = extension.getServletMethods();
+		if (!servletMethods.isEmpty()) {
+
+			Server server = new Server(bundleService.getWebServerPort());
+			HandlerList handlerList = new HandlerList();
+
+			WebAppContext webappcontext = new WebAppContext();
+			webappcontext.setContextPath("/");
+			webappcontext.setWar(getClass().getResource("/web")
+					.toExternalForm());
+			webappcontext.setInitParameter(
+					"org.eclipse.jetty.servlet.Default.dirAllowed", "false");
+			webappcontext.setErrorHandler(new ErrorPageErrorHandler() {
+				@Override
+				public void handle(String arg0, Request arg1,
+						HttpServletRequest arg2, HttpServletResponse arg3)
+						throws IOException {
+				}
+			});
+
+			for (final Method m : servletMethods) {
+				String path = m.getAnnotation(ServletMethod.class).value();
+				if (StringUtils.isNotBlank(path)) {
+					if (!path.startsWith("/")) {
+						path = "/" + path;
+					}
+					@SuppressWarnings("serial")
+					HttpServlet servlet = new HttpServlet() {
+						@Override
+						protected void doGet(HttpServletRequest req,
+								HttpServletResponse resp)
+								throws ServletException, IOException {
+							invoke(m, req, resp);
+						}
+					};
+					webappcontext.addServlet(new ServletHolder(servlet), path);
+				}
+			}
+			handlerList.setHandlers(new Handler[] { webappcontext,
+					new DefaultHandler() });
+			server.setHandler(handlerList);
+			server.start();
+		}
+
 	}
 
 	private void startTimers(List<Method> timers) {
@@ -102,7 +159,7 @@ public class GeekBot extends PircBot {
 				@Override
 				public void run() {
 					try {
-						invoke(method, buildEvent());
+						invokeTrigger(method, buildEvent());
 					} catch (Exception e) {
 						LOG.handle(e);
 					}
@@ -203,7 +260,7 @@ public class GeekBot extends PircBot {
 				break;
 			}
 
-			invoke(triggerMethod, triggerEvent);
+			invokeTrigger(triggerMethod, triggerEvent);
 		}
 
 		if (!isMessageTrigger(message)) {
@@ -213,7 +270,7 @@ public class GeekBot extends PircBot {
 				int probability = random.getAnnotation(RandomAction.class)
 						.value();
 				if (rand <= probability) {
-					invoke(random, buildEvent(message, author, null));
+					invokeTrigger(random, buildEvent(message, author, null));
 					break;
 				}
 			}
@@ -274,17 +331,22 @@ public class GeekBot extends PircBot {
 		return nickInMessage;
 	}
 
-	/**
-	 * Invokes the trigger and handles its response.
-	 * 
-	 * @param method
-	 * @param args
-	 * @return
-	 */
-	private void invoke(final Method method, final TriggerEvent event) {
+	private void invokeTrigger(final Method method, final TriggerEvent event) {
 		if (event == null) {
 			return;
 		}
+		ExecutorService executor = Executors.newCachedThreadPool();
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				invoke(method, event);
+			}
+		};
+		executor.submit(runnable);
+
+	}
+
+	private void invoke(Method method, Object... args) {
 
 		LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 				+ "#" + method.getName());
@@ -292,26 +354,18 @@ public class GeekBot extends PircBot {
 		final Object commandInstance = container.instance()
 				.select(method.getDeclaringClass()).get();
 
-		ExecutorService executor = Executors.newCachedThreadPool();
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Object result = null;
-					if (method.getParameterTypes().length == 0) {
-						result = method.invoke(commandInstance, new Object[0]);
-					} else {
-						result = method.invoke(commandInstance, event);
-					}
-
-					handleResultOfInvoke(result);
-				} catch (Exception e) {
-					LOG.handle(e);
-				}
+		try {
+			Object result = null;
+			if (method.getParameterTypes().length == 0) {
+				result = method.invoke(commandInstance, new Object[0]);
+			} else {
+				result = method.invoke(commandInstance, args);
 			}
-		};
-		executor.submit(runnable);
 
+			handleResultOfInvoke(result);
+		} catch (Exception e) {
+			LOG.handle(e);
+		}
 	}
 
 	private TriggerEvent buildEvent() {
@@ -327,7 +381,12 @@ public class GeekBot extends PircBot {
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
 				users, utilsService.extractURL(message),
 				nickInMessage(message), botNameInMessage(message),
-				isMessageTrigger(message));
+				isMessageTrigger(message), new MessageWriter() {
+					@Override
+					public void write(String message) {
+						sendMessage(message);
+					}
+				});
 		return event;
 	}
 
@@ -368,9 +427,10 @@ public class GeekBot extends PircBot {
 		sendMessage(channel, message);
 	}
 
-	@Produces @Triggers
+	@Produces
+	@Triggers
 	public List<Method> getTriggers() {
 		return triggers;
 	}
-	
+
 }

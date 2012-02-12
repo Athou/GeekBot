@@ -1,12 +1,18 @@
 package be.hehehe.geekbot.commands;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +20,7 @@ import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
+import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.State;
@@ -22,13 +29,16 @@ import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.LOG;
 
 /**
- * Mirrors images on imgur.com, useful for image hosts blocked at work. when the
+ * Mirrors images on imgur.com, useful for image hosts blocked at work. When the
  * trigger is invoked without arguments, the last url on the channel will be
  * mirrored.
  * 
  */
 @BotCommand
 public class MirrorCommand {
+
+	private static final String KEY_TEMPFILE = "tempfile";
+	private static final String KEY_VIDEOURL = "videourl";
 
 	@Inject
 	State state;
@@ -37,12 +47,12 @@ public class MirrorCommand {
 	BundleService bundleService;
 
 	@Trigger("!mirror")
-	@Help("Mirrors the last image pasted on the chan.")
-	public String getMirrorImage() {
+	@Help("Mirrors the last link pasted on the chan.")
+	public String getMirrorImage(TriggerEvent event) {
 		String result = null;
 		String lastUrl = state.get(String.class);
 		if (lastUrl != null) {
-			result = handleImage(lastUrl);
+			result = handleURL(lastUrl, event);
 		}
 		return result;
 	}
@@ -50,7 +60,7 @@ public class MirrorCommand {
 	@Trigger(value = "!mirror", type = TriggerType.STARTSWITH)
 	@Help("Mirrors the given url.")
 	public String getMirrorImage2(TriggerEvent event) {
-		String result = handleImage(event.getMessage());
+		String result = handleURL(event.getURL(), event);
 		return result;
 	}
 
@@ -62,20 +72,22 @@ public class MirrorCommand {
 		return;
 	}
 
-	private String handleImage(String message) {
+	private String handleURL(String message, TriggerEvent event) {
 		String result = null;
 		if (message.endsWith(".png") || message.endsWith(".jpg")
 				|| message.endsWith(".gif") || message.endsWith(".bmp")) {
 			try {
-				result = mirror(message);
+				result = mirrorImage(message);
 			} catch (Exception e) {
 				result = "Error retrieving file";
 			}
+		} else {
+			result = mirrorVideo(message, event);
 		}
 		return result;
 	}
 
-	private String mirror(String urlString) {
+	private String mirrorImage(String urlString) {
 		String result = null;
 		OutputStreamWriter wr = null;
 		InputStream is = null;
@@ -120,5 +132,66 @@ public class MirrorCommand {
 			IOUtils.closeQuietly(is);
 		}
 		return result;
+	}
+
+	private String mirrorVideo(String message, TriggerEvent event) {
+		String result = null;
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			event.write("Mirroring " + message);
+			File tempFile = state.get(KEY_TEMPFILE, File.class);
+			if (tempFile == null) {
+				tempFile = File.createTempFile("video_", ".mp4");
+				state.put(KEY_TEMPFILE, tempFile);
+			}
+			state.put(KEY_VIDEOURL, message);
+			Process process = Runtime.getRuntime().exec(
+					"movgrab - -f mp4 \"" + message + "\"");
+			is = process.getInputStream();
+			os = new FileOutputStream(tempFile);
+			IOUtils.copy(is, os);
+			String error = IOUtils.toString(process.getErrorStream());
+			if (StringUtils.isNotBlank(error)) {
+				result = error;
+			} else {
+				result = "Mirrored here : "
+						+ bundleService.getWebServerRootPath() + "/videomirror";
+			}
+		} catch (Exception e) {
+			result = e.getMessage();
+		} finally {
+			IOUtils.closeQuietly(is);
+			IOUtils.closeQuietly(os);
+		}
+		return result;
+	}
+
+	@ServletMethod("/videomirror")
+	public void renderPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String url = state.get(KEY_VIDEOURL, String.class);
+		if (url != null) {
+			request.setAttribute("url", state.get(KEY_VIDEOURL));
+			request.getRequestDispatcher("/videomirror/index.jsp").forward(
+					request, response);
+		}
+	}
+
+	@ServletMethod("/videostream.mp4")
+	public void streamVideo(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		File file = state.get(KEY_TEMPFILE, File.class);
+		InputStream is = null;
+		if (file != null) {
+			try {
+				is = new FileInputStream(file);
+				response.setContentType("video/mp4");
+				OutputStream os = response.getOutputStream();
+				IOUtils.copy(is, os);
+			} finally {
+				IOUtils.closeQuietly(is);
+			}
+		}
 	}
 }

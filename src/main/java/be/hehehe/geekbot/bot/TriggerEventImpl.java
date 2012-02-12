@@ -11,11 +11,23 @@ public class TriggerEventImpl implements TriggerEvent {
 	private boolean nickInMessage;
 	private boolean botInMessage;
 	private boolean startsWithTrigger;
+	private MessageWriter messageWriter;
 
+	/**
+	 * use only in tests, some fields are not set
+	 * 
+	 * @param messageWithoutTrigger
+	 */
 	public TriggerEventImpl(String messageWithoutTrigger) {
 		this(messageWithoutTrigger, null);
 	}
-	
+
+	/**
+	 * use only in tests, some fields are not set
+	 * 
+	 * @param messageWithoutTrigger
+	 * @param url
+	 */
 	public TriggerEventImpl(String messageWithoutTrigger, String url) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
 		this.url = url;
@@ -23,7 +35,8 @@ public class TriggerEventImpl implements TriggerEvent {
 
 	public TriggerEventImpl(String message, String author, String trigger,
 			Collection<String> users, String url, boolean nickInMessage,
-			boolean botInMessage, boolean startsWithTrigger) {
+			boolean botInMessage, boolean startsWithTrigger,
+			MessageWriter messageWriter) {
 		this.message = message;
 		this.author = author;
 		this.users = users;
@@ -37,6 +50,7 @@ public class TriggerEventImpl implements TriggerEvent {
 		} else {
 			this.messageWithoutTrigger = message;
 		}
+		this.messageWriter = messageWriter;
 
 	}
 
@@ -83,6 +97,11 @@ public class TriggerEventImpl implements TriggerEvent {
 	@Override
 	public boolean isStartsWithTrigger() {
 		return startsWithTrigger;
+	}
+
+	@Override
+	public void write(String message) {
+		messageWriter.write(message);
 	}
 
 }

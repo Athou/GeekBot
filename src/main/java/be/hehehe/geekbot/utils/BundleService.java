@@ -37,6 +37,14 @@ public class BundleService {
 		return getValue("vdm.apikey");
 	}
 
+	public String getWebServerRootPath() {
+		return "http://localhost/";
+	}
+
+	public int getWebServerPort() {
+		return Integer.parseInt("11223");
+	}
+
 	private String getValue(String key) {
 		return bundle.getString(key);
 	}

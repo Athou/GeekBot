@@ -74,4 +74,11 @@ public interface TriggerEvent {
 	 */
 	boolean isStartsWithTrigger();
 
+	/**
+	 * Writes something directly on the channel. Usefull to notify progress.
+	 * 
+	 * @param message
+	 *            the message sent to the channel
+	 */
+	void write(String message);
 }

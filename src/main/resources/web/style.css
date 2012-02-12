@@ -1,0 +1,11 @@
+body {
+	background-color: #121211;
+	color: #DDDDD1;
+	font-family: "sans-serif";
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}

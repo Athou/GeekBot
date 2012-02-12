@@ -9,6 +9,7 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.RandomAction;
+import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 
@@ -24,6 +25,7 @@ public class GeekBotCDIExtension implements Extension {
 	List<Method> triggers = Lists.newArrayList();
 	List<Method> randoms = Lists.newArrayList();
 	List<Method> timers = Lists.newArrayList();
+	List<Method> servletMethods = Lists.newArrayList();
 
 	public <T> void processAnnotatedType(@Observes ProcessAnnotatedType<T> pat) {
 		Class<?> klass = pat.getAnnotatedType().getJavaClass();
@@ -38,6 +40,9 @@ public class GeekBotCDIExtension implements Extension {
 				if (m.isAnnotationPresent(TimedAction.class)) {
 					timers.add(m);
 				}
+				if (m.isAnnotationPresent(ServletMethod.class)) {
+					servletMethods.add(m);
+				}
 			}
 		}
 	}
@@ -46,24 +51,16 @@ public class GeekBotCDIExtension implements Extension {
 		return triggers;
 	}
 
-	public void setTriggers(List<Method> triggers) {
-		this.triggers = triggers;
-	}
-
 	public List<Method> getRandoms() {
 		return randoms;
-	}
-
-	public void setRandoms(List<Method> randoms) {
-		this.randoms = randoms;
 	}
 
 	public List<Method> getTimers() {
 		return timers;
 	}
 
-	public void setTimers(List<Method> timers) {
-		this.timers = timers;
+	public List<Method> getServletMethods() {
+		return servletMethods;
 	}
 
 }

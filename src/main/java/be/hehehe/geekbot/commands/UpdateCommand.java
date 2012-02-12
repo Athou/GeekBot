@@ -1,6 +1,6 @@
 package be.hehehe.geekbot.commands;
 
-import java.net.URL;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -19,7 +19,6 @@ import be.hehehe.geekbot.utils.LOG;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 
 @BotCommand
 public class UpdateCommand {
@@ -41,10 +40,9 @@ public class UpdateCommand {
 	public String checkIfNewVersionAvailable() {
 		String result = null;
 		try {
-			URL url = new URL(
-					"https://github.com/Athou/GeekBot/commits/master.atom");
-			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed rss = input.build(new XmlReader(url));
+			String url = "https://github.com/Athou/GeekBot/commits/master.atom";
+			SyndFeed rss = new SyndFeedInput().build(new StringReader(
+					utilsService.getContent(url)));
 
 			Collection<?> items = rss.getEntries();
 			Iterator<?> it = items.iterator();

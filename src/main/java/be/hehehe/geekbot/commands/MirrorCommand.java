@@ -146,18 +146,13 @@ public class MirrorCommand {
 				state.put(KEY_TEMPFILE, tempFile);
 			}
 			state.put(KEY_VIDEOURL, message);
-			Process process = Runtime.getRuntime().exec(
-					"movgrab -o - -f mp4 " + message);
-			is = process.getInputStream();
-			os = new FileOutputStream(tempFile);
-			IOUtils.copy(is, os);
-			String error = IOUtils.toString(process.getErrorStream());
-			if (StringUtils.isNotBlank(error)) {
-				result = error;
-			} else {
-				result = "Mirrored here : "
-						+ bundleService.getWebServerRootPath() + "/videomirror";
-			}
+			String movgrab = "movgrab -o '%s' -f flv '%s'";
+			movgrab = String.format(movgrab, tempFile.getAbsolutePath(),
+					message);
+			Runtime.getRuntime().exec(movgrab);
+
+			result = "Mirrored here : " + bundleService.getWebServerRootPath()
+					+ "/videomirror";
 		} catch (Exception e) {
 			result = e.getMessage();
 		} finally {

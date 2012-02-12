@@ -147,7 +147,7 @@ public class MirrorCommand {
 			}
 			state.put(KEY_VIDEOURL, message);
 			Process process = Runtime.getRuntime().exec(
-					"movgrab -o - -f mp4 \"" + message + "\"");
+					"movgrab -o - -f mp4 " + message);
 			is = process.getInputStream();
 			os = new FileOutputStream(tempFile);
 			IOUtils.copy(is, os);

@@ -148,9 +148,9 @@ public class MirrorCommand {
 			state.put(KEY_VIDEOURL, message);
 			LOG.debug("Mirroring " + message + " at "
 					+ tempFile.getAbsolutePath());
-			String movgrab = "movgrab -o '%s' -f flv '%s'";
-			movgrab = String.format(movgrab, tempFile.getAbsolutePath(),
-					message);
+			String[] movgrab = new String[] { "movgrab", "-o",
+					tempFile.getAbsolutePath(), "-f", "flv",
+					"\"" + message + "\"" };
 			Runtime.getRuntime().exec(movgrab);
 
 			result = "Mirrored here : " + bundleService.getWebServerRootPath()

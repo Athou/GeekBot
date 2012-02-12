@@ -2,7 +2,6 @@ package be.hehehe.geekbot.commands;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -143,9 +142,12 @@ public class MirrorCommand {
 			File tempFile = state.get(KEY_TEMPFILE, File.class);
 			if (tempFile == null) {
 				tempFile = File.createTempFile("video_", ".mp4");
+				tempFile.deleteOnExit();
 				state.put(KEY_TEMPFILE, tempFile);
 			}
 			state.put(KEY_VIDEOURL, message);
+			LOG.debug("Mirroring " + message + " at "
+					+ tempFile.getAbsolutePath());
 			String movgrab = "movgrab -o '%s' -f flv '%s'";
 			movgrab = String.format(movgrab, tempFile.getAbsolutePath(),
 					message);

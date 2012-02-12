@@ -38,7 +38,11 @@ public class BundleService {
 	}
 
 	public String getWebServerRootPath() {
-		return getValue("webserver.hostname");
+		String host = getValue("webserver.hostname");
+		if (host.endsWith("/")) {
+			host = host.substring(0, host.length() - 1);
+		}
+		return host;
 	}
 
 	public int getWebServerPort() {

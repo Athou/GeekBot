@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="center">
-		<h1>Mirror for ${requestParam.url}</h1>
+		<h1>Mirror for ${url}</h1>
 		<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
 			width="470" height="320"
 			codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">

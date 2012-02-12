@@ -149,7 +149,7 @@ public class MirrorCommand {
 			LOG.debug("Mirroring " + message + " at "
 					+ tempFile.getAbsolutePath());
 			String[] movgrab = new String[] { "movgrab", "-o",
-					tempFile.getAbsolutePath(), "-f", "flv", message };
+					tempFile.getAbsolutePath(), "-f", "flv,mp4", message };
 			Runtime.getRuntime().exec(movgrab);
 
 			result = "Mirrored here : " + bundleService.getWebServerRootPath()

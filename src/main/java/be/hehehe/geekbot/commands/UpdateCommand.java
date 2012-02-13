@@ -1,13 +1,9 @@
 package be.hehehe.geekbot.commands;
 
 import java.io.StringReader;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.inject.Inject;
-
-import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -17,7 +13,6 @@ import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.LOG;
 
-import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 

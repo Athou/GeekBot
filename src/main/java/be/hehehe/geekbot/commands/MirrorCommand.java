@@ -169,7 +169,7 @@ public class MirrorCommand {
 		String url = state.get(KEY_VIDEOURL, String.class);
 		if (url != null) {
 			request.setAttribute("url", state.get(KEY_VIDEOURL));
-			request.getRequestDispatcher("/videomirror/index.jsp").forward(
+			request.getRequestDispatcher("/videomirror.jsp").forward(
 					request, response);
 		}
 	}

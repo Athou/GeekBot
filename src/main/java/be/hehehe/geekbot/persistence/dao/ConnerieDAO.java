@@ -10,7 +10,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import be.hehehe.geekbot.persistence.model.Connerie;
-import be.hehehe.geekbot.persistence.model.Connerie_;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -57,7 +56,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 	private List<Connerie> getConneries(boolean spaces, String... keywords) {
 		CriteriaQuery<Connerie> query = builder.createQuery(Connerie.class);
 		Root<Connerie> root = query.from(Connerie.class);
-		Path<String> value = root.get(Connerie_.value);
+		Path<String> value = root.get("value");
 
 		List<Predicate> predicates = Lists.newArrayList();
 		for (String keyword : keywords) {

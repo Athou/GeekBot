@@ -9,7 +9,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import be.hehehe.geekbot.persistence.model.Quote;
-import be.hehehe.geekbot.persistence.model.Quote_;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -26,7 +25,7 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	public List<Quote> findByKeywords(List<String> keywords) {
 		CriteriaQuery<Quote> query = builder.createQuery(Quote.class);
 		Root<Quote> root = query.from(Quote.class);
-		Path<String> value = root.get(Quote_.quote);
+		Path<String> value = root.get("quote");
 
 		List<Predicate> predicates = Lists.newArrayList();
 		for (String keyword : keywords) {
@@ -52,7 +51,6 @@ public class QuoteDAO extends GenericDAO<Quote> {
 	}
 
 	public Quote findByNumber(int number) {
-		return Iterables.getOnlyElement(findByField(Quote_.number, number),
-				null);
+		return Iterables.getOnlyElement(findByField("number", number), null);
 	}
 }

@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
 
 import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
@@ -89,7 +88,7 @@ public abstract class GenericDAO<T> {
 		return em.createQuery(query).getSingleResult();
 	}
 
-	public <Y> List<T> findByField(SingularAttribute<T, Y> field, Object value) {
+	public <Y> List<T> findByField(String field, Object value) {
 		CriteriaQuery<T> query = builder.createQuery(genericType);
 		Root<T> root = query.from(genericType);
 		query.where(builder.equal(root.get(field), value));

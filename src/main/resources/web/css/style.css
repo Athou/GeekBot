@@ -1,0 +1,16 @@
+body {
+	background-color: #121211;
+	color: #DDDDD1;
+	font-family: sans-serif;
+}
+
+a, a:visited {
+	color: #DDDDD1;
+	text-decoration: underline;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}

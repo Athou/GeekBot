@@ -91,7 +91,8 @@ public class URLContentCommand {
 				String statusId = null;
 				for (int i = 0; i < split.length; i++) {
 					String token = split[i];
-					if ("status".equals(token) && i + 1 < split.length) {
+					if (("status".equals(token) || "statuses".equals(token))
+							&& i + 1 < split.length) {
 						statusId = split[i + 1];
 						break;
 					}

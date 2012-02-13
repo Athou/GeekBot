@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -150,10 +151,12 @@ public class MirrorCommand {
 					+ tempFile.getAbsolutePath());
 			String[] movgrab = new String[] { "movgrab", "-o",
 					tempFile.getAbsolutePath(), "-f", "mp4,flv", message };
-			Runtime.getRuntime().exec(movgrab);
+			Process process = Runtime.getRuntime().exec(movgrab);
+			LOG.debug(IOUtils.toString(process.getInputStream()));
 
 			result = "Mirrored here : " + bundleService.getWebServerRootPath()
-					+ "/videomirror";
+					+ "/videomirror?t="
+					+ Calendar.getInstance().getTimeInMillis();
 		} catch (Exception e) {
 			result = e.getMessage();
 		} finally {

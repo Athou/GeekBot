@@ -13,18 +13,19 @@
 		<h1>
 			Mirror for <a href="${url}">${url}</a>
 		</h1>
-		<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-			width="470" height="320"
-			codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">
-			<param name="bgcolor" value="undefined" />
-			<param name="flashvars"
-				value="file=videostream.mp4&amp;skin=jwplayer/modieus.swf&amp;autostart=true" />
-			<param name="src" value="jwplayer/player.swf" />
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			width="470" height="320" id="single1" name="single1">
+			<param name="movie" value="jwplayer/player.swf" />
 			<param name="allowfullscreen" value="true" />
-			<embed type="application/x-shockwave-flash" width="470" height="320"
-				src="jwplayer/player.swf" allowfullscreen="true"
-				flashvars="file=videostream.mp4&amp;skin=jwplayer/modieus.swf&amp;autostart=true"
-				bgcolor="undefined"> </embed>
+			<param name="allowscriptaccess" value="always" />
+			<param name="wmode" value="transparent" />
+			<param name="flashvars"
+				value="file=videostream.mp4&amp;skin=jwplayer/modieus.swf" />
+			<embed type="application/x-shockwave-flash" id="single2"
+				name="single2" src="jwplayer/player.swf" width="470" height="320"
+				bgcolor="undefined" allowscriptaccess="always"
+				allowfullscreen="true" wmode="transparent"
+				flashvars="file=videostream.mp4&amp;skin=jwplayer/modieus.swf" />
 		</object>
 	</div>
 </body>

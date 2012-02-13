@@ -59,7 +59,7 @@ public class UpdateCommand {
 
 	private void restart() {
 		try {
-			Runtime.getRuntime().exec("sh update.sh");
+			Runtime.getRuntime().exec(new String[] { "sh", "update.sh" });
 		} catch (Exception e) {
 			LOG.handle(e);
 		}

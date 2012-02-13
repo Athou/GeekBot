@@ -84,7 +84,8 @@ public class URLContentCommand {
 
 			// twitter
 
-			if (url.contains("twitter.com") && url.contains("/status/")) {
+			if (url.contains("twitter.com")
+					&& (url.contains("/status/") || url.contains("/statuses/"))) {
 
 				String[] split = url.split("/");
 				String statusId = null;

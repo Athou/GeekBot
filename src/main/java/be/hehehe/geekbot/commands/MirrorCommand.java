@@ -168,9 +168,9 @@ public class MirrorCommand {
 			HttpServletResponse response) throws Exception {
 		String url = state.get(KEY_VIDEOURL, String.class);
 		if (url != null) {
-			request.setAttribute("url", state.get(KEY_VIDEOURL));
-			request.getRequestDispatcher("/videomirror.jsp").forward(
-					request, response);
+			request.setAttribute("url", url);
+			request.getRequestDispatcher("/videomirror.jsp").forward(request,
+					response);
 		}
 	}
 

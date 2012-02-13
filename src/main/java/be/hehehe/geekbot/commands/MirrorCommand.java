@@ -152,7 +152,7 @@ public class MirrorCommand {
 			String[] movgrab = new String[] { "movgrab", "-o",
 					tempFile.getAbsolutePath(), "-f", "mp4,flv", message };
 			Process process = Runtime.getRuntime().exec(movgrab);
-			LOG.debug(IOUtils.toString(process.getInputStream()));
+			LOG.debug(IOUtils.toString(process.getErrorStream()));
 
 			result = "Mirrored here : " + bundleService.getWebServerRootPath()
 					+ "/videomirror?t="
@@ -172,6 +172,10 @@ public class MirrorCommand {
 		String url = state.get(KEY_VIDEOURL, String.class);
 		if (url != null) {
 			request.setAttribute("url", url);
+			request.setAttribute(
+					"video",
+					URLEncoder.encode(bundleService.getWebServerRootPath()
+							+ "/videostream.mp4", "UTF-8"));
 			request.getRequestDispatcher("/videomirror.jsp").forward(request,
 					response);
 		}

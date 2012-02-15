@@ -12,6 +12,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,7 +32,6 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
@@ -66,7 +66,7 @@ public class GeekBot extends PircBot {
 	BotUtilsService utilsService;
 
 	@Inject
-	WeldContainer container;
+	Instance<Object> container;
 
 	@PostConstruct
 	public void init() {
@@ -351,8 +351,8 @@ public class GeekBot extends PircBot {
 		LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 				+ "#" + method.getName());
 
-		final Object commandInstance = container.instance()
-				.select(method.getDeclaringClass()).get();
+		final Object commandInstance = container.select(
+				method.getDeclaringClass()).get();
 
 		try {
 			Object result = null;

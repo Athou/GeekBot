@@ -6,9 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotate any method with the right signature (i.e. HttpServletRequest
- * request, HttpServletResponse response) in a @BotCommand class to enable its
- * servlet capabilities.
+ * Annotate any method in a @BotCommand annotated class with this annotation to
+ * enable its servlet capabilities. The method either accepts a ServletEvent
+ * object as argument or nothing at all. The method should not return anything
+ * as the returned value will be discarded.
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

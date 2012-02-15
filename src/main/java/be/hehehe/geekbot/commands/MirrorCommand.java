@@ -23,6 +23,7 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BundleService;
@@ -167,8 +168,9 @@ public class MirrorCommand {
 	}
 
 	@ServletMethod("/videomirror")
-	public void renderPage(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public void renderPage(ServletEvent event) throws Exception {
+		HttpServletRequest request = event.getRequest();
+		HttpServletResponse response = event.getResponse();
 		String url = state.get(KEY_VIDEOURL, String.class);
 		if (url != null) {
 			request.setAttribute("url", url);
@@ -182,8 +184,8 @@ public class MirrorCommand {
 	}
 
 	@ServletMethod("/videostream.mp4")
-	public void streamVideo(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public void streamVideo(ServletEvent event) throws Exception {
+		HttpServletResponse response = event.getResponse();
 		File file = state.get(KEY_TEMPFILE, File.class);
 		InputStream is = null;
 		if (file != null) {

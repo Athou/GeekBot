@@ -437,7 +437,8 @@ public class GeekBot extends PircBot {
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 				throws ServletException, IOException {
-			invoke(method, req, resp);
+			ServletEvent event = new ServletEventImpl(req, resp);
+			invoke(method, event);
 		}
 	}
 

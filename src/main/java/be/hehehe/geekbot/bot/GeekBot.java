@@ -68,8 +68,14 @@ public class GeekBot extends PircBot {
 	@Inject
 	Instance<Object> container;
 
+	private ScheduledExecutorService scheduler;
+	private ExecutorService executor;
+
 	@PostConstruct
 	public void init() {
+
+		executor = Executors.newCachedThreadPool();
+		scheduler = Executors.newScheduledThreadPool(1);
 
 		botName = bundleService.getBotName();
 		channel = bundleService.getChannel();
@@ -122,22 +128,14 @@ public class GeekBot extends PircBot {
 				}
 			});
 
-			for (final Method m : servletMethods) {
+			for (Method m : servletMethods) {
 				String path = m.getAnnotation(ServletMethod.class).value();
 				if (StringUtils.isNotBlank(path)) {
 					if (!path.startsWith("/")) {
 						path = "/" + path;
 					}
-					@SuppressWarnings("serial")
-					HttpServlet servlet = new HttpServlet() {
-						@Override
-						protected void doGet(HttpServletRequest req,
-								HttpServletResponse resp)
-								throws ServletException, IOException {
-							invoke(m, req, resp);
-						}
-					};
-					webappcontext.addServlet(new ServletHolder(servlet), path);
+					webappcontext.addServlet(new ServletHolder(
+							new BotMethodServlet(m)), path);
 				}
 			}
 			handlerList.setHandlers(new Handler[] { webappcontext,
@@ -149,8 +147,6 @@ public class GeekBot extends PircBot {
 	}
 
 	private void startTimers(List<Method> timers) {
-		ScheduledExecutorService scheduler = Executors
-				.newScheduledThreadPool(1);
 		for (final Method method : timers) {
 			int interval = method.getAnnotation(TimedAction.class).value();
 			TimeUnit timeUnit = method.getAnnotation(TimedAction.class)
@@ -165,14 +161,12 @@ public class GeekBot extends PircBot {
 					}
 				}
 			};
-			scheduler.scheduleAtFixedRate(thread, 1,
-					timeUnit.toMinutes(interval), TimeUnit.MINUTES);
+			scheduler.scheduleAtFixedRate(thread, 60,
+					timeUnit.toSeconds(interval), TimeUnit.SECONDS);
 		}
 	}
 
 	private void startChangeNickThread() {
-		ScheduledExecutorService scheduler = Executors
-				.newScheduledThreadPool(1);
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
@@ -189,7 +183,6 @@ public class GeekBot extends PircBot {
 			String hostname, String message) {
 
 		handlePossibleTrigger(message, sender);
-
 	}
 
 	@Override
@@ -335,7 +328,6 @@ public class GeekBot extends PircBot {
 		if (event == null) {
 			return;
 		}
-		ExecutorService executor = Executors.newCachedThreadPool();
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -361,7 +353,6 @@ public class GeekBot extends PircBot {
 			} else {
 				result = method.invoke(commandInstance, args);
 			}
-
 			handleResultOfInvoke(result);
 		} catch (Exception e) {
 			LOG.handle(e);
@@ -419,8 +410,9 @@ public class GeekBot extends PircBot {
 	 * @param message
 	 */
 	private void sendMessage(String message) {
-		while (message.length() > 400) {
-			int lastSpace = message.substring(0, 400).lastIndexOf(' ');
+		int limit = 400;
+		while (message.length() > limit) {
+			int lastSpace = message.substring(0, limit).lastIndexOf(' ');
 			sendMessage(channel, message.substring(0, lastSpace));
 			message = message.substring(lastSpace + 1);
 		}
@@ -431,6 +423,22 @@ public class GeekBot extends PircBot {
 	@Triggers
 	public List<Method> getTriggers() {
 		return triggers;
+	}
+
+	@SuppressWarnings("serial")
+	private class BotMethodServlet extends HttpServlet {
+
+		private Method method;
+
+		public BotMethodServlet(Method method) {
+			this.method = method;
+		}
+
+		@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException {
+			invoke(method, req, resp);
+		}
 	}
 
 }

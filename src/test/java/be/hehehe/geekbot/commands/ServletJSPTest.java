@@ -26,7 +26,7 @@ public class ServletJSPTest {
 	@SuppressWarnings("serial")
 	@Test
 	public void testJSP() throws Exception {
-		Server server = new Server(11223);
+		Server server = new Server(11224);
 		HandlerList handlerList = new HandlerList();
 
 		WebAppContext webappcontext = new WebAppContext();
@@ -58,6 +58,6 @@ public class ServletJSPTest {
 		server.start();
 
 		Assert.assertEquals(IOUtils.toString(new URL(
-				"http://localhost:11223/test.jsp").openStream()), "hello");
+				"http://localhost:11224/test.jsp").openStream()), "hello");
 	}
 }

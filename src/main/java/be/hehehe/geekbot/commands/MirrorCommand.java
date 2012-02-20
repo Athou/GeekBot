@@ -128,6 +128,7 @@ public class MirrorCommand {
 			result = url + " [Size: " + size + " kb]";
 		} catch (Exception e) {
 			LOG.handle(e);
+			result = e.getMessage();
 		} finally {
 			IOUtils.closeQuietly(wr);
 			IOUtils.closeQuietly(is);

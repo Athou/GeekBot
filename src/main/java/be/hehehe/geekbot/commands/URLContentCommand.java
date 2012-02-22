@@ -9,6 +9,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -66,7 +67,7 @@ public class URLContentCommand {
 			}
 
 			// vimeo
-			if (url.contains("vimeo.com")) {
+			else if (url.contains("vimeo.com")) {
 				String videoParam = utilsService
 						.extractIDFromYoutuDotBeURL(url);
 				String data = "http://vimeo.com/api/v2/video/" + videoParam
@@ -84,7 +85,7 @@ public class URLContentCommand {
 
 			// twitter
 
-			if (url.contains("twitter.com")
+			else if (url.contains("twitter.com")
 					&& (url.contains("/status/") || url.contains("/statuses/"))) {
 
 				String[] split = url.split("/");
@@ -115,6 +116,11 @@ public class URLContentCommand {
 					result.add(line);
 
 				}
+			} else {
+				String html = utilsService.getContent(url);
+				String title = Jsoup.parse(html).select("head > title").first()
+						.text();
+				result.add(IRCUtils.bold("Title: ") + title);
 			}
 		}
 		return result;

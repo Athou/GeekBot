@@ -10,6 +10,6 @@ public class PileoufaceCommand {
 
 	@Trigger(value = "!pileouface")
 	public String pileouface() {
-		return new Random().nextInt(2) == 0 ? "Pile" : "Face";
+		return new Random().nextBoolean() ? "Pile" : "Face";
 	}
 }

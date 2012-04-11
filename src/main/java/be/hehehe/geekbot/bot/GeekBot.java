@@ -95,6 +95,7 @@ public class GeekBot extends PircBot {
 
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
+			this.setVersion("GeekBot - https://github.com/Athou/GeekBot");
 			this.setName(botName);
 			this.setLogin(botName);
 			this.setVerbose(true);

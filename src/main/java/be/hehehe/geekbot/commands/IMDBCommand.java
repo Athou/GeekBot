@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,7 +21,6 @@ import be.hehehe.geekbot.commands.GoogleCommand.Lang;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * IMDB commands
@@ -31,8 +31,12 @@ public class IMDBCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+
 	@Inject
 	GoogleCommand googleCommand;
+
+	@Inject
+	Logger log;
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
 	@Help("IMDb Movie search.")
@@ -141,7 +145,7 @@ public class IMDBCommand {
 			}
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 
 		List<String> result2 = new ArrayList<String>();

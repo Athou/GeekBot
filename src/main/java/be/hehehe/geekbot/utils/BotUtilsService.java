@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
@@ -24,6 +25,9 @@ public class BotUtilsService {
 
 	@Inject
 	BundleService bundleService;
+
+	@Inject
+	Logger log;
 
 	/**
 	 * Get the content of the specified URL
@@ -60,7 +64,7 @@ public class BotUtilsService {
 				result = IOUtils.toString(is);
 			}
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		} finally {
 			IOUtils.closeQuietly(is);
 		}
@@ -89,7 +93,7 @@ public class BotUtilsService {
 				result = json.getJSONObject("results").getJSONObject(url)
 						.getString("shortUrl");
 			} catch (Exception e) {
-				LOG.handle(e);
+				log.error(e.getMessage(), e);
 			} finally {
 				IOUtils.closeQuietly(is);
 			}

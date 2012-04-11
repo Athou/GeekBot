@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.json.JSONArray;
@@ -17,7 +18,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * 
@@ -29,6 +29,9 @@ public class URLContentCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Logger log;
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> handleLinks(TriggerEvent event) {
@@ -62,7 +65,7 @@ public class URLContentCommand {
 					String line = IRCUtils.bold("Youtube") + " - " + title;
 					result.add(line);
 				} catch (Exception e) {
-					LOG.handle(e);
+					log.error(e.getMessage(), e);
 				}
 			}
 
@@ -79,7 +82,7 @@ public class URLContentCommand {
 					String line = IRCUtils.bold("Vimeo") + " - " + title;
 					result.add(line);
 				} catch (Exception e) {
-					LOG.handle(e);
+					log.error(e.getMessage(), e);
 				}
 			}
 
@@ -110,7 +113,7 @@ public class URLContentCommand {
 						name = root.getJSONObject("user").getString("name");
 						text = root.getString("text");
 					} catch (Exception e) {
-						LOG.handle(e);
+						log.error(e.getMessage(), e);
 					}
 					String line = IRCUtils.bold(name + ": ") + text;
 					result.add(line);

@@ -5,13 +5,14 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.LOG;
 
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
@@ -24,6 +25,9 @@ public class UpdateCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Logger log;
 
 	@Trigger(value = "!update")
 	@Help("Update from GitHub and restarts the bot.")
@@ -51,7 +55,7 @@ public class UpdateCommand {
 			state.put(newDate);
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 
 		return result;
@@ -61,7 +65,7 @@ public class UpdateCommand {
 		try {
 			Runtime.getRuntime().exec(new String[] { "sh", "update.sh" });
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 }

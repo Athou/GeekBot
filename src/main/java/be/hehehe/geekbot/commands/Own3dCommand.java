@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import be.hehehe.geekbot.annotations.BotCommand;
@@ -14,7 +15,6 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 import com.google.common.collect.Lists;
 
@@ -31,6 +31,9 @@ public class Own3dCommand {
 
 	@Inject
 	State state;
+	
+	@Inject
+	Logger log;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
@@ -64,7 +67,7 @@ public class Own3dCommand {
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {
-				LOG.handle(e);
+				log.error(e.getMessage(), e);
 			}
 		}
 

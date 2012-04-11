@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 
 import be.hehehe.geekbot.annotations.BotCommand;
@@ -16,7 +17,6 @@ import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -35,6 +35,9 @@ public class BuzzCommand {
 
 	@Inject
 	RSSFeedDAO dao;
+	
+	@Inject
+	Logger log;
 
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")
@@ -73,7 +76,7 @@ public class BuzzCommand {
 			}
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 
 		return toReturn;

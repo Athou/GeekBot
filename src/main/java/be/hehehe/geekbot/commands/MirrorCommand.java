@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
@@ -27,7 +28,6 @@ import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * Mirrors images on imgur.com, useful for image hosts blocked at work. When the
@@ -46,6 +46,9 @@ public class MirrorCommand {
 
 	@Inject
 	BundleService bundleService;
+	
+	@Inject
+	Logger log;
 
 	@Trigger("!mirror")
 	@Help("Mirrors the last link pasted on the chan.")
@@ -127,7 +130,7 @@ public class MirrorCommand {
 			size = size / 1000;
 			result = url + " [Size: " + size + " kb]";
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 			result = e.getMessage();
 		} finally {
 			IOUtils.closeQuietly(wr);
@@ -149,12 +152,12 @@ public class MirrorCommand {
 				state.put(KEY_TEMPFILE, tempFile);
 			}
 			state.put(KEY_VIDEOURL, message);
-			LOG.debug("Mirroring " + message + " at "
+			log.debug("Mirroring " + message + " at "
 					+ tempFile.getAbsolutePath());
 			String[] movgrab = new String[] { "movgrab", "-o",
 					tempFile.getAbsolutePath(), "-f", "mp4,flv", message };
 			Process process = Runtime.getRuntime().exec(movgrab);
-			LOG.debug(IOUtils.toString(process.getErrorStream()));
+			log.debug(IOUtils.toString(process.getErrorStream()));
 
 			result = "Mirrored here : " + bundleService.getWebServerRootPath()
 					+ "/videomirror?t="

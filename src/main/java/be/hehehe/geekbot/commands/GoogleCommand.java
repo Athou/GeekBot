@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,7 +19,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * Google search, web or images
@@ -29,6 +29,9 @@ public class GoogleCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Logger log;
 
 	public enum Lang {
 		FRENCH("fr"), ENGLISH("en");
@@ -99,7 +102,7 @@ public class GoogleCommand {
 			}
 			result = utilsService.getContent(url);
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 		return parse(result, keywords, mode);
 	}

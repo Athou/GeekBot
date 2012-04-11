@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -24,7 +25,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * Finds out the next air date of tv shows.
@@ -35,6 +35,9 @@ public class EpisodesCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Logger log;
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	@Help("Information about a TV show from TVRage.com")
@@ -52,7 +55,7 @@ public class EpisodesCommand {
 				}
 			}
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 		return buildStrings(showInfos);
 	}
@@ -80,7 +83,7 @@ public class EpisodesCommand {
 		return list;
 	}
 
-	public static String parseEpisode(String s) {
+	public String parseEpisode(String s) {
 		String result = s.replaceAll("\\^", " ");
 		try {
 			String[] split = result.split(" ");
@@ -111,7 +114,7 @@ public class EpisodesCommand {
 			}
 			result += add;
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 			result = s.replaceAll("\\^", " ");
 		}
 		return result;

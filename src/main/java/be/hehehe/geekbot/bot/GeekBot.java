@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
@@ -45,7 +46,6 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.LOG;
 
 @Singleton
 public class GeekBot extends PircBot {
@@ -67,6 +67,9 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	Instance<Object> container;
+
+	@Inject
+	Logger log;
 
 	private ScheduledExecutorService scheduler;
 	private ExecutorService executor;
@@ -103,7 +106,7 @@ public class GeekBot extends PircBot {
 			this.joinChannel(channel);
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -157,7 +160,7 @@ public class GeekBot extends PircBot {
 					try {
 						invokeTrigger(method, buildEvent());
 					} catch (Exception e) {
-						LOG.handle(e);
+						log.error(e.getMessage(), e);
 					}
 				}
 			};
@@ -193,11 +196,11 @@ public class GeekBot extends PircBot {
 				this.joinChannel(channel);
 			}
 		} catch (NickAlreadyInUseException e) {
-			LOG.error("Nick already in use!");
+			log.error("Nick already in use!");
 		} catch (IOException e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		} catch (IrcException e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -340,7 +343,7 @@ public class GeekBot extends PircBot {
 
 	private void invoke(Method method, Object... args) {
 
-		LOG.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
+		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 				+ "#" + method.getName());
 
 		final Object commandInstance = container.select(
@@ -355,7 +358,7 @@ public class GeekBot extends PircBot {
 			}
 			handleResultOfInvoke(result);
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 

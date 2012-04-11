@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,7 +19,6 @@ import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 import com.google.common.collect.Maps;
 
@@ -34,6 +34,9 @@ public class HoroscopeCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Logger log;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
@@ -76,22 +79,22 @@ public class HoroscopeCommand {
 
 		String line = null;
 		try {
+			Map<String, String> mapping = state.get(Map.class);
+			String id = mapping.get(sign);
 			Document doc = Jsoup
 					.parse(utilsService
-							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0"));
-			Map<String, String> mapping = state.get(Map.class);
-			line = getLineFor(doc, mapping.get(sign));
+							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0&sign="
+									+ id));
+
+			Element horo = doc.select("div#ast-sign-" + id).first();
+			horo = horo.select(".ast-description p").first();
+			return horo.text();
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 
 		return line;
 	}
 
-	private String getLineFor(Document doc, String id) {
-		Element horo = doc.select("div#ast-sign-" + id).first();
-		horo = horo.select(".ast-description p").first();
-		return horo.text();
-	}
 }

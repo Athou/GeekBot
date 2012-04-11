@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -16,7 +17,6 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
-import be.hehehe.geekbot.utils.LOG;
 
 /**
  * Gives back a random VDM (French)
@@ -27,6 +27,9 @@ public class VDMCommand {
 
 	@Inject
 	BundleService bundleService;
+	
+	@Inject
+	Logger log;
 
 	@Trigger("!vdm")
 	@Help("Prints a random VDM.")
@@ -51,7 +54,7 @@ public class VDMCommand {
 			toReturn.add(IRCUtils.bold("MOAR FAKE PLZ"));
 
 		} catch (Exception e) {
-			LOG.handle(e);
+			log.error(e.getMessage(), e);
 		}
 		return toReturn;
 

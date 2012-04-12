@@ -1754,7 +1754,6 @@ Combien y a-t-il de e dans sempiternellement ? \ 5
 Combien y a-t-il de faces dans un cube? \ 6
 Combien y a-t-il de fauteuils à l'Académie Française \ 40
 Combien y a-t-il de feuilles au trèfle d'un jeu de cartes ? \ 3
-Combien y a-t-il de filles dans le fan club du Quizz ? \ ah bon j'ai un fan club moi
 Combien y a-t-il de fuseaux horaires \ 24
 Combien y a-t-il de groupes ethniques en U.R.S.S. ? (environ) \ 110
 Combien y a-t-il de haies dans un 400 m haies \ 10
@@ -6104,102 +6103,6 @@ Nom du cable qui retient le mat a l'avant d'un voilier \ Etai
 Nom du canon qui bombarda Paris en 14-18 : \ L'empereur Guillaume
 Nom du chef du gouvernement cubain. Il arrive à Cuba en 1956 avec quelques-uns de ses partisans, dont Che Guevara, et mène une guérilla contre le gouvernement Batista. \ Castro
 Nom du cousin d'Harry Potter \ Dudley
-Nom du département n°1 \ Ain
-Nom du département n°10 \ Aube
-Nom du département n°11 \ Aude
-Nom du département n°12 \ Aveyron
-Nom du département n°13 \ Bouches-du-Rhône
-Nom du département n°14 \ Calvados
-Nom du département n°15 \ Cantal
-Nom du département n°16 \ Charente
-Nom du département n°17 \ Charente-Maritime
-Nom du département n°18 \ Cher
-Nom du département n°19 \ Corrèze
-Nom du département n°2 \ Aisne
-Nom du département n°21 \ Côte-d'Or
-Nom du département n°22 \ Côtes-d'Armor
-Nom du département n°23 \ Creuse
-Nom du département n°24 \ Dordogne
-Nom du département n°25 \ Doubs
-Nom du département n°26 \ Drôme
-Nom du département n°27 \ Eure
-Nom du département n°28 \ Eure-et-Loir
-Nom du département n°29 \ Finistère
-Nom du département n°2A \ Corse du Sud
-Nom du département n°2B \ Haute-Corse
-Nom du département n°3 \ Allier
-Nom du département n°30 \ Gard
-Nom du département n°31 \ Haute-Garonne
-Nom du département n°32 \ Gers
-Nom du département n°33 \ Gironde
-Nom du département n°34 \ Hérault
-Nom du département n°35 \ Ille-et-Vilaine
-Nom du département n°36 \ Indre
-Nom du département n°37 \ Indre-et-Loire
-Nom du département n°38 \ Isère
-Nom du département n°39 \ Jura
-Nom du département n°4 \ Alpes-de-Haute-Provence
-Nom du département n°40 \ Landes
-Nom du département n°41 \ Loire-et-Cher
-Nom du département n°42 \ Loire
-Nom du département n°43 \ Haute-Loire
-Nom du département n°44 \ Loire-Atlantique
-Nom du département n°45 \ Loiret
-Nom du département n°46 \ Lot
-Nom du département n°47 \ Lot-et-Garonne
-Nom du département n°48 \ Lozère
-Nom du département n°49 \ Maine-et-Loire
-Nom du département n°5 \ Hautes Alpes
-Nom du département n°50 \ Manche
-Nom du département n°51 \ Marne
-Nom du département n°52 \ Haute-Marne
-Nom du département n°53 \ Mayenne
-Nom du département n°54 \ Meurthe-et-Moselle
-Nom du département n°55 \ Meuse
-Nom du département n°56 \ Morbihan
-Nom du département n°57 \ Moselle
-Nom du département n°58 \ Nièvre
-Nom du département n°59 \ Nord
-Nom du département n°6 \ Alpes-Maritimes
-Nom du département n°60 \ Oise
-Nom du département n°61 \ Orne
-Nom du département n°62 \ Pas-de-Calais
-Nom du département n°63 \ Puy-de-Dôme
-Nom du département n°64 \ Pyrénées-Atlantiques
-Nom du département n°65 \ Hautes-Pyrénées
-Nom du département n°66 \ Pyrénées-Orientales
-Nom du département n°67 \ Bas-Rhin
-Nom du département n°68 \ Haut-Rhin
-Nom du département n°69 \ Rhône
-Nom du département n°7 \ Ardèche
-Nom du département n°70 \ Haute-Saône
-Nom du département n°71 \ Saône-et-Loire
-Nom du département n°72 \ Sarthe
-Nom du département n°73 \ Savoie
-Nom du département n°74 \ Haute-Savoie
-Nom du département n°75 \ Paris
-Nom du département n°76 \ Seine-Maritime
-Nom du département n°77 \ Seine-et-Marne
-Nom du département n°78 \ Yvelines
-Nom du département n°79 \ Deux-Sèvres
-Nom du département n°8 \ Ardennes
-Nom du département n°80 \ Somme
-Nom du département n°81 \ Tarn
-Nom du département n°82 \ Tarn-et-Garonne
-Nom du département n°83 \ Var
-Nom du département n°84 \ Vaucluse
-Nom du département n°85 \ Vendée
-Nom du département n°86 \ Vienne
-Nom du département n°87 \ Haute-Vienne
-Nom du département n°88 \ Vosges
-Nom du département n°89 \ Yonne
-Nom du département n°9 \ Ariège
-Nom du département n°90 \ Territoire de Belfort
-Nom du département n°91 \ Essonne
-Nom du département n°92 \ Hauts-de-Seine
-Nom du département n°93 \ Seine-St-Denis
-Nom du département n°94 \ Val-de-Marne
-Nom du département n°95 \ Val-d'Oise
 Nom du metteur en scene du film Harry Potter \ Cris Columbus
 Nom du réseau français RNIS. \ Numeris
 Nom du souverain du monde des musulmans? \ Calife
@@ -6246,102 +6149,6 @@ Nouvelle capitale du Brésil (depuis 1960) et chef-lieu du district fédéral. La v
 Nuage bas qui se présente en couche uniforme grise, formant un voile continu \ stratus
 Nuage constitué de cristaux de glace, se formant entre 6000 et 10 000 m d'altitude, et se présentant le plus souvent en filaments ou en voile fin. \ Cirrus
 Nuance résultant d'un mélange de couleurs, de leur emploi dans un tableau de peinture. \ Coloris
-Numéro du département : Ain \ 1
-Numéro du département : Aisne \ 2
-Numéro du département : Allier \ 3
-Numéro du département : Alpes-de-Haute-Provence \ 4
-Numéro du département : Alpes-Maritimes \ 6
-Numéro du département : Ardennes \ 8
-Numéro du département : Ardèche \ 7
-Numéro du département : Ariège \ 9
-Numéro du département : Aube \ 10
-Numéro du département : Aude \ 11
-Numéro du département : Aveyron \ 12
-Numéro du département : Bas-Rhin \ 67
-Numéro du département : Bouches-du-Rhône \ 13
-Numéro du département : Calvados \ 14
-Numéro du département : Cantal \ 15
-Numéro du département : Charente \ 16
-Numéro du département : Charente-Maritime \ 17
-Numéro du département : Cher \ 18
-Numéro du département : Corrèze \ 19
-Numéro du département : Corse du Sud \ 2A
-Numéro du département : Creuse \ 23
-Numéro du département : Côte-d'Or \ 21
-Numéro du département : Côtes-d'Armor \ 22
-Numéro du département : Deux-Sèvres \ 79
-Numéro du département : Dordogne \ 24
-Numéro du département : Doubs \ 25
-Numéro du département : Drôme \ 26
-Numéro du département : Essonne \ 91
-Numéro du département : Eure \ 27
-Numéro du département : Eure-et-Loir \ 28
-Numéro du département : Finistère \ 29
-Numéro du département : Gard \ 30
-Numéro du département : Gers \ 32
-Numéro du département : Gironde \ 33
-Numéro du département : Haut-Rhin \ 68
-Numéro du département : Haute-Corse \ 2B
-Numéro du département : Haute-Garonne \ 31
-Numéro du département : Haute-Loire \ 43
-Numéro du département : Haute-Marne \ 52
-Numéro du département : Haute-Savoie \ 74
-Numéro du département : Haute-Saône \ 70
-Numéro du département : Haute-Vienne \ 87
-Numéro du département : Hautes Alpes \ 5
-Numéro du département : Hautes-Pyrénées \ 65
-Numéro du département : Hauts-de-Seine \ 92
-Numéro du département : Hérault \ 34
-Numéro du département : Ille-et-Vilaine \ 35
-Numéro du département : Indre \ 36
-Numéro du département : Indre-et-Loire \ 37
-Numéro du département : Isère \ 38
-Numéro du département : Jura \ 39
-Numéro du département : Landes \ 40
-Numéro du département : Loire \ 42
-Numéro du département : Loire-Atlantique \ 44
-Numéro du département : Loire-et-Cher \ 41
-Numéro du département : Loiret \ 45
-Numéro du département : Lot \ 46
-Numéro du département : Lot-et-Garonne \ 47
-Numéro du département : Lozère \ 48
-Numéro du département : Maine-et-Loire \ 49
-Numéro du département : Manche \ 50
-Numéro du département : Marne \ 51
-Numéro du département : Mayenne \ 53
-Numéro du département : Meuse \ 55
-Numéro du département : Meuthe-et-Moselle \ 54
-Numéro du département : Morbihan \ 56
-Numéro du département : Moselle \ 57
-Numéro du département : Nièvre \ 58
-Numéro du département : Nord \ 59
-Numéro du département : Oise \ 60
-Numéro du département : Orne \ 61
-Numéro du département : Paris \ 75
-Numéro du département : Pas-de-Calais \ 62
-Numéro du département : Puy-de-Dôme \ 63
-Numéro du département : Pyrénées-Atlantiques \ 64
-Numéro du département : Pyrénées-Orientales \ 66
-Numéro du département : Rhône \ 69
-Numéro du département : Sarthe \ 72
-Numéro du département : Savoie \ 73
-Numéro du département : Saône-et-Loire \ 71
-Numéro du département : Seine-et-Marne \ 77
-Numéro du département : Seine-Maritime \ 76
-Numéro du département : Seine-St-Denis \ 93
-Numéro du département : Somme \ 80
-Numéro du département : Tarn \ 81
-Numéro du département : Tarn-et-Garonne \ 82
-Numéro du département : Territoire de Belfort \ 90
-Numéro du département : Val-d'Oise \ 95
-Numéro du département : Val-de-Marne \ 94
-Numéro du département : Var \ 83
-Numéro du département : Vaucluse \ 84
-Numéro du département : Vendée \ 85
-Numéro du département : Vienne \ 86
-Numéro du département : Vosges \ 88
-Numéro du département : Yonne \ 89
-Numéro du département : Yvelines \ 78
 Nymphe des montagnes, amante de Zeus, mère d'Hermès. \ Maia
 N° de l'article du Code Pénal sur les billets de banque Français \ 139
 N° du département Saint Pierre et Miquelon \ 975
@@ -8515,7 +8322,6 @@ Quel est le nom du réalisateur de «Full Metal Jacket», film tourné en 1987 sur l
 Quel est le nom du réalisateur du film << Pulp Fiction >> \ quentin tarentino
 Quel est le nom du satellite d'exploration, lancé le 2 décembre 1995 en direction du soleil, c'est l'alcool de litchies également ? \ soho
 Quel est le nom du satellite de pluton \ Charon
-Quel est le nom du script qui fait tourner ce Quizz ? \ WQuizz
 Quel est le nom du serveur dans la pub pour Tourtel ? \ Paul
 Quel est le nom du singe d' Aladdin ? \ Abu
 Quel est le nom du tigre dans "Le livre de la jungle" \ Shere Khan

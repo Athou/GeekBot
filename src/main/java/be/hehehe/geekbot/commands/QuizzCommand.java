@@ -1,5 +1,6 @@
 package be.hehehe.geekbot.commands;
 
+import java.io.IOException;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +31,7 @@ public class QuizzCommand {
 	Logger log;
 
 	private static final String ENABLED = "enabled";
+	private static final String QUESTIONS = "questions";
 	private static final String CURRENT_ANSWER = "current-answer";
 	private static final String TIMEOUT_TIMER = "timeout-timer";
 	private static final String NEXTQUESTION_TIMER = "nextquestion-timer";
@@ -48,15 +50,14 @@ public class QuizzCommand {
 	@Trigger(value = "!stop")
 	@Help("Stops the quizz.")
 	public void stopQuizz(TriggerEvent event) {
+		stopNextQuestionTimer();
+		stopTimeoutTimer();
 		if (Boolean.TRUE.equals(state.get(ENABLED))) {
 			event.write("Quizz stopped.");
 		} else {
 			event.write("Quizz is not running.");
 		}
 		state.put(ENABLED, Boolean.FALSE);
-		stopNextQuestionTimer();
-		stopTimeoutTimer();
-
 	}
 
 	@Trigger(value = "!tg")
@@ -71,8 +72,7 @@ public class QuizzCommand {
 			@Override
 			public void run() {
 				try {
-					List<String> lines = IOUtils.readLines(getClass()
-							.getResourceAsStream("/quizz.txt"), "ISO-8859-1");
+					List<String> lines = getQuestions();
 					int rand = new Random().nextInt(lines.size());
 
 					String line = lines.get(rand);
@@ -176,6 +176,17 @@ public class QuizzCommand {
 	private String stripAccents(String source) {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
 		return source.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<String> getQuestions() throws IOException {
+		List<String> lines = state.get(QUESTIONS, List.class);
+		if (lines == null) {
+			lines = IOUtils.readLines(
+					getClass().getResourceAsStream("/quizz.txt"), "ISO-8859-1");
+			state.put(QUESTIONS, lines);
+		}
+		return lines;
 	}
 
 }

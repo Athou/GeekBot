@@ -9,6 +9,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,10 +18,14 @@ import org.apache.log4j.Logger;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
+import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
+import be.hehehe.geekbot.persistence.dao.QuizzDAO;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 import com.google.common.collect.Lists;
@@ -32,6 +38,12 @@ public class QuizzCommand {
 
 	@Inject
 	Logger log;
+
+	@Inject
+	BundleService bundleService;
+
+	@Inject
+	QuizzDAO dao;
 
 	private static final String ENABLED = "enabled";
 	private static final String QUESTIONS = "questions";
@@ -173,6 +185,7 @@ public class QuizzCommand {
 						+ "La réponse était: "
 						+ answer
 						+ ". Prochaine question dans quelques secondes ...");
+				dao.giveOnePoint(event.getAuthor());
 				nextQuestion(event, 10);
 			}
 		}
@@ -278,6 +291,22 @@ public class QuizzCommand {
 			state.put(QUESTIONS, lines);
 		}
 		return lines;
+	}
+
+	@Trigger("!score")
+	public String score(TriggerEvent event) {
+		return IRCUtils.bold("Scoreboard: ")
+				+ bundleService.getWebServerRootPath() + "/quizz";
+	}
+
+	@ServletMethod("/quizz")
+	public void scoreboard(ServletEvent event) throws Exception {
+		HttpServletRequest request = event.getRequest();
+		HttpServletResponse response = event.getResponse();
+		request.setAttribute("players", dao.getPlayersOrderByPoints());
+		request.getRequestDispatcher("/scoreboard.jsp").forward(request,
+				response);
+
 	}
 
 }

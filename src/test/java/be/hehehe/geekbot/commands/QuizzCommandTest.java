@@ -23,6 +23,7 @@ public class QuizzCommandTest {
 	public void matchStrippedAccentsTest() {
 		Assert.assertTrue(quizzCommand.matches("garcon", "garçon"));
 		Assert.assertTrue(quizzCommand.matches("education", "éducation"));
+		Assert.assertTrue(quizzCommand.matches("état", "ETAT"));
 	}
 	
 	@Test

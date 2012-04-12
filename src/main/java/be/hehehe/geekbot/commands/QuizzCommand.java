@@ -30,9 +30,9 @@ public class QuizzCommand {
 	Logger log;
 
 	private static final String ENABLED = "enabled";
-	private static final String CURRENT_QUESTION = "current-question";
 	private static final String CURRENT_ANSWER = "current-answer";
-	private static final String CURRENT_TIMER = "current-timer";
+	private static final String TIMEOUT_TIMER = "timeout-timer";
+	private static final String NEXTQUESTION_TIMER = "nextquestion-timer";
 
 	@Trigger(value = "!quizz")
 	@Help("Starts the quizz.")
@@ -48,8 +48,15 @@ public class QuizzCommand {
 	@Trigger(value = "!stop")
 	@Help("Stops the quizz.")
 	public void stopQuizz(TriggerEvent event) {
+		if (Boolean.TRUE.equals(state.get(ENABLED))) {
+			event.write("Quizz stopped.");
+		} else {
+			event.write("Quizz is not running.");
+		}
 		state.put(ENABLED, Boolean.FALSE);
-		event.write("Quizz stopped.");
+		stopNextQuestionTimer();
+		stopTimeoutTimer();
+
 	}
 
 	@Trigger(value = "!tg")
@@ -59,7 +66,6 @@ public class QuizzCommand {
 	}
 
 	private void nextQuestion(final TriggerEvent event, int delay) {
-		state.put(CURRENT_QUESTION, null);
 		state.put(CURRENT_ANSWER, null);
 		Runnable thread = new Runnable() {
 			@Override
@@ -75,7 +81,6 @@ public class QuizzCommand {
 					String question = split[0].trim();
 					String answer = split[1].trim();
 
-					state.put(CURRENT_QUESTION, question);
 					state.put(CURRENT_ANSWER, answer);
 
 					event.write(IRCUtils.bold("Question! ") + question);
@@ -87,23 +92,41 @@ public class QuizzCommand {
 				}
 			}
 		};
-		event.getScheduler().schedule(thread, delay, TimeUnit.SECONDS);
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, delay,
+				TimeUnit.SECONDS);
+		state.put(NEXTQUESTION_TIMER, timer);
 
+	}
+
+	private void stopNextQuestionTimer() {
+		ScheduledFuture<?> timer = state.get(NEXTQUESTION_TIMER,
+				ScheduledFuture.class);
+		if (timer != null) {
+			timer.cancel(true);
+		}
 	}
 
 	private void startTimeoutTimer(final TriggerEvent event) {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("Trop tard!") + "La réponse était: "
+				event.write(IRCUtils.bold("Trop tard! ") + "La réponse était: "
 						+ state.get(CURRENT_ANSWER)
 						+ ". Prochaine question dans quelques secondes ...");
-				nextQuestion(event, 5);
+				nextQuestion(event, 10);
 			}
 		};
 		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 30,
 				TimeUnit.SECONDS);
-		state.put(CURRENT_TIMER, timer);
+		state.put(TIMEOUT_TIMER, timer);
+	}
+
+	private void stopTimeoutTimer() {
+		ScheduledFuture<?> timer = state.get(TIMEOUT_TIMER,
+				ScheduledFuture.class);
+		if (timer != null) {
+			timer.cancel(true);
+		}
 	}
 
 	@Trigger(type = TriggerType.EVERYTHING)
@@ -112,20 +135,13 @@ public class QuizzCommand {
 		if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
 				&& !event.isStartsWithTrigger()) {
 			if (matches(event.getMessage(), answer)) {
+				stopTimeoutTimer();
 				event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
 						+ " ! ")
 						+ "La réponse était: "
 						+ answer
-						+ ". Prochaine question dans quelques secondes");
-
-				// cancel timer
-				ScheduledFuture<?> timer = state.get(CURRENT_TIMER,
-						ScheduledFuture.class);
-				if (timer != null) {
-					timer.cancel(true);
-				}
-
-				nextQuestion(event, 5);
+						+ ". Prochaine question dans quelques secondes ...");
+				nextQuestion(event, 10);
 			}
 		}
 	}
@@ -133,9 +149,8 @@ public class QuizzCommand {
 	public boolean matches(String proposition, String answer) {
 		boolean match = false;
 
-		proposition = StringUtils.trimToEmpty(stripAccents(proposition))
-				.toUpperCase();
-		answer = StringUtils.trimToEmpty(stripAccents(answer)).toUpperCase();
+		proposition = normalize(proposition);
+		answer = normalize(answer);
 
 		// check if those are numbers
 		try {
@@ -147,14 +162,20 @@ public class QuizzCommand {
 		}
 
 		// be permissive regarding the response (experimental)
-		match |= (StringUtils.getLevenshteinDistance(proposition, answer) <= 1);
+		int diff = (answer.length() / 4) + 1;
+		match |= (StringUtils.getLevenshteinDistance(proposition, answer) <= diff);
 
 		return match;
 
+	}
+
+	private String normalize(String source) {
+		return StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
 	}
 
 	private String stripAccents(String source) {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
 		return source.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 	}
+
 }

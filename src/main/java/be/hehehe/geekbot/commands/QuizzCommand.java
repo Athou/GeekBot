@@ -119,7 +119,7 @@ public class QuizzCommand {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("1 10!: "
+				event.write(IRCUtils.bold("1 10: "
 						+ computeIndice(state.get(CURRENT_ANSWER, String.class))));
 			}
 
@@ -245,6 +245,7 @@ public class QuizzCommand {
 
 	private String normalize(String source) {
 		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
+		source.replace("L'", "");
 
 		List<String> dest = Lists.newArrayList();
 		for (String word : Arrays.asList(source.split(" "))) {
@@ -264,7 +265,8 @@ public class QuizzCommand {
 
 	private String stripAccents(String source) {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
-		return source.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		source = source.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		return source;
 	}
 
 	@SuppressWarnings("unchecked")

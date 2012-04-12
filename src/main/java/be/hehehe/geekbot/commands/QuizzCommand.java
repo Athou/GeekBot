@@ -37,6 +37,7 @@ public class QuizzCommand {
 	private static final String QUESTIONS = "questions";
 	private static final String CURRENT_ANSWER = "current-answer";
 	private static final String TIMEOUT_TIMER = "timeout-timer";
+	private static final String INDICE_TIMER = "indice-timer";
 	private static final String NEXTQUESTION_TIMER = "nextquestion-timer";
 
 	private static final String[] STOPWORDS = new String[] { "un", "une",
@@ -56,6 +57,7 @@ public class QuizzCommand {
 	@Trigger(value = "!stop")
 	@Help("Stops the quizz.")
 	public void stopQuizz(TriggerEvent event) {
+		stopIndiceTimer();
 		stopNextQuestionTimer();
 		stopTimeoutTimer();
 		if (Boolean.TRUE.equals(state.get(ENABLED))) {
@@ -91,6 +93,7 @@ public class QuizzCommand {
 
 					event.write(IRCUtils.bold("Question! ") + question);
 
+					startIndiceTimer(event);
 					startTimeoutTimer(event);
 
 				} catch (Exception e) {
@@ -106,6 +109,28 @@ public class QuizzCommand {
 
 	private void stopNextQuestionTimer() {
 		ScheduledFuture<?> timer = state.get(NEXTQUESTION_TIMER,
+				ScheduledFuture.class);
+		if (timer != null) {
+			timer.cancel(true);
+		}
+	}
+
+	private void startIndiceTimer(final TriggerEvent event) {
+		Runnable thread = new Runnable() {
+			@Override
+			public void run() {
+				event.write(IRCUtils.bold("1 10!: "
+						+ computeIndice(state.get(CURRENT_ANSWER, String.class))));
+			}
+
+		};
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 20,
+				TimeUnit.SECONDS);
+		state.put(INDICE_TIMER, timer);
+	}
+
+	private void stopIndiceTimer() {
+		ScheduledFuture<?> timer = state.get(INDICE_TIMER,
 				ScheduledFuture.class);
 		if (timer != null) {
 			timer.cancel(true);
@@ -141,6 +166,7 @@ public class QuizzCommand {
 		if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
 				&& !event.isStartsWithTrigger()) {
 			if (matches(event.getMessage(), answer)) {
+				stopIndiceTimer();
 				stopTimeoutTimer();
 				event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
 						+ " ! ")
@@ -185,6 +211,36 @@ public class QuizzCommand {
 
 		return false;
 
+	}
+
+	public String computeIndice(String answer) {
+		int ratio = 3;
+
+		char c = '.';
+		int length = answer.length();
+		Random random = new Random();
+
+		char[] indice = new char[length];
+		Arrays.fill(indice, c);
+
+		// fill spaces
+		for (int i = 0; i < length; i++) {
+			if (answer.charAt(i) == ' ') {
+				indice[i] = ' ';
+			}
+		}
+
+		// add some letters
+		for (int i = 0; i < length / ratio + 1; i++) {
+			int rand = random.nextInt(length);
+			// if spot is already filled, choose next available spot
+			while (indice[rand] != c) {
+				rand = (rand + 1) % length;
+			}
+			indice[rand] = answer.charAt(rand);
+		}
+
+		return new String(indice);
 	}
 
 	private String normalize(String source) {

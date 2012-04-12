@@ -66,7 +66,7 @@ public class QuizzCommand {
 			public void run() {
 				try {
 					List<String> lines = IOUtils.readLines(getClass()
-							.getResourceAsStream("/quizz.txt"));
+							.getResourceAsStream("/quizz.txt"), "ISO-8859-1");
 					int rand = new Random().nextInt(lines.size());
 
 					String line = lines.get(rand);

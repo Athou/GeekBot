@@ -14,20 +14,22 @@
 	<div class="center">
 		<h1>Quizz Scoreboard</h1>
 
-		<table>
+		<table class="center">
 			<tr>
 				<td>Rank</td>
 				<td>Player Name</td>
 				<td>Points</td>
 			</tr>
 			<%
-				for (QuizzPlayer player : (List<QuizzPlayer>) request
-						.getAttribute("players")) {
+				List<QuizzPlayer> players = (List<QuizzPlayer>) request
+						.getAttribute("players");
+				for (int i = 0; i < players.size(); i++) {
+					QuizzPlayer player = players.get(i);
 			%>
 			<tr>
-				<td>${i}</td>
-				<td>${player.name}</td>
-				<td>${player.points}</td>
+				<td><%= i %></td>
+				<td><%= player.getName() %></td>
+				<td><%= player.getPoints() %></td>
 			</tr>
 			<%
 				}

@@ -16,7 +16,7 @@ public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 		if (players.isEmpty()) {
 			QuizzPlayer player = new QuizzPlayer();
 			player.setName(author);
-			player.setPoints(0);
+			player.setPoints(1);
 			save(player);
 		} else {
 			QuizzPlayer player = players.get(0);

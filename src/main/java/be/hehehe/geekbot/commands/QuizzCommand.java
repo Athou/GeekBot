@@ -176,23 +176,20 @@ public class QuizzCommand {
 
 	@Trigger(type = TriggerType.EVERYTHING)
 	public void handlePossibleAnswer(TriggerEvent event) {
-		String answer = state.get(CURRENT_ANSWER, String.class);
-		if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
-				&& !event.isStartsWithTrigger()) {
-			if (matches(event.getMessage(), answer)) {
-				synchronized (lock) {
-					if (state.get(CURRENT_ANSWER, String.class) != null) {
-						state.put(CURRENT_ANSWER, null);
-						stopIndiceTimer();
-						stopTimeoutTimer();
-						event.write(IRCUtils.bold("Bien joué "
-								+ event.getAuthor() + " ! ")
-								+ "La réponse était: "
-								+ answer
-								+ ". Prochaine question dans quelques secondes ...");
-						dao.giveOnePoint(event.getAuthor());
-						nextQuestion(event, 10);
-					}
+		synchronized (lock) {
+			String answer = state.get(CURRENT_ANSWER, String.class);
+			if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
+					&& !event.isStartsWithTrigger()) {
+				if (matches(event.getMessage(), answer)) {
+					stopIndiceTimer();
+					stopTimeoutTimer();
+					event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
+							+ " ! ")
+							+ "La réponse était: "
+							+ answer
+							+ ". Prochaine question dans quelques secondes ...");
+					dao.giveOnePoint(event.getAuthor());
+					nextQuestion(event, 10);
 				}
 			}
 		}
@@ -245,8 +242,8 @@ public class QuizzCommand {
 
 		// fill spaces
 		for (int i = 0; i < length; i++) {
-			if (answer.charAt(i) == ' ') {
-				indice[i] = ' ';
+			if (answer.charAt(i) == ' ' || answer.charAt(i) == '\'') {
+				indice[i] = answer.charAt(i);
 			}
 		}
 
@@ -264,8 +261,9 @@ public class QuizzCommand {
 	}
 
 	private String normalize(String source) {
-		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
 		source.replace("L'", "");
+		source.replace("l'", "");
+		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
 
 		List<String> dest = Lists.newArrayList();
 		for (String word : Arrays.asList(source.split(" "))) {

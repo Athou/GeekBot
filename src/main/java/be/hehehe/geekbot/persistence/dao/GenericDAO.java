@@ -14,7 +14,7 @@ import be.hehehe.geekbot.persistence.EntityManagerHelper;
 
 public abstract class GenericDAO<T> {
 
-	protected static EntityManager em;
+	protected EntityManager em;
 	protected CriteriaBuilder builder;
 	private Class<T> genericType;
 

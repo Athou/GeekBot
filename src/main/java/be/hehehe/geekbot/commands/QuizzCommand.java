@@ -147,25 +147,37 @@ public class QuizzCommand {
 	}
 
 	public boolean matches(String proposition, String answer) {
-		boolean match = false;
-
-		proposition = normalize(proposition);
-		answer = normalize(answer);
 
 		// check if those are numbers
 		try {
 			double p = Double.parseDouble(proposition.replace(" ", ""));
 			double a = Double.parseDouble(answer.replace(" ", ""));
-			match |= (p == a);
-		} catch (Exception e) {
-			// do nothing
+			if (p == a) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (NumberFormatException e) {
+			// not numbers, continue
+		}
+
+		proposition = normalize(proposition);
+		answer = normalize(answer);
+
+		// check if we have an exact match after normalization
+		if (StringUtils.equals(proposition, answer)) {
+			return true;
 		}
 
 		// be permissive regarding the response (experimental)
-		int diff = (answer.length() / 4) + 1;
-		match |= (StringUtils.getLevenshteinDistance(proposition, answer) <= diff);
+		if (answer.length() >= 4) {
+			int diff = (answer.length() / 4);
+			if (StringUtils.getLevenshteinDistance(proposition, answer) <= diff) {
+				return true;
+			}
+		}
 
-		return match;
+		return false;
 
 	}
 

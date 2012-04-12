@@ -52,6 +52,8 @@ public class QuizzCommand {
 	private static final String INDICE_TIMER = "indice-timer";
 	private static final String NEXTQUESTION_TIMER = "nextquestion-timer";
 
+	private static final Object lock = new Object();
+
 	private static final String[] STOPWORDS = new String[] { "un", "une",
 			"des", "le", "la", "les" };
 
@@ -178,15 +180,20 @@ public class QuizzCommand {
 		if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
 				&& !event.isStartsWithTrigger()) {
 			if (matches(event.getMessage(), answer)) {
-				stopIndiceTimer();
-				stopTimeoutTimer();
-				event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
-						+ " ! ")
-						+ "La réponse était: "
-						+ answer
-						+ ". Prochaine question dans quelques secondes ...");
-				dao.giveOnePoint(event.getAuthor());
-				nextQuestion(event, 10);
+				synchronized (lock) {
+					if (state.get(CURRENT_ANSWER, String.class) != null) {
+						state.put(CURRENT_ANSWER, null);
+						stopIndiceTimer();
+						stopTimeoutTimer();
+						event.write(IRCUtils.bold("Bien joué "
+								+ event.getAuthor() + " ! ")
+								+ "La réponse était: "
+								+ answer
+								+ ". Prochaine question dans quelques secondes ...");
+						dao.giveOnePoint(event.getAuthor());
+						nextQuestion(event, 10);
+					}
+				}
 			}
 		}
 	}

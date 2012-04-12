@@ -27,7 +27,7 @@
 					QuizzPlayer player = players.get(i);
 			%>
 			<tr>
-				<td><%= i %></td>
+				<td><%= (i + 1) %></td>
 				<td><%= player.getName() %></td>
 				<td><%= player.getPoints() %></td>
 			</tr>

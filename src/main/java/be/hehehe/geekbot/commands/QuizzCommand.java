@@ -2,6 +2,7 @@ package be.hehehe.geekbot.commands;
 
 import java.io.IOException;
 import java.text.Normalizer;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
@@ -21,6 +22,8 @@ import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.IRCUtils;
 
+import com.google.common.collect.Lists;
+
 @BotCommand
 public class QuizzCommand {
 
@@ -35,6 +38,9 @@ public class QuizzCommand {
 	private static final String CURRENT_ANSWER = "current-answer";
 	private static final String TIMEOUT_TIMER = "timeout-timer";
 	private static final String NEXTQUESTION_TIMER = "nextquestion-timer";
+
+	private static final String[] STOPWORDS = new String[] { "un", "une",
+			"des", "le", "la", "les" };
 
 	@Trigger(value = "!quizz")
 	@Help("Starts the quizz.")
@@ -182,7 +188,22 @@ public class QuizzCommand {
 	}
 
 	private String normalize(String source) {
-		return StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
+		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
+
+		List<String> dest = Lists.newArrayList();
+		for (String word : Arrays.asList(source.split(" "))) {
+			boolean isStopword = false;
+			for (String stopword : STOPWORDS) {
+				if (stopword.equalsIgnoreCase(word)) {
+					isStopword = true;
+					break;
+				}
+			}
+			if (!isStopword) {
+				dest.add(word);
+			}
+		}
+		return StringUtils.join(dest, " ");
 	}
 
 	private String stripAccents(String source) {

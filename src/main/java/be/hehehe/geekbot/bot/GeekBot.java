@@ -381,7 +381,7 @@ public class GeekBot extends PircBot {
 					public void write(String message) {
 						sendMessage(message);
 					}
-				});
+				}, scheduler, executor);
 		return event;
 	}
 

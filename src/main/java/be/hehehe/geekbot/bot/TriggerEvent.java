@@ -1,6 +1,8 @@
 package be.hehehe.geekbot.bot;
 
 import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 
 public interface TriggerEvent {
 
@@ -81,4 +83,18 @@ public interface TriggerEvent {
 	 *            the message sent to the channel
 	 */
 	void write(String message);
+
+	/**
+	 * Get the common scheduler pool instead of creating yours.
+	 * 
+	 * @return the common scheduler pool
+	 */
+	ScheduledExecutorService getScheduler();
+
+	/**
+	 * Get the common executor pool instead of creating yours.
+	 * 
+	 * @return the common executor pool
+	 */
+	ExecutorService getExecutor();
 }

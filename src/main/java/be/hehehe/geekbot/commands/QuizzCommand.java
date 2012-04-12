@@ -3,8 +3,6 @@ package be.hehehe.geekbot.commands;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +41,7 @@ public class QuizzCommand {
 			event.write("The quizz has already started.");
 		} else {
 			state.put(ENABLED, Boolean.TRUE);
-			nextQuestion(event);
+			nextQuestion(event, 0);
 		}
 	}
 
@@ -60,56 +58,65 @@ public class QuizzCommand {
 		stopQuizz(event);
 	}
 
-	private void nextQuestion(TriggerEvent event) {
-		try {
-			List<String> lines = IOUtils.readLines(getClass()
-					.getResourceAsStream("/quizz.txt"));
-			int rand = new Random().nextInt(lines.size());
+	private void nextQuestion(final TriggerEvent event, int delay) {
+		state.put(CURRENT_QUESTION, null);
+		state.put(CURRENT_ANSWER, null);
+		Runnable thread = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					List<String> lines = IOUtils.readLines(getClass()
+							.getResourceAsStream("/quizz.txt"));
+					int rand = new Random().nextInt(lines.size());
 
-			String line = lines.get(rand);
-			String[] split = line.split("\\\\");
+					String line = lines.get(rand);
+					String[] split = line.split("\\\\");
 
-			String question = split[0].trim();
-			String answer = split[1].trim();
+					String question = split[0].trim();
+					String answer = split[1].trim();
 
-			state.put(CURRENT_QUESTION, question);
-			state.put(CURRENT_ANSWER, answer);
+					state.put(CURRENT_QUESTION, question);
+					state.put(CURRENT_ANSWER, answer);
 
-			event.write(IRCUtils.bold("Question! ") + question);
+					event.write(IRCUtils.bold("Question! ") + question);
 
-			startTimeoutTimer(event);
+					startTimeoutTimer(event);
 
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
+				} catch (Exception e) {
+					log.error(e.getMessage(), e);
+				}
+			}
+		};
+		event.getScheduler().schedule(thread, delay, TimeUnit.SECONDS);
 
 	}
 
 	private void startTimeoutTimer(final TriggerEvent event) {
-		ScheduledExecutorService scheduler = Executors
-				.newScheduledThreadPool(1);
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
 				event.write(IRCUtils.bold("Trop tard!") + "La réponse était: "
-						+ state.get(CURRENT_ANSWER));
+						+ state.get(CURRENT_ANSWER)
+						+ ". Prochaine question dans quelques secondes ...");
+				nextQuestion(event, 5);
 			}
 		};
-		ScheduledFuture<?> timer = scheduler.schedule(thread, 20,
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 30,
 				TimeUnit.SECONDS);
 		state.put(CURRENT_TIMER, timer);
 	}
 
 	@Trigger(type = TriggerType.EVERYTHING)
-	public String handlePossibleAnswer(TriggerEvent event) {
-		String result = null;
+	public void handlePossibleAnswer(TriggerEvent event) {
 		String answer = state.get(CURRENT_ANSWER, String.class);
-		if (Boolean.TRUE.equals(state.get(ENABLED))
+		if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
 				&& !event.isStartsWithTrigger()) {
 			if (matches(event.getMessage(), answer)) {
 				event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
-						+ "! ")
-						+ "La réponse était: " + answer);
+						+ " ! ")
+						+ "La réponse était: "
+						+ answer
+						+ ". Prochaine question dans quelques secondes");
 
 				// cancel timer
 				ScheduledFuture<?> timer = state.get(CURRENT_TIMER,
@@ -118,10 +125,9 @@ public class QuizzCommand {
 					timer.cancel(true);
 				}
 
-				nextQuestion(event);
+				nextQuestion(event, 5);
 			}
 		}
-		return result;
 	}
 
 	public boolean matches(String proposition, String answer) {

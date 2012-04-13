@@ -98,6 +98,9 @@ public class QuizzCommand {
 					int rand = new Random().nextInt(lines.size());
 
 					String line = lines.get(rand);
+					// removes the question from the list so that we don't get
+					// the same question again (during this session at least)
+					lines.remove(rand);
 					String[] split = line.split("\\\\");
 
 					String question = split[0].trim();
@@ -218,7 +221,8 @@ public class QuizzCommand {
 			return true;
 		}
 
-		// be permissive regarding the response (experimental)
+		// be permissive regarding the answer (experimental). Seems to work
+		// quite well
 		if (answer.length() >= 4) {
 			int diff = (answer.length() / 4);
 			if (StringUtils.getLevenshteinDistance(proposition, answer) <= diff) {

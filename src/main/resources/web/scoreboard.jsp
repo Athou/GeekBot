@@ -12,9 +12,9 @@
 </head>
 <body>
 	<div class="center">
-		<h1>Quizz Scoreboard</h1>
+		<h1 class="title">Quizz Scoreboard</h1>
 
-		<table class="center">
+		<table class="center players">
 			<tr>
 				<td>Rank</td>
 				<td>Player Name</td>
@@ -27,9 +27,9 @@
 					QuizzPlayer player = players.get(i);
 			%>
 			<tr>
-				<td><%= (i + 1) %></td>
-				<td><%= player.getName() %></td>
-				<td><%= player.getPoints() %></td>
+				<td><%=(i + 1)%></td>
+				<td><%=player.getName()%></td>
+				<td><%=player.getPoints()%></td>
 			</tr>
 			<%
 				}

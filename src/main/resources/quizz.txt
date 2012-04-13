@@ -528,7 +528,6 @@ A quel âge mourut Mozart ? \ 35 ans
 A quel âge Ray Charles est-il devenu aveugle ? \ A 8 ans
 A quel âge un chat peut-il être castré ? \ 8 mois
 A quel évènement de l'Histoire de France rattache-t-on la constitution du «Comité de Salut Public» ? \ La Révolution
-A quelle adresse web pouvez-vous télécharger ce script de Quizz ? \ http://wiz0u.free.fr/wquizz
 A quelle altitude se trouve le Pôle Sud (en metres) \ 2800
 A quelle classe animale appartiennent les «argonautes» ? \ Les mollusques
 A quelle classe animale appartient le Varan, saurien carnivore ? \ Les REPTILES
@@ -1117,164 +1116,6 @@ Canot ou yole d'une longueur de 5,8 m, d'une largeur de 1,88 m et d'une profonde
 Cantatrice très connue, dont la voix est particulièrement appréciée. \ Diva
 Capacité d'un bateau. \ Tonnage
 Capacité d'un matériel ou d'un sportif à glisser sur une surface (neige, glace, eau). \ Glisse
-Capital de la Birmanie \ Rangoon
-Capitale administrative de la Franche-Comté. \ Besancon
-Capitale d'Haïti \ Port-au-Prince
-Capitale de Chypre \ Nicosie
-Capitale de Cuba \ La Havane 
-Capitale de Djibouti \ Djibouti
-Capitale de l'Afghanistan \ Kaboul
-Capitale de l'Afghanistan, sur le Kaboul. \ Kaboul
-Capitale de l'Afrique du Sud \ Pretoria
-Capitale de l'Alaska. \ Juneau
-Capitale de l'Albanie \ Tirana
-Capitale de l'Algérie \ Alger
-Capitale de l'Allemagne \ Berlin
-Capitale de l'Angola \ Luanda
-Capitale de l'arabie Saoudite \ Riyad
-Capitale de l'Arabie Saoudite, située au centre du pays, dans la région du Nedjd, au nord du tropique du Cancer. \ Riyad
-Capitale de l'Argentine \ Buenos Aires
-Capitale de l'Arménie. \ Erevan
-Capitale de l'Australie-Méridionale, port sur l'océan Indien. \ Adelaide
-Capitale de l'Autriche \ Vienne
-Capitale de l'Azerbaïdjan. \ Bakou
-Capitale de l'Egypte \ Le Caire
-Capitale de l'Equateur \ Quito
-Capitale de l'Equateur, elle est située à 2850 m d'altitude. C'était une ville de l'Empire inca, avant d'être conquise en 1533 par les Espagnols. Elle est la capitale du pays depuis 1830. \ Quito
-Capitale de l'Espagne \ Madrid
-Capitale de l'espagne? \ Madrid
-Capitale de l'Etat d'Isrël \ Jerusalem
-Capitale de l'Ethiopie \ Addis-Abéda
-Capitale de l'Inde \ New Delhi
-Capitale de l'Irak \ Bagdad
-Capitale de l'Iran \ Tehéran
-Capitale de l'Irlande du Nord, située sur la côte est du territoire. \ Belfast
-Capitale de l'Italie \ Rome
-Capitale de l'Italie, située dans la région du Latium, sur le Tibre. Désignée par «urbs» au temps de l'Empire romain, elle reçut plus tard le surnom de «Ville éternelle». \ Rome
-Capitale de l'Ouganda \ Kampala
-Capitale de l'Ukraine, au confluent du Dniepr et de la Desna. Fut détruite par les Mongols de Batu khan (1240). Du XIVe au XVIIe siècle, elle fut placée sous la suzeraineté de la Pologne. En 1775, elle devint la capitale de la Petite Russie. \ Kiev
-Capitale de l'Uruguay \ Montevideo
-Capitale de l'État d'Hawaii (Etats-Unis), dans l'île Oahu. Grand port du Pacifique. \ Honolulu
-Capitale de la Babylonie antique, située sur l'Euphrate. En 689, elle fut complètement dévastée par Sennachérib d'Assyrie, mais la dynastie chaldéenne et en particulier Nabuchodonosor II redonnèrent toute sa grandeur et toute sa beauté à la ville, qui retrouva ainsi sa place dans le monde antique. Après la conquête par les Perses en 539 av. J.-C., son déclin s'amorça. \ Babylone
-Capitale de la Barbade \ Bridgetown
-Capitale de la Belgique \ Bruxelles
-Capitale de la Birmanie \ Rangoon
-Capitale de la Bolivie \ La Paz
-Capitale de la Bosnie-Herzégovine. Assiégée par les Serbes, la ville a été ravagée par la guerre civile en ex-Yougoslavie, de 1992 à 1995. \ Sarajevo
-Capitale de la Bulgarie \ Sofia
-Capitale de la Chine \ Pekin
-Capitale de la Chine. \ Pekin
-Capitale de la Colombie \ Bogota
-Capitale de la Colombie, située au centre du pays. \ Bogota
-Capitale de la Côte d'Ivoire \ Abidjan
-Capitale de la Finlande \ Helsinki
-Capitale de la France \ Paris
-Capitale de la France, sur la Seine, dans le Bassin parisien. \ Paris
-Capitale de la Gambie \ Banjul
-Capitale de la Gambie, à l'embouchure du fleuve Gambie. \ Banjul
-Capitale de la Grande-Bretagne \ Londres
-Capitale de la Grèce \ Athènes
-Capitale de la Guinée-Bissau \ Bissau
-Capitale de la Guinée-Bissau, située à l'ouest du pays, à moins de 100 km au sud de la frontière avec le Sénégal, sur l'océan Atlantique. \ Bissau
-Capitale de la Guinée-Equatoriale \ Malabo
-Capitale de la Guyana \ Georgetown
-Capitale de la Haute Volta \ ouagadougou
-Capitale de la Hongrie \ Budapest
-Capitale de la Hongrie, sur le Danube. Elle est la réunion de deux villes: la ville haute, vieux quartier aristocratique au pied de la citadelle et, sur la rive gauche du fleuve, de la ville administrative et commerciale. \ Budapest
-Capitale de la Jamaïque \ Kingston
-Capitale de la Jordanie \ Amman
-Capitale de la Lettonie, à l'embouchure de la Daugava, sur le golfe de Riga, en mer Baltique. \ Riga
-Capitale de la Lybie \ Tripoli
-Capitale de la Nouvelle Zelande \ Wellington
-Capitale de la Pologne \ Varsovie
-Capitale de la Rep. Centrafricaine \ Bangui
-Capitale de la Rep. d'Irlande \ Dublin
-Capitale de la Rep. de Corée \ Séoul
-Capitale de la Rep.d'Indonesie \ Djakarta
-Capitale de la Rep.de Corée \ Séoul
-Capitale de la Rep.de Mongolie \ Oulan-Bator
-Capitale de la Rep.de Panama \ Panama 
-Capitale de la Roumanie \ Bucarest
-Capitale de la Roumanie, sur la Dîmbovita, dans la plaine valaque. \ Bucarest
-Capitale de la Russie \ Moscou
-Capitale de la république d'Indonésie, au Nord-Ouest de Java. La ville fut fondée en 1619 par les Hollandais, qui la nommèrent Batavia. \ Djakarta
-Capitale de la République tchèque, bâtie sur les deux rives de la Vltava. \ Prague
-Capitale de la Serbie (ex-Yougoslavie), sur le Danube, au confluent de la Save. \ Belgrade
-Capitale de la Suisse \ Berne
-Capitale de la Suède \ Stockhlom
-Capitale de la Suède \ Stockholm
-Capitale de la Syrie \ Damas
-Capitale de la Tanzanie \ Dar-es-Salaam
-Capitale de la Thaïlande \ Bangkok
-Capitale de la Tunisie \ Tunis
-Capitale de la Turquie (depuis 1924), dans l'Anatolie centrale. \ Ankara
-Capitale de la Turquie \ Ankara
-Capitale de la Zambie \ Lusaka
-Capitale de Madagascar \ Tananarive 
-Capitale de Malte \ La Valette
-Capitale de Taiwan \ Taipei
-Capitale de Taïwan \ Taipei
-Capitale de Trinité et Tobago \ Port of Spain
-Capitale des Cadurques, Préfecture du département du Lot, la ville située dans un méandre encaissé du Lot fut dotée d'un pont à partir d'Auguste. \ Cahors
-Capitale des Comores \ Moroni
-Capitale des Etats Unis \ Washington
-Capitale des iles du Cap Vert \ Praia
-Capitale des Pays-Bas \ Amsterdam
-Capitale des Samoa occidental \ Apia
-Capitale des Seychelles \ Victoria
-Capitale des îles des Bahamas \ Nassau
-Capitale du Bahrein \ Manama
-Capitale du Bangladesh \ Dacca
-Capitale du Brésil \ Brasilia
-Capitale du Burundi \ Bujumbura
-Capitale du Bénin \ Porto-Novo
-Capitale du Cameroun \ Yaoundé
-Capitale du Canada \ Ottawa
-Capitale du Congo \ Brazzaville
-Capitale du Costa rica \ San josé
-Capitale du Danemark \ Copenhague
-Capitale du Gabon \ Libreville
-Capitale du Ghana \ Accra
-Capitale du Guatemala \ Guatemala
-Capitale du Japon \ Tokyo
-Capitale du japon? \ Tokyo
-Capitale du Kenya \ Nairobi
-Capitale du Koweït \ Koweït
-Capitale du Lesotho \ Maseru
-Capitale du Liban \ Beyrouth
-Capitale du Liechtenstein \ Vaduz
-Capitale du Mali \ Bamako
-Capitale du Mali, située à environ 200 km au nord de la frontière avec la Guinée, sur le fleuve Niger. \ Bamako
-Capitale du Maroc \ Rabat
-Capitale du Mozambique \ Maputo
-Capitale du Nicaragua \ Managua
-Capitale du Niger \ Niamey
-Capitale du Nigéria \ Lagos
-Capitale du Népal \ Katmandou
-Capitale du Pakistan \ Islamabad
-Capitale du Paraguay \ Asuncion
-Capitale du Portugal \ Lisbonne
-Capitale du Portugal, sur l'estuaire du Tage. Ce port, qui fut l'un des plus important du monde par ses relations avec l'Amérique du Sud et avec l'Afrique (chantiers navals, entrepôts de prod. tropicaux), est aujourd'hui surtout un port pétrolier. \ Lisbonne
-Capitale du Pérou \ Lima
-Capitale du Pérou, sur un plateau, à 14 km de Callao. \ Lima
-Capitale du Qatar \ Dohan
-Capitale du Qatar, située dans l'est du pays, à moins de 120 km au nord de la frontière avec l'Arabie Saoudite, sur le golfe Persique. \ Doha
-Capitale du Rwanda \ Kigali
-Capitale du Rwanda, située au centre du pays, à moins de 50 km des frontières avec la Tanzanie, à l'est, et le Congo-Kinshasa, à l'ouest. \ Kigali
-Capitale du Soudan \ Khartoum
-Capitale du Sri Lanka \ Colombo
-Capitale du Sultanat d'Oman \ Mascate
-Capitale du Surinam \ Paramaribo
-Capitale du Sénégal (depuis 1957), dans la presqu'île du Cap-Vert, sur l'Atlantique. \ Dakar
-Capitale du Sénégal \ Dakar
-Capitale du Tchad \ Ndjamena
-Capitale du Togo \ Lomé
-Capitale du Yemen \ Aden
-Capitale du Yémen, dans le sud-ouest de la péninsule arabique, à 2200 m d'altitude. \ Sana
-Capitale du Zaïre \ Kinshasa
-Capitale et port de la république du Panama, située au centre du pays, au débouché sud-est du canal de Panama. \ Panama
-Capitale Rep.de Sierra Leone \ Freetown  
-Capitale Rep.soc.du Vietman \ Hanoï
 Caractérisé par un creux, un renfoncement. Par opposition à convexe. \ Concave
 Carburant pour moteur de fusée composé de combustible et d'oxydant, qui réagissent instantanément par simple contact. \ Hypergol
 Carburant raffiné utilisé dans les avions et fusées. Il brûle avec de l'oxygène liquide pour fournir de l'énergie. \ Kerosene
@@ -2811,7 +2652,6 @@ Céréale à petits grains cultivée dans les régions chaudes de l'Ancien Monde. \ M
 Cérémonie sacramentelle (baptême, confirmation, ordination, onction des malades), qui consiste à oindre quelqu'un avec de l'huile (consacrée) ou du chrême (mélange d'huile et de parfum) pour lui conférer certaines grâces. \ Onction
 D'après Homère, quelle était la nourriture des dieux ? \ ambroisie
 D'origine grecque, l'«ouzo» est une liqueur parfumée à l'.... ? \ l'Anis
-D'ou proviennent la majorité des questions de ce quizz? \ De WQuizz
 D'ou viens le nom "DJ" \ disk jockey
 D'ou vient le boudhisme? \ Tibet
 D'où Jacques Cartier est-il parti pour découvrir de nouvelles terres \ St-Malo
@@ -6197,7 +6037,6 @@ On dit «un baffle» ou «une baffle» ? \ un baffle
 On dit, en langage populaire, de celui ou celle qui cherche à s'imposer en prenant un air important, qu'il fait de l'........ ? \ esbrouffe
 On envoie un «A» en morse par ... ? \ un point et un trait
 On est fou, on est fou, d'..... \ Afflelou
-On est sur quel channel là ? \ #quizz
 On la fait dans une pièce du même nom ? \ La cuisine
 Ongle de corne, pointu et courbe, porté par la phalange terminale des doigts de nombreux vertébrés (mammifères carnassiers et rongeurs, oiseaux, reptiles). \ Griffe
 Opale laiteuse et bleutée employée en joaillerie. \ Girasol
@@ -6937,7 +6776,6 @@ Qu'est ce qu'une margelle \ Le rebord d'un puit
 Qu'est ce qu'une trachéotomie \ Une opération
 Qu'est ce qu'une vente «à l'encan» ? \ Une vente aux enchères
 Qu'est ce qu'une «bélière» ? \ Une clochette
-Qu'est ce que je suis en train de faire ? \ un quizz
 Qu'est ce que l'yeuse ? \ le chêne vert
 Qu'est ce que l'yeuse \ le chêne vert
 Qu'est ce que la sébille ? \ Une écuelle en bois
@@ -7645,7 +7483,6 @@ Quel comique français a interprèté «La Procession télévisée» ? \ COLUCHE
 Quel comique français est apparu dans une publicité pour un anti-moustique ? \ Michel Leeb
 Quel comique français se rendit célèbre par ses mimiques faciales ? \ Louis de Funès
 Quel comique, aujourd'hui disparu, disait : «Le champignon le plus vénéneux, c'est celui qu'on trouve dans les voitures» ? \ COLUCHE
-Quel commande du quizz permet de connaitre votre lag par rapport à moi ? \ !ping
 Quel composant de la haute atmosphère protège la Terre des ultraviolets émis par le soleil ? \ ozone
 Quel compositeur a composé la «Tétralogie» ? \ Richard Wagner
 Quel compositeur classique est l'auteur de «Nabucco», «Otello», et «Falstaff» ? \ VERDI

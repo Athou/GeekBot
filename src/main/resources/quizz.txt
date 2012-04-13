@@ -1187,21 +1187,6 @@ Chaîne de montagnes de France et d'Espagne, située entre l'océan Atlantique à l'
 Chaîne de télévision culturelle européenne. En France, elle partage avec la Cinquième le canal précédemment occupé par la Cinq. \ Arte
 Chaîne tendue de part et d'autre d'un cours d'eau, et au long de laquelle se déplace une embarcation servant de bac pendant la traversée d'une rivière. \ Traille
 Chaînon des Alpes de Provence, entre la Durance, le Rhône et la Crau. \ Alpilles
-Chef lieu de l'orne \ Alencon
-Chef lieu des Alpes-Maritimes, berceau de la parfumerie. \ Grasse
-Chef-lieu d'arrondissement de Saône-et-Loire, sur l'Arroux, au sud du Morvan. La ville fut tour à tour occupée par les Gaulois (269 apr. J.-C.), par les Romains, par les Huns (451 apr. J.-C.), puis par les Francs (486 apr. J.-C.). \ Autun
-Chef-lieu de canton d'Indre-et-Loire sur la Loire. Château mi-parti gothique. et mi-parti Renaissance. \ Amboise
-Chef-lieu de canton de l'Hérault. Colonie phocéenne, puis romaine, la ville fut un port important avant son ensablement. \ Agde
-Chef-lieu de canton de l'Orne, dans l'arrondissement d'Argentan, sur la Vère. La ville, en partie détruite à l'issue de la Seconde Guerre mondiale, a néanmoins conservé intact son château datant des XVIe et XVIIIe siècles. \ Flers
-Chef-lieu de canton de la Guyane (arr. de Cayenne). Depuis 1968, lieu du centre spatial guyanais d'où est lancée la fusée Ariane. \ Kourou
-Chef-lieu de canton des Vosges. Station thermale mondialement célèbre, spécialisée dans le traitement des lithiases et des affections urinaires. \ Vittel
-Chef-lieu de la Nouvelle-Calédonie, initialement dénommée Port-de-France. Elle est née en 1854 de la volonté du capitaine Tardy de Montravel qui fut séduit par l'excellence de son site \ Noumea
-Chef-lieu du département d'Indre-et-Loire, ancienne capitale de la Touraine, dans la région Centre. \ Tours
-Chef-lieu du département de Haute-Corse, sur la côte nord de l'île. \ Bastia
-Chef-lieu du département de l'Isère. La ville est l'ancienne capitale du Dauphiné. Elle fut le lieu d'organisation des Jeux Olympiques d'hiver de 1968. \ Grenoble
-Chef-lieu du département de la Drôme. Les ports de la basse ville et du bourg ont cédé la place à l'autoroute de la vallée du Rhône. Au-dessus, la ville médiévale, héritée de la ville romaine, s'est installée sur la première terrasse dont l'occupation s'est achevée au XIXe siècle et dans la première moitié du XXe siècle. \ Valence
-Chef-lieu du département de Loire-Atlantique situé dans la région Pays de la Loire. \ Nantes
-Chef-lieu du Morbihan. \ Vannes
 Chenal de communication entre un étang côtier et la mer. \ Grau
 Cheval entier, spécialement destiné à la reproduction ? \ etalon
 Cheval à demi sauvage d'origine européenne, introduit par les Espagnols en Amérique et vivant dans les Pampas au Chili. \ Mustang
@@ -7512,94 +7497,6 @@ Quel corps céleste a un diamètre de 1 390 000 kilomètres ? \ soleil
 Quel cosmonaute s'est tué dans un accident d'avion en 1968 ? \ gagarine
 Quel courant littéraire, du XIX° siècle recherche l'évasion dans le rêve, l'exotisme ou le passé ? \ romantisme
 Quel courant philosophique divise radicalement l'univers en deux entités : le bien et le mal ? \ manichéisme
-Quel coureur a remporté le tour de france en 1903? (Maurice) \ GARIN 
-Quel coureur a remporté le tour de france en 1904? (Henri) \ CORNET  
-Quel coureur a remporté le tour de france en 1905? (Louis) \ TROUSSELIER           
-Quel coureur a remporté le tour de france en 1906? (André) \ POTTIER      
-Quel coureur a remporté le tour de france en 1907? (Lucien) \ PETIT-BRETON           
-Quel coureur a remporté le tour de france en 1908? (Lucien) \ PETIT-BRETON          
-Quel coureur a remporté le tour de france en 1909? (François) \ FABER        
-Quel coureur a remporté le tour de france en 1910? (Octave) \ LAPIZE  
-Quel coureur a remporté le tour de france en 1911? (Gustave) \ GARRIGOU  
-Quel coureur a remporté le tour de france en 1912? (Odile) \ DEFRAYE  
-Quel coureur a remporté le tour de france en 1913? (Philippe) \ THYS 
-Quel coureur a remporté le tour de france en 1914? (Philippe) \ THYS  
-Quel coureur a remporté le tour de france en 1919? (Firmin) \ LAMBOT  
-Quel coureur a remporté le tour de france en 1920? (Philippe) \ THYS  
-Quel coureur a remporté le tour de france en 1921? (Léon) \ SCIEUR  
-Quel coureur a remporté le tour de france en 1922? (Firmin) \ LAMBOT  
-Quel coureur a remporté le tour de france en 1923? (Henri) \ PELISSIER  
-Quel coureur a remporté le tour de france en 1924? (Ottavio) \ BOTTECCHIA  
-Quel coureur a remporté le tour de france en 1925? (Ottavio) \ BOTTECCHIA  
-Quel coureur a remporté le tour de france en 1926? (Lucien) \ BUYSSE
-Quel coureur a remporté le tour de france en 1927? (Nicolas) \ FRANTZ  
-Quel coureur a remporté le tour de france en 1928? (Nicolas) \ FRANTZ  
-Quel coureur a remporté le tour de france en 1929? (Maurice) \ DEWAELE  
-Quel coureur a remporté le tour de france en 1930? (André) \ LEDUCQ  
-Quel coureur a remporté le tour de france en 1931? (Antonin) \ MAGNE    
-Quel coureur a remporté le tour de france en 1932? (André) \ LEDUCQ  
-Quel coureur a remporté le tour de france en 1933? (Georges) \ SPEICHER  
-Quel coureur a remporté le tour de france en 1934? (Antonin) \ MAGNE  
-Quel coureur a remporté le tour de france en 1935? (Romain) \ MAES   
-Quel coureur a remporté le tour de france en 1936? (Sylvère) \ MAES  
-Quel coureur a remporté le tour de france en 1937? (Roger) \ LAPEBIE  
-Quel coureur a remporté le tour de france en 1938? (Gino) \ BARTALI  
-Quel coureur a remporté le tour de france en 1939? (Sylvère) \ MAES 
-Quel coureur a remporté le tour de france en 1947? (Jean) \ ROBIC  
-Quel coureur a remporté le tour de france en 1948? (Gino) \ BARTALI  
-Quel coureur a remporté le tour de france en 1949? (Fausto) \ COPPI  
-Quel coureur a remporté le tour de france en 1950? (Ferdi) \ KUBLER 
-Quel coureur a remporté le tour de france en 1951? (Hugo) \ KOBLET  
-Quel coureur a remporté le tour de france en 1952? (Fausto) \ COPPI  
-Quel coureur a remporté le tour de france en 1953? (Louison) \ BOBET  
-Quel coureur a remporté le tour de france en 1954? (Louison) \ BOBET  
-Quel coureur a remporté le tour de france en 1955? (Louison) \ BOBET  
-Quel coureur a remporté le tour de france en 1956? (Roger) \ WALKOWIAK  
-Quel coureur a remporté le tour de france en 1957? (Jacques) \ ANQUETIL  
-Quel coureur a remporté le tour de france en 1958? (Charly) \ GAUL 
-Quel coureur a remporté le tour de france en 1959? (Federico) \ BAHAMONTES  
-Quel coureur a remporté le tour de france en 1960? (Gastone) \ NENCINI  
-Quel coureur a remporté le tour de france en 1961? (Jacques) \ ANQUETIL  
-Quel coureur a remporté le tour de france en 1962? (Jacques) \ ANQUETIL  
-Quel coureur a remporté le tour de france en 1963? (Jacques) \ ANQUETIL  
-Quel coureur a remporté le tour de france en 1964? (Jacques) \ ANQUETIL 
-Quel coureur a remporté le tour de france en 1965? (Felice) \ GIMONDI  
-Quel coureur a remporté le tour de france en 1966? (Lucien) \ AIMAR   
-Quel coureur a remporté le tour de france en 1967? (Roger) \ PINGEON   
-Quel coureur a remporté le tour de france en 1968? (Jan) \ JANSSEN   
-Quel coureur a remporté le tour de france en 1969? (Eddy) \ MERCKX   
-Quel coureur a remporté le tour de france en 1970? (Eddy) \ MERCKX  
-Quel coureur a remporté le tour de france en 1971? (Eddy) \ MERCKX  
-Quel coureur a remporté le tour de france en 1972? (Eddy) \ MERCKX  
-Quel coureur a remporté le tour de france en 1973? (Luis) \ OCANA  
-Quel coureur a remporté le tour de france en 1974? (Eddy) \ MERCKX  
-Quel coureur a remporté le tour de france en 1975? (Bernard) \ THEVENET  
-Quel coureur a remporté le tour de france en 1976? (Lucien) \ VAN IMPE  
-Quel coureur a remporté le tour de france en 1977? (Bernard) \ THEVENET 
-Quel coureur a remporté le tour de france en 1978? (Bernard \ HINAULT  
-Quel coureur a remporté le tour de france en 1979? (Bernard) \ HINAULT 
-Quel coureur a remporté le tour de france en 1980? (Joop) \ ZOETEMELK  
-Quel coureur a remporté le tour de france en 1981? (Bernard) \ HINAULT  
-Quel coureur a remporté le tour de france en 1982? (Laurent) \ FIGNON 
-Quel coureur a remporté le tour de france en 1983? (Laurent) \ FIGNON
-Quel coureur a remporté le tour de france en 1984? (Laurent) \ FIGNON 
-Quel coureur a remporté le tour de france en 1985? (Bernard) \ HINAULT  
-Quel coureur a remporté le tour de france en 1986? (Greg) \ LEMOND  
-Quel coureur a remporté le tour de france en 1987? (Stephen) \ ROCHE  
-Quel coureur a remporté le tour de france en 1988? (Pedro) \ DELGADO  
-Quel coureur a remporté le tour de france en 1989? (Greg) \ LEMOND 
-Quel coureur a remporté le tour de france en 1990? (Greg) \ LEMOND  
-Quel coureur a remporté le tour de france en 1991? (Miguel) \ INDURAIN 
-Quel coureur a remporté le tour de france en 1992? (Miguel) \ INDURAIN  
-Quel coureur a remporté le tour de france en 1993? (Miguel) \ INDURAIN 
-Quel coureur a remporté le tour de france en 1994? (Miguel) \ INDURAIN 
-Quel coureur a remporté le tour de france en 1995? (Miguel) \ INDURAIN  
-Quel coureur a remporté le tour de france en 1996? (Bjarne) \ RIIS
-Quel coureur a remporté le tour de france en 1997? (Jan) \ ULLRICH 
-Quel coureur a remporté le tour de france en 1998? (Marco) \ PANTANI  
-Quel coureur a remporté le tour de france en 1999? (Lance) \ ARMSTRONG  
-Quel coureur a remporté le tour de france en 2000? (Lance) \ ARMSTRONG  
-Quel coureur a remporté le tour de france en 2001? (Lance) \ ARMSTRONG  
 Quel coureur automobile argentin a remporté cinq fois le titre de champion du monde ? \ fangio
 Quel coureur automobile français fut sacré champion du monde des pilotes de Formule 1 en 1985, 1986 et 1989 ? \ Alain PROST
 Quel coureur cycliste (prénom+nom), fut surnommé, dans les années 50, le «campionissimo» ? \ Fausto COPPI
@@ -7851,34 +7748,6 @@ Quel est le capitaine de l'équipe de France de rugby ? \ Fabien Galthié
 Quel est le carré de 12 ? \ 144
 Quel est le cercle sur la terre ayant 0 degré de latitude \ equateur
 Quel est le chat rival de Pif le chien \ Hercule
-Quel est le chef lieu de la Guyanne française ? \ Cayenne
-Quel est le chef-lieu de la Réunion \ Saint-Denis
-Quel est le Chef-Lieu du Département de l'AISNE (02) ? \ LAON
-Quel est le Chef-Lieu du Département de l'AVEYRON (12) ? \ RODEZ
-Quel est le Chef-Lieu du Département de l'ESSONNE (91) ? \ EVRY
-Quel est le Chef-Lieu du Département de l'HERAULT (34) ? \ MONTPELLIER
-Quel est le Chef-Lieu du Département de l'INDRE-et-LOIRE (37) ? \ TOURS
-Quel est le Chef-Lieu du Département de l'YONNE (89) ? \ AUXERRE
-Quel est le Chef-Lieu du Département de la GIRONDE (33) ? \ BORDEAUX
-Quel est le Chef-Lieu du Département de la LOZERE (48) ? \ MENDE
-Quel est le Chef-Lieu du Département de la MANCHE (50) ? \ SAINT-LO
-Quel est le Chef-Lieu du Département de la MOSELLE (57) ? \ METZ
-Quel est le Chef-Lieu du Département de la SEINE-et-MARNE (77) ? \ MELUN
-Quel est le Chef-Lieu du Département des ARDENNES (08) ? \ CHARLEVILLE-MEZIERES
-Quel est le Chef-Lieu du Département des HAUT -de- EINE (92) ? \ NANTERRE
-Quel est le Chef-Lieu du Département des LANDES (40) ? \ MONT-de-MARSAN
-Quel est le Chef-Lieu du Département des PYRENEES-ATLANTIQUES (64) ? \ PAU
-Quel est le Chef-Lieu du Département du BAS-RHIN (67) ? \ STRASBOURG
-Quel est le Chef-Lieu du Département du CALVADOS (14) ? \ CAEN
-Quel est le Chef-Lieu du Département du FINISTERE (29) ? \ QUIMPER
-Quel est le Chef-Lieu du Département du GERS (32) ? \ AUCH
-Quel est le Chef-Lieu du Département du LOT-et-GARONNE (47) ? \ AGEN
-Quel est le Chef-Lieu du Département du NORD (59) ? \ LILLE
-Quel est le Chef-Lieu du Département du NORD (59) \ Lille
-Quel est le Chef-Lieu du Département du PAS-de-CALAIS (62) ? \ ARRAS
-Quel est le Chef-Lieu du Département du PUY-de-DOME (63) ? \ CLERMONT-FERRAND
-Quel est le Chef-Lieu du Département du TARN-et-GARONNE (82) ? \ MONTAUBAN
-Quel est le Chef-Lieu du Département du VAL-de-MARNE (94) ? \ CRETEIL
 Quel est le chien de race le plus populaire en Amérique? \ Le Caniche
 Quel est le chien le plus rapide du monde ? \ levrier
 Quel est le chien le plus stupide le l'Ouest \ Rantanplan
@@ -11895,51 +11764,6 @@ Région postérieure du tronc, située en arrière de la cavité abdominale, à droite
 Région s'étendant à l'est du Grand Rhône, limitée au nord par les Alpilles, à l'est par l'ensemble calcaire de Sainte-Victoire, au sud par l'étang de Berre et par le golfe de Fos . Une steppe s'est développée sur ce sol très caillouteux, c'est le domaine de l'élevage extensif d'ovins (la race mérinos d'Arles y est élevée pour sa laine fine). \ Crau
 Région située dans le nord de la Grande-Bretagne. S'y rattachent les Hébrides, les îles Orcades et les îles Shetland. La superficie est de 79 500 km² et la capitale est Edimbourg. \ Ecosse
 Régions de France possédant le plus d'étangs. Tous ont été aménagés par l'homme et beaucoup datent du Moyen Âge. Chargés de rassembler les eaux drainées aux alentours par un réseau de fossés, ils servaient en même temps à l'élevage des poissons. Ils étaient périodiquement mis en «assec» et cultivés, le plus souvent en avoine. \ Sologne
-Régions françaises : A quelle région correspond les départements : Ain, Ardèche, Drôme, Isère, Loire, Rhône, Savoie, Haute-Savoie \ Rhône-Alpes
-Régions françaises : A quelle région correspond les départements : Aisne, Oise, Somme \ Picardie
-Régions françaises : A quelle région correspond les départements : Allier, Cantal, Haute-Loire, Puy-de-Dôme \ Auvergne
-Régions françaises : A quelle région correspond les départements : Alpes-de-Haute-Provence, Hautes-Alpes, Alpes Maritimes, Bouches-du-Rhône, Var, Vaucluse \ Provence-Alpes-Côte-d'Azur
-Régions françaises : A quelle région correspond les départements : Ardennes, Aube, Marne, Haute-Marne \ Champagne-Ardenne
-Régions françaises : A quelle région correspond les départements : Ariège, Aveyron, Haute-Garonne, Gers, Lot, Hautes-Pyrénées, Tarn, Tarn-et-Garonne \ Midi-Pyrénées
-Régions françaises : A quelle région correspond les départements : Aude, Gard, Hérault, Lozère, Pyrénées-Orientales \ Languedoc-Roussillon
-Régions françaises : A quelle région correspond les départements : Bas-Rhin, Haut-Rhin \ Alsace
-Régions françaises : A quelle région correspond les départements : Calvados, Manche, Orne \ Basse Normandie
-Régions françaises : A quelle région correspond les départements : Charente, Charente-Maritime, Deux-Sèvres, Vienne \ Poitou-Charentes
-Régions françaises : A quelle région correspond les départements : Cher, Eure-et-Loire, Indre-et-Loire, Indre, Loir-et-Cher, Loiret \ Centre-Val-de-Loire
-Régions françaises : A quelle région correspond les départements : Corrèze, Creuse, Haute-Vienne \ Limousin
-Régions françaises : A quelle région correspond les départements : Corse du Sud, Haute-Corse \ Corse
-Régions françaises : A quelle région correspond les départements : Côte-d'Or, Nièvre, Saône-et-Loire, Yonne \ Bourgogne
-Régions françaises : A quelle région correspond les départements : Côtes d'Armor, Finistère, Ile-et-Vilaine, Morbihan \ Bretagne
-Régions françaises : A quelle région correspond les départements : Dordogne, Gironde, Landes, Lot-et-Garonne, Pyrénées-Atlantiques \ Aquitaine
-Régions françaises : A quelle région correspond les départements : Doubs, Jura, Huate-Saône, Territoire de Belfort \ Franche-Compté
-Régions françaises : A quelle région correspond les départements : Eure, Seine-Maritime \ Haute Normandie
-Régions françaises : A quelle région correspond les départements : Loire-Atlantique, Maine-et-Loire, Mayenne, Sarthe, Vendée \ Pays de la loire
-Régions françaises : A quelle région correspond les départements : Meurthe-et-Moselle, Meuse, Moselle, Vosges \ Lorraine
-Régions françaises : A quelle région correspond les départements : Nord, Pas-de-Calais \ Nord-Pas-de-Calais
-Régions françaises : A quelle région correspond les départements : Paris, Essonne, Hauts-de-Seine, Seine-et-Marne, Seine-Saint-Denis, Val-de-Marne, Val-d'Oise, Yvelines \ Ile-de-France
-Régions françaises : Quel est le siège de cette région : Alsace \ Strasbourg
-Régions françaises : Quel est le siège de cette région : Aquitaine \ Bordeaux
-Régions françaises : Quel est le siège de cette région : Auvergne \ Clermont-Ferrand
-Régions françaises : Quel est le siège de cette région : Basse Normandie \ Caen
-Régions françaises : Quel est le siège de cette région : Bourgogne \ Dijon
-Régions françaises : Quel est le siège de cette région : Bretagne \ Rennes
-Régions françaises : Quel est le siège de cette région : Centre-Val-de-Loire \ Orléans
-Régions françaises : Quel est le siège de cette région : Champagne-Ardenne \ Châlons-en-Champagne
-Régions françaises : Quel est le siège de cette région : Champagne-Ardenne \ Châlons-en-Champagne.
-Régions françaises : Quel est le siège de cette région : Corse \ Ajaccio
-Régions françaises : Quel est le siège de cette région : Franche-Comté \ Besançon
-Régions françaises : Quel est le siège de cette région : Haute Normandie \ Rouen
-Régions françaises : Quel est le siège de cette région : Ile-de-France \ Paris
-Régions françaises : Quel est le siège de cette région : Languedoc-Roussillon \ Montpellier
-Régions françaises : Quel est le siège de cette région : Limousin \ Limoges
-Régions françaises : Quel est le siège de cette région : Lorraine \ Metz
-Régions françaises : Quel est le siège de cette région : Midi-Pyrénées \ Toulouse
-Régions françaises : Quel est le siège de cette région : Nord-Pas-de-Calais \ Lille
-Régions françaises : Quel est le siège de cette région : Pays de la loire \ Nantes
-Régions françaises : Quel est le siège de cette région : Picardie \ Amiens
-Régions françaises : Quel est le siège de cette région : Poitou-Charentes \ Poitiers
-Régions françaises : Quel est le siège de cette région : Provence-Alpes-Côte-d'Azur \ Marseille
-Régions françaises : Quel est le siège de cette région : Rhône-Alpes \ Lyon
 République autonome de Géorgie (Russie), située sur la mer Noire. Capitale Batoumi. \ Adjarie
 République d'Afrique occidentale s'étendant sur 475 442 km². La capitale est Yaoundé, les autres villes importantes sont Douala, Nkongsamba, Garoua et Maroua. \ Cameroun
 République d'Afrique orientale, située au bord du lac Tanganyika. La capitale est Bujumbura. \ Burundi

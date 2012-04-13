@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.StringUtils;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -48,16 +50,19 @@ public class SkanditeCommand {
 			}
 
 			if (skandite != null) {
-				String line = IRCUtils.bold("Skandite! ")
-						+ skandite.getUrl()
-						+ " linked "
-						+ utilsService.getTimeDifference(skandite
-								.getPostedDate()) + " ago by "
-						+ skandite.getAuthor() + " (" + skandite.getCount()
-						+ "x).";
-				result.add(line);
-				skandite.setCount(skandite.getCount() + 1);
-				dao.save(skandite);
+				if (!StringUtils
+						.equals(skandite.getAuthor(), event.getAuthor())) {
+					String line = IRCUtils.bold("Skandite! ")
+							+ skandite.getUrl()
+							+ " linked "
+							+ utilsService.getTimeDifference(skandite
+									.getPostedDate()) + " ago by "
+							+ skandite.getAuthor() + " (" + skandite.getCount()
+							+ "x).";
+					result.add(line);
+					skandite.setCount(skandite.getCount() + 1);
+					dao.save(skandite);
+				}
 			} else {
 				skandite = new Skandite();
 				skandite.setUrl(url);

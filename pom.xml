@@ -136,7 +136,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
+			<version>5.1.19</version>
 		</dependency>
 		<dependency>
 			<groupId>pircbot</groupId>
@@ -156,7 +156,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.1.1.Final</version>
+			<version>4.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
@@ -204,7 +204,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.3.165</version>
+			<version>1.3.166</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

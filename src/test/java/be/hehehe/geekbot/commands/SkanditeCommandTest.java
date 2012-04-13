@@ -43,9 +43,12 @@ public class SkanditeCommandTest {
 	@Test
 	public void skanditeTest() {
 		TriggerEvent event = new TriggerEventImpl("http://www.google.com",
-				"http://www.google.com");
+				"http://www.google.com", "author1");
 		List<String> result = skanditeCommand.handleSkandites(event);
 		Assert.assertTrue(result.isEmpty());
+
+		event = new TriggerEventImpl("http://www.google.com",
+				"http://www.google.com", "author2");
 		result = skanditeCommand.handleSkandites(event);
 		Assert.assertFalse(result.isEmpty());
 	}

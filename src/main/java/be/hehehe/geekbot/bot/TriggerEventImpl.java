@@ -23,7 +23,7 @@ public class TriggerEventImpl implements TriggerEvent {
 	 * @param messageWithoutTrigger
 	 */
 	public TriggerEventImpl(String messageWithoutTrigger) {
-		this(messageWithoutTrigger, null);
+		this(messageWithoutTrigger, null, null);
 	}
 
 	/**
@@ -33,8 +33,19 @@ public class TriggerEventImpl implements TriggerEvent {
 	 * @param url
 	 */
 	public TriggerEventImpl(String messageWithoutTrigger, String url) {
+		this(messageWithoutTrigger, url, null);
+	}
+
+	/**
+	 * use only in tests, some fields are not set
+	 * 
+	 * @param messageWithoutTrigger
+	 */
+	public TriggerEventImpl(String messageWithoutTrigger, String url,
+			String author) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
 		this.url = url;
+		this.author = author;
 	}
 
 	public TriggerEventImpl(String message, String author, String trigger,

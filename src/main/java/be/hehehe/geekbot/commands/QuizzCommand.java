@@ -55,7 +55,7 @@ public class QuizzCommand {
 	private static final Object lock = new Object();
 
 	private static final String[] STOPWORDS = new String[] { "un", "une", "de",
-			"des", "le", "la", "les" };
+			"des", "le", "la", "les", "en" };
 
 	@Trigger(value = "!quizz")
 	@Help("Starts the quizz.")

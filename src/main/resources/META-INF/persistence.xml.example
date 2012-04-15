@@ -9,6 +9,15 @@
 			<property name="javax.persistence.jdbc.user" value="geekbot" />
 			<property name="javax.persistence.jdbc.password" value="geekbot" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.connection.C3P0ConnectionProvider" />
+			<property name="hibernate.c3p0.max_size" value="100" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.acquire_increment" value="1" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.max_statements" value="0" />
+			<property name="hibernate.c3p0.timeout" value="100" />
 		</properties>
 	</persistence-unit>
 </persistence>

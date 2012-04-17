@@ -3840,39 +3840,6 @@ Défendre ne peut être le synonyme de : (Protéger,Interdire,Rendre) \ Rendre
 Dégagement de lumière, de chaleur et de flammes lors d'une combustion. \ Feu
 Démon, ange déchu voué au mal. \ Diable
 Dénomination ancienne de la tuberculose. \ Phtisie
-Département français d'outre-mer (973) depuis 1946, entre le Surinam et le Brésil. L'économie est très dépendante de la métropole et du centre spatial installé en 1967 à Kourou, lieu de lancement de la fusée Ariane depuis 1982. \ Guyane
-Département français dans la région Languedoc-Roussillon, d'une superficie de 6 150 km². Chef-lieu: Carcassonne. \ Aude
-Département français de l'Aquitaine, d'une superficie de 10 000 km². Chef-lieu: Bordeaux. \ Gironde
-Département français de la Basse-Normandie, d'une superficie de 5 948 km². Chef-lieu: Saint-Lô. \ Manche
-Département français de la Basse-Normandie, Sa principale agglomération est Caen. \ Calvados
-Département français de la Bourgogne, d'une superficie de 8 575 km². Chef-lieu: Nevers. \ Nievre
-Département français de la Bretagne, d'une superficie de 6 823 km². Chef-lieu: Vannes. \ Morbihan
-Département français de la Haute-Normandie d'une superficie de 6 037 km². Chef-lieu: Evreux. \ Eure
-Département français de la Picardie, d'une superficie de 6 170 km². Chef-lieu: Amiens. \ Somme
-Département français de la Picardie, d'une superficie de 7 369 km². Chef-lieu: Laon. \ Aisne
-Département français de la région Aquitaine, d'une superficie de 9 000 km². Chef-lieu: Périgueux. \ Dordogne
-Département français de la région Basse-Normandie, d'une superficie de 6 100 km². Chef-lieu: Alençon. \ Orne
-Département français de la région Centre-Val-de-Loire, d'une superficie de 6 795 km². \ Indre
-Département français de la région Centre-Val-de-Loire, d'une superficie de 7 310 km². Chef-lieu: Bourges. \ Cher
-Département français de la région Champagne-Ardenne, d'une superficie de 8 160 km². Chef-lieu: Châlons-en-Champagne. \ Marne
-Département français de la région Champagne-Ardenne. Son chef-lieu est Troyes et c'est l'un des plus grands départements céréaliers de France. \ Aube
-Département français de la région Franche-Comté, d'une superficie de 5 234 km². Chef-lieu: Besançon. \ Doubs
-Département français de la région Lorraine, d'une superficie de 6 216 km². Chef-lieu: Bar-le-Duc. \ Meuse
-Département français de la région Lorraine, d'une superficie de 6 216 km². Chef-lieu: Metz. \ Moselle
-Département français de la région Midi-Pyrénées, d'une superficie de 4 890 km². Chef-lieu: Foix. \ Ariege
-Département français de la région Midi-Pyrénées, d'une superficie de 5 780 km². Chef-lieu: Albi. \ Tarn
-Département français de la région Midi-Pyrénées, d'une superficie de 6 257 km². Chef-lieu: Auch. \ Gers
-Département français de la région Midi-Pyrénées. Chef-lieu: Rodez. \ Aveyron
-Département français de la région Poitou-Charentes, d'une superficie de 6 990 km². Préfecture: Poitiers. \ Vienne
-Département français de la région Provence-Alpes-Côte d'Azur. Chef-lieu: Toulon. \ Var
-Département français de la région Rhône-Alpes, d'une superficie de 4 780 km². Chef-lieu: Saint-Etienne. \ Loire
-Département français de la région Rhône-Alpes, d'une superficie de 6 525 km². Chef-lieu: Valence. \ Drome
-Département français de la région Rhône-Alpes, d'une superficie de 6188 km². Chef-lieu: Chambéry. \ Savoie
-Département français des Pays de la Loire, en bordure de l'Atlantique. Chef-lieu: La-Roche-sur-Yon. \ Vendee
-Département français du Languedoc-Roussillon, d'une superficie de 5 853 km². Chef-lieu: Nîmes. \ Gard
-Département français du Languedoc-Roussillon, d'une superficie de 6 724 km². Chef-lieu: Montpellier. \ Herault
-Département français du Limousin, d'une superficie de 5 565 km². Chef-lieu: Guéret. \ Creuse
-Département français du Pays de la Loire, d'une superficie de 6 210 km². Chef-lieu: Le Mans. \ Sarthe
 Dépression conique par où sortent les produits émis par un volcan, et dont le fond est généralement obstrué, en période d'inactivité, par un bouchon de lave solidifiée. \ Cratere
 Dépôt verdâtre apparaissant, sous l'action de l'air, sur les objets en cuivre ou en alliage de cuivre. \ Patine
 Désert d'Afrique septentrionale, le plus grand du monde. Il s'étend de l'Atlantique à la mer Rouge et de l'Atlas au Soudan. Il est partagé entre dix États: la Libye et la Mauritanie, la Tunisie, l'Algérie, le Maroc, le Mali, le Niger, le Tchad, l'Égypte et le Soudan. \ Sahara
@@ -6679,30 +6646,6 @@ Préfixe qui multiplie une unité par 10 puissance -12. \ Pico
 Préparation sans principe actif ayant le même aspect et le même goût que le médicament original, utilisé dans la recherche pour tester la réelle efficacité de ce dernier, mais aussi dans un but de psychothérapie (traitement de patients qui croient devoir absolument utiliser un médicament, sans que celui-ci soit effectivement indiqué). \ Placebo
 Préparation à base d'alcool, à laquelle on attribuait des propriétés magiques ? \ elixir
 Présenter des cloques, des bulles. \ Buller
-Présidents français : A quel président correspond l'année 1920 \ Paul Deschanel
-Présidents français : A quel président correspond l'année 1932 \ Paul Doumer
-Présidents français : A quel président correspond la période 1871-1873 \ Adolphe Thiers
-Présidents français : A quel président correspond la période 1873-1879 \ Maréchal Patrice de MacMahon
-Présidents français : A quel président correspond la période 1879-1887 \ Jules Grévy
-Présidents français : A quel président correspond la période 1887-1894 \ Sadi Carnot
-Présidents français : A quel président correspond la période 1894-1895 \ Jean Casimir-Perier
-Présidents français : A quel président correspond la période 1895-1899 \ Félix Faure
-Présidents français : A quel président correspond la période 1899-1906 \ Émile Loubet
-Présidents français : A quel président correspond la période 1906-1913 \ Armand Fallières
-Présidents français : A quel président correspond la période 1913-1920 \ Raymond Poincaré
-Présidents français : A quel président correspond la période 1920-1924 \ Alexandre Millerand
-Présidents français : A quel président correspond la période 1924-1932 \ Gaston Doumergue
-Présidents français : A quel président correspond la période 1932-1940 \ Albert Lebrun
-Présidents français : A quel président correspond la période 1940-1944 \ Maréchal Philippe Pétain
-Présidents français : A quel président correspond la période 1944-1946 \ Général Charles de Gaulle
-Présidents français : A quel président correspond la période 1947-1954 \ Vincent Auriol
-Présidents français : A quel président correspond la période 1954-1958 \ René Coty
-Présidents français : A quel président correspond la période 1958-1969 \ Général Charles de Gaulle
-Présidents français : A quel président correspond la période 1969-1974 \ Georges Pompidou
-Présidents français : A quel président correspond la période 1974-1981 \ Valéry Giscard d'Estaing
-Présidents français : A quel président correspond la période 1981-1988 \ François Mitterrand
-Présidents français : A quel président correspond la période 1988-1995 \ François Mitterrand
-Présidents français : A quel président correspond la période 1995-2002 \ Jacques Chirac
 Psychiatre autrichien, père de la psychanalyse. \ Freud
 Puissance des ténèbres, le Prince du mal, dans la religion de Zarathoustra (ou Zoroastre). \ Ahriman
 Puissante chaîne montagneuse d'Asie, au Nord de l'Inde. Longue de 2 800 km, large de 250 à 500 km. Cette chaîne très élevée (plus de cent sommets dépassent 7 000 m), plissée au tertiaire et au quaternaire, est précédée au Sud par une zone de collines, les Siwaliks. \ Himalaya
@@ -12136,124 +12079,6 @@ Texte d'un opéra ou d'une opérette. \ Livret
 This strike will make things ___ difficult for me. \ all the more
 This woman once said of her future husbands sexual activities, «He doesn't even take his boots off.» Who was her future husband? \ adolf hitler
 Thème musical (nombre de mesures) choisi comme support, lors de l'improvisation d'un morceau de jazz. \ Chorus
-Thèmes d'anglais (au bureau) : Traduisez en français : a civil servant/a public employee/a public servant/a public officier \ un fonctionnaire
-Thèmes d'anglais (au bureau) : Traduisez en français : a craftsman \ un artisan
-Thèmes d'anglais (au bureau) : Traduisez en français : a foreman/a supervisor \ un contremaître
-Thèmes d'anglais (au bureau) : Traduisez en français : a job holder \ un titulaire d'emploi
-Thèmes d'anglais (au bureau) : Traduisez en français : a labourer \ un manoeuvre
-Thèmes d'anglais (au bureau) : Traduisez en français : a leave \ un congé
-Thèmes d'anglais (au bureau) : Traduisez en français : a manual worker/a blue-collar worker \ un travailleur manuel
-Thèmes d'anglais (au bureau) : Traduisez en français : a menial job \ un emploi subalterne
-Thèmes d'anglais (au bureau) : Traduisez en français : a professional \ un membre d'une profession libérale
-Thèmes d'anglais (au bureau) : Traduisez en français : a senior civil servant/a high ranking civil servant \ un haut fonctionnaire
-Thèmes d'anglais (au bureau) : Traduisez en français : a shift/a gang \ une équipe
-Thèmes d'anglais (au bureau) : Traduisez en français : a steady work \ un emploi stable
-Thèmes d'anglais (au bureau) : Traduisez en français : a temporary worker \ un travailleur intérimaire
-Thèmes d'anglais (au bureau) : Traduisez en français : a training session/period \ un stage de formation
-Thèmes d'anglais (au bureau) : Traduisez en français : a transfer \ une mutation
-Thèmes d'anglais (au bureau) : Traduisez en français : a white-collar worker/a clerk \ un employé de bureau
-Thèmes d'anglais (au bureau) : Traduisez en français : a workmate/a colleague \ un collègue de travail
-Thèmes d'anglais (au bureau) : Traduisez en français : an executive \ un cadre
-Thèmes d'anglais (au bureau) : Traduisez en français : an odd job \ un petit boulot
-Thèmes d'anglais (au bureau) : Traduisez en français : an unskilled worker \ un ouvrier non qualifié
-Thèmes d'anglais (au bureau) : Traduisez en français : clerical work \ le travail de bureau
-Thèmes d'anglais (au bureau) : Traduisez en français : flexible working hours \ horaires à la carte
-Thèmes d'anglais (au bureau) : Traduisez en français : further training/on-the-job training \ la formation permanente
-Thèmes d'anglais (au bureau) : Traduisez en français : skilled/qualified \ qualifié
-Thèmes d'anglais (au bureau) : Traduisez en français : the labour force \ la main d'oeuvre
-Thèmes d'anglais (au bureau) : Traduisez en français : the payroll \ les salariés
-Thèmes d'anglais (au bureau) : Traduisez en français : the self-employed \ les travailleurs indépendants
-Thèmes d'anglais (au bureau) : Traduisez en français : the staff \ le personnel
-Thèmes d'anglais (au bureau) : Traduisez en français : the turnover \ le renouvellement du personnel
-Thèmes d'anglais (au bureau) : Traduisez en français : to attend a crash course \ suivre un stage intensif
-Thèmes d'anglais (au bureau) : Traduisez en français : to be on trial/on probation \ être à l'essai
-Thèmes d'anglais (au bureau) : Traduisez en français : to recruit/hire/engage/take on \ embaucher
-Thèmes d'anglais (au bureau) : Traduisez en français : to take a day off \ prendre un jour de congé
-Thèmes d'anglais (au bureau) : Traduisez en français : to work after hours/to work overtime/ to do overtime \ faire des heures supplémentaires
-Thèmes d'anglais (au bureau) : Traduisez en français : To work full time \ travailler à plein temps
-Thèmes d'anglais (au bureau) : Traduisez en français : to work in shifts \ travailler par équipes
-Thèmes d'anglais (au bureau) : Traduisez en français : to work part time \ travailler à temps partiel
-Thèmes d'anglais (informatique) : Traduisez en français : a cash dispenser/an automated teller machine \ un distributeur de billets
-Thèmes d'anglais (informatique) : Traduisez en français : a chip \ une puce
-Thèmes d'anglais (informatique) : Traduisez en français : a computer buff/addict \ un passionné d'informatique
-Thèmes d'anglais (informatique) : Traduisez en français : a computer scientist \ un informaticien
-Thèmes d'anglais (informatique) : Traduisez en français : a databank/a memory bank \ une banque de données
-Thèmes d'anglais (informatique) : Traduisez en français : a desktop computer \ un ordinateur de bureau
-Thèmes d'anglais (informatique) : Traduisez en français : a floppy disk \ une disquette souple
-Thèmes d'anglais (informatique) : Traduisez en français : a joystick \ une manette de jeu, une souris
-Thèmes d'anglais (informatique) : Traduisez en français : a keyboard \ un clavier
-Thèmes d'anglais (informatique) : Traduisez en français : a laptop \ un compact
-Thèmes d'anglais (informatique) : Traduisez en français : a personal computer (PC) \ un ordinateur individuel
-Thèmes d'anglais (informatique) : Traduisez en français : a printer \ une imprimante
-Thèmes d'anglais (informatique) : Traduisez en français : a screen \ un écran
-Thèmes d'anglais (informatique) : Traduisez en français : a smartcard \ une carte intelligente
-Thèmes d'anglais (informatique) : Traduisez en français : a vaccine program \ un vaccin
-Thèmes d'anglais (informatique) : Traduisez en français : a word processor \ un traitement de texte
-Thèmes d'anglais (informatique) : Traduisez en français : computer crime \ les délits informatiques
-Thèmes d'anglais (informatique) : Traduisez en français : computer science \ l'informatique
-Thèmes d'anglais (informatique) : Traduisez en français : computer viruses \ les virus informatiques
-Thèmes d'anglais (informatique) : Traduisez en français : computer-aided teaching \ l'enseignement assisté par ordinateur
-Thèmes d'anglais (informatique) : Traduisez en français : computerization \ l'informatisation
-Thèmes d'anglais (informatique) : Traduisez en français : data processing \ le traitement des données
-Thèmes d'anglais (informatique) : Traduisez en français : hacking \ le piratage
-Thèmes d'anglais (informatique) : Traduisez en français : hardware \ le matériel
-Thèmes d'anglais (informatique) : Traduisez en français : office automation \ la bureautique
-Thèmes d'anglais (informatique) : Traduisez en français : raw data \ données brutes
-Thèmes d'anglais (informatique) : Traduisez en français : silicon \ le silicium
-Thèmes d'anglais (informatique) : Traduisez en français : software \ le logiciel
-Thèmes d'anglais (informatique) : Traduisez en français : the computer revolution \ la révolution informatique
-Thèmes d'anglais (informatique) : Traduisez en français : to alter working habits \ modifier les habitudes de travail
-Thèmes d'anglais (informatique) : Traduisez en français : to be computer literate \ savoir se servir d'un ordinateur
-Thèmes d'anglais (informatique) : Traduisez en français : to be stricken by a virus \ être atteint d'un virus
-Thèmes d'anglais (informatique) : Traduisez en français : to be user friendly \ être facile d'utilisation
-Thèmes d'anglais (informatique) : Traduisez en français : to erase/to delete \ effacer
-Thèmes d'anglais (informatique) : Traduisez en français : to hack into computer \ pénétrer un système par effraction
-Thèmes d'anglais (informatique) : Traduisez en français : to insulate a system \ protéger un système
-Thèmes d'anglais (informatique) : Traduisez en français : to neutralize a virus \ neutraliser un virus
-Thèmes d'anglais (internet) : Traduisez en français : a banner \ un bandeau publicitaire
-Thèmes d'anglais (internet) : Traduisez en français : a bookmark \ un signet
-Thèmes d'anglais (internet) : Traduisez en français : a browser \ un navigateur
-Thèmes d'anglais (internet) : Traduisez en français : a bug \ un bogue
-Thèmes d'anglais (internet) : Traduisez en français : a fee \ frais
-Thèmes d'anglais (internet) : Traduisez en français : a hacker \ un pirate informatique
-Thèmes d'anglais (internet) : Traduisez en français : a home page \ page d'accueil
-Thèmes d'anglais (internet) : Traduisez en français : a Internet account \ un compte Internet
-Thèmes d'anglais (internet) : Traduisez en français : a mailbox \ une boîte à lettres
-Thèmes d'anglais (internet) : Traduisez en français : a network \ un réseau
-Thèmes d'anglais (internet) : Traduisez en français : a newsgroup \ un forum de discussion
-Thèmes d'anglais (internet) : Traduisez en français : a password \ un mot de passe
-Thèmes d'anglais (internet) : Traduisez en français : a plug-in \ un module d'extension
-Thèmes d'anglais (internet) : Traduisez en français : a provider \ un fournisseur d'accès
-Thèmes d'anglais (internet) : Traduisez en français : a search engine \ un moteur de recherche
-Thèmes d'anglais (internet) : Traduisez en français : a server \ un serveur
-Thèmes d'anglais (internet) : Traduisez en français : a software \ logiciel
-Thèmes d'anglais (internet) : Traduisez en français : a URL (Uniform Resource Locator) \ une adresse de site web
-Thèmes d'anglais (internet) : Traduisez en français : a virus \ un virus
-Thèmes d'anglais (internet) : Traduisez en français : a web page \ une page web
-Thèmes d'anglais (internet) : Traduisez en français : a web site \ un site web
-Thèmes d'anglais (internet) : Traduisez en français : an attachment \ un document attaché
-Thèmes d'anglais (internet) : Traduisez en français : an e-mail \ un message électronique
-Thèmes d'anglais (internet) : Traduisez en français : an Internet/net user \ un internaute
-Thèmes d'anglais (internet) : Traduisez en français : an Wide Area Network \ un extranet
-Thèmes d'anglais (internet) : Traduisez en français : e-mail address \ une adresse e-mail
-Thèmes d'anglais (internet) : Traduisez en français : Local Area Network (LAN) \ un intranet
-Thèmes d'anglais (internet) : Traduisez en français : log off \ se déconnecter
-Thèmes d'anglais (internet) : Traduisez en français : Netiquette \ éthique du net
-Thèmes d'anglais (internet) : Traduisez en français : off-line \ déconnecté
-Thèmes d'anglais (internet) : Traduisez en français : on-line/online \ connecté
-Thèmes d'anglais (internet) : Traduisez en français : to access \ accéder à
-Thèmes d'anglais (internet) : Traduisez en français : to bookmark \ mettre un signet
-Thèmes d'anglais (internet) : Traduisez en français : to browse \ consulter
-Thèmes d'anglais (internet) : Traduisez en français : to chat \ bavarder en ligne
-Thèmes d'anglais (internet) : Traduisez en français : to connect to \ se connecter à
-Thèmes d'anglais (internet) : Traduisez en français : to disconnect to \ se déconnecter de
-Thèmes d'anglais (internet) : Traduisez en français : to download \ télécharger
-Thèmes d'anglais (internet) : Traduisez en français : to encrypt \ chiffrer
-Thèmes d'anglais (internet) : Traduisez en français : to forward \ faire suivre
-Thèmes d'anglais (internet) : Traduisez en français : to log in/on \ se connecter à
-Thèmes d'anglais (internet) : Traduisez en français : to plug-in \ brancher
-Thèmes d'anglais (internet) : Traduisez en français : to subscribe \ s'abonner
-Thèmes d'anglais (internet) : Traduisez en français : to upload a file \ envoyer un fichier
 Théâtre de Moscou construit en 1824, détruit par un incendie (1853), puis reconstruit en 1856 par Alberto Cavos. Il est célèbre par ses ballets et sa troupe d'opéra. \ Bolchoi
 Tic Tac, beaucoup de fraicheur, et seulement ___ calories \ 2
 Tige en bois dont les joueurs se servent pour frapper les boules au billard. \ Queue

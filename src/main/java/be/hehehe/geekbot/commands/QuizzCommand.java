@@ -287,7 +287,7 @@ public class QuizzCommand {
 
 	private String stripAccents(String source) {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
-		source = source.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		source = source.replaceAll("[\u0300-\u036F]", "");
 		return source;
 	}
 

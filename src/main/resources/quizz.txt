@@ -721,7 +721,6 @@ Amplitude de la marée (différence de hauteur entre la marée haute et la marée ba
 Anakin        \ skywalker
 Ancien nom de l'Ethiopie \ Abyssinie
 Ancienne capitale administrative de la Franche-Comté. \ Dole
-Ancienne capitale de la Lorraine, chef lieu de la Meurthe-et-Moselle. \ Nancy
 Ancienne capitale de la République populaire et démocratique du Yémen entre 1970 et 1990. C'est un important port sur le golfe d'Aden, qui ouvre sur la mer Rouge. La ville est située dans une oasis. \ Aden
 Ancienne capitale du Viêt Nam méridional, sur la rivière de Saigon, à 80 km de la mer. \ Saigon
 Ancienne comume de la Seine. Réunie à Paris en 1860, elle constitue actuellement un quartier du XVe arrondissement. \ Grenelle
@@ -10162,7 +10161,6 @@ Quelle est la ville symbole du film «Autant en emporte le vent» et la ville mère
 Quelle est la Vitesse de la lumière (en Km/h) \ 300 000.
 Quelle est la vitesse de la lumière? (___ km/seconde) \ 300 000
 Quelle est la vitesse maximale d'un nageur en km/h ? \ 8
-Quelle est le chef lieu du Languedoc Roussillon ? \ Montpellier
 Quelle est le jours de la fête national au Usa     juillet \ 4
 Quelle est le mont le plus élevé du monde ? \ Everest
 Quelle est le nom de la petite amie de "simba" dans "Le roi lion" \ Nala
@@ -10456,101 +10454,6 @@ Quelle ville des Etats-Unis signifie en indien «oignon sauvage» ? \ chicago
 Quelle ville des Etats-Unis, en Pennsylvanie, vit la victoire déterminante des Nordistes, en 1863, durant la guerre de Sécession ? \ GETTYSBURG
 Quelle ville du sud-ouest de la France est réputée pour ses pruneaux ? \ AGEN
 Quelle ville est la Préfecture régionale de la Lorraine ? \ METZ
-Quelle ville est le chef lieu de ce département: Ain \ Bourg-en-Bresse
-Quelle ville est le chef lieu de ce département: Aisne \ Laon
-Quelle ville est le chef lieu de ce département: Allier \ Moulins
-Quelle ville est le chef lieu de ce département: Alpes Maritimes \ Nice
-Quelle ville est le chef lieu de ce département: Alpes-de-Haute-Provence \ Digne
-Quelle ville est le chef lieu de ce département: Ardennes \ Charleville mézières
-Quelle ville est le chef lieu de ce département: Ardèche \ Privas
-Quelle ville est le chef lieu de ce département: Ariège \ Foix
-Quelle ville est le chef lieu de ce département: Aube \ Troyes
-Quelle ville est le chef lieu de ce département: Aude \ Carcassonne
-Quelle ville est le chef lieu de ce département: Aveyron \ Rodez
-Quelle ville est le chef lieu de ce département: Bas-Rhin \ Strasbourg
-Quelle ville est le chef lieu de ce département: Bouches-du-Rhone \ Marseille
-Quelle ville est le chef lieu de ce département: Calvados \ Caen
-Quelle ville est le chef lieu de ce département: Cantal \ Aurillac
-Quelle ville est le chef lieu de ce département: Charente \ Angoulème
-Quelle ville est le chef lieu de ce département: Charente Maritime \ La Rochelle
-Quelle ville est le chef lieu de ce département: Cher \ Bourges
-Quelle ville est le chef lieu de ce département: Correze \ Tulle
-Quelle ville est le chef lieu de ce département: Corse-du-Sud \ Ajaccio
-Quelle ville est le chef lieu de ce département: Cote d'Or \ Dijon
-Quelle ville est le chef lieu de ce département: Creuse \ Gueret
-Quelle ville est le chef lieu de ce département: Côtes d'Armor \ Saint Brieu
-Quelle ville est le chef lieu de ce département: Deux Sevres \ Niort
-Quelle ville est le chef lieu de ce département: Dordogne \ Perigueux
-Quelle ville est le chef lieu de ce département: Doubs \ Besancon
-Quelle ville est le chef lieu de ce département: Drôme \ Valence
-Quelle ville est le chef lieu de ce département: Essonne \ Evry
-Quelle ville est le chef lieu de ce département: Eure \ Evreux
-Quelle ville est le chef lieu de ce département: Eure-et-Loir \ Chartres
-Quelle ville est le chef lieu de ce département: Finistère \ Quimper
-Quelle ville est le chef lieu de ce département: Gard \ Nimes
-Quelle ville est le chef lieu de ce département: Gers \ Auch
-Quelle ville est le chef lieu de ce département: Gironde \ Bordeaux
-Quelle ville est le chef lieu de ce département: Haut-Rhin \ Colmar
-Quelle ville est le chef lieu de ce département: Haute Marne \ Chaumont
-Quelle ville est le chef lieu de ce département: Haute-Corse \ Bastia
-Quelle ville est le chef lieu de ce département: Haute-Garonne \ Toulouse
-Quelle ville est le chef lieu de ce département: Haute-Loire \ Le Puy
-Quelle ville est le chef lieu de ce département: Haute-Saone \ Vesoul
-Quelle ville est le chef lieu de ce département: Haute-Savoie \ Annecy
-Quelle ville est le chef lieu de ce département: Haute-Vienne \ Limoge
-Quelle ville est le chef lieu de ce département: Hautes-Pyrenées \ Tarbes
-Quelle ville est le chef lieu de ce département: Hauts-de-Seine \ Nanterre
-Quelle ville est le chef lieu de ce département: Herault \ Montpellier
-Quelle ville est le chef lieu de ce département: Ile-et-Vilaine \ Rennes
-Quelle ville est le chef lieu de ce département: Indre \ Chateauroux
-Quelle ville est le chef lieu de ce département: Indre-et-Loire \ Tours
-Quelle ville est le chef lieu de ce département: isère \ Grenoble
-Quelle ville est le chef lieu de ce département: Jura \ Lons-le-Saunier
-Quelle ville est le chef lieu de ce département: Landes \ Mont de Marsan
-Quelle ville est le chef lieu de ce département: Loir-et-cher \ Blois
-Quelle ville est le chef lieu de ce département: Loire \ Saint-Etienne
-Quelle ville est le chef lieu de ce département: Loire Atlantique \ nantes
-Quelle ville est le chef lieu de ce département: Loiret \ Orleans
-Quelle ville est le chef lieu de ce département: Lot \ Cahors
-Quelle ville est le chef lieu de ce département: Lot-et-Garonne \ Agen
-Quelle ville est le chef lieu de ce département: Lozère \ Mende
-Quelle ville est le chef lieu de ce département: Maine-et-loire \ Angers
-Quelle ville est le chef lieu de ce département: Manche \ Saint Lo
-Quelle ville est le chef lieu de ce département: Marne \ Chalons
-Quelle ville est le chef lieu de ce département: Mayenne \ Laval
-Quelle ville est le chef lieu de ce département: Meurthe-et-Mozelle \ Nancy
-Quelle ville est le chef lieu de ce département: Meuse \ Bar le Duc
-Quelle ville est le chef lieu de ce département: Morbihan \ Vannes
-Quelle ville est le chef lieu de ce département: Moselle \ Metz
-Quelle ville est le chef lieu de ce département: Nievre \ Nevers
-Quelle ville est le chef lieu de ce département: Nord \ lille
-Quelle ville est le chef lieu de ce département: Oise \ Beauvais
-Quelle ville est le chef lieu de ce département: Orne \ Alencon
-Quelle ville est le chef lieu de ce département: Paris \ Paris
-Quelle ville est le chef lieu de ce département: Pas-de-Calais \ Arras
-Quelle ville est le chef lieu de ce département: Puy-de-Dome \ Clermont
-Quelle ville est le chef lieu de ce département: Pyrenées Atlantiques \ Pau
-Quelle ville est le chef lieu de ce département: Pyrenées Orientales \ Perpignan
-Quelle ville est le chef lieu de ce département: Rhone \ Lyon
-Quelle ville est le chef lieu de ce département: Saone-et-Loire \ Macon
-Quelle ville est le chef lieu de ce département: Sarthe \ Le Mans
-Quelle ville est le chef lieu de ce département: Savoie \ Chambéry
-Quelle ville est le chef lieu de ce département: Seine-et-Marne \ Meulin
-Quelle ville est le chef lieu de ce département: Seine-Maritime \ Rouen
-Quelle ville est le chef lieu de ce département: Seine-St-Denis \ Bobigny
-Quelle ville est le chef lieu de ce département: Somme \ Amiens
-Quelle ville est le chef lieu de ce département: Tarn \ Albi
-Quelle ville est le chef lieu de ce département: Tarn-et-Garonne \ Montauban
-Quelle ville est le chef lieu de ce département: Territoire de Belfort \ Belfort
-Quelle ville est le chef lieu de ce département: Val d'Oise \ Pontoise
-Quelle ville est le chef lieu de ce département: Val-de-Marne \ Créteil
-Quelle ville est le chef lieu de ce département: Var \ Toulon
-Quelle ville est le chef lieu de ce département: Vaucluse \ Avignon
-Quelle ville est le chef lieu de ce département: Vendée \ La Roche sur yon
-Quelle ville est le chef lieu de ce département: Vienne \ Poitiers
-Quelle ville est le chef lieu de ce département: Vosges \ Epinal
-Quelle ville est le chef lieu de ce département: Yonne \ Auxerre
-Quelle ville est le chef lieu de ce département: Yvelines \ Versailles
 Quelle ville est menacée par l'éruption volcanique du Popocatépelt ? \ Mexico
 Quelle ville est située à l'embouchure du Richelieu \ Sorel
 Quelle ville est située à la fois sur deux continents \ Istanbul
@@ -12386,7 +12289,6 @@ Ville de la Franche-Comté. \ Belfort
 Ville de la République tchèque, en Moravie. On peut y voir des églises gothiques et baroques, ainsi que la colonne Sainte-Marie, de style baroque. \ Brno
 Ville de la Suisse, au bord du lac Léman. \ Genève
 Ville de la Suisse, sur l'Aar. La ville passa à la Réforme en 1528 et devint capitale fédérale en 1848. \ Berne
-Ville de Lorraine, chef lieu de la Moselle, ancienne place forte \ Metz
 Ville de normandie connue pour sa dentelle \ Alençon
 Ville de Roumanie, située dans la région de Moldavie, à l'est du pays. Elle est baignée par la Bistrita, peu avant que celle-ci ne se jette dans la Siret. \ Bacau
 Ville de Roumanie, sur le Danube inférieur (région de Munténie). \ Braila
@@ -12424,11 +12326,6 @@ Ville du centre de la France, sous-préfecture du département de la Creuse, arros
 Ville du Japon, située dans l'île de Honshu. Elle fut la capitale du Japon jusqu'en 1886. \ Kyoto
 Ville du Liban et port sur la Méditérranée. La guerre civile qui opposa les chrétiens aux musulmans et aux Palestiniens (1975-1976), puis les bombardements de l'armée israélienne en 1982 et la reprise de la guerre civile en 1983 ont dévasté la ville. \ Beyrouth
 Ville du Liban, située à l'intérieur du pays, dans la haute plaine aride de la Beqaa. D'abord cité phénicienne, puis ville grecque, elle devint colonie romaine sous l'empereur Auguste. Elle fut ensuite occupée par les Arabes, Turcs et Mongols, avant d'être pillée par Tamerlan en 1400. Malgré le tremblement de terre qui la détruisit en partie en 1759, elle a conservé d'importants vestiges archéologiques. \ Baalbek
-Ville du Massif central, chef lieu de l'Allier. \ Moulins
-Ville du Massif central, chef lieu de la Haute-Loire. \ Brioude
-Ville du Massif central, chef lieu du Puy-de-Dôme. \ Ambert
-Ville du Massif central, chef lieu du Puy-de-Dôme. \ Issoire
-Ville du Massif central, chef lieu du Puy-de-Dôme. Ville de coutellerie. \ Thiers
 Ville du Morbihan, célèbre pour le port de Saint-Goustan (XIIe siècle). Ce port fut important jusqu'à la fin du XVIIIe siècle. C'est notamment là qu'accosta George Washington, venu demander l'alliance de la France face à l'Angleterre durant la guerre d'Indépendance américaine. \ Auray
 Ville du nord de la France, chef-lieu du département de l'Aisne. Ancienne capitale de la France du VIIIe au Xe siècle, elle fut, au Xe siècle, résidence royale des souverains austrasiens (Mérovingiens), avant d'être conquise par les Capétiens en 988. \ Laon
 Ville du nord de la France, sur les bords de la Deûle. Sous-préfecture du département du Pas-de-Calais, la ville fut une place forte où le Grand Condé remporta une victoire décisive sur les Impériaux, à la suite de laquelle fut signée la paix de Westphalie (20 août 1648). \ Lens

@@ -67,7 +67,7 @@ public class QuoteCommandTest {
 		Assert.assertEquals(expected, actual);
 
 		dao.delete(dao.findByNumber(1));
-		expected = IRCUtils.bold("Matching quotes:") + " 2";
+		expected = IRCUtils.bold("Matching quotes:") + " 1";
 		actual = quoteCommand.findQuote(event);
 		Assert.assertEquals(expected, actual);
 

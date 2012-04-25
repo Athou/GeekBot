@@ -61,7 +61,7 @@ public class SkanditeCommand {
 							+ "x).";
 					result.add(line);
 					skandite.setCount(skandite.getCount() + 1);
-					dao.save(skandite);
+					dao.update(skandite);
 				}
 			} else {
 				skandite = new Skandite();

@@ -2,11 +2,13 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 
+@Named
 public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 
 	public void giveOnePoint(String author) {
@@ -29,6 +31,11 @@ public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 		Root<QuizzPlayer> root = query.from(QuizzPlayer.class);
 		query.orderBy(builder.desc(root.get("points")));
 		return em.createQuery(query).getResultList();
+	}
+
+	@Override
+	protected Class<QuizzPlayer> getType() {
+		return QuizzPlayer.class;
 	}
 
 }

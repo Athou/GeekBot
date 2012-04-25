@@ -2,6 +2,7 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -12,6 +13,7 @@ import be.hehehe.geekbot.persistence.model.Quote;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+@Named
 public class QuoteDAO extends GenericDAO<Quote> {
 
 	@Override
@@ -50,5 +52,10 @@ public class QuoteDAO extends GenericDAO<Quote> {
 
 	public Quote findByNumber(int number) {
 		return Iterables.getOnlyElement(findByField("number", number), null);
+	}
+
+	@Override
+	protected Class<Quote> getType() {
+		return Quote.class;
 	}
 }

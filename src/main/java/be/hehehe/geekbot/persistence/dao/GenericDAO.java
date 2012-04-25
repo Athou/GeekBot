@@ -4,19 +4,20 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import be.hehehe.geekbot.persistence.EntityManagerHelper;
-
 public abstract class GenericDAO<T> {
 
+	@Inject
 	protected EntityManager em;
-	protected CriteriaBuilder builder;
+
 	private Class<T> genericType;
+	protected CriteriaBuilder builder;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -24,7 +25,6 @@ public abstract class GenericDAO<T> {
 		ParameterizedType type = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		genericType = (Class<T>) type.getActualTypeArguments()[0];
-		em = EntityManagerHelper.createEntityManager();
 		builder = em.getCriteriaBuilder();
 	}
 

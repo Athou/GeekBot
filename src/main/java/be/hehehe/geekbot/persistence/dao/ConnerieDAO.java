@@ -3,7 +3,6 @@ package be.hehehe.geekbot.persistence.dao;
 import java.util.List;
 import java.util.Random;
 
-import javax.inject.Singleton;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -14,7 +13,6 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-@Singleton
 public class ConnerieDAO extends GenericDAO<Connerie> {
 
 	public Connerie getRandom() {

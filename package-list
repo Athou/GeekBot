@@ -4,6 +4,5 @@ be.hehehe.geekbot.bot
 be.hehehe.geekbot.commands
 be.hehehe.geekbot.persistence
 be.hehehe.geekbot.persistence.dao
-be.hehehe.geekbot.persistence.lucene
 be.hehehe.geekbot.persistence.model
 be.hehehe.geekbot.utils

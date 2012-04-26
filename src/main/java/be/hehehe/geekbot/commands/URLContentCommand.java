@@ -29,7 +29,7 @@ public class URLContentCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	Logger log;
 
@@ -121,9 +121,13 @@ public class URLContentCommand {
 				}
 			} else {
 				String html = utilsService.getContent(url);
-				String title = Jsoup.parse(html).select("head > title").first()
-						.text();
-				result.add(IRCUtils.bold("Title: ") + title);
+				try {
+					String title = Jsoup.parse(html).select("head > title")
+							.first().text();
+					result.add(IRCUtils.bold("Title: ") + title);
+				} catch (Exception e) {
+					log.debug("Could not fetch HTML title: " + url);
+				}
 			}
 		}
 		return result;

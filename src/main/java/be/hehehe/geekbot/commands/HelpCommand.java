@@ -19,6 +19,10 @@ import be.hehehe.geekbot.utils.IRCUtils;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Prints help
+ * 
+ */
 @BotCommand
 public class HelpCommand {
 

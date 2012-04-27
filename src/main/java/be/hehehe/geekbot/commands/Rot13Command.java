@@ -6,7 +6,10 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 
-
+/**
+ * ROT13 Algorithm
+ * 
+ */
 @BotCommand
 public class Rot13Command {
 

@@ -17,6 +17,10 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 
+/**
+ * Auto-update implementation
+ * 
+ */
 @BotCommand
 public class UpdateCommand {
 
@@ -25,7 +29,7 @@ public class UpdateCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	Logger log;
 

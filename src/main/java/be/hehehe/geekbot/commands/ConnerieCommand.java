@@ -52,6 +52,7 @@ public class ConnerieCommand {
 	}
 
 	@Trigger(value = "!rand", type = TriggerType.STARTSWITH)
+	@Help("Returns a random sentence matching given arguments.")
 	public String getRandQuote(TriggerEvent event) {
 		String r = null;
 		String keywords = event.getMessage();
@@ -68,7 +69,7 @@ public class ConnerieCommand {
 	}
 
 	@Trigger(value = "!stat", type = TriggerType.STARTSWITH)
-	@Help("Count for sentences containing the given arguments in our database.")
+	@Help("Count sentences containing the given arguments in our database.")
 	public String getStatCount(TriggerEvent event) {
 		String r = null;
 		String keywords = event.getMessage();

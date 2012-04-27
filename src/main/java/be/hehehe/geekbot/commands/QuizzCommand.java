@@ -30,6 +30,10 @@ import be.hehehe.geekbot.utils.IRCUtils;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Quizz !
+ * 
+ */
 @BotCommand
 public class QuizzCommand {
 
@@ -303,6 +307,7 @@ public class QuizzCommand {
 	}
 
 	@Trigger("!score")
+	@Help("Prints Quizz scoreboard URL.")
 	public String score(TriggerEvent event) {
 		return IRCUtils.bold("Scoreboard: ")
 				+ bundleService.getWebServerRootPath() + "/quizz";

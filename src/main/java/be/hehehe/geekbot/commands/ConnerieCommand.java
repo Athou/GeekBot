@@ -76,7 +76,7 @@ public class ConnerieCommand {
 		if (StringUtils.isNotBlank(keywords)) {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {
-				int count = dao.getCountMatching(keywords.split("[  ]"));
+				int count = dao.getCountMatching(keywords.split(" "));
 				r = IRCUtils.bold("Stat count for \"" + keywords + "\" : ")
 						+ count;
 			}

@@ -11,6 +11,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
 	<build>
 		<!-- Fix to ignore Eclipse error: maven-dependency-plugin (goals "copy-dependencies", 
 			"unpack") is not supported by m2e. http://dev.eclipse.org/mhonarc/lists/m2e-users/msg00875.html 
@@ -166,7 +175,7 @@
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se-core</artifactId>
-			<version>2.0.0.Alpha1</version>
+			<version>2.0.0.Alpha2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

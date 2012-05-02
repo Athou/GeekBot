@@ -25,15 +25,16 @@ Edit those new files to reflect your local configuration (bot name, irc server a
 
 Build
 -----
+`mvn package`
 
-mvn package
+[![Build Status](https://secure.travis-ci.org/Athou/GeekBot.png?branch=master)](http://travis-ci.org/Athou/GeekBot)
 
 Run
 ---
-java -jar target/GeekBot-1.0.0.jar
+`java -jar target/GeekBot-1.0.0.jar`
 
 Or use the 'start.sh' script (will start a new screen called 'gb'): 
 
-chmod +x start.sh
+`chmod +x start.sh`
 
-./start.sh
+`./start.sh`

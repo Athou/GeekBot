@@ -1,6 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +7,13 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
@@ -27,7 +26,10 @@ public class VDMCommand {
 
 	@Inject
 	BundleService bundleService;
-	
+
+	@Inject
+	BotUtilsService utilsService;
+
 	@Inject
 	Logger log;
 
@@ -41,10 +43,10 @@ public class VDMCommand {
 			return toReturn;
 		}
 		try {
-			SAXBuilder builder = new SAXBuilder();
-			Document doc = builder.build(new URL(
-					"http://api.betacie.com/view/random/nocomment/?key=" + key
-							+ "&language=fr"));
+			String url = "http://api.betacie.com/view/random/nocomment/?key="
+					+ key + "&language=fr";
+			Document doc = utilsService.parseXML(utilsService.getContent(url));
+
 			Element root = doc.getRootElement();
 			String text = root.getChild("items").getChild("item")
 					.getChild("text").getValue();

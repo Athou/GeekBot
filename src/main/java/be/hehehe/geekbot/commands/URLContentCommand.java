@@ -6,8 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.jdom.Document;
-import org.jdom.Element;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -55,8 +55,7 @@ public class URLContentCommand {
 					Document doc = utilsService.parseXML(content);
 					Element root = doc.getRootElement();
 					String title = "";
-					for (Object o : root.getChildren()) {
-						Element e = (Element) o;
+					for (Element e : root.getChildren()) {
 						if ("title".equals(e.getName())) {
 							title = e.getText();
 							break;

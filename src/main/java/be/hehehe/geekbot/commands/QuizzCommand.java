@@ -331,7 +331,7 @@ public class QuizzCommand {
 			return e.getMessage();
 		}
 
-		return IRCUtils.bold("Merge Request Added: check")
+		return IRCUtils.bold("Merge Request Added: ") + "check "
 				+ bundleService.getWebServerRootPath() + "/quizz";
 	}
 

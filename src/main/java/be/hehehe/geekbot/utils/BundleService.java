@@ -8,6 +8,10 @@ import javax.inject.Singleton;
 public class BundleService {
 
 	private final ResourceBundle bundle = ResourceBundle.getBundle("config");
+	
+	public String getAdminPassword() {
+		return getValue("admin.password");
+	}
 
 	public String getBotName() {
 		return getValue("botname");

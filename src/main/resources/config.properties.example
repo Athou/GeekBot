@@ -1,6 +1,9 @@
 # Bot nickname
 botname=GeekBot
 
+# administrator password for various operations
+admin.password=hello
+
 # IRC Server to use
 server=irc.quakenet.org
 

@@ -444,6 +444,12 @@ public class GeekBot extends PircBot {
 			ServletEvent event = new ServletEventImpl(req, resp);
 			invoke(method, event);
 		}
+
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException {
+			doGet(req, resp);
+		}
 	}
 
 }

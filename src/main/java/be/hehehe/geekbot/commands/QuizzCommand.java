@@ -25,6 +25,8 @@ import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.QuizzDAO;
+import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
+import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO.QuizzMergeException;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
@@ -48,6 +50,9 @@ public class QuizzCommand {
 
 	@Inject
 	QuizzDAO dao;
+
+	@Inject
+	QuizzMergeDAO mergeDao;
 
 	private static final String ENABLED = "enabled";
 	private static final String QUESTIONS = "questions";
@@ -313,14 +318,52 @@ public class QuizzCommand {
 				+ bundleService.getWebServerRootPath() + "/quizz";
 	}
 
+	@Trigger(value = "!score merge", type = TriggerType.STARTSWITH)
+	@Help("Introduces a merge request. !score merge <player1> <player2>. Deletes player2 and gives its points to player1.")
+	public String scoremerge(TriggerEvent event) {
+		String[] args = event.getMessage().split(" ");
+		if (args.length != 2) {
+			return "Wrong syntax, check !help !score merge";
+		}
+		try {
+			mergeDao.add(args[0], args[1]);
+		} catch (QuizzMergeException e) {
+			return e.getMessage();
+		}
+
+		return IRCUtils.bold("Merge Request Added: check")
+				+ bundleService.getWebServerRootPath() + "/quizz";
+	}
+
 	@ServletMethod("/quizz")
 	public void scoreboard(ServletEvent event) throws Exception {
 		HttpServletRequest request = event.getRequest();
 		HttpServletResponse response = event.getResponse();
 		request.setAttribute("players", dao.getPlayersOrderByPoints());
+		request.setAttribute("requests", mergeDao.findAll());
 		request.getRequestDispatcher("/scoreboard.jsp").forward(request,
 				response);
 
+	}
+
+	@ServletMethod("/quizzmerge")
+	public void scoremerge(ServletEvent event) throws Exception {
+		HttpServletRequest request = event.getRequest();
+		HttpServletResponse response = event.getResponse();
+		String password = request.getParameter("password");
+		if (StringUtils.equals(bundleService.getAdminPassword(), password)) {
+			List<String> accepted = Arrays.asList(request
+					.getParameterValues("accept"));
+			for (String id : accepted) {
+				mergeDao.executeMerge(Long.parseLong(id));
+			}
+			for (String id : request.getParameterValues("deny")) {
+				if (!accepted.contains(id)) {
+					mergeDao.deleteById(Long.parseLong(id));
+				}
+			}
+		}
+		response.sendRedirect("/quizz");
 	}
 
 }

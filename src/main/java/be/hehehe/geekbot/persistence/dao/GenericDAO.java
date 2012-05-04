@@ -29,12 +29,14 @@ public abstract class GenericDAO<T> {
 
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
+			if (em != null && em.getTransaction().isActive()) {
 				em.getTransaction().setRollbackOnly();
 			}
 			throw e;
 		} finally {
-			em.close();
+			if (em != null) {
+				em.close();
+			}
 		}
 		return result;
 	}

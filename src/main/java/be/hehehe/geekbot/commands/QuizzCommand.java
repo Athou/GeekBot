@@ -352,18 +352,23 @@ public class QuizzCommand {
 		HttpServletResponse response = event.getResponse();
 		String password = request.getParameter("password");
 		if (StringUtils.equals(bundleService.getAdminPassword(), password)) {
-			List<String> accepted = Arrays.asList(request
-					.getParameterValues("accept"));
-			for (String id : accepted) {
-				mergeDao.executeMerge(Long.parseLong(id));
+			String[] accepted = request.getParameterValues("accept");
+			String[] denied = request.getParameterValues("deny");
+
+			if (accepted != null) {
+				for (String id : accepted) {
+					mergeDao.executeMerge(Long.parseLong(id));
+				}
 			}
-			for (String id : request.getParameterValues("deny")) {
-				if (!accepted.contains(id)) {
-					mergeDao.deleteById(Long.parseLong(id));
+			if (denied != null) {
+				for (String id : denied) {
+					if (accepted == null
+							|| !Arrays.asList(accepted).contains(id)) {
+						mergeDao.deleteById(Long.parseLong(id));
+					}
 				}
 			}
 		}
 		response.sendRedirect("/quizz");
 	}
-
 }

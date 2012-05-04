@@ -17,27 +17,39 @@
 	<div class="center">
 		<h1 class="title">Quizz Scoreboard</h1>
 
-		<table class="center players">
-			<tr>
-				<td>Rank</td>
-				<td>Player Name</td>
-				<td>Points</td>
-			</tr>
-			<%
-				List<QuizzPlayer> players = (List<QuizzPlayer>) request
-						.getAttribute("players");
-				for (int i = 0; i < players.size(); i++) {
-					QuizzPlayer player = players.get(i);
-			%>
-			<tr>
-				<td><%=(i + 1)%></td>
-				<td><%=player.getName()%></td>
-				<td><%=player.getPoints()%></td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
+		<form action="quizzmerge" method="post">
+			<table class="center players">
+				<tr>
+					<td>Rank</td>
+					<td>Player Name</td>
+					<td>Points</td>
+					<td>Add Merge Request</td>
+				</tr>
+				<%
+					List<QuizzPlayer> players = (List<QuizzPlayer>) request
+							.getAttribute("players");
+					for (int i = 0; i < players.size(); i++) {
+						QuizzPlayer player = players.get(i);
+				%>
+				<tr>
+					<td><%=(i + 1)%></td>
+					<td><%=player.getName()%></td>
+					<td><%=player.getPoints()%></td>
+					<td><input type="checkbox" class="add-merge-request"
+						name="add" value="<%=player.getName()%>" /></td>
+				</tr>
+				<%
+					}
+				%>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><input type="submit" id="add-request-submit"
+						disabled="disabled" value="Add Merge Request" /></td>
+				</tr>
+			</table>
+		</form>
 
 		<%
 			List<QuizzMergeRequest> requests = (List<QuizzMergeRequest>) request

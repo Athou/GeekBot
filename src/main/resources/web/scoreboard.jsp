@@ -71,7 +71,7 @@
 				%>
 				<tr>
 					<td>Password:</td>
-					<td><input id="password" type="password" /></td>
+					<td><input name="password" type="password" /></td>
 				</tr>
 
 			</table>

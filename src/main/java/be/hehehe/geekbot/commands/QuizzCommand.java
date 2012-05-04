@@ -351,6 +351,16 @@ public class QuizzCommand {
 		HttpServletRequest request = event.getRequest();
 		HttpServletResponse response = event.getResponse();
 		String password = request.getParameter("password");
+
+		String[] add = request.getParameterValues("add");
+		if (add != null && add.length == 2) {
+			try {
+				mergeDao.add(add[0], add[1]);
+			} catch (QuizzMergeException e) {
+				log.info(e.getMessage(), e);
+			}
+		}
+
 		if (StringUtils.equals(bundleService.getAdminPassword(), password)) {
 			String[] accepted = request.getParameterValues("accept");
 			String[] denied = request.getParameterValues("deny");

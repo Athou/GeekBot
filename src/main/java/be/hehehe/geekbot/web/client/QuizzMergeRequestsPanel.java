@@ -40,7 +40,8 @@ public class QuizzMergeRequestsPanel extends FlowPanel implements
 
 		add(requestsTable);
 
-		HorizontalPanel passwordPanel = new HorizontalPanel();
+		passwordPanel = new HorizontalPanel();
+		passwordPanel.setStyleName("center");
 		passwordPanel.setVisible(false);
 		passwordPanel.add(new Label("Password: "));
 		passwordPanel.add(password);
@@ -69,9 +70,9 @@ public class QuizzMergeRequestsPanel extends FlowPanel implements
 	private void populateRequests(final List<QuizzMergeRequest> requests) {
 		requestsTable.removeAllRows();
 
-		passwordPanel.setVisible(requests.isEmpty());
+		passwordPanel.setVisible(!requests.isEmpty());
 		if (requests.isEmpty()) {
-			add(new Label("No requests."));
+			requestsTable.setText(0, 0, "No requests.");
 		} else {
 			requestsTable.setText(0, 0, "Receiving Player");
 			requestsTable.setText(0, 1, "Giving Player");
@@ -123,8 +124,8 @@ public class QuizzMergeRequestsPanel extends FlowPanel implements
 				});
 				deny.addStyleName("pointer");
 
-				requestsTable.setText(i + 1, 0, "Receiving Player");
-				requestsTable.setText(i + 1, 1, "Receiving Player");
+				requestsTable.setText(i + 1, 0, request.getPlayer1().getName());
+				requestsTable.setText(i + 1, 1, request.getPlayer2().getName());
 				requestsTable.setWidget(i + 1, 2, accept);
 				requestsTable.setWidget(i + 1, 3, deny);
 			}

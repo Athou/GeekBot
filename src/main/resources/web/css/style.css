@@ -15,7 +15,10 @@ a,a:visited {
 	text-align: center;
 }
 
-
 #players td {
 	width: 250px;
+}
+
+.pointer {
+	cursor: pointer;
 }

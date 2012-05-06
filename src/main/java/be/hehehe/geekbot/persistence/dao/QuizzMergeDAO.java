@@ -41,11 +41,10 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 		QuizzPlayer player1 = request.getPlayer1();
 		QuizzPlayer player2 = request.getPlayer2();
 
+		delete(request);
 		player1.setPoints(player1.getPoints() + player2.getPoints());
 		quizzDao.delete(player2);
 		quizzDao.update(player1);
-
-		delete(request);
 
 	}
 

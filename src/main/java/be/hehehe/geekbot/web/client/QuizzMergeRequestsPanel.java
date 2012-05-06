@@ -61,7 +61,9 @@ public class QuizzMergeRequestsPanel extends FlowPanel implements
 			@Override
 			public void onFailure(Throwable t) {
 				requestsTable.removeAllRows();
-				requestsTable.setText(0, 0, t.getMessage());
+				requestsTable
+						.setText(0, 0, "Error while fetching requests list: "
+								+ t.getMessage());
 			}
 		});
 

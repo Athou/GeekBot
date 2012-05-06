@@ -98,7 +98,8 @@ public class QuizzPlayersPanel extends FlowPanel implements RefreshHandler {
 			@Override
 			public void onFailure(Throwable t) {
 				playersTable.removeAllRows();
-				playersTable.setText(0, 0, t.getMessage());
+				playersTable.setText(0, 0,
+						"Error while fetching players list: " + t.getMessage());
 			}
 		});
 

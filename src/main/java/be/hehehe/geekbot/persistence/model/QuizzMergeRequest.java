@@ -8,9 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@SuppressWarnings("serial")
 @Entity
 public class QuizzMergeRequest implements Serializable {
+
+	private static final long serialVersionUID = -8323718097566901796L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

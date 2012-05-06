@@ -7,9 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@SuppressWarnings("serial")
 @Entity
 public class QuizzPlayer implements Serializable {
+
+	private static final long serialVersionUID = 3020354465298666363L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,16 +1,14 @@
 package be.hehehe.geekbot.persistence.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class QuizzPlayer implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-	private static final long serialVersionUID = 3020354465298666363L;
+@Entity
+public class QuizzPlayer implements IsSerializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

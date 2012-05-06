@@ -1,12 +1,15 @@
 package be.hehehe.geekbot.persistence.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@SuppressWarnings("serial")
 @Entity
-public class QuizzPlayer {
+public class QuizzPlayer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

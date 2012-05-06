@@ -1,18 +1,12 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Calendar;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,10 +15,8 @@ import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
-import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
-import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BundleService;
@@ -38,15 +30,12 @@ import be.hehehe.geekbot.utils.BundleService;
 @BotCommand
 public class MirrorCommand {
 
-	private static final String KEY_TEMPFILE = "tempfile";
-	private static final String KEY_VIDEOURL = "videourl";
-
 	@Inject
 	State state;
 
 	@Inject
 	BundleService bundleService;
-	
+
 	@Inject
 	Logger log;
 
@@ -85,8 +74,6 @@ public class MirrorCommand {
 			} catch (Exception e) {
 				result = "Error retrieving file";
 			}
-		} else {
-			result = mirrorVideo(message, event);
 		}
 		return result;
 	}
@@ -139,68 +126,4 @@ public class MirrorCommand {
 		return result;
 	}
 
-	private String mirrorVideo(String message, TriggerEvent event) {
-		String result = null;
-		InputStream is = null;
-		OutputStream os = null;
-		try {
-			event.write("Mirroring " + message);
-			File tempFile = state.get(KEY_TEMPFILE, File.class);
-			if (tempFile == null) {
-				tempFile = File.createTempFile("video_", ".mp4");
-				tempFile.deleteOnExit();
-				state.put(KEY_TEMPFILE, tempFile);
-			}
-			state.put(KEY_VIDEOURL, message);
-			log.debug("Mirroring " + message + " at "
-					+ tempFile.getAbsolutePath());
-			String[] movgrab = new String[] { "movgrab", "-o",
-					tempFile.getAbsolutePath(), "-f", "mp4,flv", message };
-			Process process = Runtime.getRuntime().exec(movgrab);
-			log.debug(IOUtils.toString(process.getErrorStream()));
-
-			result = "Mirrored here : " + bundleService.getWebServerRootPath()
-					+ "/videomirror?t="
-					+ Calendar.getInstance().getTimeInMillis();
-		} catch (Exception e) {
-			result = e.getMessage();
-		} finally {
-			IOUtils.closeQuietly(is);
-			IOUtils.closeQuietly(os);
-		}
-		return result;
-	}
-
-	@ServletMethod("/videomirror")
-	public void renderPage(ServletEvent event) throws Exception {
-		HttpServletRequest request = event.getRequest();
-		HttpServletResponse response = event.getResponse();
-		String url = state.get(KEY_VIDEOURL, String.class);
-		if (url != null) {
-			request.setAttribute("url", url);
-			request.setAttribute(
-					"video",
-					URLEncoder.encode(bundleService.getWebServerRootPath()
-							+ "/videostream.mp4", "UTF-8"));
-			request.getRequestDispatcher("/videomirror.jsp").forward(request,
-					response);
-		}
-	}
-
-	@ServletMethod("/videostream.mp4")
-	public void streamVideo(ServletEvent event) throws Exception {
-		HttpServletResponse response = event.getResponse();
-		File file = state.get(KEY_TEMPFILE, File.class);
-		InputStream is = null;
-		if (file != null) {
-			try {
-				is = new FileInputStream(file);
-				response.setContentType("video/mp4");
-				OutputStream os = response.getOutputStream();
-				IOUtils.copy(is, os);
-			} finally {
-				IOUtils.closeQuietly(is);
-			}
-		}
-	}
 }

@@ -9,8 +9,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,15 +16,13 @@ import org.apache.log4j.Logger;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
-import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
-import be.hehehe.geekbot.bot.ServletEvent;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.QuizzDAO;
 import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
-import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO.QuizzMergeException;
+import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
@@ -333,52 +329,5 @@ public class QuizzCommand {
 
 		return IRCUtils.bold("Merge Request Added: ") + "check "
 				+ bundleService.getWebServerRootPath() + "/quizz";
-	}
-
-	@ServletMethod("/quizz")
-	public void scoreboard(ServletEvent event) throws Exception {
-		HttpServletRequest request = event.getRequest();
-		HttpServletResponse response = event.getResponse();
-		request.setAttribute("players", dao.getPlayersOrderByPoints());
-		request.setAttribute("requests", mergeDao.findAll());
-		request.getRequestDispatcher("/scoreboard.jsp").forward(request,
-				response);
-
-	}
-
-	@ServletMethod("/quizzmerge")
-	public void scoremerge(ServletEvent event) throws Exception {
-		HttpServletRequest request = event.getRequest();
-		HttpServletResponse response = event.getResponse();
-		String password = request.getParameter("password");
-
-		String[] add = request.getParameterValues("add");
-		if (add != null && add.length == 2) {
-			try {
-				mergeDao.add(add[0], add[1]);
-			} catch (QuizzMergeException e) {
-				log.info(e.getMessage(), e);
-			}
-		}
-
-		if (StringUtils.equals(bundleService.getAdminPassword(), password)) {
-			String[] accepted = request.getParameterValues("accept");
-			String[] denied = request.getParameterValues("deny");
-
-			if (accepted != null) {
-				for (String id : accepted) {
-					mergeDao.executeMerge(Long.parseLong(id));
-				}
-			}
-			if (denied != null) {
-				for (String id : denied) {
-					if (accepted == null
-							|| !Arrays.asList(accepted).contains(id)) {
-						mergeDao.deleteById(Long.parseLong(id));
-					}
-				}
-			}
-		}
-		response.sendRedirect("/quizz");
 	}
 }

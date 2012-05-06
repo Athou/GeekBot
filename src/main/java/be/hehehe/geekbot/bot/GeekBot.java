@@ -32,6 +32,7 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
@@ -113,40 +114,41 @@ public class GeekBot extends PircBot {
 
 	private void startHTTPServer() throws Exception {
 		final List<Method> servletMethods = extension.getServletMethods();
-		if (!servletMethods.isEmpty()) {
 
-			Server server = new Server(bundleService.getWebServerPort());
-			HandlerList handlerList = new HandlerList();
-
-			WebAppContext webappcontext = new WebAppContext();
-			webappcontext.setContextPath("/");
-			webappcontext.setWar(getClass().getResource("/web")
-					.toExternalForm());
-			webappcontext.setInitParameter(
-					"org.eclipse.jetty.servlet.Default.dirAllowed", "false");
-			webappcontext.setErrorHandler(new ErrorPageErrorHandler() {
-				@Override
-				public void handle(String arg0, Request arg1,
-						HttpServletRequest arg2, HttpServletResponse arg3)
-						throws IOException {
-				}
-			});
-
-			for (Method m : servletMethods) {
-				String path = m.getAnnotation(ServletMethod.class).value();
-				if (StringUtils.isNotBlank(path)) {
-					if (!path.startsWith("/")) {
-						path = "/" + path;
-					}
-					webappcontext.addServlet(new ServletHolder(
-							new BotMethodServlet(m)), path);
-				}
+		Server server = new Server(bundleService.getWebServerPort());
+		HandlerList handlerList = new HandlerList();
+		String root = getClass().getResource("/web").toExternalForm();
+		WebAppContext webappcontext = new WebAppContext();
+		webappcontext.setContextPath("/");
+		webappcontext.setResourceBase(root);
+		webappcontext.setDescriptor(root + "/WEB-INF/web.xml");
+		webappcontext.setParentLoaderPriority(true);
+		webappcontext.setInitParameter(
+				"org.eclipse.jetty.servlet.Default.dirAllowed", "false");
+		webappcontext.setErrorHandler(new ErrorPageErrorHandler() {
+			@Override
+			public void handle(String arg0, Request arg1,
+					HttpServletRequest arg2, HttpServletResponse arg3)
+					throws IOException {
 			}
-			handlerList.setHandlers(new Handler[] { webappcontext,
-					new DefaultHandler() });
-			server.setHandler(handlerList);
-			server.start();
+		});
+
+		for (Method m : servletMethods) {
+			String path = m.getAnnotation(ServletMethod.class).value();
+			if (StringUtils.isNotBlank(path)) {
+				if (!path.startsWith("/")) {
+					path = "/" + path;
+				}
+				webappcontext.addServlet(new ServletHolder(
+						new BotMethodServlet(m)), path);
+			}
 		}
+		handlerList.setHandlers(new Handler[] { webappcontext,
+				new DefaultHandler() });
+		server.setHandler(handlerList);
+
+		server.setThreadPool(new QueuedThreadPool(20));
+		server.start();
 
 	}
 

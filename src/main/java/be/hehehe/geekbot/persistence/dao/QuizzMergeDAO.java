@@ -3,6 +3,7 @@ package be.hehehe.geekbot.persistence.dao;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 
@@ -52,12 +53,4 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 	protected Class<QuizzMergeRequest> getType() {
 		return QuizzMergeRequest.class;
 	}
-
-	@SuppressWarnings("serial")
-	public class QuizzMergeException extends Exception {
-		public QuizzMergeException(String message) {
-			super(message);
-		}
-	}
-
 }

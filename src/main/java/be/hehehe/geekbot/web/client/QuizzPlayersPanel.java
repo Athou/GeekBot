@@ -100,6 +100,7 @@ public class QuizzPlayersPanel extends FlowPanel implements RefreshHandler {
 				playersTable.removeAllRows();
 				playersTable.setText(0, 0,
 						"Error while fetching players list: " + t.getMessage());
+				t.printStackTrace();
 			}
 		});
 

@@ -1,15 +1,10 @@
 package be.hehehe.geekbot.web.server;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
 import be.hehehe.geekbot.annotations.GWTServlet;
@@ -29,22 +24,17 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class QuizzServiceImpl extends RemoteServiceServlet implements
 		QuizzService {
 
-	@AroundInvoke
-	public Object intercept(InvocationContext ctx) throws Exception {
-		Object result = ctx.proceed();
-		if (result != null) {
-			if (result instanceof List) {
-				List<?> oldList = (List<?>) result;
-				List<Object> newList = Lists.newArrayList();
-				for (Object o : oldList) {
-					newList.add(BeanUtils.cloneBean(o));
-				}
-				result = newList;
-			} else {
-				result = BeanUtils.cloneBean(result);
+	@SuppressWarnings("unchecked")
+	public <T> List<T> copy(List<T> list) {
+		List<T> newList = Lists.newArrayList();
+		try {
+			for (T t : list) {
+				newList.add((T) BeanUtils.cloneBean(t));
 			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		return result;
+		return newList;
 	}
 
 	@Inject
@@ -58,13 +48,13 @@ public class QuizzServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<QuizzPlayer> getPlayers() {
-		return quizzDAO.getPlayersOrderByPoints();
+		return copy(quizzDAO.getPlayersOrderByPoints());
 
 	}
 
 	@Override
 	public List<QuizzMergeRequest> getRequests() {
-		return quizzMergeDAO.findAll();
+		return copy(quizzMergeDAO.findAll());
 	}
 
 	@Override

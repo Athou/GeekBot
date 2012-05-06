@@ -8,6 +8,7 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.GWTServlet;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
@@ -26,6 +27,7 @@ public class GeekBotCDIExtension implements Extension {
 	List<Method> randoms = Lists.newArrayList();
 	List<Method> timers = Lists.newArrayList();
 	List<Method> servletMethods = Lists.newArrayList();
+	List<Class<?>> gwtServlets = Lists.newArrayList();
 
 	public <T> void processAnnotatedType(@Observes ProcessAnnotatedType<T> pat) {
 		Class<?> klass = pat.getAnnotatedType().getJavaClass();
@@ -45,6 +47,9 @@ public class GeekBotCDIExtension implements Extension {
 				}
 			}
 		}
+		if (klass.isAnnotationPresent(GWTServlet.class)) {
+			gwtServlets.add(klass);
+		}
 	}
 
 	public List<Method> getTriggers() {
@@ -61,6 +66,10 @@ public class GeekBotCDIExtension implements Extension {
 
 	public List<Method> getServletMethods() {
 		return servletMethods;
+	}
+
+	public List<Class<?>> getGwtServlets() {
+		return gwtServlets;
 	}
 
 }

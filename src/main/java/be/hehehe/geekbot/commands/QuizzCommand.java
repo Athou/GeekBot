@@ -311,7 +311,7 @@ public class QuizzCommand {
 	@Help("Prints Quizz scoreboard URL.")
 	public String score(TriggerEvent event) {
 		return IRCUtils.bold("Scoreboard: ")
-				+ bundleService.getWebServerRootPath() + "/quizz";
+				+ bundleService.getWebServerRootPath() + "/quizz.html";
 	}
 
 	@Trigger(value = "!score merge", type = TriggerType.STARTSWITH)
@@ -328,6 +328,6 @@ public class QuizzCommand {
 		}
 
 		return IRCUtils.bold("Merge Request Added: ") + "check "
-				+ bundleService.getWebServerRootPath() + "/quizz";
+				+ bundleService.getWebServerRootPath() + "/quizz.html";
 	}
 }

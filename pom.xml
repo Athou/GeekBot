@@ -110,7 +110,6 @@
 				</executions>
 				<configuration>
 					<runTarget>Quizz.html</runTarget>
-					<style>DETAILED</style>
 					<webappDirectory>${project.build.outputDirectory}/web</webappDirectory>
 				</configuration>
 			</plugin>
@@ -237,7 +236,6 @@
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>

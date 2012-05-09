@@ -33,6 +33,14 @@ public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 		return em.createQuery(query).getResultList();
 	}
 
+	public List<QuizzPlayer> getPlayersOrderByName() {
+		CriteriaQuery<QuizzPlayer> query = builder
+				.createQuery(QuizzPlayer.class);
+		Root<QuizzPlayer> root = query.from(QuizzPlayer.class);
+		query.orderBy(builder.asc(root.get("name")));
+		return em.createQuery(query).getResultList();
+	}
+
 	@Override
 	protected Class<QuizzPlayer> getType() {
 		return QuizzPlayer.class;

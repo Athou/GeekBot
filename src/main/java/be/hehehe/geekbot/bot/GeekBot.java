@@ -16,7 +16,6 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,6 @@ import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
-import be.hehehe.geekbot.annotations.GWTServlet;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
@@ -116,7 +114,6 @@ public class GeekBot extends PircBot {
 
 	private void startHTTPServer() throws Exception {
 		final List<Method> servletMethods = extension.getServletMethods();
-		final List<Class<?>> gwtServlets = extension.getGwtServlets();
 
 		Server server = new Server(bundleService.getWebServerPort());
 		HandlerList handlerList = new HandlerList();
@@ -144,12 +141,6 @@ public class GeekBot extends PircBot {
 				webappcontext.addServlet(new ServletHolder(
 						new BotMethodServlet(m)), path);
 			}
-		}
-
-		for (Class<?> klass : gwtServlets) {
-			Servlet servlet = (Servlet) container.select(klass).get();
-			String path = klass.getAnnotation(GWTServlet.class).path();
-			webappcontext.addServlet(new ServletHolder(servlet), path);
 		}
 
 		handlerList.setHandlers(new Handler[] { webappcontext,

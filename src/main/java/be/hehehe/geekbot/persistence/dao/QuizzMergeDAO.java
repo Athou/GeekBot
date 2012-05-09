@@ -3,6 +3,8 @@ package be.hehehe.geekbot.persistence.dao;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
+
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
@@ -15,22 +17,31 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 	@Inject
 	QuizzDAO quizzDao;
 
-	public void add(String nick1, String nick2) throws QuizzMergeException {
-		QuizzPlayer player1 = Iterables.getOnlyElement(
-				quizzDao.findByField("name", nick1), null);
-		QuizzPlayer player2 = Iterables.getOnlyElement(
-				quizzDao.findByField("name", nick2), null);
+	public void add(String receiver, String giver) throws QuizzMergeException {
 
-		if (player1 == null) {
-			throw new QuizzMergeException(nick1 + ": player not found");
+		if (StringUtils.isBlank(receiver) || StringUtils.isBlank(giver)) {
+			throw new QuizzMergeException("Both players are required.");
 		}
-		if (player2 == null) {
-			throw new QuizzMergeException(nick2 + ": player not found");
+
+		if (StringUtils.equals(receiver, giver)) {
+			throw new QuizzMergeException("Players need to be different.");
+		}
+
+		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(
+				quizzDao.findByField("name", receiver), null);
+		QuizzPlayer givingPlayer = Iterables.getOnlyElement(
+				quizzDao.findByField("name", giver), null);
+
+		if (receivingPlayer == null) {
+			throw new QuizzMergeException("Player not found: " + receiver);
+		}
+		if (givingPlayer == null) {
+			throw new QuizzMergeException("Player not found: " + giver);
 		}
 
 		QuizzMergeRequest request = new QuizzMergeRequest();
-		request.setPlayer1(player1);
-		request.setPlayer2(player2);
+		request.setGiver(giver);
+		request.setReceiver(receiver);
 		save(request);
 
 	}
@@ -38,13 +49,16 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 	public void executeMerge(Long id) {
 		QuizzMergeRequest request = findById(id);
 
-		QuizzPlayer player1 = request.getPlayer1();
-		QuizzPlayer player2 = request.getPlayer2();
+		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(
+				quizzDao.findByField("name", request.getReceiver()), null);
+		QuizzPlayer givingPlayer = Iterables.getOnlyElement(
+				quizzDao.findByField("name", request.getGiver()), null);
 
 		delete(request);
-		player1.setPoints(player1.getPoints() + player2.getPoints());
-		quizzDao.delete(player2);
-		quizzDao.update(player1);
+		receivingPlayer.setPoints(receivingPlayer.getPoints()
+				+ givingPlayer.getPoints());
+		quizzDao.delete(givingPlayer);
+		quizzDao.update(receivingPlayer);
 
 	}
 

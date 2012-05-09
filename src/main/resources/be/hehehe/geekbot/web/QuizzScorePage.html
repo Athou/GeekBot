@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:extend>
+		<div class="page-header">
+			<h1>Quizz Scoreboard</h1>
+		</div>
+		<div class="row-fluid">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Rank</th>
+						<th>Player Name</th>
+						<th>Points</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr wicket:id="players">
+						<td><span wicket:id="rank" /></td>
+						<td><span wicket:id="name" /></td>
+						<td><span wicket:id="points" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</wicket:extend>
+</body>
+</html>

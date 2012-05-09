@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:extend>
+		<div class="page-header">
+			<h1>Merge Request</h1>
+		</div>
+		<div class="row-fluid">
+			<form wicket:id="form">
+				<div wicket:id="messages" class="alert alert-error"></div>
+				<div class="control-group">
+					<label class="control-label" for="receiver">Select
+						receiving player</label>
+					<div class="controls">
+						<select id="receiver" wicket:id="receiver"></select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="giver">Select giving
+						player</label>
+					<div class="controls">
+						<select id="giver" wicket:id="giver"></select>
+					</div>
+				</div>
+				<p class="help-block">Giving player will be deleted and
+					receiving player will get his/her points.</p>
+				<div>
+					<button class="btn btn-primary" wicket:id="submit-button">Add
+						Merge Request</button>
+
+				</div>
+			</form>
+		</div>
+		<div class="page-header">
+			<h1>Merge Requests</h1>
+		</div>
+		<form wicket:id="merge-form">
+			<div class="row-fluid">
+				<wicket:enclosure child="requests">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Receiving Player</th>
+								<th>Giving Player</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr wicket:id="requests">
+								<td><span wicket:id="receiving" /></td>
+								<td><span wicket:id="giving" /></td>
+								<td><a wicket:id="accept"><img src="images/accept.png" /></a></td>
+								<td><a wicket:id="deny"><img src="images/cross.png" /></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="control-group">
+						<label class="control-label" for="password">Password</label>
+						<div class="controls">
+							<input id="password" type="password" wicket:id="password" />
+						</div>
+					</div>
+				</wicket:enclosure>
+			</div>
+		</form>
+	</wicket:extend>
+</body>
+</html>

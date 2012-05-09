@@ -1,12 +1,6 @@
 body {
-	background-color: #121211;
-	color: #DDDDD1;
-	font-family: sans-serif;
-}
-
-a,a:visited {
-	color: #DDDDD1;
-	text-decoration: underline;
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
 }
 
 .center {

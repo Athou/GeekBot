@@ -311,11 +311,11 @@ public class QuizzCommand {
 	@Help("Prints Quizz scoreboard URL.")
 	public String score(TriggerEvent event) {
 		return IRCUtils.bold("Scoreboard: ")
-				+ bundleService.getWebServerRootPath() + "/quizz.html";
+				+ bundleService.getWebServerRootPath() + "/quizz";
 	}
 
 	@Trigger(value = "!score merge", type = TriggerType.STARTSWITH)
-	@Help("Introduces a merge request. !score merge <player1> <player2>. Deletes player2 and gives its points to player1.")
+	@Help("Introduces a merge request. !score merge <receiver> <giver>. Deletes <giver> and gives its points to <receiver>.")
 	public String scoremerge(TriggerEvent event) {
 		String[] args = event.getMessage().split(" ");
 		if (args.length != 2) {
@@ -328,6 +328,6 @@ public class QuizzCommand {
 		}
 
 		return IRCUtils.bold("Merge Request Added: ") + "check "
-				+ bundleService.getWebServerRootPath() + "/quizz.html";
+				+ bundleService.getWebServerRootPath() + "/quizz";
 	}
 }

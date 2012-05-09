@@ -2,12 +2,10 @@ package be.hehehe.geekbot.web;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -22,7 +20,6 @@ import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
-import be.hehehe.geekbot.utils.BundleService;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -88,8 +85,6 @@ public class QuizzMergePage extends TemplatePage {
 
 	private class MergeForm extends Form<List<QuizzMergeRequest>> {
 
-		private String password;
-
 		public MergeForm(String id) {
 			super(id);
 
@@ -100,8 +95,6 @@ public class QuizzMergePage extends TemplatePage {
 				}
 			};
 
-			add(new PasswordTextField("password", new PropertyModel<String>(
-					this, "password")));
 			ListView<QuizzMergeRequest> requestsView = new PropertyListView<QuizzMergeRequest>(
 					"requests", model) {
 				@Override
@@ -110,33 +103,29 @@ public class QuizzMergePage extends TemplatePage {
 					final Long requestId = request.getId();
 					item.add(new Label("receiving", "receiver"));
 					item.add(new Label("giving", "giver"));
-					item.add(new SubmitLink("accept") {
+
+					SubmitLink accept = new SubmitLink("accept") {
 						@Override
 						public void onSubmit() {
-							System.out.println(password);
-							System.out.println(getBean(BundleService.class)
-									.getAdminPassword());
-							if (StringUtils.equals(password,
-									getBean(BundleService.class)
-											.getAdminPassword())) {
-								getBean(QuizzMergeDAO.class).executeMerge(
-										requestId);
-							}
+							getBean(QuizzMergeDAO.class)
+									.executeMerge(requestId);
 							setResponsePage(QuizzMergePage.class);
 						}
-					});
-					item.add(new SubmitLink("deny") {
+					};
+
+					SubmitLink deny = new SubmitLink("deny") {
 						@Override
 						public void onSubmit() {
-							if (StringUtils.equals(password,
-									getBean(BundleService.class)
-											.getAdminPassword())) {
-								getBean(QuizzMergeDAO.class).deleteById(
-										requestId);
-							}
+							getBean(QuizzMergeDAO.class).deleteById(requestId);
 							setResponsePage(QuizzMergePage.class);
 						}
-					});
+					};
+
+					accept.setVisible(getAuthSession().isSignedIn());
+					deny.setVisible(getAuthSession().isSignedIn());
+
+					item.add(accept);
+					item.add(deny);
 				}
 			};
 			requestsView.setReuseItems(true);

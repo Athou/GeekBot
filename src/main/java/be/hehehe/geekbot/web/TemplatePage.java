@@ -6,6 +6,9 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 
 import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.utils.BundleService;
+import be.hehehe.geekbot.web.auth.LoggedInButtonPanel;
+import be.hehehe.geekbot.web.auth.LoggedOutButtonPanel;
+import be.hehehe.geekbot.web.auth.WicketSession;
 import be.hehehe.geekbot.web.nav.NavigationHeader;
 
 import com.google.common.collect.LinkedListMultimap;
@@ -17,6 +20,11 @@ public abstract class TemplatePage extends WebPage {
 
 		add(new Label("title", getTitle()));
 		add(new Label("project-name", getBean(BundleService.class).getBotName()));
+		if (getAuthSession().isSignedIn()) {
+			add(new LoggedInButtonPanel("topright-button"));
+		} else {
+			add(new LoggedOutButtonPanel("topright-button"));
+		}
 
 		Multimap<String, PageModel> pages = LinkedListMultimap.create();
 		pages.put("Home", new PageModel("Home Page", HomePage.class));
@@ -57,5 +65,9 @@ public abstract class TemplatePage extends WebPage {
 			return name;
 		}
 
+	}
+
+	public WicketSession getAuthSession() {
+		return (WicketSession) super.getSession();
 	}
 }

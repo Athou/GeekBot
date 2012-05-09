@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+
+	<wicket:panel>
+		<span wicket:id="feedback" class="alert alert-error" />
+		<form wicket:id="signInForm">
+			<div class="control-group">
+				<label class="control-label" for="username">User Name</label>
+				<div class="controls">
+					<input type="text" id="username" wicket:id="username"></input>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password">Password</label>
+				<div class="controls">
+					<input type="password" id="password" wicket:id="password"></input>
+				</div>
+			</div>
+			<p class="help-block" wicket:id="rememberMeRow">
+				<input wicket:id="rememberMe" type="checkbox" /> Remember me
+			</p>
+			<div>
+				<input type="submit" class="btn btn-primary" value="Log in" />
+			</div>
+		</form>
+	</wicket:panel>
+</body>
+</html>

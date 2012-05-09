@@ -101,8 +101,10 @@ public class QuizzMergePage extends TemplatePage {
 				protected void populateItem(ListItem<QuizzMergeRequest> item) {
 					QuizzMergeRequest request = item.getModelObject();
 					final Long requestId = request.getId();
-					item.add(new Label("receiving", "receiver"));
-					item.add(new Label("giving", "giver"));
+					item.add(new Label("receiving", new PropertyModel<String>(
+							request, "receiver")));
+					item.add(new Label("giving", new PropertyModel<String>(
+							request, "giver")));
 
 					SubmitLink accept = new SubmitLink("accept") {
 						@Override

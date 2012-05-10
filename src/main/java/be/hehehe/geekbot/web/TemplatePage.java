@@ -1,10 +1,11 @@
 package be.hehehe.geekbot.web;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.web.auth.LoggedInButtonPanel;
 import be.hehehe.geekbot.web.auth.LoggedOutButtonPanel;
@@ -16,10 +17,14 @@ import com.google.common.collect.Multimap;
 
 @SuppressWarnings("serial")
 public abstract class TemplatePage extends WebPage {
+
+	@Inject
+	BundleService bundleService;
+
 	public TemplatePage() {
 
 		add(new Label("title", getTitle()));
-		add(new Label("project-name", getBean(BundleService.class).getBotName()));
+		add(new Label("project-name", bundleService.getBotName()));
 		if (getAuthSession().isSignedIn()) {
 			add(new LoggedInButtonPanel("topright-button"));
 		} else {
@@ -42,10 +47,6 @@ public abstract class TemplatePage extends WebPage {
 	}
 
 	protected abstract String getTitle();
-
-	protected <T> T getBean(Class<? extends T> klass) {
-		return Main.getInstance().select(klass).get();
-	}
 
 	public class PageModel {
 		private String name;

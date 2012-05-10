@@ -2,6 +2,8 @@ package be.hehehe.geekbot.web;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -15,12 +17,15 @@ import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 @SuppressWarnings("serial")
 public class QuizzScorePage extends TemplatePage {
 
+	@Inject
+	QuizzDAO quizzDAO;
+
 	public QuizzScorePage() {
 
 		IModel<List<QuizzPlayer>> model = new LoadableDetachableModel<List<QuizzPlayer>>() {
 			@Override
 			protected List<QuizzPlayer> load() {
-				return getBean(QuizzDAO.class).getPlayersOrderByPoints();
+				return quizzDAO.getPlayersOrderByPoints();
 			}
 		};
 

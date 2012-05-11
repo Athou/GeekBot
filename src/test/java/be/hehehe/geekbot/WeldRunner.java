@@ -13,6 +13,7 @@ public class WeldRunner extends BlockJUnit4ClassRunner {
 		super(klass);
 		this.klass = klass;
 		this.container = new Weld().initialize();
+		Main.container = container;
 	}
 
 	@Override

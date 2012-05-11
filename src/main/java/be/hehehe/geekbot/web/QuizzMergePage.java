@@ -2,8 +2,6 @@ package be.hehehe.geekbot.web;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -29,12 +27,6 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("serial")
 public class QuizzMergePage extends TemplatePage {
 
-	@Inject
-	QuizzDAO quizzDAO;
-
-	@Inject
-	QuizzMergeDAO quizzMergeDAO;
-
 	public QuizzMergePage() {
 		add(new SubmitForm("form"));
 		add(new MergeForm("merge-form"));
@@ -54,7 +46,8 @@ public class QuizzMergePage extends TemplatePage {
 			IModel<List<String>> model = new LoadableDetachableModel<List<String>>() {
 				@Override
 				protected List<String> load() {
-					return Lists.transform(quizzDAO.getPlayersOrderByName(),
+					return Lists.transform(getBean(QuizzDAO.class)
+							.getPlayersOrderByName(),
 							new Function<QuizzPlayer, String>() {
 								@Override
 								public String apply(QuizzPlayer input) {
@@ -80,7 +73,7 @@ public class QuizzMergePage extends TemplatePage {
 		@Override
 		protected void onSubmit() {
 			try {
-				quizzMergeDAO.add(receiver, giver);
+				getBean(QuizzMergeDAO.class).add(receiver, giver);
 				setResponsePage(QuizzMergePage.class);
 			} catch (QuizzMergeException e) {
 				messages.setVisible(true);
@@ -98,7 +91,7 @@ public class QuizzMergePage extends TemplatePage {
 			IModel<List<QuizzMergeRequest>> model = new LoadableDetachableModel<List<QuizzMergeRequest>>() {
 				@Override
 				protected List<QuizzMergeRequest> load() {
-					return quizzMergeDAO.findAll();
+					return getBean(QuizzMergeDAO.class).findAll();
 				}
 			};
 
@@ -116,7 +109,8 @@ public class QuizzMergePage extends TemplatePage {
 					SubmitLink accept = new SubmitLink("accept") {
 						@Override
 						public void onSubmit() {
-							quizzMergeDAO.executeMerge(requestId);
+							getBean(QuizzMergeDAO.class)
+									.executeMerge(requestId);
 							setResponsePage(QuizzMergePage.class);
 						}
 					};
@@ -124,7 +118,7 @@ public class QuizzMergePage extends TemplatePage {
 					SubmitLink deny = new SubmitLink("deny") {
 						@Override
 						public void onSubmit() {
-							quizzMergeDAO.deleteById(requestId);
+							getBean(QuizzMergeDAO.class).deleteById(requestId);
 							setResponsePage(QuizzMergePage.class);
 						}
 					};

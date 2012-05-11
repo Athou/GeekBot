@@ -257,6 +257,8 @@ public class GeekBot extends PircBot {
 					triggerEvent = buildEvent(message, author, null);
 				}
 				break;
+			default:
+				break;
 			}
 
 			invokeTrigger(triggerMethod, triggerEvent);

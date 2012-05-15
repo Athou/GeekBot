@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GeekBot - About</title>
+    <title>GeekBot - </title>
     <link rel="stylesheet" href="./css/apache-maven-fluido.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -63,52 +63,14 @@
                           <a href="install.html" title="Setup">Setup</a>
             </li>
                   <li class="none">
-                          <a href="new-command.html" title="Create a command">Create a command</a>
-            </li>
+            <strong>Create a command</strong>
+          </li>
           </ul>
                         <h3>Project Documentation</h3>
                   <ul>
-                                                                                                                                                                                                                                                                                    <li class="expanded">
+                                                                                                                                                                                                                                                                          <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
-                    <ul>
-                      <li class="none">
-                          <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
-            </li>
-                      <li class="none">
-            <strong>About</strong>
-          </li>
-                      <li class="none">
-                          <a href="dependencies.html" title="Dependencies">Dependencies</a>
-            </li>
-                      <li class="none">
-                          <a href="issue-tracking.html" title="Issue Tracking">Issue Tracking</a>
-            </li>
-                      <li class="none">
-                          <a href="plugins.html" title="Project Plugins">Project Plugins</a>
-            </li>
-                      <li class="none">
-                          <a href="integration.html" title="Continuous Integration">Continuous Integration</a>
-            </li>
-                      <li class="none">
-                          <a href="license.html" title="Project License">Project License</a>
-            </li>
-                      <li class="none">
-                          <a href="mail-lists.html" title="Mailing Lists">Mailing Lists</a>
-            </li>
-                      <li class="none">
-                          <a href="team-list.html" title="Project Team">Project Team</a>
-            </li>
-                      <li class="none">
-                          <a href="source-repository.html" title="Source Repository">Source Repository</a>
-            </li>
-                      <li class="none">
-                          <a href="plugin-management.html" title="Plugin Management">Plugin Management</a>
-            </li>
-                      <li class="none">
-                          <a href="project-summary.html" title="Project Summary">Project Summary</a>
-            </li>
-              </ul>
-        </li>
+                  </li>
                                                                                       <li class="collapsed">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                   </li>
@@ -131,7 +93,7 @@
         
         <div id="bodyColumn"  class="span9" >
                                   
-            <div class="section"><h2>About GeekBot<a name="About_GeekBot"></a></h2><a name="About_GeekBot"></a><p>GeekBot is an IRC Bot and a framework built around the excellent PircBot Java IRC Bot library.</p></div>
+            <div class="section"><h2>Create a new command<a name="Create_a_new_command"></a></h2><p>Create a new class anywhere (it will be picked up automatically) and annotate it with the <a href="apidocs/be/hehehe/geekbot/annotations/BotCommand.html"><tt>@BotCommand</tt></a> annotation.</p><p>Then add a <tt>public</tt> method returning either a <tt>String</tt>, a <tt>List&lt;String&gt;</tt>, or <tt>void</tt>. Annotate it with either <a href="apidocs/be/hehehe/geekbot/annotations/Trigger.html"><tt>@Trigger</tt></a>, <a href="apidocs/be/hehehe/geekbot/annotations/RandomAction.html"><tt>@RandomAction</tt></a> or <a href="apidocs/be/hehehe/geekbot/annotations/TimedAction.html"><tt>@TimedAction</tt></a>. Check the available arguments for those annotations in the javadoc or directly in the source code.</p><p>The method should accept either a <a href="apidocs/be/hehehe/geekbot/bot/TriggerEvent.html"><tt>TriggerEvent</tt></a> object as argument or no argument at all. The <a href="apidocs/be/hehehe/geekbot/bot/TriggerEvent.html"><tt>TriggerEvent</tt></a> object contains data about the event that triggered the command, such as the message and the author.</p><p>Thats it. Now just code the body of your method, restart the bot and youre done!</p></div>
                   </div>
             </div>
       

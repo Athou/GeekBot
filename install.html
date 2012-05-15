@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GeekBot - About</title>
+    <title>GeekBot - </title>
     <link rel="stylesheet" href="./css/apache-maven-fluido.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -60,55 +60,17 @@
                           <a href="intro.html" title="Introduction">Introduction</a>
             </li>
                   <li class="none">
-                          <a href="install.html" title="Setup">Setup</a>
-            </li>
+            <strong>Setup</strong>
+          </li>
                   <li class="none">
                           <a href="new-command.html" title="Create a command">Create a command</a>
             </li>
           </ul>
                         <h3>Project Documentation</h3>
                   <ul>
-                                                                                                                                                                                                                                                                                    <li class="expanded">
+                                                                                                                                                                                                                                                                          <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
-                    <ul>
-                      <li class="none">
-                          <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
-            </li>
-                      <li class="none">
-            <strong>About</strong>
-          </li>
-                      <li class="none">
-                          <a href="dependencies.html" title="Dependencies">Dependencies</a>
-            </li>
-                      <li class="none">
-                          <a href="issue-tracking.html" title="Issue Tracking">Issue Tracking</a>
-            </li>
-                      <li class="none">
-                          <a href="plugins.html" title="Project Plugins">Project Plugins</a>
-            </li>
-                      <li class="none">
-                          <a href="integration.html" title="Continuous Integration">Continuous Integration</a>
-            </li>
-                      <li class="none">
-                          <a href="license.html" title="Project License">Project License</a>
-            </li>
-                      <li class="none">
-                          <a href="mail-lists.html" title="Mailing Lists">Mailing Lists</a>
-            </li>
-                      <li class="none">
-                          <a href="team-list.html" title="Project Team">Project Team</a>
-            </li>
-                      <li class="none">
-                          <a href="source-repository.html" title="Source Repository">Source Repository</a>
-            </li>
-                      <li class="none">
-                          <a href="plugin-management.html" title="Plugin Management">Plugin Management</a>
-            </li>
-                      <li class="none">
-                          <a href="project-summary.html" title="Project Summary">Project Summary</a>
-            </li>
-              </ul>
-        </li>
+                  </li>
                                                                                       <li class="collapsed">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                   </li>
@@ -131,7 +93,7 @@
         
         <div id="bodyColumn"  class="span9" >
                                   
-            <div class="section"><h2>About GeekBot<a name="About_GeekBot"></a></h2><a name="About_GeekBot"></a><p>GeekBot is an IRC Bot and a framework built around the excellent PircBot Java IRC Bot library.</p></div>
+            <div class="section"><h2>Installation<a name="Installation"></a></h2><p>Copy <tt>/src/main/resources/config.properties.example</tt> to <tt>/src/main/resources/config.properties</tt></p><p>Copy <tt>/src/main/resources/own3d.properties.example</tt> to <tt>/src/main/resources/own3d.properties</tt></p><p>Copy <tt>/src/main/resources/META-INF/persistence.xml.example</tt> to <tt>/src/main/resources/META-INF/persistence.xml</tt></p><p>Edit those new files to reflect your local configuration (bot name, irc server and channel, database connection )</p></div><div class="section"><h2>Build<a name="Build"></a></h2><p><tt>mvn package</tt></p><p><a class="externalLink" href="http://travis-ci.org/Athou/GeekBot"><img src="https://secure.travis-ci.org/Athou/GeekBot.png?branch=master" alt="Build Status" /></a></p></div><div class="section"><h2>Run<a name="Run"></a></h2><p><tt>java -jar target/GeekBot-1.0.0.jar</tt></p><p>Or use the start.sh script (will start a new screen called gb): </p><p><tt>chmod +x start.sh</tt></p><p><tt>./start.sh</tt></p></div>
                   </div>
             </div>
       

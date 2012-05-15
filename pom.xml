@@ -5,12 +5,34 @@
 	<groupId>be.hehehe</groupId>
 	<artifactId>GeekBot</artifactId>
 	<version>1.0.0</version>
+
 	<name>GeekBot</name>
-	<description>GeekBot IRC Bot</description>
+	<url>https://github.com/Athou/GeekBot</url>
+	<description>GeekBot is an IRC Bot and a framework built around the excellent PircBot Java IRC Bot library.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<developers>
+		<developer>
+			<name>Athou</name>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/Athou/GeekBot</url>
+		<connection>scm:git:http://github.com/Athou/GeekBot.git</connection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub issues</system>
+		<url>https://github.com/Athou/GeekBot/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>travis-ci</system>
+		<url>http://travis-ci.org/#!/Athou/GeekBot</url>
+	</ciManagement>
 
 	<repositories>
 		<repository>
@@ -93,6 +115,36 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.doxia</groupId>
+						<artifactId>doxia-module-markdown</artifactId>
+						<version>1.3</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.6</version>
+				<configuration>
+					<message>Creating site for ${project.version}</message>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 		<testResources>
@@ -102,6 +154,21 @@
 			</testResource>
 		</testResources>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<dependencies>
 		<dependency>
@@ -243,4 +310,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 </project>

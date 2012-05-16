@@ -1,10 +1,10 @@
 package be.hehehe.geekbot.utils;
 
+import org.jibble.pircbot.Colors;
+
 public class IRCUtils {
-	private final static String BOLD = "\u0002";
-	private final static String REMOVE = "\u000F";
 
 	public static String bold(String s) {
-		return BOLD + s + REMOVE;
+		return Colors.BOLD + s + Colors.NORMAL;
 	}
 }

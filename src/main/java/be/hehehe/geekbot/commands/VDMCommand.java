@@ -42,10 +42,13 @@ public class VDMCommand {
 			toReturn.add("VDM API key not set.");
 			return toReturn;
 		}
+
+		String xml = null;
 		try {
 			String url = "http://api.betacie.com/view/random/nocomment/?key="
 					+ key + "&language=fr";
-			Document doc = utilsService.parseXML(utilsService.getContent(url));
+			xml = utilsService.getContent(url);
+			Document doc = utilsService.parseXML(xml);
 
 			Element root = doc.getRootElement();
 			String text = root.getChild("items").getChild("item")
@@ -56,6 +59,10 @@ public class VDMCommand {
 			toReturn.add(IRCUtils.bold("MOAR FAKE PLZ"));
 
 		} catch (Exception e) {
+			log.error("Could not fetch a VDM: " + e.getMessage());
+			if (xml != null) {
+				log.error("Server returned: " + xml);
+			}
 			log.error(e.getMessage(), e);
 		}
 		return toReturn;

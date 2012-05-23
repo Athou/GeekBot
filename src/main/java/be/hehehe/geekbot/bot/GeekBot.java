@@ -32,6 +32,7 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.jibble.pircbot.IrcException;
@@ -116,6 +117,7 @@ public class GeekBot extends PircBot {
 		final List<Method> servletMethods = extension.getServletMethods();
 
 		Server server = new Server(bundleService.getWebServerPort());
+		Resource.setDefaultUseCaches(false);
 		HandlerList handlerList = new HandlerList();
 		String root = getClass().getResource("/web").toExternalForm();
 		WebAppContext webappcontext = new WebAppContext();

@@ -37,6 +37,7 @@ public abstract class TemplatePage extends WebPage {
 		pages.put("Quizz", new PageModel("Scoreboard", QuizzScorePage.class));
 		pages.put("Quizz",
 				new PageModel("Merge Requests", QuizzMergePage.class));
+		pages.put("Debug", new PageModel("View Logs", LogViewerPage.class));
 
 		RepeatingView repeatingView = new RepeatingView("nav-headers");
 

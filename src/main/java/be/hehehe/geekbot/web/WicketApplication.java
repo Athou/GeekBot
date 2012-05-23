@@ -20,6 +20,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
+		
+		mountPage("log", LogViewerPage.class);
 
 		getMarkupSettings().setStripWicketTags(true);
 	}

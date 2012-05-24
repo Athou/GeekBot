@@ -113,7 +113,9 @@ public class BotUtilsService {
 		if ((index = url.indexOf("?")) != -1) {
 			for (String keyvalue : url.substring(index + 1).split("&")) {
 				String[] split = keyvalue.split("=");
-				map.put(split[0], split[1]);
+				if (split.length == 2) {
+					map.put(split[0], split[1]);
+				}
 			}
 		}
 		return map;

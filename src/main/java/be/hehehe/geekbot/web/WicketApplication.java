@@ -4,10 +4,10 @@ import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.pages.SignInPage;
-import org.apache.wicket.authroles.authentication.pages.SignOutPage;
 import org.apache.wicket.markup.html.WebPage;
 
 import be.hehehe.geekbot.web.auth.LoginPage;
+import be.hehehe.geekbot.web.auth.LogoutPage;
 import be.hehehe.geekbot.web.auth.WicketSession;
 
 public class WicketApplication extends AuthenticatedWebApplication {
@@ -16,7 +16,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	protected void init() {
 		super.init();
 		mountPage("login", LoginPage.class);
-		mountPage("logout", SignOutPage.class);
+		mountPage("logout", LogoutPage.class);
 
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);

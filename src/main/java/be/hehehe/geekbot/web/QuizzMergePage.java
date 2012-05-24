@@ -2,6 +2,7 @@ package be.hehehe.geekbot.web;
 
 import java.util.List;
 
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -121,8 +122,10 @@ public class QuizzMergePage extends TemplatePage {
 						}
 					};
 
-					accept.setVisible(getAuthSession().isSignedIn());
-					deny.setVisible(getAuthSession().isSignedIn());
+					boolean hasRole = getAuthSession().getRoles().contains(
+							Roles.ADMIN);
+					accept.setVisible(hasRole);
+					deny.setVisible(hasRole);
 
 					item.add(accept);
 					item.add(deny);

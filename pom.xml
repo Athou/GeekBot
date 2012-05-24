@@ -293,9 +293,9 @@
 			<version>6.0.0-beta1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.weld</groupId>
-			<artifactId>weld-wicket</artifactId>
-			<version>1.0.1-Final</version>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>6.0.0-beta1</version>
 		</dependency>
 
 		<dependency>
@@ -311,5 +311,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>

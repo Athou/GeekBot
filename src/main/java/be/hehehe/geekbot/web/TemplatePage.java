@@ -21,10 +21,12 @@ public abstract class TemplatePage extends WebPage {
 
 		add(new Label("title", getTitle()));
 		add(new Label("project-name", getBean(BundleService.class).getBotName()));
+
+		String buttonId = "topright-button";
 		if (getAuthSession().isSignedIn()) {
-			add(new LoggedInButtonPanel("topright-button"));
+			add(new LoggedInButtonPanel(buttonId));
 		} else {
-			add(new LoggedOutButtonPanel("topright-button"));
+			add(new LoggedOutButtonPanel(buttonId));
 		}
 
 		addNavigationMenu();

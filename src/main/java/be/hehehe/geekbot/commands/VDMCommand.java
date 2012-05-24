@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
+import com.google.common.collect.Lists;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -36,11 +38,11 @@ public class VDMCommand {
 	@Trigger("!vdm")
 	@Help("Prints a random VDM.")
 	public List<String> getRandomVDM() {
-		List<String> toReturn = new ArrayList<String>();
+		List<String> result = Lists.newArrayList();
 		String key = bundleService.getVDMApiKey();
 		if (StringUtils.isBlank(key)) {
-			toReturn.add("VDM API key not set.");
-			return toReturn;
+			result.add("VDM API key not set.");
+			return result;
 		}
 
 		String xml = null;
@@ -55,17 +57,14 @@ public class VDMCommand {
 					.getChild("text").getValue();
 			text = text.replaceAll("(\\r|\\n)", "");
 
-			toReturn.add(IRCUtils.bold("VDM") + " - " + text);
-			toReturn.add(IRCUtils.bold("MOAR FAKE PLZ"));
+			result.add(IRCUtils.bold("VDM") + " - " + text);
+			result.add(IRCUtils.bold("MOAR FAKE PLZ"));
 
 		} catch (Exception e) {
-			log.error("Could not fetch a VDM: " + e.getMessage());
-			if (xml != null) {
-				log.error("Server returned: " + xml);
-			}
+			result.add("Could not fetch a VDM for some reason.");
 			log.error(e.getMessage(), e);
 		}
-		return toReturn;
+		return result;
 
 	}
 }

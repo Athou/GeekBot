@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  * 
@@ -14,7 +14,7 @@ import javax.inject.Named;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Named
+@Singleton
 public @interface BotCommand {
 
 }

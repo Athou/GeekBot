@@ -43,5 +43,11 @@ public class WicketTest {
 		wicketTester.startPage(QuizzMergePage.class);
 		wicketTester.assertRenderedPage(QuizzMergePage.class);
 	}
+	
+	@Test
+	public void testLogPage() {
+		wicketTester.startPage(LogViewerPage.class);
+		wicketTester.assertRenderedPage(LogViewerPage.class);
+	}
 
 }

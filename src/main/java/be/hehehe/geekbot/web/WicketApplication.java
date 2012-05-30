@@ -3,7 +3,6 @@ package be.hehehe.geekbot.web;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.authroles.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
 
 import be.hehehe.geekbot.web.auth.LoginPage;
@@ -33,7 +32,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
 	@Override
 	protected Class<? extends WebPage> getSignInPageClass() {
-		return SignInPage.class;
+		return LoginPage.class;
 	}
 
 	@Override

@@ -136,6 +136,9 @@ public class BotUtilsService {
 		for (String s : message.split(" ")) {
 			if (s.contains("http://") || s.contains("https://")
 					|| s.contains("www.")) {
+				if (s.startsWith("www.")) {
+					s = "http://" + s;
+				}
 				if (s.endsWith("/")) {
 					s = s.substring(0, s.length() - 1);
 				}

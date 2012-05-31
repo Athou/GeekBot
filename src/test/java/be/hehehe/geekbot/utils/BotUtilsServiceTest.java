@@ -42,9 +42,4 @@ public class BotUtilsServiceTest {
 				botUtilsService.getRequestParametersFromURL(url).get("c"));
 	}
 
-	@Test
-	public void testNotif() {
-		Assert.assertEquals(Boolean.TRUE, Boolean.FALSE);
-	}
-
 }

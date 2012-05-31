@@ -19,7 +19,7 @@ public class LogFileDAO {
 			Level.DEBUG, Level.INFO, Level.WARN, Level.ERROR);
 
 	public List<String> getLines() throws IOException {
-		return  FileUtils.readLines(new File("geekbot.log"));
+		return FileUtils.readLines(new File("geekbot.log"));
 	}
 
 	public List<String> getLines(Level selectedLevel) throws IOException {
@@ -27,17 +27,20 @@ public class LogFileDAO {
 		List<String> filteredLines = Lists.newArrayList();
 		boolean lastLineWasAdded = false;
 		for (String line : lines) {
-			Level level = toLevel(line.substring(0, line.indexOf(" ")));
-			if (level == null && lastLineWasAdded) {
-				filteredLines.add(line);
-				lastLineWasAdded = true;
-			} else if (level != null
-					&& (selectedLevel == Level.ALL || level
-							.isGreaterOrEqual(selectedLevel))) {
-				filteredLines.add(line);
-				lastLineWasAdded = true;
-			} else {
-				lastLineWasAdded = false;
+			int indexOfSpace = line.indexOf(" ");
+			if (indexOfSpace > 0) {
+				Level level = toLevel(line.substring(0, line.indexOf(" ")));
+				if (level == null && lastLineWasAdded) {
+					filteredLines.add(line);
+					lastLineWasAdded = true;
+				} else if (level != null
+						&& (selectedLevel == Level.ALL || level
+								.isGreaterOrEqual(selectedLevel))) {
+					filteredLines.add(line);
+					lastLineWasAdded = true;
+				} else {
+					lastLineWasAdded = false;
+				}
 			}
 		}
 		return filteredLines;

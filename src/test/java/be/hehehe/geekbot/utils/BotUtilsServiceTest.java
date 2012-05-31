@@ -24,7 +24,7 @@ public class BotUtilsServiceTest {
 	@Test
 	public void testExtractURL2() {
 		String url = "www.commabeat.com";
-		Assert.assertEquals(url,
+		Assert.assertEquals("http://" + url,
 				botUtilsService.extractURL("dezfzeg " + url + " fzegerh"));
 	}
 

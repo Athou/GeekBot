@@ -1,1 +1,7 @@
 language: java
+notifications:
+  irc:
+    channels:
+      - "irc.quakenet.org#rab-wow"
+    on_success: never
+    on_failure: always

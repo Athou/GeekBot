@@ -16,3 +16,7 @@ body {
 .pointer {
 	cursor: pointer;
 }
+
+.block {
+	display: block;
+}

@@ -19,7 +19,7 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("serial")
 public class LogViewerPage extends TemplatePage {
 
-	private Level selectedLevel = Level.ALL;
+	private Level selectedLevel = Level.ERROR;
 
 	public LogViewerPage() {
 

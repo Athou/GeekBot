@@ -3,18 +3,16 @@ package be.hehehe.geekbot.web;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Level;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 
 import be.hehehe.geekbot.persistence.dao.LogFileDAO;
-
-import com.google.common.collect.Lists;
 
 @SuppressWarnings("serial")
 public class LogViewerPage extends TemplatePage {
@@ -39,30 +37,25 @@ public class LogViewerPage extends TemplatePage {
 		};
 		add(levelsChoice);
 
-		IModel<List<String>> logModel = new LoadableDetachableModel<List<String>>() {
+		IModel<String> logModel = new LoadableDetachableModel<String>() {
 			@Override
-			protected List<String> load() {
+			protected String load() {
 				List<String> filteredLines = null;
 				try {
 					filteredLines = getBean(LogFileDAO.class).getLines(
 							selectedLevel);
 					if (filteredLines.isEmpty()) {
-						return Lists.newArrayList("Nothing to display");
+						return "Nothing to display";
 					}
 				} catch (IOException e) {
-					return Lists.newArrayList("Could not read log file: "
-							+ e.getMessage());
+					return "Could not read log file: " + e.getMessage();
 				}
-				return filteredLines;
+				return StringUtils.join(filteredLines,
+						SystemUtils.LINE_SEPARATOR);
 			}
 		};
 
-		add(new ListView<String>("logwrapper", logModel) {
-			protected void populateItem(ListItem<String> item) {
-				String logLine = item.getModelObject();
-				item.add(new Label("logline", logLine));
-			}
-		});
+		add(new Label("logwrapper", logModel));
 
 	}
 

@@ -12,6 +12,8 @@ import org.jdom2.Element;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -37,6 +39,18 @@ public class VDMCommand {
 	@Trigger("!vdm")
 	@Help("Prints a random VDM.")
 	public List<String> getRandomVDM() {
+		return parseVDM("random");
+
+	}
+
+	@Trigger(value = "!vdm", type = TriggerType.STARTSWITH)
+	@Help("Prints given VDM id.")
+	public List<String> getRandomVDM(TriggerEvent event) {
+		return parseVDM(event.getMessage());
+
+	}
+
+	private List<String> parseVDM(String vdmId) {
 		List<String> result = Lists.newArrayList();
 		String key = bundleService.getVDMApiKey();
 		if (StringUtils.isBlank(key)) {
@@ -44,11 +58,10 @@ public class VDMCommand {
 			return result;
 		}
 
-		String xml = null;
 		try {
-			String url = "http://api.betacie.com/view/random/nocomment/?key="
-					+ key + "&language=fr";
-			xml = utilsService.getContent(url);
+			String url = "http://api.betacie.com/view/" + vdmId
+					+ "/nocomment/?key=" + key + "&language=fr";
+			String xml = utilsService.getContent(url);
 			Document doc = utilsService.parseXML(xml);
 
 			Element root = doc.getRootElement();
@@ -64,6 +77,5 @@ public class VDMCommand {
 			log.error(e.getMessage(), e);
 		}
 		return result;
-
 	}
 }

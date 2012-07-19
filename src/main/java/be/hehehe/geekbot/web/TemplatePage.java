@@ -1,5 +1,9 @@
 package be.hehehe.geekbot.web;
 
+import org.apache.wicket.bootstrap.Bootstrap;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -50,6 +54,14 @@ public abstract class TemplatePage extends WebPage {
 		add(repeatingView);
 
 	}
+	
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem
+				.forReference(Bootstrap.get())));
+	}
+
 
 	protected abstract String getTitle();
 

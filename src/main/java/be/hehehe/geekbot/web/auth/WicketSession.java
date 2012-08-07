@@ -26,11 +26,11 @@ public class WicketSession extends AuthenticatedWebSession {
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		String adminPassword = Main.getInstance().select(BundleService.class)
-				.get().getAdminPassword();
+		String adminPassword = Main.getBean(BundleService.class)
+				.getAdminPassword();
 		if (StringUtils.equals(password, adminPassword)) {
 			setAttribute("name", username);
-			return true; 
+			return true;
 		} else {
 			return false;
 		}

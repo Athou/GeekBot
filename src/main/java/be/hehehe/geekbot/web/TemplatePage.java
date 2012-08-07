@@ -66,7 +66,7 @@ public abstract class TemplatePage extends WebPage {
 	protected abstract String getTitle();
 
 	protected <T> T getBean(Class<? extends T> klass) {
-		return Main.getInstance().select(klass).get();
+		return Main.getBean(klass);
 	}
 
 	public class PageModel {

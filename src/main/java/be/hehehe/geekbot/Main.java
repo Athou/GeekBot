@@ -1,6 +1,10 @@
 package be.hehehe.geekbot;
 
-import javax.enterprise.inject.Instance;
+import java.util.Set;
+
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -9,19 +13,22 @@ import be.hehehe.geekbot.bot.GeekBot;
 
 public class Main {
 
-	static WeldContainer container;
+	static BeanManager beanManager;
 
 	public static void main(String[] args) {
-		container = new Weld().initialize();
+		WeldContainer container = new Weld().initialize();
+		beanManager = container.getBeanManager();
 		container.instance().select(GeekBot.class).get();
-
 	}
 
-	public static WeldContainer getContainer() {
-		return container;
+	@SuppressWarnings("unchecked")
+	public static <T> T getBean(Class<? extends T> klass) {
+		Set<Bean<?>> beans = beanManager.getBeans(klass);
+		Bean<?> bean = beanManager.resolve(beans);
+		CreationalContext<?> creationalContext = beanManager
+				.createCreationalContext(bean);
+		T result = (T) beanManager.getReference(bean, klass, creationalContext);
+		return result;
 	}
 
-	public static Instance<Object> getInstance() {
-		return container.instance();
-	}
 }

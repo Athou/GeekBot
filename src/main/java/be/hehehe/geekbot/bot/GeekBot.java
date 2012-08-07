@@ -12,7 +12,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,6 +39,7 @@ import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
@@ -66,9 +66,6 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Instance<Object> container;
 
 	@Inject
 	Logger log;
@@ -353,8 +350,7 @@ public class GeekBot extends PircBot {
 		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 				+ "#" + method.getName());
 
-		final Object commandInstance = container.select(
-				method.getDeclaringClass()).get();
+		final Object commandInstance = Main.getBean(method.getDeclaringClass());
 
 		try {
 			Object result = null;

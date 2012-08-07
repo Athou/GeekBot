@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,7 +35,7 @@ public class HoroscopeCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	Logger log;
 
@@ -77,21 +78,23 @@ public class HoroscopeCommand {
 			sign = "poissons";
 		}
 
+		String content = null;
 		String line = null;
 		try {
 			Map<String, String> mapping = state.get(Map.class);
 			String id = mapping.get(sign);
-			Document doc = Jsoup
-					.parse(utilsService
-							.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0&sign="
-									+ id));
+			content = utilsService
+					.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0&sign="
+							+ id);
+			Document doc = Jsoup.parse(content);
 
 			Element horo = doc.select("div#ast-sign-" + id).first();
 			horo = horo.select(".ast-description p").first();
-			return horo.text();
+			line = horo.text();
 
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			log.error("Could not parse HTML" + e.getMessage()
+					+ SystemUtils.LINE_SEPARATOR + content, e);
 		}
 
 		return line;

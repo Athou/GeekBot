@@ -1,12 +1,17 @@
 package be.hehehe.geekbot.commands;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jdom2.Document;
 
@@ -31,7 +36,7 @@ public class Own3dCommand {
 
 	@Inject
 	State state;
-	
+
 	@Inject
 	Logger log;
 
@@ -41,11 +46,26 @@ public class Own3dCommand {
 		List<Stream> streams = state.get(List.class);
 		if (streams == null) {
 			streams = Lists.newArrayList();
-			ResourceBundle bundle = ResourceBundle.getBundle("own3d");
-			Enumeration<String> keys = bundle.getKeys();
-			while (keys.hasMoreElements()) {
-				String key = keys.nextElement();
-				String value = bundle.getString(key);
+			Properties props = new Properties();
+			InputStream is = null;
+			try {
+				String configPath = "/own3d.properties";
+				String openshiftDataDir = System.getenv("OPENSHIFT_DATA_DIR");
+				if (openshiftDataDir != null) {
+					is = new FileInputStream(openshiftDataDir + configPath);
+				} else {
+					is = getClass().getResourceAsStream(configPath);
+				}
+				props.load(is);
+			} catch (Exception e) {
+				log.fatal("Could not load config file");
+			} finally {
+				IOUtils.closeQuietly(is);
+			}
+			Set<Object> keys = props.keySet();
+			for (Object keyObj : keys) {
+				String key = (String) keyObj;
+				String value = props.getProperty(key);
 				streams.add(new Stream(key, value));
 			}
 			state.put(streams);

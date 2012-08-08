@@ -2,10 +2,8 @@ package be.hehehe.geekbot.commands;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;

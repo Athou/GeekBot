@@ -86,7 +86,7 @@ public class GeekBot extends PircBot {
 			this.setAutoNickChange(true);
 			this.setEncoding("ISO-8859-1");
 			this.setFinger(botName);
-			this.startIdentServer();
+			// this.startIdentServer();
 			this.connect(server, port);
 			this.joinChannel(channel);
 

@@ -13,11 +13,12 @@ import org.apache.log4j.Logger;
 
 @Singleton
 public class BundleService {
-	
-	@Inject Logger log;
+
+	@Inject
+	Logger log;
 
 	private Properties props;
-	
+
 	@PostConstruct
 	public void init() {
 		props = new Properties();
@@ -37,7 +38,7 @@ public class BundleService {
 			IOUtils.closeQuietly(is);
 		}
 	}
-	
+
 	public String getAdminPassword() {
 		return getValue("admin.password");
 	}
@@ -52,6 +53,10 @@ public class BundleService {
 
 	public String getServer() {
 		return getValue("server");
+	}
+
+	public int getPort() {
+		return Integer.parseInt(getValue("port"));
 	}
 
 	public String getBitlyLogin() {

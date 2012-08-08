@@ -6,6 +6,7 @@ admin.password=hello
 
 # IRC Server to use
 server=irc.quakenet.org
+port=8080
 
 # Channel to join
 channel=\#botchannel

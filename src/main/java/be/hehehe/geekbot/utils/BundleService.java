@@ -1,13 +1,42 @@
 package be.hehehe.geekbot.utils;
 
-import java.util.ResourceBundle;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 @Singleton
 public class BundleService {
+	
+	@Inject Logger log;
 
-	private final ResourceBundle bundle = ResourceBundle.getBundle("config");
+	private Properties props;
+	
+	@PostConstruct
+	public void init() {
+		props = new Properties();
+		InputStream is = null;
+		try {
+			String configPath = "/config.properties";
+			String openshiftDataDir = System.getenv("OPENSHIFT_DATA_DIR");
+			if (openshiftDataDir != null) {
+				is = new FileInputStream(openshiftDataDir + configPath);
+			} else {
+				is = getClass().getResourceAsStream(configPath);
+			}
+			props.load(is);
+		} catch (Exception e) {
+			log.fatal("Could not load config file");
+		} finally {
+			IOUtils.closeQuietly(is);
+		}
+	}
 	
 	public String getAdminPassword() {
 		return getValue("admin.password");
@@ -54,7 +83,7 @@ public class BundleService {
 	}
 
 	private String getValue(String key) {
-		return bundle.getString(key);
+		return props.getProperty(key);
 	}
 
 }

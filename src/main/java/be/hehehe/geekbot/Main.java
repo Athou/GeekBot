@@ -2,23 +2,33 @@ package be.hehehe.geekbot;
 
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import be.hehehe.geekbot.bot.GeekBot;
 
+@Singleton
+@Startup
 public class Main {
 
 	static BeanManager beanManager;
 
-	public static void main(String[] args) {
-		WeldContainer container = new Weld().initialize();
-		beanManager = container.getBeanManager();
-		container.instance().select(GeekBot.class).get();
+	@PostConstruct
+	public void init() {
+		try {
+			beanManager = (BeanManager) new InitialContext()
+					.lookup("java:comp/BeanManager");
+		} catch (NamingException e) {
+			throw new IllegalStateException("Unable to obtain CDI BeanManager",
+					e);
+		}
+		getBean(GeekBot.class);
 	}
 
 	@SuppressWarnings("unchecked")

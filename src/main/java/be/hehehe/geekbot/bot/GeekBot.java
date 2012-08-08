@@ -24,16 +24,6 @@ import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.util.thread.QueuedThreadPool;
-import org.eclipse.jetty.webapp.WebAppContext;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
@@ -41,7 +31,6 @@ import org.jibble.pircbot.User;
 
 import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.annotations.RandomAction;
-import be.hehehe.geekbot.annotations.ServletMethod;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -90,7 +79,6 @@ public class GeekBot extends PircBot {
 			startTimers(extension.getTimers());
 
 			startChangeNickThread();
-			startHTTPServer();
 
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
@@ -108,47 +96,6 @@ public class GeekBot extends PircBot {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-	}
-
-	private void startHTTPServer() throws Exception {
-		final List<Method> servletMethods = extension.getServletMethods();
-
-		Server server = new Server(bundleService.getWebServerPort());
-		Resource.setDefaultUseCaches(false);
-		HandlerList handlerList = new HandlerList();
-		String root = getClass().getResource("/web").toExternalForm();
-		WebAppContext webappcontext = new WebAppContext();
-		webappcontext.setContextPath("/");
-		webappcontext.setResourceBase(root);
-		webappcontext.setParentLoaderPriority(true);
-		webappcontext.setInitParameter(
-				"org.eclipse.jetty.servlet.Default.dirAllowed", "false");
-		webappcontext.setErrorHandler(new ErrorPageErrorHandler() {
-			@Override
-			public void handle(String arg0, Request arg1,
-					HttpServletRequest arg2, HttpServletResponse arg3)
-					throws IOException {
-			}
-		});
-
-		for (Method m : servletMethods) {
-			String path = m.getAnnotation(ServletMethod.class).value();
-			if (StringUtils.isNotBlank(path)) {
-				if (!path.startsWith("/")) {
-					path = "/" + path;
-				}
-				webappcontext.addServlet(new ServletHolder(
-						new BotMethodServlet(m)), path);
-			}
-		}
-
-		handlerList.setHandlers(new Handler[] { webappcontext,
-				new DefaultHandler() });
-		server.setHandler(handlerList);
-
-		server.setThreadPool(new QueuedThreadPool(20));
-		server.start();
-
 	}
 
 	private void startTimers(List<Method> timers) {

@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 
 public abstract class GenericDAO<T> {
 
-	@PersistenceContext
+	@PersistenceContext(unitName = "geekbotPU")
 	protected EntityManager em;
 
 	protected CriteriaBuilder builder;

@@ -1,12 +1,12 @@
 package be.hehehe.geekbot.persistence.dao;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 
 import com.google.common.collect.Iterables;
 
-@Named
+@Stateless
 public class RSSFeedDAO extends GenericDAO<RSSFeed> {
 	public RSSFeed findByGUID(String guid) {
 		return Iterables.getOnlyElement(findByField("guid", guid), null);

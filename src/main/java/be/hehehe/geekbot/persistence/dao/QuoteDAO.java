@@ -2,7 +2,7 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -13,7 +13,7 @@ import be.hehehe.geekbot.persistence.model.Quote;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-@Named
+@Stateless
 public class QuoteDAO extends GenericDAO<Quote> {
 
 	@Override

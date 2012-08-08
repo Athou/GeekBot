@@ -2,43 +2,24 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import be.hehehe.geekbot.persistence.EntityManagerProducer;
-
 public abstract class GenericDAO<T> {
 
-	protected CriteriaBuilder builder;
+	@Inject
 	protected EntityManager em;
 
-	@AroundInvoke
-	public Object initEntityManager(InvocationContext ctx) throws Exception {
-		Object result = null;
-		try {
-			em = EntityManagerProducer.createEntityManager();
-			em.getTransaction().begin();
+	protected CriteriaBuilder builder;
 
-			builder = em.getCriteriaBuilder();
-			result = ctx.proceed();
-
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			if (em != null && em.getTransaction().isActive()) {
-				em.getTransaction().setRollbackOnly();
-			}
-			throw e;
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-		return result;
+	@PostConstruct
+	public void init() {
+		builder = em.getCriteriaBuilder();
 	}
 
 	public void save(T object) {

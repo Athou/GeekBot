@@ -2,13 +2,13 @@ package be.hehehe.geekbot.persistence.dao;
 
 import java.util.List;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 
-@Named
+@Stateless
 public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 
 	public void giveOnePoint(String author) {

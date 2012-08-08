@@ -1,7 +1,7 @@
 package be.hehehe.geekbot.persistence.dao;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -11,7 +11,7 @@ import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 
 import com.google.common.collect.Iterables;
 
-@Named
+@Stateless
 public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 
 	@Inject

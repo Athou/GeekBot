@@ -1,6 +1,6 @@
 package be.hehehe.geekbot.persistence.dao;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -9,7 +9,7 @@ import be.hehehe.geekbot.persistence.model.Skandite;
 
 import com.google.common.collect.Iterables;
 
-@Named
+@Stateless
 public class SkanditeDAO extends GenericDAO<Skandite> {
 
 	public Skandite findByURL(String url) {

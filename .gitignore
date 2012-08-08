@@ -1,5 +1,4 @@
 # Local config files
-src/main/resources/META-INF/persistence.xml
 src/main/resources/config.properties
 src/main/resources/own3d.properties
 geekbot.log

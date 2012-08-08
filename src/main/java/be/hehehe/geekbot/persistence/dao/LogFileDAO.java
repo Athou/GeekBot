@@ -19,7 +19,8 @@ public class LogFileDAO {
 			Level.DEBUG, Level.INFO, Level.WARN, Level.ERROR);
 
 	public List<String> getLines() throws IOException {
-		return FileUtils.readLines(new File("geekbot.log"));
+		return FileUtils.readLines(new File(System.getenv("OPENSHIFT_DATA_DIR")
+				+ "/geekbot.log"));
 	}
 
 	public List<String> getLines(Level selectedLevel) throws IOException {

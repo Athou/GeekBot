@@ -75,8 +75,6 @@ public class GeekBot extends PircBot {
 			randoms = extension.getRandoms();
 			startTimers(extension.getTimers());
 
-			startChangeNickThread();
-
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
 			this.setVersion("GeekBot - https://github.com/Athou/GeekBot");
@@ -86,9 +84,11 @@ public class GeekBot extends PircBot {
 			this.setAutoNickChange(true);
 			this.setEncoding("ISO-8859-1");
 			this.setFinger(botName);
-			// this.startIdentServer();
+			log.info("Connecting to " + server + " on port " + port);
 			this.connect(server, port);
 			this.joinChannel(channel);
+
+			startChangeNickThread();
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

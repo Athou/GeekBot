@@ -15,10 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
@@ -377,29 +373,6 @@ public class GeekBot extends PircBot {
 	@Triggers
 	public List<Method> getTriggers() {
 		return triggers;
-	}
-
-	@SuppressWarnings("serial")
-	private class BotMethodServlet extends HttpServlet {
-
-		private Method method;
-
-		public BotMethodServlet(Method method) {
-			this.method = method;
-		}
-
-		@Override
-		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-				throws ServletException, IOException {
-			ServletEvent event = new ServletEventImpl(req, resp);
-			invoke(method, event);
-		}
-
-		@Override
-		protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-				throws ServletException, IOException {
-			doGet(req, resp);
-		}
 	}
 
 }

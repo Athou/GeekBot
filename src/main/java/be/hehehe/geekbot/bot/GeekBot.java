@@ -90,7 +90,7 @@ public class GeekBot extends PircBot {
 			this.setEncoding("ISO-8859-1");
 			this.setFinger(botName);
 			this.startIdentServer();
-			this.connect(server);
+			this.connect(server, 8080);
 			this.joinChannel(channel);
 
 		} catch (Exception e) {

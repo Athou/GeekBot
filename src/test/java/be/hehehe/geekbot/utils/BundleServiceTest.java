@@ -6,12 +6,10 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 
-@RunWith(WeldRunner.class)
-public class BundleServiceTest {
+public class BundleServiceTest extends ArquillianTest {
 
 	@Inject
 	private BundleService bundleService;

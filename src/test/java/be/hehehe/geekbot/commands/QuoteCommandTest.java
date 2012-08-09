@@ -6,17 +6,15 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.bot.TriggerEventImpl;
 import be.hehehe.geekbot.persistence.dao.QuoteDAO;
 import be.hehehe.geekbot.persistence.model.Quote;
 import be.hehehe.geekbot.utils.IRCUtils;
 
-@RunWith(WeldRunner.class)
-public class QuoteCommandTest {
+public class QuoteCommandTest extends ArquillianTest {
 
 	private static final String QUOTE1 = "quote1 content";
 	private static final String QUOTE2 = "quote2 content";

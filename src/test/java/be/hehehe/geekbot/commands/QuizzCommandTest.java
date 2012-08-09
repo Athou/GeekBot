@@ -4,12 +4,10 @@ import javax.inject.Inject;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 
-@RunWith(WeldRunner.class)
-public class QuizzCommandTest {
+public class QuizzCommandTest extends ArquillianTest {
 
 	@Inject
 	QuizzCommand quizzCommand;
@@ -18,14 +16,14 @@ public class QuizzCommandTest {
 	public void matchIntegersTest() {
 		Assert.assertTrue(quizzCommand.matches("1000", "1 000"));
 	}
-	
+
 	@Test
 	public void matchStrippedAccentsTest() {
 		Assert.assertTrue(quizzCommand.matches("garcon", "garçon"));
 		Assert.assertTrue(quizzCommand.matches("education", "éducation"));
 		Assert.assertTrue(quizzCommand.matches("état", "ETAT"));
 	}
-	
+
 	@Test
 	public void matchAlmostTest() {
 		Assert.assertTrue(quizzCommand.matches("paquebo", "Paquebot"));

@@ -4,12 +4,10 @@ import javax.inject.Inject;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 
-@RunWith(WeldRunner.class)
-public class BotUtilsServiceTest {
+public class BotUtilsServiceTest extends ArquillianTest {
 
 	@Inject
 	BotUtilsService botUtilsService;

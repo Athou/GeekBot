@@ -7,15 +7,13 @@ import junit.framework.Assert;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 import be.hehehe.geekbot.bot.TriggerEventImpl;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
 
-@RunWith(WeldRunner.class)
-public class ConnerieCommandTest {
+public class ConnerieCommandTest extends ArquillianTest {
 
 	@Inject
 	ConnerieCommand connerieCommand;

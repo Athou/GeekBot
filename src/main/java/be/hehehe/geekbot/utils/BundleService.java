@@ -87,8 +87,12 @@ public class BundleService {
 		return Integer.parseInt(getValue("webserver.port"));
 	}
 
+	public boolean isTest() {
+		return "true".equals(getValue("test"));
+	}
+
 	private String getValue(String key) {
-		return props.getProperty(key);
+		return props.getProperty(key, null);
 	}
 
 }

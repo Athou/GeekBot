@@ -8,16 +8,14 @@ import javax.inject.Inject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.bot.TriggerEventImpl;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.HashAndByteCount;
 
-@RunWith(WeldRunner.class)
-public class SkanditeCommandTest {
+public class SkanditeCommandTest extends ArquillianTest {
 
 	@Inject
 	SkanditeCommand skanditeCommand;

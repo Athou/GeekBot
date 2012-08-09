@@ -66,8 +66,10 @@ public class GeekBot extends PircBot {
 
 		botName = bundleService.getBotName();
 		channel = bundleService.getChannel();
+
 		String server = bundleService.getServer();
 		int port = bundleService.getPort();
+		boolean connect = !bundleService.isTest();
 		try {
 
 			// scan for commands
@@ -84,11 +86,12 @@ public class GeekBot extends PircBot {
 			this.setAutoNickChange(true);
 			this.setEncoding("ISO-8859-1");
 			this.setFinger(botName);
-			log.info("Connecting to " + server + " on port " + port);
-			this.connect(server, port);
-			this.joinChannel(channel);
-
-			startChangeNickThread();
+			if (connect) {
+				log.info("Connecting to " + server + " on port " + port);
+				this.connect(server, port);
+				this.joinChannel(channel);
+				startChangeNickThread();
+			}
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

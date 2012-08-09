@@ -5,14 +5,12 @@ import javax.inject.Inject;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import be.hehehe.geekbot.WeldRunner;
+import be.hehehe.geekbot.ArquillianTest;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.bot.TriggerEventImpl;
 
-@RunWith(WeldRunner.class)
-public class ReverseCommandTest {
+public class ReverseCommandTest extends ArquillianTest {
 
 	@Inject
 	ReverseCommand reverseCommand;

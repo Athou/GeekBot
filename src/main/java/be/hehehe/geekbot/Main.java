@@ -17,7 +17,7 @@ import be.hehehe.geekbot.bot.GeekBot;
 @Startup
 public class Main {
 
-	static BeanManager beanManager;
+	public static BeanManager beanManager;
 
 	@PostConstruct
 	public void init() {

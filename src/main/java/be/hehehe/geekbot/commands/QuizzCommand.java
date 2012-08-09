@@ -270,8 +270,8 @@ public class QuizzCommand {
 	}
 
 	private String normalize(String source) {
-		source.replace("L'", "");
-		source.replace("l'", "");
+		source = source.replace("L'", "");
+		source = source.replace("l'", "");
 		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
 
 		List<String> dest = Lists.newArrayList();

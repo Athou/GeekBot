@@ -1,7 +1,1 @@
 language: java
-notifications:
-  irc: "irc.quakenet.org#rab-wow"
-jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk7

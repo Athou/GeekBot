@@ -21,6 +21,11 @@ public class Main {
 
 	@PostConstruct
 	public void init() {
+		setupBeanManager();
+		getBean(GeekBot.class);
+	}
+
+	private static void setupBeanManager() {
 		try {
 			beanManager = (BeanManager) new InitialContext()
 					.lookup("java:comp/BeanManager");
@@ -28,7 +33,6 @@ public class Main {
 			throw new IllegalStateException("Unable to obtain CDI BeanManager",
 					e);
 		}
-		getBean(GeekBot.class);
 	}
 
 	@SuppressWarnings("unchecked")

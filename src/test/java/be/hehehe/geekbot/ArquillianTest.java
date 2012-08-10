@@ -52,7 +52,10 @@ public abstract class ArquillianTest {
 
 	@Before
 	public void init() {
-		Main.beanManager = beanManager;
+		setupBeanManager(beanManager);
 	}
 
+	private static void setupBeanManager(BeanManager beanManager) {
+		Main.beanManager = beanManager;
+	}
 }

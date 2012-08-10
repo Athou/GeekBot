@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -17,11 +18,14 @@ import com.google.common.collect.Lists;
 @Stateless
 public class ConnerieDAO extends GenericDAO<Connerie> {
 
+	@Inject
+	Random random;
+
 	public Connerie getRandom() {
 		Connerie connerie = null;
 		int count = (int) getCount();
 		if (count > 0) {
-			int rand = new Random().nextInt(count) + 1;
+			int rand = random.nextInt(count) + 1;
 			connerie = Iterables.getOnlyElement(findAll(rand, 1), null);
 		}
 		return connerie;
@@ -48,7 +52,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		List<Connerie> list = getConneries(spaces, keywords);
 		Connerie con = null;
 		if (!list.isEmpty()) {
-			con = list.get(new Random().nextInt(list.size()));
+			con = list.get(random.nextInt(list.size()));
 		}
 		return con;
 	}

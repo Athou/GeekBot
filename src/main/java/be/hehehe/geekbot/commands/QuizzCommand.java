@@ -301,7 +301,7 @@ public class QuizzCommand {
 		List<String> lines = state.get(QUESTIONS, List.class);
 		if (lines == null) {
 			lines = IOUtils.readLines(
-					getClass().getResourceAsStream("/quizz.txt"), "ISO-8859-1");
+					getClass().getResourceAsStream("/quizz.txt"), "UTF-8");
 			state.put(QUESTIONS, lines);
 		}
 		return lines;

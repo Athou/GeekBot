@@ -14,13 +14,13 @@ import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.PropertyModel;
 
 import be.hehehe.geekbot.persistence.dao.QuizzDAO;
 import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
+import be.hehehe.geekbot.web.utils.StringModel;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -35,8 +35,8 @@ public class QuizzMergePage extends TemplatePage {
 
 	private class SubmitForm extends Form<List<QuizzPlayer>> {
 
-		private String giver;
-		private String receiver;
+		private StringModel giver = new StringModel();
+		private StringModel receiver = new StringModel();
 
 		FeedbackPanel messages = new FeedbackPanel("messages");
 
@@ -60,12 +60,11 @@ public class QuizzMergePage extends TemplatePage {
 
 			add(new Button("submit-button"));
 			DropDownChoice<String> giverChoice = new DropDownChoice<String>(
-					"giver", new PropertyModel<String>(this, "giver"), model);
+					"giver", giver, model);
 			add(giverChoice);
 
 			DropDownChoice<String> receiverChoice = new DropDownChoice<String>(
-					"receiver", new PropertyModel<String>(this, "receiver"),
-					model);
+					"receiver", receiver, model);
 			add(receiverChoice);
 			add(messages);
 
@@ -74,7 +73,8 @@ public class QuizzMergePage extends TemplatePage {
 		@Override
 		protected void onSubmit() {
 			try {
-				getBean(QuizzMergeDAO.class).add(receiver, giver);
+				getBean(QuizzMergeDAO.class).add(receiver.getObject(),
+						giver.getObject());
 				setResponsePage(QuizzMergePage.class);
 			} catch (QuizzMergeException e) {
 				messages.setVisible(true);

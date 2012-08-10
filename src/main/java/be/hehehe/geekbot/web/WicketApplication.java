@@ -1,5 +1,6 @@
 package be.hehehe.geekbot.web;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
@@ -19,7 +20,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
-		
+
 		mountPage("log", LogViewerPage.class);
 
 		getMarkupSettings().setStripWicketTags(true);
@@ -38,5 +39,9 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	@Override
 	protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
 		return WicketSession.class;
+	}
+
+	public static WicketApplication get() {
+		return (WicketApplication) Application.get();
 	}
 }

@@ -139,17 +139,14 @@ public class GeekBot extends PircBot {
 
 	@Override
 	protected void onDisconnect() {
-		try {
-			while (!isConnected()) {
+		while (!isConnected()) {
+			try {
+				Thread.sleep(10000);
 				this.reconnect();
 				this.joinChannel(channel);
+			} catch (Exception e) {
+				log.error("Could not reconnect", e);
 			}
-		} catch (NickAlreadyInUseException e) {
-			log.error("Nick already in use!");
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
-		} catch (IrcException e) {
-			log.error(e.getMessage(), e);
 		}
 	}
 

@@ -1,6 +1,6 @@
 package be.hehehe.geekbot.commands;
 
-import java.net.URL;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -21,21 +21,20 @@ import be.hehehe.geekbot.utils.IRCUtils;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 
 /**
  * Polls for new blog posts on commabeat.com (French)
- *
+ * 
  */
 @BotCommand
 public class CommaBeatCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	RSSFeedDAO dao;
-	
+
 	@Inject
 	Logger log;
 
@@ -43,9 +42,10 @@ public class CommaBeatCommand {
 	public List<String> getLatestPost() {
 		List<String> toReturn = new ArrayList<String>();
 		try {
-			URL url = new URL("http://feeds.feedburner.com/Commabeat");
+			String url = "http://feeds.feedburner.com/Commabeat";
 			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed rss = input.build(new XmlReader(url));
+			SyndFeed rss = input.build(new StringReader(utilsService
+					.getContent(url)));
 
 			Collection<?> items = rss.getEntries();
 			Iterator<?> it = items.iterator();

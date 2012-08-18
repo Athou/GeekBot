@@ -1,6 +1,6 @@
 package be.hehehe.geekbot.commands;
 
-import java.net.URL;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +20,6 @@ import be.hehehe.geekbot.utils.IRCUtils;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 
 /**
  * Checks Steam RSS news every minute
@@ -34,7 +33,7 @@ public class SteamCommand {
 
 	@Inject
 	RSSFeedDAO dao;
-	
+
 	@Inject
 	Logger log;
 
@@ -43,9 +42,10 @@ public class SteamCommand {
 	public List<String> getLatestPost() {
 		List<String> toReturn = new ArrayList<String>();
 		try {
-			URL url = new URL("http://store.steampowered.com/feeds/news.xml");
+			String url = "http://store.steampowered.com/feeds/news.xml";
 			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed rss = input.build(new XmlReader(url));
+			SyndFeed rss = input.build(new StringReader(utilsService
+					.getContent(url)));
 
 			Iterator<SyndEntry> it = rss.getEntries().iterator();
 			String message = null;

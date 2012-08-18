@@ -57,7 +57,7 @@ public class GeekBot extends PircBot {
 	@PostConstruct
 	public void init() {
 
-		scheduler = Executors.newScheduledThreadPool(1);
+		scheduler = Executors.newScheduledThreadPool(50);
 
 		botName = bundleService.getBotName();
 		channel = bundleService.getChannel();

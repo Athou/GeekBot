@@ -55,8 +55,8 @@ public class BotUtilsService {
 			URLConnection con = url.openConnection();
 			con.setRequestProperty("User-Agent",
 					"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0; H010818)");
-			con.setConnectTimeout(60000);
-			con.setReadTimeout(60000);
+			con.setConnectTimeout(30000);
+			con.setReadTimeout(30000);
 			String contentType = con.getContentType();
 			if (mimeTypePrefix == null
 					|| contentType.startsWith(mimeTypePrefix)) {

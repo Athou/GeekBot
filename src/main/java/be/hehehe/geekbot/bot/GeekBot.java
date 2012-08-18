@@ -283,7 +283,10 @@ public class GeekBot extends PircBot {
 		try {
 			future.get(1, TimeUnit.MINUTES);
 		} catch (Exception e) {
-			log.error("Error whild invoking thread: " + e.getMessage(), e);
+			log.error(
+					"Error while invoking method "
+							+ method.getDeclaringClass().getSimpleName() + "#"
+							+ method.getName() + ": " + e.getMessage(), e);
 		}
 
 	}

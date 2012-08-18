@@ -1,13 +1,12 @@
 package be.hehehe.geekbot.bot;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -20,8 +19,6 @@ import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.jibble.pircbot.IrcException;
-import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
@@ -56,12 +53,10 @@ public class GeekBot extends PircBot {
 	Logger log;
 
 	private ScheduledExecutorService scheduler;
-	private ExecutorService executor;
 
 	@PostConstruct
 	public void init() {
 
-		executor = Executors.newCachedThreadPool();
 		scheduler = Executors.newScheduledThreadPool(1);
 
 		botName = bundleService.getBotName();
@@ -279,13 +274,17 @@ public class GeekBot extends PircBot {
 		if (event == null) {
 			return;
 		}
-		Runnable runnable = new Runnable() {
+		Future<?> future = scheduler.submit(new Runnable() {
 			@Override
 			public void run() {
 				invoke(method, event);
 			}
-		};
-		executor.submit(runnable);
+		});
+		try {
+			future.get(1, TimeUnit.MINUTES);
+		} catch (Exception e) {
+			log.error("Error whild invoking thread: " + e.getMessage(), e);
+		}
 
 	}
 
@@ -307,6 +306,9 @@ public class GeekBot extends PircBot {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
+		log.debug("Done invoking: "
+				+ method.getDeclaringClass().getSimpleName() + "#"
+				+ method.getName());
 	}
 
 	private TriggerEvent buildEvent() {
@@ -327,7 +329,7 @@ public class GeekBot extends PircBot {
 					public void write(String message) {
 						sendMessage(message);
 					}
-				}, scheduler, executor);
+				}, scheduler);
 		return event;
 	}
 

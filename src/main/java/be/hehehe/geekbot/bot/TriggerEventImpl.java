@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.bot;
 
 import java.util.Collection;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class TriggerEventImpl implements TriggerEvent {
@@ -15,7 +14,6 @@ public class TriggerEventImpl implements TriggerEvent {
 	private boolean startsWithTrigger;
 	private MessageWriter messageWriter;
 	private ScheduledExecutorService scheduler;
-	private ExecutorService executor;
 
 	/**
 	 * use only in tests, some fields are not set
@@ -51,8 +49,7 @@ public class TriggerEventImpl implements TriggerEvent {
 	public TriggerEventImpl(String message, String author, String trigger,
 			Collection<String> users, String url, boolean nickInMessage,
 			boolean botInMessage, boolean startsWithTrigger,
-			MessageWriter messageWriter, ScheduledExecutorService scheduler,
-			ExecutorService executor) {
+			MessageWriter messageWriter, ScheduledExecutorService scheduler) {
 		this.message = message;
 		this.author = author;
 		this.users = users;
@@ -68,7 +65,6 @@ public class TriggerEventImpl implements TriggerEvent {
 		}
 		this.messageWriter = messageWriter;
 		this.scheduler = scheduler;
-		this.executor = executor;
 
 	}
 
@@ -126,10 +122,4 @@ public class TriggerEventImpl implements TriggerEvent {
 	public ScheduledExecutorService getScheduler() {
 		return scheduler;
 	}
-
-	@Override
-	public ExecutorService getExecutor() {
-		return executor;
-	}
-
 }

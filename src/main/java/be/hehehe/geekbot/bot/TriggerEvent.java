@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.bot;
 
 import java.util.Collection;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 
 public interface TriggerEvent {
@@ -91,10 +90,4 @@ public interface TriggerEvent {
 	 */
 	ScheduledExecutorService getScheduler();
 
-	/**
-	 * Get the common executor pool instead of creating yours.
-	 * 
-	 * @return the common executor pool
-	 */
-	ExecutorService getExecutor();
 }

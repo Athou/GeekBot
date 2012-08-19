@@ -3,7 +3,10 @@ package be.hehehe.geekbot.bot;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -11,6 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
-import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -52,11 +55,16 @@ public class GeekBot extends PircBot {
 	@Inject
 	Logger log;
 
+	@Inject
+	Instance<Object> container;
+
 	private ScheduledExecutorService scheduler;
+	private Map<Method, Object> instances;
 
 	@PostConstruct
 	public void init() {
 
+		instances = Collections.synchronizedMap(new HashMap<Method, Object>());
 		scheduler = Executors.newScheduledThreadPool(50);
 
 		botName = bundleService.getBotName();
@@ -296,7 +304,12 @@ public class GeekBot extends PircBot {
 		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
 				+ "#" + method.getName());
 
-		final Object commandInstance = Main.getBean(method.getDeclaringClass());
+		Object instance = instances.get(method);
+		if (instance == null) {
+			instance = container.select(method.getDeclaringClass()).get();
+		}
+
+		final Object commandInstance = instance;
 
 		try {
 			Object result = null;

@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

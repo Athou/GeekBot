@@ -307,6 +307,7 @@ public class GeekBot extends PircBot {
 		Object instance = instances.get(method);
 		if (instance == null) {
 			instance = container.select(method.getDeclaringClass()).get();
+			instances.put(method, instance);
 		}
 
 		final Object commandInstance = instance;

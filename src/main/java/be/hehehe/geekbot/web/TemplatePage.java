@@ -69,7 +69,7 @@ public abstract class TemplatePage extends WebPage {
 		return Main.getBean(klass);
 	}
 
-	public class PageModel {
+	public static class PageModel {
 		private String name;
 		private Class<? extends TemplatePage> pageClass;
 

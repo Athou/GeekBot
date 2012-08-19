@@ -26,4 +26,12 @@ public class StringModel extends Model<String> {
 		this.wrapped = object;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (wrapped == null) {
+			return obj == null;
+		}
+		return wrapped.equals(obj);
+	}
+
 }

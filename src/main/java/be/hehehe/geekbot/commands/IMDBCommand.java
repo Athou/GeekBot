@@ -51,13 +51,11 @@ public class IMDBCommand {
 		for (String s : split) {
 			if (s.startsWith("tt")) {
 				imdbID = s;
+				break;
 			}
 		}
 
-		split = googleResult.get(0).split("[(]");
-
-		String result = "";
-		result = utilsService
+		String result = utilsService
 				.getContent("http://app.imdb.com/title/maindetails?tconst="
 						+ imdbID);
 		return parse(result);

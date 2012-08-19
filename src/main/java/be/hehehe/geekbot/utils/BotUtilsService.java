@@ -192,7 +192,7 @@ public class BotUtilsService {
 			byte[] bytes = content.getBytes();
 
 			hashAndByteCount.setHash(DigestUtils.md5Hex(bytes));
-			hashAndByteCount.setByteCount(new Long(bytes.length));
+			hashAndByteCount.setByteCount(Long.valueOf(bytes.length));
 		}
 		return hashAndByteCount;
 	}

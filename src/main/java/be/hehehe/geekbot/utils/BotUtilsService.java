@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.util.Date;
 import java.util.Map;
 
-import javax.ejb.Singleton;
+import javax.inject.Singleton;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;

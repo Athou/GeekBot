@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
+import javax.inject.Singleton;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;

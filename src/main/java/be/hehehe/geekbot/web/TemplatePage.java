@@ -1,12 +1,14 @@
 package be.hehehe.geekbot.web;
 
 import org.apache.wicket.bootstrap.Bootstrap;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.utils.BundleService;
@@ -54,14 +56,18 @@ public abstract class TemplatePage extends WebPage {
 		add(repeatingView);
 
 	}
-	
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		response.render(new PriorityHeaderItem(JavaScriptHeaderItem
-				.forReference(Bootstrap.get())));
+		response.render(JavaScriptHeaderItem.forReference(Bootstrap.get()));
+		response.render(JavaScriptHeaderItem
+				.forReference(new JavaScriptResourceReference(
+						TemplatePage.class, TemplatePage.class.getSimpleName()
+								+ ".js")));
+		response.render(CssHeaderItem.forReference(new CssResourceReference(
+				TemplatePage.class, TemplatePage.class.getSimpleName() + ".css")));
 	}
-
 
 	protected abstract String getTitle();
 

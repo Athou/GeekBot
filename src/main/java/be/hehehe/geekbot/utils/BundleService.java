@@ -5,13 +5,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-@Singleton
+@ApplicationScoped
 public class BundleService {
 
 	@Inject

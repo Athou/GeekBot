@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * 
@@ -14,7 +14,7 @@ import javax.inject.Singleton;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Singleton
+@ApplicationScoped
 public @interface BotCommand {
 
 }

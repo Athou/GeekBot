@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.util.Date;
 import java.util.Map;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
 
-@Singleton
+@ApplicationScoped
 public class BotUtilsService {
 
 	@Inject

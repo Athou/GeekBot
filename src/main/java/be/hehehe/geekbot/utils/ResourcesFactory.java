@@ -2,13 +2,13 @@ package be.hehehe.geekbot.utils;
 
 import java.util.Random;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Singleton;
 
 import org.apache.log4j.Logger;
 
-@Singleton
+@ApplicationScoped
 public class ResourcesFactory {
 
 	private Random random;

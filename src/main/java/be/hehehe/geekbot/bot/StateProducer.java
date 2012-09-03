@@ -2,13 +2,13 @@ package be.hehehe.geekbot.bot;
 
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Singleton;
 
 import com.google.common.collect.Maps;
 
-@Singleton
+@ApplicationScoped
 public class StateProducer {
 
 	private Map<String, State> states = Maps.newHashMap();

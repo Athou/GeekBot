@@ -2,9 +2,6 @@ package be.hehehe.geekbot;
 
 import java.io.File;
 
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -15,26 +12,21 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public abstract class ArquillianTest {
 
-	@Inject
-	BeanManager beanManager;
-
-	static WebArchive archive;
+	private static WebArchive archive;
 
 	@Deployment
 	public static WebArchive createDeployment() {
 		if (archive == null) {
 			WebArchive war = ShrinkWrap.create(WebArchive.class);
-			war.addPackages(true, Main.class.getPackage());
+			war.addPackages(true, "be.hehehe");
 			war.merge(
 					ShrinkWrap.create(GenericArchive.class)
 							.as(ExplodedImporter.class)
-							.importDirectory("src/main/resources/be")
 							.as(GenericArchive.class), "/WEB-INF/classes/be",
 					Filters.includeAll());
 
@@ -50,12 +42,4 @@ public abstract class ArquillianTest {
 		return archive;
 	}
 
-	@Before
-	public void init() {
-		setupBeanManager(beanManager);
-	}
-
-	private static void setupBeanManager(BeanManager beanManager) {
-		Main.beanManager = beanManager;
-	}
 }

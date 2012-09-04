@@ -44,8 +44,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 
@@ -222,6 +222,16 @@
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-bootstrap</artifactId>
 			<version>0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.ftlines.wicket-cdi</groupId>
+			<artifactId>wicket-cdi</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.conversation</groupId>
+			<artifactId>seam-conversation-weld</artifactId>
+			<version>3.0.0.Final</version>
 		</dependency>
 
 		<dependency>

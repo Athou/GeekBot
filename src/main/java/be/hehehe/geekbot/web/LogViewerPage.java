@@ -3,6 +3,8 @@ package be.hehehe.geekbot.web;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Level;
@@ -18,6 +20,9 @@ import be.hehehe.geekbot.persistence.dao.LogFileDAO;
 public class LogViewerPage extends TemplatePage {
 
 	private Level selectedLevel = Level.ERROR;
+
+	@Inject
+	LogFileDAO logDAO;
 
 	public LogViewerPage() {
 
@@ -42,8 +47,7 @@ public class LogViewerPage extends TemplatePage {
 			protected String load() {
 				List<String> filteredLines = null;
 				try {
-					filteredLines = getBean(LogFileDAO.class).getLines(
-							selectedLevel);
+					filteredLines = logDAO.getLines(selectedLevel);
 					if (filteredLines.isEmpty()) {
 						return "Nothing to display";
 					}

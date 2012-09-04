@@ -14,6 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Startup;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 
 @Singleton
+@Startup
 public class GeekBot extends PircBot {
 
 	private String botName;

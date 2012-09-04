@@ -1,5 +1,12 @@
 package be.hehehe.geekbot.web;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import net.ftlines.wicket.cdi.CdiConfiguration;
+import net.ftlines.wicket.cdi.ConversationPropagation;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
@@ -15,6 +22,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	@Override
 	protected void init() {
 		super.init();
+		setupCDI();
+		
 		mountPage("login", LoginPage.class);
 		mountPage("logout", LogoutPage.class);
 
@@ -24,6 +33,18 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		mountPage("log", LogViewerPage.class);
 
 		getMarkupSettings().setStripWicketTags(true);
+	}
+
+	protected void setupCDI() {
+		try {
+			BeanManager beanManager = (BeanManager) new InitialContext()
+					.lookup("java:comp/BeanManager");
+			new CdiConfiguration(beanManager).setPropagation(
+					ConversationPropagation.NONE).configure(this);
+		} catch (NamingException e) {
+			throw new IllegalStateException("Unable to obtain CDI BeanManager",
+					e);
+		}
 	}
 
 	@Override

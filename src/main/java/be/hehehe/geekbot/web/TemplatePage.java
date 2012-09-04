@@ -1,5 +1,7 @@
 package be.hehehe.geekbot.web;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.bootstrap.Bootstrap;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -10,7 +12,6 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
-import be.hehehe.geekbot.Main;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.web.auth.LoggedInButtonPanel;
 import be.hehehe.geekbot.web.auth.LoggedOutButtonPanel;
@@ -23,10 +24,13 @@ import com.google.common.collect.Multimap;
 @SuppressWarnings("serial")
 public abstract class TemplatePage extends WebPage {
 
+	@Inject
+	BundleService bundleService;
+
 	public TemplatePage() {
 
 		add(new Label("title", getTitle()));
-		add(new Label("project-name", getBean(BundleService.class).getBotName()));
+		add(new Label("project-name", bundleService.getBotName()));
 
 		String buttonId = "topright-button";
 		if (getAuthSession().isSignedIn()) {
@@ -70,10 +74,6 @@ public abstract class TemplatePage extends WebPage {
 	}
 
 	protected abstract String getTitle();
-
-	protected <T> T getBean(Class<? extends T> klass) {
-		return Main.getBean(klass);
-	}
 
 	public static class PageModel {
 		private String name;

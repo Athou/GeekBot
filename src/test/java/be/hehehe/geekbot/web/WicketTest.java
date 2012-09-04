@@ -1,19 +1,26 @@
 package be.hehehe.geekbot.web;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import be.hehehe.geekbot.ArquillianTest;
+import be.hehehe.geekbot.WicketTestApplication;
 import be.hehehe.geekbot.web.auth.LoginPage;
 
 public class WicketTest extends ArquillianTest {
 
-	private static WicketTester wicketTester;
+	private WicketTester wicketTester;
 
-	@BeforeClass
-	public static void initTester() {
-		wicketTester = new WicketTester(new WicketApplication());
+	@Inject
+	BeanManager beanManager;
+
+	@Before
+	public void initTester() {
+		wicketTester = new WicketTester(new WicketTestApplication(beanManager));
 	}
 
 	@Test

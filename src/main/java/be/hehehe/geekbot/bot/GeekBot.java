@@ -14,6 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.inject.Instance;
@@ -101,6 +102,11 @@ public class GeekBot extends PircBot {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
+	}
+
+	@PreDestroy
+	public void destroy() {
+		sendMessage("brb, reboot");
 	}
 
 	private void startTimers(List<Method> timers) {

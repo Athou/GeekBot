@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -116,7 +116,7 @@ public class GoogleCommand {
 					"results");
 			JSONObject j = ja.getJSONObject(0);
 			if (mode == Mode.WEB) {
-				String firstLine = StringEscapeUtils.unescapeHtml(IRCUtils
+				String firstLine = StringEscapeUtils.unescapeHtml4(IRCUtils
 						.bold(j.getString("titleNoFormatting")))
 						+ " - "
 						+ URLDecoder.decode(j.getString("url"), "UTF-8");
@@ -128,7 +128,7 @@ public class GoogleCommand {
 				content = content.replaceAll("</b>", "");
 				content = content.replaceAll("  ", "");
 
-				content = StringEscapeUtils.unescapeHtml(content);
+				content = StringEscapeUtils.unescapeHtml4(content);
 
 				content = content.replaceAll("&quot;", "\"");
 

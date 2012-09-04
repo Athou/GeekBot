@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -48,7 +48,7 @@ public class BlagueCommand {
 			String blague = doc.select("p.TexteBlague").html();
 			List<String> lines = Arrays.asList(blague.split("<br />"));
 			for (String line : lines) {
-				toReturn.add(StringEscapeUtils.unescapeHtml(line));
+				toReturn.add(StringEscapeUtils.unescapeHtml4(line));
 			}
 
 			if (toReturn.size() > 5) {

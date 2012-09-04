@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -148,7 +148,7 @@ public class IMDBCommand {
 
 		List<String> result2 = new ArrayList<String>();
 		for (String s : result) {
-			result2.add(StringEscapeUtils.unescapeHtml(s));
+			result2.add(StringEscapeUtils.unescapeHtml4(s));
 		}
 
 		return result2;

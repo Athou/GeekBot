@@ -22,6 +22,7 @@ import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
+import be.hehehe.geekbot.web.components.ChosenBehavior;
 import be.hehehe.geekbot.web.utils.StringModel;
 
 import com.google.common.base.Function;
@@ -68,13 +69,15 @@ public class QuizzMergePage extends TemplatePage {
 			add(new Button("submit-button"));
 			DropDownChoice<String> giverChoice = new DropDownChoice<String>(
 					"giver", giver, model);
+			giverChoice.add(new ChosenBehavior());
 			add(giverChoice);
 
 			DropDownChoice<String> receiverChoice = new DropDownChoice<String>(
 					"receiver", receiver, model);
+			receiverChoice.add(new ChosenBehavior());
 			add(receiverChoice);
+			
 			add(messages);
-
 		}
 
 		@Override

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 @ApplicationScoped
 public class ResourcesFactory {
 
-	private Random random;
+	private Random random = new Random();
 
 	@Produces
 	public Logger getLogger(InjectionPoint ip) {
@@ -20,9 +20,6 @@ public class ResourcesFactory {
 
 	@Produces
 	public Random getRandom() {
-		if (random == null) {
-			random = new Random();
-		}
 		return random;
 	}
 }

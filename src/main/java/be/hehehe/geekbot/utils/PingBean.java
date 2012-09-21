@@ -4,13 +4,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 import javax.ejb.Schedule;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-@ApplicationScoped
+@Singleton
 public class PingBean {
 
 	@Inject

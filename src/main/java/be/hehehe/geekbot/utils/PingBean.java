@@ -5,12 +5,14 @@ import java.net.URL;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 @Singleton
+@Startup
 public class PingBean {
 
 	@Inject

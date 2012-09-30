@@ -1,7 +1,10 @@
 # Local config files
 src/main/resources/config.properties
 src/main/resources/own3d.properties
+
+#log files
 geekbot.log
+derby.log
 
 # Maven build directory
 target

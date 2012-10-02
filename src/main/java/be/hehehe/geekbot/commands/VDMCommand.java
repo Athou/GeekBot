@@ -65,12 +65,15 @@ public class VDMCommand {
 			Document doc = utilsService.parseXML(xml);
 
 			Element root = doc.getRootElement();
-			String text = root.getChild("items").getChild("item")
-					.getChild("text").getValue();
+			Element item = root.getChild("items").getChild("item");
+			String text = item.getChild("text").getValue();
 			text = text.replaceAll("(\\r|\\n)", "");
+			String upvote = item.getChild("agree").getValue();
+			String downvote = item.getChild("deserved").getValue();
 
 			result.add(IRCUtils.bold("VDM") + " - " + text);
-			result.add(IRCUtils.bold("MOAR FAKE PLZ"));
+			result.add(IRCUtils.bold("MOAR FAKE PLZ")
+					+ String.format(" (+%s/-%s)", upvote, downvote));
 
 		} catch (Exception e) {
 			result.add("Could not fetch a VDM for some reason.");

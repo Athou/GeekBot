@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.global.server>github</github.global.server>
-		<wicket.version>6.0.0</wicket.version>
+		<wicket.version>6.1.0</wicket.version>
 	</properties>
 
 	<developers>
@@ -221,17 +221,12 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-bootstrap</artifactId>
-			<version>0.2</version>
+			<version>0.3</version>
 		</dependency>
 		<dependency>
-			<groupId>net.ftlines.wicket-cdi</groupId>
+			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-cdi</artifactId>
-			<version>6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.conversation</groupId>
-			<artifactId>seam-conversation-weld</artifactId>
-			<version>3.0.0.Final</version>
+			<version>${wicket.version}</version>
 		</dependency>
 
 		<dependency>

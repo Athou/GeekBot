@@ -2,8 +2,8 @@ package be.hehehe.geekbot;
 
 import javax.enterprise.inject.spi.BeanManager;
 
-import net.ftlines.wicket.cdi.CdiConfiguration;
-import net.ftlines.wicket.cdi.ConversationPropagation;
+import org.apache.wicket.cdi.CdiConfiguration;
+import org.apache.wicket.cdi.ConversationPropagation;
 
 import be.hehehe.geekbot.web.WicketApplication;
 

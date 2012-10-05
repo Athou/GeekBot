@@ -4,13 +4,12 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import net.ftlines.wicket.cdi.CdiConfiguration;
-import net.ftlines.wicket.cdi.ConversationPropagation;
-
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.cdi.CdiConfiguration;
+import org.apache.wicket.cdi.ConversationPropagation;
 import org.apache.wicket.markup.html.WebPage;
 
 import be.hehehe.geekbot.web.auth.LoginPage;

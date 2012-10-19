@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.global.server>github</github.global.server>
-		<wicket.version>6.1.0</wicket.version>
+		<wicket.version>6.1.1</wicket.version>
 	</properties>
 
 	<developers>
@@ -181,7 +181,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.1</version>
+			<version>1.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>pircbot</groupId>
@@ -221,7 +221,7 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-bootstrap</artifactId>
-			<version>0.3</version>
+			<version>0.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>

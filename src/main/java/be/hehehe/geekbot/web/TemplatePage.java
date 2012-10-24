@@ -64,7 +64,7 @@ public abstract class TemplatePage extends WebPage {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		response.render(JavaScriptHeaderItem.forReference(Bootstrap.get()));
+		response.render(JavaScriptHeaderItem.forReference(Bootstrap.responsive()));
 		response.render(JavaScriptHeaderItem
 				.forReference(new JavaScriptResourceReference(
 						TemplatePage.class, TemplatePage.class.getSimpleName()

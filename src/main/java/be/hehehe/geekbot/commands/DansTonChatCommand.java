@@ -31,8 +31,8 @@ public class DansTonChatCommand {
 	@Trigger("!dtc")
 	public List<String> getRandom() {
 		List<String> list = Lists.newArrayList();
-		String xml = utilsService.getContent(API_URL);
 		try {
+			String xml = utilsService.getContent(API_URL);
 			Document doc = utilsService.parseXML(xml);
 			Element item = null;
 			for (Element element : doc.getRootElement().getChildren("item")) {

@@ -3,10 +3,7 @@ package be.hehehe.geekbot.bot;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -48,6 +45,9 @@ public class GeekBot extends PircBot {
 	GeekBotCDIExtension extension;
 
 	@Inject
+	CommandInvoker invoker;
+
+	@Inject
 	BundleService bundleService;
 
 	@Inject
@@ -60,12 +60,10 @@ public class GeekBot extends PircBot {
 	Instance<Object> container;
 
 	private ScheduledExecutorService scheduler;
-	private Map<Method, Object> instances;
 
 	@PostConstruct
 	public void init() {
 
-		instances = Collections.synchronizedMap(new HashMap<Method, Object>());
 		scheduler = Executors.newScheduledThreadPool(50);
 
 		botName = bundleService.getBotName();
@@ -288,12 +286,8 @@ public class GeekBot extends PircBot {
 		if (event == null) {
 			return;
 		}
-		Future<?> future = scheduler.submit(new Runnable() {
-			@Override
-			public void run() {
-				invoke(method, event);
-			}
-		});
+		Future<?> future = invoker.invoke(method, event);
+
 		try {
 			future.get(1, TimeUnit.MINUTES);
 		} catch (Exception e) {
@@ -303,35 +297,6 @@ public class GeekBot extends PircBot {
 							+ method.getName() + ": " + e.getMessage(), e);
 		}
 
-	}
-
-	private void invoke(Method method, Object... args) {
-
-		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
-				+ "#" + method.getName());
-
-		Object instance = instances.get(method);
-		if (instance == null) {
-			instance = container.select(method.getDeclaringClass()).get();
-			instances.put(method, instance);
-		}
-
-		final Object commandInstance = instance;
-
-		try {
-			Object result = null;
-			if (method.getParameterTypes().length == 0) {
-				result = method.invoke(commandInstance, new Object[0]);
-			} else {
-				result = method.invoke(commandInstance, args);
-			}
-			handleResultOfInvoke(result);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		log.debug("Done invoking: "
-				+ method.getDeclaringClass().getSimpleName() + "#"
-				+ method.getName());
 	}
 
 	private TriggerEvent buildEvent() {
@@ -361,7 +326,7 @@ public class GeekBot extends PircBot {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	private void handleResultOfInvoke(Object o) {
+	public void handleResultOfInvoke(Object o) {
 		if (o != null) {
 			if (o instanceof String) {
 				String message = (String) o;

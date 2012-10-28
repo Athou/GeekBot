@@ -289,7 +289,8 @@ public class GeekBot extends PircBot {
 		Future<?> future = invoker.invoke(method, event);
 
 		try {
-			future.get(1, TimeUnit.MINUTES);
+			Object result = future.get(1, TimeUnit.MINUTES);
+			handleResultOfInvoke(result);
 		} catch (Exception e) {
 			log.error(
 					"Error while invoking method "

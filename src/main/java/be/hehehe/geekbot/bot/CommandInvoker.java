@@ -50,4 +50,5 @@ public class CommandInvoker {
 				+ method.getName());
 		return new AsyncResult<Object>(result);
 	}
+
 }

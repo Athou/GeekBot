@@ -25,7 +25,6 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
 import be.hehehe.geekbot.annotations.RandomAction;
-import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
@@ -46,6 +45,9 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	CommandInvoker invoker;
+	
+	@Inject
+	TimerInvoker timerInvoker;
 
 	@Inject
 	BundleService bundleService;
@@ -77,7 +79,7 @@ public class GeekBot extends PircBot {
 			// scan for commands
 			triggers = extension.getTriggers();
 			randoms = extension.getRandoms();
-			startTimers(extension.getTimers());
+			timerInvoker.setTimers(extension.getTimers());
 
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
@@ -92,7 +94,6 @@ public class GeekBot extends PircBot {
 				log.info("Connecting to " + server + " on port " + port);
 				this.connect(server, port);
 				this.joinChannel(channel);
-				startChangeNickThread();
 			}
 
 		} catch (Exception e) {
@@ -103,38 +104,6 @@ public class GeekBot extends PircBot {
 	@PreDestroy
 	public void destroy() {
 		sendMessage("brb, reboot");
-	}
-
-	private void startTimers(List<Method> timers) {
-		for (final Method method : timers) {
-			int interval = method.getAnnotation(TimedAction.class).value();
-			TimeUnit timeUnit = method.getAnnotation(TimedAction.class)
-					.timeUnit();
-			Runnable thread = new Runnable() {
-				@Override
-				public void run() {
-					try {
-						invokeTrigger(method, buildEvent());
-					} catch (Exception e) {
-						log.error(e.getMessage(), e);
-					}
-				}
-			};
-			scheduler.scheduleAtFixedRate(thread, 60,
-					timeUnit.toSeconds(interval), TimeUnit.SECONDS);
-		}
-	}
-
-	private void startChangeNickThread() {
-		Runnable thread = new Runnable() {
-			@Override
-			public void run() {
-				if (!StringUtils.equals(botName, getNick())) {
-					changeNick(botName);
-				}
-			}
-		};
-		scheduler.scheduleAtFixedRate(thread, 1, 1, TimeUnit.MINUTES);
 	}
 
 	@Override
@@ -280,6 +249,10 @@ public class GeekBot extends PircBot {
 			}
 		}
 		return nickInMessage;
+	}
+	
+	public void invokeTrigger(final Method method) {
+		invokeTrigger(method, buildEvent());
 	}
 
 	private void invokeTrigger(final Method method, final TriggerEvent event) {

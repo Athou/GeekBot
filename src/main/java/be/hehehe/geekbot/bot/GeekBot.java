@@ -75,6 +75,10 @@ public class GeekBot {
 
 		botName = bundleService.getBotName();
 		channel = bundleService.getChannel();
+		
+		triggers = extension.getTriggers();
+		randoms = extension.getRandoms();
+		setTimers(extension.getTimers());
 
 		String server = bundleService.getServer();
 		int port = bundleService.getPort();

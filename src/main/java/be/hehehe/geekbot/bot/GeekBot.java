@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -12,10 +13,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,11 +27,14 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
 import be.hehehe.geekbot.annotations.RandomAction;
+import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
+
+import com.google.common.collect.Maps;
 
 @Singleton
 public class GeekBot extends PircBot {
@@ -45,9 +50,6 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	CommandInvoker invoker;
-	
-	@Inject
-	TimerInvoker timerInvoker;
 
 	@Inject
 	BundleService bundleService;
@@ -62,6 +64,7 @@ public class GeekBot extends PircBot {
 	Instance<Object> container;
 
 	private ScheduledExecutorService scheduler;
+	private Map<Method, Long> timers = Maps.newConcurrentMap();
 
 	@PostConstruct
 	public void init() {
@@ -79,7 +82,7 @@ public class GeekBot extends PircBot {
 			// scan for commands
 			triggers = extension.getTriggers();
 			randoms = extension.getRandoms();
-			timerInvoker.setTimers(extension.getTimers());
+			setTimers(extension.getTimers());
 
 			// set parameters and connect to IRC
 			this.setMessageDelay(2000);
@@ -104,6 +107,28 @@ public class GeekBot extends PircBot {
 	@PreDestroy
 	public void destroy() {
 		sendMessage("brb, reboot");
+	}
+
+	public void setTimers(List<Method> methods) {
+		Long now = System.currentTimeMillis();
+		for (Method method : methods) {
+			timers.put(method, now);
+		}
+	}
+
+	@Schedule(hour = "*", minute = "*", persistent = false)
+	public void timer() {
+		Long now = System.currentTimeMillis();
+		for (final Method method : timers.keySet()) {
+			int interval = method.getAnnotation(TimedAction.class).value();
+			TimeUnit timeUnit = method.getAnnotation(TimedAction.class)
+					.timeUnit();
+
+			if (now - timers.get(method) > timeUnit.toMillis(interval)) {
+				invokeTrigger(method);
+			}
+
+		}
 	}
 
 	@Override
@@ -250,7 +275,7 @@ public class GeekBot extends PircBot {
 		}
 		return nickInMessage;
 	}
-	
+
 	public void invokeTrigger(final Method method) {
 		invokeTrigger(method, buildEvent());
 	}

@@ -23,7 +23,6 @@ import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
 import be.hehehe.geekbot.annotations.RandomAction;
@@ -31,13 +30,14 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
+import be.hehehe.geekbot.bot.IRCBot.MessageListener;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 
 import com.google.common.collect.Maps;
 
 @Singleton
-public class GeekBot extends PircBot {
+public class GeekBot {
 
 	private String botName;
 
@@ -47,6 +47,8 @@ public class GeekBot extends PircBot {
 
 	@Inject
 	GeekBotCDIExtension extension;
+
+	private IRCBot bot;
 
 	@Inject
 	CommandInvoker invoker;
@@ -77,30 +79,17 @@ public class GeekBot extends PircBot {
 		String server = bundleService.getServer();
 		int port = bundleService.getPort();
 		boolean connect = !bundleService.isTest();
-		try {
 
-			// scan for commands
-			triggers = extension.getTriggers();
-			randoms = extension.getRandoms();
-			setTimers(extension.getTimers());
+		if (connect) {
+			bot = new IRCBot(server, port, botName, channel,
+					new MessageListener() {
 
-			// set parameters and connect to IRC
-			this.setMessageDelay(2000);
-			this.setVersion("GeekBot - https://github.com/Athou/GeekBot");
-			this.setName(botName);
-			this.setLogin(botName);
-			this.setVerbose(true);
-			this.setAutoNickChange(true);
-			this.setEncoding("ISO-8859-1");
-			this.setFinger(botName);
-			if (connect) {
-				log.info("Connecting to " + server + " on port " + port);
-				this.connect(server, port);
-				this.joinChannel(channel);
-			}
-
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+						@Override
+						public void onMessage(String channel, String sender,
+								String login, String hostname, String message) {
+							handlePossibleTrigger(message, sender);
+						}
+					});
 		}
 	}
 
@@ -128,38 +117,6 @@ public class GeekBot extends PircBot {
 				timers.put(method, now);
 				invokeTrigger(method);
 			}
-		}
-	}
-
-	@Override
-	protected void onMessage(String channel, String sender, String login,
-			String hostname, String message) {
-
-		handlePossibleTrigger(message, sender);
-	}
-
-	@Override
-	protected void onDisconnect() {
-		while (!isConnected()) {
-			try {
-				Thread.sleep(10000);
-				this.reconnect();
-				this.joinChannel(channel);
-			} catch (Exception e) {
-				log.error("Could not reconnect", e);
-			}
-		}
-	}
-
-	/**
-	 * Try to rejoin channel when kicked
-	 */
-	@Override
-	protected void onKick(String channel, String kickerNick,
-			String kickerLogin, String kickerHostname, String recipientNick,
-			String reason) {
-		if (recipientNick.equals(botName)) {
-			this.joinChannel(channel);
 		}
 	}
 
@@ -263,7 +220,7 @@ public class GeekBot extends PircBot {
 		boolean nickInMessage = false;
 		if (message != null) {
 			String[] split = message.split(" ");
-			for (User user : getUsers(channel)) {
+			for (User user : bot.getUsers(channel)) {
 				for (String token : split) {
 					if (token.equalsIgnoreCase(user.getNick())
 							|| token.equalsIgnoreCase(user.getNick() + ":")) {
@@ -306,7 +263,7 @@ public class GeekBot extends PircBot {
 	private TriggerEvent buildEvent(String message, String author,
 			String trigger) {
 		Collection<String> users = CollectionUtils.collect(
-				Arrays.asList(getUsers(channel)),
+				Arrays.asList(bot.getUsers(channel)),
 				new BeanToPropertyValueTransformer("nick"));
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
 				users, utilsService.extractURL(message),
@@ -352,10 +309,10 @@ public class GeekBot extends PircBot {
 		int limit = 400;
 		while (message.length() > limit) {
 			int lastSpace = message.substring(0, limit).lastIndexOf(' ');
-			sendMessage(channel, message.substring(0, lastSpace));
+			bot.sendMessage(channel, message.substring(0, lastSpace));
 			message = message.substring(lastSpace + 1);
 		}
-		sendMessage(channel, message);
+		bot.sendMessage(channel, message);
 	}
 
 	@Produces

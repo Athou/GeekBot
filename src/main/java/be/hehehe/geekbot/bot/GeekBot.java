@@ -125,9 +125,9 @@ public class GeekBot extends PircBot {
 					.timeUnit();
 
 			if (now - timers.get(method) > timeUnit.toMillis(interval)) {
+				timers.put(method, now);
 				invokeTrigger(method);
 			}
-
 		}
 	}
 

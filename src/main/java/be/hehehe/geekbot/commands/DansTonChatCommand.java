@@ -48,7 +48,7 @@ public class DansTonChatCommand {
 			for (String line : content.split(SystemUtils.LINE_SEPARATOR)) {
 				list.add(line);
 			}
-			list.add(IRCUtils.bold("LOL")
+			list.add(IRCUtils.bold("LOL je sé pa ékrir MDR")
 					+ String.format(" (+%s/-%s)", upvote, downvote));
 		} catch (Exception e) {
 			list.add("Could not contact DTC.");

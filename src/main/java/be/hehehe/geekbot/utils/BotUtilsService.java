@@ -148,7 +148,6 @@ public class BotUtilsService {
 			result = url + " [Size: " + size + " kb]";
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			result = e.getMessage();
 		} finally {
 			IOUtils.closeQuietly(wr);
 			IOUtils.closeQuietly(is);

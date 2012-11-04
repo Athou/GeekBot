@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import org.jsoup.nodes.Element;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -49,10 +49,13 @@ public class NeufBlagueCommand {
 			String title = document.select("[property=og:title]").first()
 					.attr("content");
 
-			Elements imgElement = document.select("img.img-wrap");
+			Element imgElement = document.select(".img-wrap img").first();
 			if (imgElement != null) {
 				String imgSrc = imgElement.attr("src");
-				location = utilsService.mirrorImage(imgSrc);
+				String imgur = utilsService.mirrorImage(imgSrc);
+				if (imgur != null) {
+					location = imgur;
+				}
 			}
 
 			result = IRCUtils.bold("9Blague ! ") + title + " " + " - "

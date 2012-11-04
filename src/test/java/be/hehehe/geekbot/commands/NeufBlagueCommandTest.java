@@ -18,6 +18,7 @@ public class NeufBlagueCommandTest extends ArquillianTest {
 	@Test
 	public void test() throws IOException {
 		String string = command.lol();
+		System.out.println(string);
 		Assert.assertTrue(StringUtils.isNotBlank(string));
 	}
 }

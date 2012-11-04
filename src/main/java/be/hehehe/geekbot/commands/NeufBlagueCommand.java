@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -25,6 +26,11 @@ public class NeufBlagueCommand {
 	@Inject
 	BotUtilsService utilsService;
 
+	@Trigger("!9blague")
+	public String lol2() {
+		return lol();
+	}
+
 	@Trigger("!9")
 	public String lol() {
 		String result = null;
@@ -38,10 +44,16 @@ public class NeufBlagueCommand {
 			connection.connect();
 			String location = connection.getHeaderField("Location");
 
-			String content = new BotUtilsService().getContent(location);
+			String content = utilsService.getContent(location);
 			Document document = Jsoup.parse(content);
 			String title = document.select("[property=og:title]").first()
 					.attr("content");
+
+			Elements imgElement = document.select("img.img-wrap");
+			if (imgElement != null) {
+				String imgSrc = imgElement.attr("src");
+				location = utilsService.mirrorImage(imgSrc);
+			}
 
 			result = IRCUtils.bold("9Blague ! ") + title + " " + " - "
 					+ location;

@@ -66,17 +66,11 @@ public class MemeCommand {
 		generators.add(new Generator("305", "84688"));
 		// yo dawg
 		generators.add(new Generator("79", "108785"));
-		// all your base are belong to us
-		generators.add(new Generator("349058", "2079825"));
-		// fuck you
-		generators.add(new Generator("1189472", "5044147"));
-		// You're gonna have a bad time
-		generators.add(new Generator("825296", "3786537"));
 		// one does not simply
 		generators.add(new Generator("274947", "1865027"));
 		// nailed it
 		generators.add(new Generator("121", "1031"));
-		// to damn
+		// too damn
 		generators.add(new Generator("998", "203665"));
 
 		addPopular();

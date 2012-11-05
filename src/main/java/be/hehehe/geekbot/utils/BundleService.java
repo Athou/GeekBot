@@ -75,6 +75,14 @@ public class BundleService {
 		return getValue("vdm.apikey");
 	}
 
+	public String getMemeGeneratorLogin() {
+		return getValue("meme.login");
+	}
+
+	public String getMemeGeneratorPassword() {
+		return getValue("meme.password");
+	}
+
 	public String getWebServerRootPath() {
 		String host = getValue("webserver.hostname");
 		if (host.endsWith("/")) {

@@ -24,3 +24,7 @@ imgur.apikey=
 
 # VDM api key
 vdm.apikey=
+
+# MemeGenerator config
+meme.login=
+meme.password=

@@ -73,13 +73,13 @@ public class MemeCommand {
 
 			String text0 = phrase.getText0();
 			if (phrase.isReplace0()) {
-				text0 = String.format(text0, dao.getRandom().getValue());
+				text0 = String.format(text0, getRandomString());
 			}
 			text0 = URLEncoder.encode(text0, "UTF-8");
 
 			String text1 = phrase.getText1();
 			if (phrase.isReplace1()) {
-				text1 = String.format(text1, dao.getRandom().getValue());
+				text1 = String.format(text1, getRandomString());
 			}
 			text1 = URLEncoder.encode(text1, "UTF-8");
 
@@ -104,6 +104,10 @@ public class MemeCommand {
 			result = e.getMessage();
 		}
 		return result;
+	}
+
+	private String getRandomString() {
+		return utilsService.stripAccents(dao.getRandom().getValue());
 	}
 
 	private class Phrase {

@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.commands;
 
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +22,7 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.QuizzDAO;
 import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
+import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
@@ -43,6 +43,9 @@ public class QuizzCommand {
 
 	@Inject
 	BundleService bundleService;
+
+	@Inject
+	BotUtilsService utilsService;
 
 	@Inject
 	QuizzDAO dao;
@@ -272,7 +275,8 @@ public class QuizzCommand {
 	private String normalize(String source) {
 		source = source.replace("L'", "");
 		source = source.replace("l'", "");
-		source = StringUtils.trimToEmpty(stripAccents(source)).toUpperCase();
+		source = StringUtils.trimToEmpty(utilsService.stripAccents(source))
+				.toUpperCase();
 
 		List<String> dest = Lists.newArrayList();
 		for (String word : Arrays.asList(source.split(" "))) {
@@ -288,12 +292,6 @@ public class QuizzCommand {
 			}
 		}
 		return StringUtils.join(dest, " ");
-	}
-
-	private String stripAccents(String source) {
-		source = Normalizer.normalize(source, Normalizer.Form.NFD);
-		source = source.replaceAll("[\u0300-\u036F]", "");
-		return source;
 	}
 
 	@SuppressWarnings("unchecked")

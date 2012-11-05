@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.Map;
 
@@ -255,5 +256,11 @@ public class BotUtilsService {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(new StringReader(xml));
 		return doc;
+	}
+	
+	public String stripAccents(String source) {
+		source = Normalizer.normalize(source, Normalizer.Form.NFD);
+		source = source.replaceAll("[\u0300-\u036F]", "");
+		return source;
 	}
 }

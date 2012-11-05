@@ -119,7 +119,7 @@ public class MemeCommand {
 		if (StringUtils.isBlank(message)) {
 			result = generateWithoutArgument();
 		} else if (tokens.length == 1) {
-			result = generate(tokens[0], tokens[0]);
+			result = generate(tokens[0], null);
 		} else if (tokens.length > 1) {
 			result = generate(tokens[0], tokens[1]);
 		}

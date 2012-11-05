@@ -110,23 +110,33 @@ public class MemeCommand {
 
 	@Trigger(type = TriggerType.STARTSWITH, value = "!meme")
 	public String generateWithArgument(TriggerEvent event) {
-		return generate(event.getMessage());
+		String result = null;
+
+		String message = event.getMessage();
+		String[] tokens = message.split(" ");
+
+		if (tokens.length > 2) {
+			result = generate(tokens[0], tokens[1]);
+		} else {
+			result = generateWithoutArgument();
+		}
+		return result;
 	}
 
 	@Trigger("!meme")
 	public String generateWithoutArgument() {
-		return generate(null);
+		return generate(null, null);
 	}
 
-	public String generate(String like) {
+	public String generate(String term1, String term2) {
 		String result = null;
 
 		try {
 			int index = random.nextInt(generators.size());
 			Generator generator = generators.get(index);
 
-			String text0 = getRandomText(like);
-			String text1 = getRandomText(like);
+			String text0 = getRandomText(term1);
+			String text1 = getRandomText(term2);
 
 			String generatorId = generator.getGeneratorId();
 			String imageId = generator.getImageId();

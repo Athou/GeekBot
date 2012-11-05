@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 public class MemeCommand {
 
 	private static final String CREATE_URL = "http://version1.api.memegenerator.net/Instance_Create?username=%s&password=%s&languageCode=en&generatorID=%s&imageID=%s&text0=%s&text1=%s";
-	private static final String POPULAR_GENERATORS = "http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=0&pageSize=24&days=7";
+	private static final String POPULAR_GENERATORS = "http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=0&pageSize=24&days=3";
 
 	@Inject
 	Logger log;
@@ -100,7 +100,7 @@ public class MemeCommand {
 		}
 	}
 
-	@TimedAction(value = 1, timeUnit = TimeUnit.HOURS)
+	@TimedAction(value = 6, timeUnit = TimeUnit.HOURS)
 	private void refreshGenerators() {
 		generators.clear();
 		init();

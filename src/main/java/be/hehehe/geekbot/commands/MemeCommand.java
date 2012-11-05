@@ -150,7 +150,7 @@ public class MemeCommand {
 			JSONObject resultObject = json.getJSONObject("result");
 			String instanceImageUrl = resultObject
 					.getString("instanceImageUrl");
-			instanceImageUrl.replace("400x", "800x");
+			instanceImageUrl = instanceImageUrl.replace("400x", "800x");
 			result = instanceImageUrl;
 			String imgur = utilsService.mirrorImage(result);
 			if (imgur != null) {

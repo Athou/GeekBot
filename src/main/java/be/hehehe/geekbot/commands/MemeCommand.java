@@ -32,7 +32,7 @@ import com.google.common.collect.Lists;
 public class MemeCommand {
 
 	private static final String CREATE_URL = "http://version1.api.memegenerator.net/Instance_Create?username=%s&password=%s&languageCode=en&generatorID=%s&imageID=%s&text0=%s&text1=%s";
-	private static final String POPULAR_GENERATORS = "http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=0&pageSize=24&days=3";
+	private static final String POPULAR_GENERATORS = "http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=%d&pageSize=24&days=3";
 
 	@Inject
 	Logger log;
@@ -74,12 +74,15 @@ public class MemeCommand {
 		// too damn
 		generators.add(new Generator("998", "203665"));
 
-		addPopular();
+		for (int i = 0; i < 6; i++) {
+			addPopular(i);
+		}
 	}
 
-	private void addPopular() {
+	private void addPopular(int index) {
 		try {
-			String content = utilsService.getContent(POPULAR_GENERATORS);
+			String content = utilsService.getContent(String.format(
+					POPULAR_GENERATORS, index));
 			JSONObject json = new JSONObject(content);
 			JSONArray results = json.getJSONArray("result");
 			for (int i = 0; i < results.length(); i++) {
@@ -98,7 +101,7 @@ public class MemeCommand {
 		}
 	}
 
-	@TimedAction(value = 6, timeUnit = TimeUnit.HOURS)
+	@TimedAction(value = 24, timeUnit = TimeUnit.HOURS)
 	private void refreshGenerators() {
 		generators.clear();
 		init();

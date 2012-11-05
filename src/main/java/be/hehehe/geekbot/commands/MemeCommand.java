@@ -21,6 +21,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
+import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -167,7 +168,11 @@ public class MemeCommand {
 		String text = null;
 
 		if (like != null) {
-			text = dao.getRandomMatching(like.split(" ")).getValue();
+			Connerie connerie = dao.getRandomMatching(like.split(" "));
+			if (connerie != null) {
+				text = connerie.getValue();
+			}
+
 		}
 
 		if (text == null) {

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -115,12 +116,12 @@ public class MemeCommand {
 		String message = event.getMessage();
 		String[] tokens = message.split(" ");
 
-		if (tokens.length == 1) {
-			result = generate(tokens[0], tokens[0]);
-		} else if (tokens.length > 2) {
-			result = generate(tokens[0], tokens[1]);
-		} else {
+		if (StringUtils.isBlank(message)) {
 			result = generateWithoutArgument();
+		} else if (tokens.length == 1) {
+			result = generate(tokens[0], tokens[0]);
+		} else if (tokens.length > 1) {
+			result = generate(tokens[0], tokens[1]);
 		}
 		return result;
 	}

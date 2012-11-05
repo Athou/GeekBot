@@ -146,7 +146,7 @@ public class BotUtilsService {
 			node = node.getJSONObject("image");
 			Long size = node.getLong("size");
 			size = size / 1000;
-			result = url + " [Size: " + size + " kb]";
+			result = url;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {
@@ -257,7 +257,7 @@ public class BotUtilsService {
 		Document doc = builder.build(new StringReader(xml));
 		return doc;
 	}
-	
+
 	public String stripAccents(String source) {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
 		source = source.replaceAll("[\u0300-\u036F]", "");

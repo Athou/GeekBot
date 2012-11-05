@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
@@ -106,16 +108,25 @@ public class MemeCommand {
 		init();
 	}
 
+	@Trigger(type = TriggerType.STARTSWITH, value = "!meme")
+	public String generateWithArgument(TriggerEvent event) {
+		return generate(event.getMessage());
+	}
+
 	@Trigger("!meme")
-	public String generate() {
+	public String generateWithoutArgument() {
+		return generate(null);
+	}
+
+	public String generate(String like) {
 		String result = null;
 
 		try {
 			int index = random.nextInt(generators.size());
 			Generator generator = generators.get(index);
 
-			String text0 = getRandomText();
-			String text1 = getRandomText();
+			String text0 = getRandomText(like);
+			String text1 = getRandomText(like);
 
 			String generatorId = generator.getGeneratorId();
 			String imageId = generator.getImageId();
@@ -132,7 +143,12 @@ public class MemeCommand {
 			JSONObject resultObject = json.getJSONObject("result");
 			String instanceImageUrl = resultObject
 					.getString("instanceImageUrl");
+			instanceImageUrl.replace("400x", "800x");
 			result = instanceImageUrl;
+			String imgur = utilsService.mirrorImage(result);
+			if (imgur != null) {
+				result = imgur;
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			result = e.getMessage();
@@ -140,8 +156,17 @@ public class MemeCommand {
 		return IRCUtils.bold("10blague! ") + result;
 	}
 
-	private String getRandomText() {
-		String text = utilsService.stripAccents(dao.getRandom().getValue());
+	private String getRandomText(String like) {
+		String text = null;
+
+		if (like != null) {
+			text = dao.getRandomMatching(like.split(" ")).getValue();
+		}
+
+		if (text == null) {
+			text = dao.getRandom().getValue();
+		}
+		text = utilsService.stripAccents(text);
 		try {
 			text = URLEncoder.encode(text, "UTF-8");
 		} catch (UnsupportedEncodingException e) {

@@ -115,7 +115,9 @@ public class MemeCommand {
 		String message = event.getMessage();
 		String[] tokens = message.split(" ");
 
-		if (tokens.length > 2) {
+		if (tokens.length == 1) {
+			result = generate(tokens[0], tokens[0]);
+		} else if (tokens.length > 2) {
 			result = generate(tokens[0], tokens[1]);
 		} else {
 			result = generateWithoutArgument();

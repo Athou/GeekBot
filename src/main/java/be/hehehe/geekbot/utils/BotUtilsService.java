@@ -7,6 +7,9 @@ import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.Date;
 import java.util.Map;
@@ -262,5 +265,21 @@ public class BotUtilsService {
 		source = Normalizer.normalize(source, Normalizer.Form.NFD);
 		source = source.replaceAll("[\u0300-\u036F]", "");
 		return source;
+	}
+
+	public String utf8ToIso88591(String input) {
+		if (input.contains("Ã") || input.contains("©")) {
+			Charset utf8charset = Charset.forName("UTF-8");
+			Charset iso88591charset = Charset.forName("ISO-8859-1");
+
+			ByteBuffer inputBuffer = ByteBuffer.wrap(input.getBytes());
+			CharBuffer data = utf8charset.decode(inputBuffer);
+
+			ByteBuffer outputBuffer = iso88591charset.encode(data);
+			byte[] outputData = outputBuffer.array();
+			return new String(outputData);
+		} else {
+			return input;
+		}
 	}
 }

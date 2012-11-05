@@ -179,6 +179,7 @@ public class MemeCommand {
 		if (text == null) {
 			text = dao.getRandom().getValue();
 		}
+		text = utilsService.utf8ToIso88591(text);
 		text = utilsService.stripAccents(text);
 		try {
 			text = URLEncoder.encode(text, "UTF-8");

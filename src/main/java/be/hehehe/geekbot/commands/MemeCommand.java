@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
@@ -112,14 +113,14 @@ public class MemeCommand {
 		String result = null;
 
 		String message = event.getMessage();
-		String[] tokens = message.split(" ");
+		List<String> tokens = getTokens(message);
 
 		if (StringUtils.isBlank(message)) {
 			result = generateWithoutArgument();
-		} else if (tokens.length == 1) {
-			result = generate(tokens[0], null);
-		} else if (tokens.length > 1) {
-			result = generate(tokens[0], tokens[1]);
+		} else if (tokens.size() == 1) {
+			result = generate(tokens.get(0), null);
+		} else if (tokens.size() > 1) {
+			result = generate(tokens.get(0), tokens.get(1));
 		}
 		return result;
 	}
@@ -175,7 +176,6 @@ public class MemeCommand {
 			if (connerie != null) {
 				text = connerie.getValue();
 			}
-
 		}
 
 		if (text == null) {
@@ -189,6 +189,21 @@ public class MemeCommand {
 			// do nothing
 		}
 		return text;
+	}
+
+	private List<String> getTokens(String message) {
+		List<String> list = Lists.newArrayList();
+		String regex = "\"([^\"]*)\"|(\\S+)";
+
+		Matcher m = Pattern.compile(regex).matcher(message);
+		while (m.find()) {
+			if (m.group(1) != null) {
+				list.add(m.group(1));
+			} else {
+				list.add(m.group(2));
+			}
+		}
+		return list;
 	}
 
 	private class Generator {

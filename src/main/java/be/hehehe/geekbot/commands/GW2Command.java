@@ -25,7 +25,7 @@ public class GW2Command {
 	@Inject
 	BotUtilsService utilsService;
 
-	@Trigger("!score")
+	@Trigger("!rvr")
 	public List<String> millenium() {
 		List<String> list = Lists.newArrayList();
 

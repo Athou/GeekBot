@@ -83,14 +83,18 @@ public class GeekBot {
 
 		try {
 			for (String channel : channels) {
-				String[] classes = bundleService.getValue(
-						"channel.command." + channel.replace("#", "")).split(
-						",");
-				List<Class<?>> list = Lists.newArrayList();
-				for (String className : classes) {
-					list.add(Class.forName(className));
+				String property = bundleService.getValue("channel.command."
+						+ channel.replace("#", ""));
+				String[] classes = property.split(",");
+				if ("ALL".equals(property)) {
+					channelCommands.put(channel, ALL);
+				} else {
+					List<Class<?>> list = Lists.newArrayList();
+					for (String className : classes) {
+						list.add(Class.forName(className));
+					}
+					channelCommands.put(channel, list);
 				}
-				channelCommands.put(channel, list);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e.getMessage(), e);

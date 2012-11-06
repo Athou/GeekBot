@@ -2,7 +2,10 @@ package be.hehehe.geekbot.utils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -47,8 +50,8 @@ public class BundleService {
 		return getValue("botname");
 	}
 
-	public String getChannel() {
-		return getValue("channel");
+	public List<String> getChannels() {
+		return Arrays.asList(getValue("channels").split(Pattern.quote(",")));
 	}
 
 	public String getServer() {
@@ -99,7 +102,7 @@ public class BundleService {
 		return "true".equals(getValue("test"));
 	}
 
-	private String getValue(String key) {
+	public String getValue(String key) {
 		return props.getProperty(key, null);
 	}
 

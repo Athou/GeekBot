@@ -1,5 +1,7 @@
 package be.hehehe.geekbot.bot;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.jibble.pircbot.PircBot;
 
@@ -8,15 +10,15 @@ public class IRCBot extends PircBot {
 	private static Logger log = Logger.getLogger(IRCBot.class);
 
 	private String botName;
-	private String channel;
+	private List<String> channels;
 
 	private MessageListener listener;
 
-	public IRCBot(String server, int port, String botName, String channel,
-			MessageListener messageListener) {
+	public IRCBot(String server, int port, String botName,
+			List<String> channels, MessageListener messageListener) {
 		try {
 			this.botName = botName;
-			this.channel = channel;
+			this.channels = channels;
 			this.listener = messageListener;
 			log.info("Connecting to " + server + " on port " + port);
 			setMessageDelay(2000);
@@ -28,7 +30,7 @@ public class IRCBot extends PircBot {
 			setEncoding("ISO-8859-1");
 			setFinger(botName);
 			connect(server, port);
-			joinChannel(channel);
+			rejoin();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -46,11 +48,17 @@ public class IRCBot extends PircBot {
 		while (!isConnected()) {
 			try {
 				Thread.sleep(10000);
-				this.reconnect();
-				this.joinChannel(channel);
+				reconnect();
+				rejoin();
 			} catch (Exception e) {
 				log.error("Could not reconnect", e);
 			}
+		}
+	}
+
+	private void rejoin() {
+		for (String channel : channels) {
+			joinChannel(channel);
 		}
 	}
 

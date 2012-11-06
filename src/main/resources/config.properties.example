@@ -9,7 +9,9 @@ server=irc.quakenet.org
 port=8080
 
 # Channel to join
-channel=\#botchannel
+channels=\#botchannel,\#botchannel2
+channel.command.botchannel=ALL
+channel.command.botchannel2=be.hehehe.geekbot.commands.GoogleCommand,be.hehehe.geekbot.commands.BlagueCommand
 
 # Web settings
 webserver.hostname = http://hostname.com/path/

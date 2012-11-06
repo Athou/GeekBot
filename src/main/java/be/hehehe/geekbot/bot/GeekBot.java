@@ -85,11 +85,11 @@ public class GeekBot {
 			for (String channel : channels) {
 				String property = bundleService.getValue("channel.command."
 						+ channel.replace("#", ""));
-				String[] classes = property.split(",");
 				if ("ALL".equals(property)) {
 					channelCommands.put(channel, ALL);
 				} else {
 					List<Class<?>> list = Lists.newArrayList();
+					String[] classes = property.split(",");
 					for (String className : classes) {
 						list.add(Class.forName(className));
 					}

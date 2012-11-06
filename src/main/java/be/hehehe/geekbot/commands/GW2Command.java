@@ -1,6 +1,7 @@
 package be.hehehe.geekbot.commands;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,45 +47,44 @@ public class GW2Command {
 	}
 
 	private void handleRow(List<String> list, Element tr) {
-		List<StringBuilder> strings = Arrays.asList(new StringBuilder(),
-				new StringBuilder(), new StringBuilder());
+		List<ServerScore> serverScores = Arrays.asList(new ServerScore(),
+				new ServerScore(), new ServerScore());
 		Elements tds = tr.select("td");
 
-		// #
-		Element td = tds.get(0);
-		List<TextNode> indexes = td.textNodes();
+		// rank
+		Element td = tds.get(1);
+		Elements ranks = td.select("span.badge");
 		for (int i = 0; i < 3; i++) {
-			strings.get(i).append(indexes.get(i));
+			serverScores.get(i).setRank(
+					Integer.parseInt(ranks.get(i).ownText()));
 		}
 
 		// Server name
-		td = tds.get(1);
 		Elements serverNames = td.select("a");
 		for (int i = 0; i < 3; i++) {
-			strings.get(i).append(serverNames.get(i).text());
-			strings.get(i).append(" ");
+			serverScores.get(i).setName(serverNames.get(i).text().trim());
 		}
 
 		// current score
 		td = tds.get(2);
 		Elements scores = td.select("b");
 		for (int i = 0; i < 3; i++) {
-			strings.get(i).append(scores.get(i).text().replace(" ", "."));
-			strings.get(i).append(" ");
+			serverScores.get(i).setScore(
+					scores.get(i).text().replace(" ", ".").trim());
 		}
 
 		// income
 		td = tds.get(3);
 		List<TextNode> incomes = td.textNodes();
 		for (int i = 0; i < 3; i++) {
-			strings.get(i).append("(");
-			strings.get(i).append(incomes.get(i).toString().trim());
-			strings.get(i).append(") ");
+			serverScores.get(i).setIncome(incomes.get(i).toString().trim());
 		}
 
-		for (StringBuilder sb : strings) {
-			list.add(sb.toString());
+		for (ServerScore score : serverScores) {
+			list.add(score.toString());
 		}
+
+		Collections.sort(list);
 
 		// last updated
 		td = tds.get(7);
@@ -95,6 +95,49 @@ public class GW2Command {
 				.trim());
 		last.append(" --");
 		list.add(last.toString());
+
+	}
+
+	private class ServerScore implements Comparable<ServerScore> {
+		private int rank;
+		private String name;
+		private String score;
+		private String income;
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(rank);
+			sb.append(". ");
+			sb.append(name);
+			sb.append(" ");
+			sb.append(score);
+			sb.append(" (");
+			sb.append(income);
+			sb.append(")");
+			return sb.toString();
+		}
+
+		public void setRank(int rank) {
+			this.rank = rank;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public void setScore(String score) {
+			this.score = score;
+		}
+
+		public void setIncome(String income) {
+			this.income = income;
+		}
+
+		@Override
+		public int compareTo(ServerScore o) {
+			return rank - o.rank;
+		}
 
 	}
 }

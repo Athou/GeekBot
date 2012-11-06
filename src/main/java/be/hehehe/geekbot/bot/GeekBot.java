@@ -86,14 +86,14 @@ public class GeekBot {
 				String property = bundleService.getValue("channel.command."
 						+ channel.replace("#", ""));
 				if ("ALL".equals(property)) {
-					channelCommands.put(channel, ALL);
+					channelCommands.put(channel.toUpperCase(), ALL);
 				} else {
 					List<Class<?>> list = Lists.newArrayList();
 					String[] classes = property.split(",");
 					for (String className : classes) {
 						list.add(Class.forName(className));
 					}
-					channelCommands.put(channel, list);
+					channelCommands.put(channel.toUpperCase(), list);
 				}
 			}
 		} catch (ClassNotFoundException e) {
@@ -228,7 +228,7 @@ public class GeekBot {
 	}
 
 	private boolean isMethodAllowedToRun(String channel, Method method) {
-		List<Class<?>> commands = channelCommands.get(channel);
+		List<Class<?>> commands = channelCommands.get(channel.toUpperCase());
 		return commands != null
 				&& (commands == ALL || commands.contains(method
 						.getDeclaringClass()));

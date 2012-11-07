@@ -109,7 +109,6 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		CriteriaQuery<Connerie> query = builder.createQuery(getType());
 		Root<Connerie> root = query.from(Connerie.class);
 		Path<String> value = root.get("value");
-		query.from(getType());
 		if (maxLength > 0) {
 			query.where(builder.lessThan(builder.length(value), maxLength));
 		}

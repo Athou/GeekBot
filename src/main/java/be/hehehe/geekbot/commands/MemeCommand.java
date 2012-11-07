@@ -170,16 +170,18 @@ public class MemeCommand {
 
 	private String getRandomText(String like) {
 		String text = null;
+		int maxLength = 50;
 
 		if (like != null) {
-			Connerie connerie = dao.getRandomMatching(like.split(" "));
+			Connerie connerie = dao.getRandomMatching(maxLength,
+					like.split(" "));
 			if (connerie != null) {
 				text = connerie.getValue();
 			}
 		}
 
 		if (text == null) {
-			text = dao.getRandom().getValue();
+			text = dao.getRandom(maxLength).getValue();
 		}
 		text = utilsService.utf8ToIso88591(text);
 		text = utilsService.stripAccents(text);

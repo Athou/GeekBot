@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 
 import be.hehehe.geekbot.persistence.dao.QuizzDAO;
 import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
@@ -23,7 +24,6 @@ import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.persistence.model.QuizzMergeRequest;
 import be.hehehe.geekbot.persistence.model.QuizzPlayer;
 import be.hehehe.geekbot.web.components.ChosenBehavior;
-import be.hehehe.geekbot.web.utils.StringModel;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -44,8 +44,8 @@ public class QuizzMergePage extends TemplatePage {
 
 	private class SubmitForm extends Form<List<QuizzPlayer>> {
 
-		private StringModel giver = new StringModel();
-		private StringModel receiver = new StringModel();
+		private IModel<String> giver = new Model<String>();
+		private IModel<String> receiver = new Model<String>();
 
 		FeedbackPanel messages = new FeedbackPanel("messages");
 
@@ -76,7 +76,7 @@ public class QuizzMergePage extends TemplatePage {
 					"receiver", receiver, model);
 			receiverChoice.add(new ChosenBehavior());
 			add(receiverChoice);
-			
+
 			add(messages);
 		}
 

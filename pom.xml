@@ -228,6 +228,11 @@
 			<artifactId>wicket-cdi</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.lambdaj</groupId>
+			<artifactId>lambdaj</artifactId>
+			<version>2.3.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

@@ -61,7 +61,7 @@ public class QuoteCommand {
 	}
 
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
-	@Help("Prints a list of quotes matching the giben keywords.")
+	@Help("Prints a list of quotes matching the given keywords.")
 	public String findQuote(TriggerEvent event) {
 		List<String> keywordList = Arrays.asList(event.getMessage()
 				.split("[ ]"));

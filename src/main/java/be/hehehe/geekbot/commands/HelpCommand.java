@@ -49,7 +49,7 @@ public class HelpCommand {
 			}
 		}
 		result.add(StringUtils.join(set, " "));
-		result.add("See also: " + bundle.getWebServerRootPath() + "help");
+		result.add("See also: " + bundle.getWebServerRootPath() + "/help");
 		return result;
 	}
 

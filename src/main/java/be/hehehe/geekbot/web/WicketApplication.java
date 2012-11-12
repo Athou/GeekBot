@@ -26,6 +26,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		mountPage("login", LoginPage.class);
 		mountPage("logout", LogoutPage.class);
 
+		mountPage("help", HelpPage.class);
+		
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
 

@@ -15,6 +15,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.bot.TriggerEvent;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 import com.google.common.collect.Lists;
@@ -29,6 +30,9 @@ public class HelpCommand {
 	@Inject
 	@Triggers
 	List<Method> triggers;
+
+	@Inject
+	BundleService bundle;
 
 	@Trigger(value = "!help")
 	@Help("Prints all triggers.")
@@ -45,6 +49,7 @@ public class HelpCommand {
 			}
 		}
 		result.add(StringUtils.join(set, " "));
+		result.add("See also: " + bundle.getWebServerRootPath() + "help");
 		return result;
 	}
 

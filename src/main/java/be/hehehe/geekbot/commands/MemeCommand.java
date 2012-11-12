@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -109,6 +110,7 @@ public class MemeCommand {
 	}
 
 	@Trigger(type = TriggerType.STARTSWITH, value = "!meme")
+	@Help("Generates a meme using the first two arguments. e.g. !meme hello world, !meme \"hello world\" \"what's up?\").")
 	public String generateWithArgument(TriggerEvent event) {
 		String result = null;
 
@@ -126,6 +128,7 @@ public class MemeCommand {
 	}
 
 	@Trigger("!meme")
+	@Help("Randomly generates a meme")
 	public String generateWithoutArgument() {
 		return generate(null, null);
 	}

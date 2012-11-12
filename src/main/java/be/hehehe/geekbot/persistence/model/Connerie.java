@@ -14,13 +14,16 @@ public class Connerie {
 	private Long id;
 	@Column(length = 512)
 	private String value;
+	@Column(length = 32)
+	private String author;
 
 	public Connerie() {
 
 	}
 
-	public Connerie(String value) {
+	public Connerie(String author, String value) {
 		super();
+		this.author = author;
 		this.value = value;
 	}
 
@@ -39,4 +42,13 @@ public class Connerie {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
 }

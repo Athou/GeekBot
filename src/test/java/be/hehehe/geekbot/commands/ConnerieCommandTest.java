@@ -30,7 +30,7 @@ public class ConnerieCommandTest extends ArquillianTest {
 		String result = "blabla hello test blabla";
 		EasyMock.expect(
 				connerieCommand.dao.getRandomMatching(keywords.split(" ")))
-				.andReturn(new Connerie(result));
+				.andReturn(new Connerie("plap", result));
 		EasyMock.replay(connerieCommand.dao);
 		Assert.assertEquals(result,
 				connerieCommand.getRandQuote(new TriggerEventImpl(keywords)));

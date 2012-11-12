@@ -37,7 +37,7 @@ public class ConnerieCommand {
 			if (!event.isNickInMessage() && message.length() > 9
 					&& !message.contains("<") && !message.contains(">")
 					&& !event.isStartsWithTrigger()) {
-				Connerie connerie = new Connerie(message);
+				Connerie connerie = new Connerie(event.getAuthor(), message);
 				dao.save(connerie);
 			}
 		}

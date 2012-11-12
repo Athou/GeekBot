@@ -110,7 +110,7 @@ public class MemeCommand {
 	}
 
 	@Trigger(type = TriggerType.STARTSWITH, value = "!meme")
-	@Help("Generates a meme using the first two arguments. e.g. !meme hello world, !meme \"hello world\" \"what's up?\").")
+	@Help("Generates a meme using the first two arguments. e.g. !meme hello world, !meme \"hello world\" \"what's up?\".")
 	public String generateWithArgument(TriggerEvent event) {
 		String result = null;
 

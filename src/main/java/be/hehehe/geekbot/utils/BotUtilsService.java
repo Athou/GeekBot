@@ -269,7 +269,7 @@ public class BotUtilsService {
 		builder.appendSuffix(" second", " seconds");
 		PeriodFormatter formatter = builder.toFormatter();
 
-		return formatter.print(period) + " ago";
+		return formatter.print(period);
 	}
 
 	public HashAndByteCount calculateHashAndByteCount(String urlString) {

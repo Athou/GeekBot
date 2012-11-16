@@ -24,6 +24,10 @@ import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
@@ -234,12 +238,38 @@ public class BotUtilsService {
 	}
 
 	public String getTimeDifference(Date pastDate) {
-		long millis = System.currentTimeMillis() - pastDate.getTime();
-		long diffMins = (millis / (60 * 1000)) % 60;
-		long diffHours = (millis / (60 * 60 * 1000)) % 24;
-		long diffDays = millis / (24 * 60 * 60 * 1000);
-		return String.format("%d days %d hours %d minutes", diffDays,
-				diffHours, diffMins);
+		Period period = new Period(pastDate.getTime(),
+				System.currentTimeMillis());
+		period = period.normalizedStandard(PeriodType.yearMonthDayTime());
+
+		PeriodFormatterBuilder builder = new PeriodFormatterBuilder();
+		builder.printZeroNever();
+
+		builder.appendYears();
+		builder.appendSuffix(" year", " years");
+		builder.appendSeparator(" ");
+
+		builder.appendMonths();
+		builder.appendSuffix(" month", " months");
+		builder.appendSeparator(" ");
+
+		builder.appendDays();
+		builder.appendSuffix(" day", " days");
+		builder.appendSeparator(" ");
+
+		builder.appendHours();
+		builder.appendSuffix(" hour", " hours");
+		builder.appendSeparator(" ");
+
+		builder.appendMinutes();
+		builder.appendSuffix(" minute", " minutes");
+		builder.appendSeparator(" ");
+
+		builder.appendSeconds();
+		builder.appendSuffix(" second", " seconds");
+		PeriodFormatter formatter = builder.toFormatter();
+
+		return formatter.print(period) + " ago";
 	}
 
 	public HashAndByteCount calculateHashAndByteCount(String urlString) {

@@ -42,6 +42,11 @@ public class DansTonChatCommand {
 					break;
 				}
 			}
+			
+			if(item == null) {
+				throw new RuntimeException("No item found.");
+			}
+			
 			String content = item.getChildText("content");
 			String upvote = item.getChildText("vote_plus");
 			String downvote = item.getChildText("vote_minus");

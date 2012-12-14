@@ -2,9 +2,8 @@ package be.hehehe.geekbot.commands;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
 import org.easymock.EasyMock;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

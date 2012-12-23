@@ -45,18 +45,18 @@ public class HoroscopeCommand {
 		Map<String, String> mapping = state.get(Map.class);
 		if (mapping == null) {
 			mapping = Maps.newLinkedHashMap();
-			mapping.put("belier", "0");
-			mapping.put("taureau", "1");
-			mapping.put("gemeaux", "2");
-			mapping.put("cancer", "3");
-			mapping.put("lion", "4");
-			mapping.put("vierge", "5");
-			mapping.put("balance", "6");
-			mapping.put("scorpion", "7");
-			mapping.put("sagittaire", "8");
-			mapping.put("capricorne", "9");
-			mapping.put("verseau", "10");
-			mapping.put("poissons", "11");
+			mapping.put("belier", "bélier");
+			mapping.put("taureau", "taureau");
+			mapping.put("gemeaux", "gémeaux");
+			mapping.put("cancer", "cancer");
+			mapping.put("lion", "lion");
+			mapping.put("vierge", "vierge");
+			mapping.put("balance", "balance");
+			mapping.put("scorpion", "scorpion");
+			mapping.put("sagittaire", "sagittaire");
+			mapping.put("capricorne", "capricorne");
+			mapping.put("verseau", "verseau");
+			mapping.put("poissons", "poissons");
 			state.put(mapping);
 		}
 	}
@@ -83,13 +83,11 @@ public class HoroscopeCommand {
 		try {
 			Map<String, String> mapping = state.get(Map.class);
 			String id = mapping.get(sign);
-			content = utilsService
-					.getContent("http://www.astrocenter.fr/fr/FCDefault.aspx?Af=0&sign="
-							+ id);
+			content = utilsService.getContent(String.format(
+					"http://fr.astrology.yahoo.com/horoscope/%s/", id));
 			Document doc = Jsoup.parse(content);
 
-			Element horo = doc.select("div#ast-sign-" + id).first();
-			horo = horo.select(".ast-description p").first();
+			Element horo = doc.select(".astro-tab-body").first();
 			line = horo.text();
 
 		} catch (Exception e) {

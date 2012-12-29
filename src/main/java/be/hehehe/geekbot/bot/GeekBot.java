@@ -123,9 +123,7 @@ public class GeekBot {
 
 	@PreDestroy
 	public void destroy() {
-		for (String channel : channels) {
-			sendMessage(channel, "brb, reboot");
-		}
+		bot.quitServer("brb, reboot");
 	}
 
 	public void setTimers(List<Method> methods) {

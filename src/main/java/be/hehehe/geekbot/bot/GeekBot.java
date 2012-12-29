@@ -249,6 +249,9 @@ public class GeekBot {
 					isTrigger = true;
 					break;
 				}
+			} else if (type == TriggerType.BOTNAME && botNameInMessage(message)) {
+				isTrigger = true;
+				break;
 			}
 		}
 		return isTrigger;

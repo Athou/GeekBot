@@ -31,6 +31,7 @@ public class IRCBot extends PircBot {
 			setFinger(botName);
 			connect(server, port);
 			rejoin();
+			log.info("Connected to " + server + " on port " + port);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

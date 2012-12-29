@@ -22,16 +22,17 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	protected void init() {
 		super.init();
 		setupCDI();
-		
+
 		mountPage("login", LoginPage.class);
 		mountPage("logout", LogoutPage.class);
 
 		mountPage("help", HelpPage.class);
-		
+
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
 
-		mountPage("log", LogViewerPage.class);
+		mountPage(String.format("log/#{%s}", LogViewerPage.PARAM_LOGLEVEL),
+				LogViewerPage.class);
 
 		getMarkupSettings().setStripWicketTags(true);
 	}

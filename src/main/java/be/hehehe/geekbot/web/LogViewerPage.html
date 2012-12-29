@@ -7,14 +7,18 @@
 			<h1>Log File</h1>
 		</div>
 		<div class="row-fluid">
-			<div class="control-group">
-				<label class="control-label" for="levels">Select minimum log
-					level</label>
-				<div class="controls">
-					<select id="levels" wicket:id="levels"></select>
+			<form wicket:id="form">
+				<div class="control-group">
+					<label class="control-label" for="levels">Select minimum
+						log level</label>
+					<div class="controls">
+						<select id="levels" wicket:id="levels"></select>
+					</div>
 				</div>
-			</div>
-			<pre><wicket:container wicket:id="logwrapper"></wicket:container></pre>
+			</form>
+			<pre>
+				<wicket:container wicket:id="logwrapper"></wicket:container>
+			</pre>
 		</div>
 	</wicket:extend>
 </body>

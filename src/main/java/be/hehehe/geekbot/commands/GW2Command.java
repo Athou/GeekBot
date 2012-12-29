@@ -32,7 +32,7 @@ public class GW2Command {
 
 		String content = utilsService.getContent(URL);
 		Document document = Jsoup.parse(content);
-		Element table = document.select("#EU table").first();
+		Element table = document.select("#_EU table").first();
 		Elements rows = table.select("tr");
 
 		for (int i = 0; i < rows.size(); i++) {

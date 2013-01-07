@@ -166,7 +166,7 @@ public class MemeCommand {
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			result = e.getMessage();
+			result = "Could not contact memegenerator: " + e.getMessage();
 		}
 		return IRCUtils.bold("10blague! ") + result;
 	}

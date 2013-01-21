@@ -118,7 +118,7 @@ public class HelpPage extends TemplatePage {
 		}
 	}
 
-	private class TriggerModel implements Serializable {
+	private static class TriggerModel implements Serializable {
 		private Class<?> klass;
 		private List<Method> triggers;
 

@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
@@ -67,5 +68,12 @@ public class NeufBlagueCommand {
 			IOUtils.closeQuietly(is);
 		}
 		return result;
+	}
+
+	@Trigger("!27")
+	public void lolx3(TriggerEvent event) {
+		for (int i = 0; i < 3; i++) {
+			event.write(lol());
+		}
 	}
 }

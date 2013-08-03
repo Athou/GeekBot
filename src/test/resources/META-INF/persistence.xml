@@ -7,7 +7,7 @@
 	<persistence-unit name="primary">
 		<jta-data-source>java:global/datasources/inmemory</jta-data-source>
 		<properties>
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
 		</properties>
 	</persistence-unit>
 </persistence>

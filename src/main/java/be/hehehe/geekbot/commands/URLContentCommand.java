@@ -9,9 +9,10 @@ import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import twitter4j.Status;
+import twitter4j.Twitter;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
@@ -29,6 +30,9 @@ public class URLContentCommand {
 
 	@Inject
 	BotUtilsService utilsService;
+	
+	@Inject
+	Twitter twitter;
 
 	@Inject
 	Logger log;
@@ -86,7 +90,6 @@ public class URLContentCommand {
 			}
 
 			// twitter
-
 			else if (url.contains("twitter.com")
 					&& (url.contains("/status/") || url.contains("/statuses/"))) {
 
@@ -101,22 +104,19 @@ public class URLContentCommand {
 					}
 				}
 				if (statusId != null) {
-					String data = "https://api.twitter.com/1/statuses/show.json?id="
-							+ statusId + "&include_entities=true";
-					String content = utilsService.getContent(data);
 					String name = null;
 					String text = null;
-
 					try {
-						JSONObject root = new JSONObject(content);
-						name = root.getJSONObject("user").getString("name");
-						text = root.getString("text");
+						Status status = twitter.showStatus(Long
+								.parseLong(statusId));
+						name = status.getUser().getName();
+						text = status.getText();
 					} catch (Exception e) {
 						log.error(e.getMessage(), e);
 					}
+
 					String line = IRCUtils.bold(name + ": ") + text;
 					result.add(line);
-
 				}
 			} else {
 				String html = utilsService.getContent(url);

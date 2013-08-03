@@ -2,7 +2,6 @@ package be.hehehe.geekbot.utils;
 
 import java.util.Random;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -20,18 +19,8 @@ public class ResourcesFactory {
 	@Inject
 	BundleService bundle;
 
-	private Random random;
+	private Random random = new Random();;
 	private Twitter twitter;
-
-	@PostConstruct
-	public void init() {
-		random = new Random();
-		twitter = TwitterFactory.getSingleton();
-		twitter.setOAuthConsumer(bundle.getTwitterConsumerKey(),
-				bundle.getTwitterConsumerSecret());
-		twitter.setOAuthAccessToken(new AccessToken(bundle.getTwitterToken(),
-				bundle.getTwitterTokenSecret()));
-	}
 
 	@Produces
 	public Logger getLogger(InjectionPoint ip) {
@@ -44,7 +33,14 @@ public class ResourcesFactory {
 	}
 
 	@Produces
-	public Twitter getTwitter() {
+	public synchronized Twitter getTwitter() {
+		if (twitter == null) {
+			twitter = TwitterFactory.getSingleton();
+			twitter.setOAuthConsumer(bundle.getTwitterConsumerKey(),
+					bundle.getTwitterConsumerSecret());
+			twitter.setOAuthAccessToken(new AccessToken(bundle
+					.getTwitterToken(), bundle.getTwitterTokenSecret()));
+		}
 		return twitter;
 	}
 }

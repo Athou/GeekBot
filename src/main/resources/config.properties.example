@@ -31,8 +31,11 @@ vdm.apikey=
 meme.login=
 meme.password=
 
-#Twitter auth
+# Twitter auth
 twitter.consumerKey=
 twitter.consumerSecret=
 twitter.token=
 twitter.tokenSecret=
+
+# Google auth
+google.key = 

@@ -97,11 +97,11 @@ public class BundleService {
 	public int getWebServerPort() {
 		return Integer.parseInt(getValue("webserver.port"));
 	}
-	
+
 	public String getTwitterConsumerKey() {
 		return getValue("twitter.consumerKey");
 	}
-	
+
 	public String getTwitterConsumerSecret() {
 		return getValue("twitter.consumerSecret");
 	}
@@ -112,6 +112,10 @@ public class BundleService {
 
 	public String getTwitterTokenSecret() {
 		return getValue("twitter.tokenSecret");
+	}
+
+	public String getGoogleKey() {
+		return getValue("google.key");
 	}
 
 	public boolean isTest() {

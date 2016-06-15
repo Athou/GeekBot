@@ -14,8 +14,7 @@ public class IRCBot extends PircBot {
 
 	private MessageListener listener;
 
-	public IRCBot(String server, int port, String botName,
-			List<String> channels, MessageListener messageListener) {
+	public IRCBot(String server, int port, String botName, List<String> channels, MessageListener messageListener) {
 		try {
 			this.botName = botName;
 			this.channels = channels;
@@ -27,7 +26,7 @@ public class IRCBot extends PircBot {
 			setLogin(botName);
 			setVerbose(true);
 			setAutoNickChange(true);
-			setEncoding("ISO-8859-1");
+			setEncoding("UTF-8");
 			setFinger(botName);
 			connect(server, port);
 			rejoin();
@@ -38,8 +37,7 @@ public class IRCBot extends PircBot {
 	}
 
 	@Override
-	protected void onMessage(String channel, String sender, String login,
-			String hostname, String message) {
+	protected void onMessage(String channel, String sender, String login, String hostname, String message) {
 		listener.onMessage(channel, sender, login, hostname, message);
 
 	}
@@ -67,8 +65,7 @@ public class IRCBot extends PircBot {
 	 * Try to rejoin channel when kicked
 	 */
 	@Override
-	protected void onKick(String channel, String kickerNick,
-			String kickerLogin, String kickerHostname, String recipientNick,
+	protected void onKick(String channel, String kickerNick, String kickerLogin, String kickerHostname, String recipientNick,
 			String reason) {
 		if (recipientNick.equals(botName)) {
 			this.joinChannel(channel);
@@ -76,7 +73,6 @@ public class IRCBot extends PircBot {
 	}
 
 	public interface MessageListener {
-		public void onMessage(String channel, String sender, String login,
-				String hostname, String message);
+		public void onMessage(String channel, String sender, String login, String hostname, String message);
 	}
 }

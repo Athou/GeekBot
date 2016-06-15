@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.jsoup.Jsoup;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -60,10 +59,8 @@ public class BuzzCommand {
 					buzz.setGuid(item.getUri());
 					dao.save(buzz);
 					String urlBitly = utilsService.bitly(item.getLink());
-					String content = Jsoup.parse(item.getDescription().getValue()).select("p").get(0).text();
 					message = IRCUtils.bold("EXCLU!") + " " + item.getTitle() + " - " + urlBitly;
 					toReturn.add(message);
-					toReturn.add(content);
 					break;
 				}
 			}

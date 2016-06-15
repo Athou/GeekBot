@@ -10,6 +10,11 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -17,11 +22,6 @@ import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 
 /**
  * Fetches a random post from jeanmarcmorandini.com (French)
@@ -35,7 +35,7 @@ public class BuzzCommand {
 
 	@Inject
 	RSSFeedDAO dao;
-	
+
 	@Inject
 	Logger log;
 
@@ -45,7 +45,7 @@ public class BuzzCommand {
 	public List<String> getLatestBuzz() {
 		List<String> toReturn = new ArrayList<String>();
 		try {
-			URL url = new URL("http://www.jeanmarcmorandini.com/rss.php");
+			URL url = new URL("http://feeds.feedburner.com/jeanmarcmorandini/pExM?format=xml");
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed rss = input.build(new XmlReader(url));
 
@@ -60,11 +60,8 @@ public class BuzzCommand {
 					buzz.setGuid(item.getUri());
 					dao.save(buzz);
 					String urlBitly = utilsService.bitly(item.getLink());
-					String content = Jsoup
-							.parse(item.getDescription().getValue())
-							.select("p").get(0).text();
-					message = IRCUtils.bold("EXCLU!") + " " + item.getTitle()
-							+ " - " + urlBitly;
+					String content = Jsoup.parse(item.getDescription().getValue()).select("p").get(0).text();
+					message = IRCUtils.bold("EXCLU!") + " " + item.getTitle() + " - " + urlBitly;
 					toReturn.add(message);
 					toReturn.add(content);
 					break;

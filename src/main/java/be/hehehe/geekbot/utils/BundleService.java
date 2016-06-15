@@ -122,6 +122,10 @@ public class BundleService {
 		return "true".equals(getValue("test"));
 	}
 
+	public String getDiscordBotName() {
+		return getValue("discord.botname");
+	}
+
 	public String getValue(String key) {
 		return props.getProperty(key, null);
 	}

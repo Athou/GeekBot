@@ -25,6 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jibble.pircbot.User;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import be.hehehe.geekbot.annotations.RandomAction;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -33,9 +36,6 @@ import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.bot.IRCBot.MessageListener;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 @Singleton
 public class GeekBot {
@@ -83,8 +83,7 @@ public class GeekBot {
 
 		try {
 			for (String channel : channels) {
-				String property = bundleService.getValue("channel.command."
-						+ channel.replace("#", ""));
+				String property = bundleService.getValue("channel.command." + channel.replace("#", ""));
 				if ("ALL".equals(property)) {
 					channelCommands.put(channel.toUpperCase(), ALL);
 				} else {
@@ -108,16 +107,23 @@ public class GeekBot {
 		int port = bundleService.getPort();
 		boolean connect = !bundleService.isTest();
 
-		if (connect) {
-			bot = new IRCBot(server, port, botName, channels,
-					new MessageListener() {
+		final String discordBotName = bundleService.getDiscordBotName();
 
-						@Override
-						public void onMessage(String channel, String sender,
-								String login, String hostname, String message) {
-							handlePossibleTrigger(channel, message, sender);
-						}
-					});
+		if (connect) {
+			bot = new IRCBot(server, port, botName, channels, new MessageListener() {
+
+				@Override
+				public void onMessage(String channel, String sender, String login, String hostname, String message) {
+					if (StringUtils.equals(sender, discordBotName)) {
+						int start = message.indexOf('<');
+						int end = message.indexOf('>');
+
+						sender = message.substring(start + 1, end);
+						message = message.substring(end + 2);
+					}
+					handlePossibleTrigger(channel, message, sender);
+				}
+			});
 		}
 	}
 
@@ -139,10 +145,8 @@ public class GeekBot {
 		for (String channel : channels) {
 			for (final Method method : timers.keySet()) {
 				if (isMethodAllowedToRun(channel, method)) {
-					int interval = method.getAnnotation(TimedAction.class)
-							.value();
-					TimeUnit timeUnit = method.getAnnotation(TimedAction.class)
-							.timeUnit();
+					int interval = method.getAnnotation(TimedAction.class).value();
+					TimeUnit timeUnit = method.getAnnotation(TimedAction.class).timeUnit();
 
 					if (now - timers.get(method) > timeUnit.toMillis(interval)) {
 						timers.put(method, now);
@@ -159,8 +163,7 @@ public class GeekBot {
 	 * @param message
 	 * @param author
 	 */
-	private void handlePossibleTrigger(String channel, String message,
-			String author) {
+	private void handlePossibleTrigger(String channel, String message, String author) {
 
 		for (Method triggerMethod : triggers) {
 
@@ -175,28 +178,23 @@ public class GeekBot {
 
 				case EXACTMATCH:
 					if (StringUtils.equals(trigger, message)) {
-						triggerEvent = buildEvent(channel, message, author,
-								trigger);
+						triggerEvent = buildEvent(channel, message, author, trigger);
 					}
 					break;
 				case STARTSWITH:
 					if (StringUtils.startsWith(message, triggerStartsWith)) {
-						triggerEvent = buildEvent(channel, message, author,
-								triggerStartsWith);
+						triggerEvent = buildEvent(channel, message, author, triggerStartsWith);
 					}
 					break;
 				case BOTNAME:
 					if (botNameInMessage(message)) {
-						triggerEvent = buildEvent(channel, message, author,
-								botName);
+						triggerEvent = buildEvent(channel, message, author, botName);
 					}
 					break;
 
 				case EVERYTHING:
-					if (!isMessageTrigger(message)
-							&& !botNameInMessage(message)) {
-						triggerEvent = buildEvent(channel, message, author,
-								null);
+					if (!isMessageTrigger(message) && !botNameInMessage(message)) {
+						triggerEvent = buildEvent(channel, message, author, null);
 					}
 					break;
 				default:
@@ -212,11 +210,9 @@ public class GeekBot {
 			for (Method randomMethod : randoms) {
 				if (isMethodAllowedToRun(channel, randomMethod)) {
 					int rand = new Random().nextInt(100) + 1;
-					int probability = randomMethod.getAnnotation(
-							RandomAction.class).value();
+					int probability = randomMethod.getAnnotation(RandomAction.class).value();
 					if (rand <= probability) {
-						invokeTrigger(channel, randomMethod,
-								buildEvent(channel, message, author, null));
+						invokeTrigger(channel, randomMethod, buildEvent(channel, message, author, null));
 						break;
 					}
 				}
@@ -227,9 +223,7 @@ public class GeekBot {
 
 	private boolean isMethodAllowedToRun(String channel, Method method) {
 		List<Class<?>> commands = channelCommands.get(channel.toUpperCase());
-		return commands != null
-				&& (commands == ALL || commands.contains(method
-						.getDeclaringClass()));
+		return commands != null && (commands == ALL || commands.contains(method.getDeclaringClass()));
 	}
 
 	/**
@@ -243,8 +237,7 @@ public class GeekBot {
 			Trigger trig = triggerMethod.getAnnotation(Trigger.class);
 			String trigger = trig.value();
 			TriggerType type = trig.type();
-			if (type == TriggerType.EXACTMATCH
-					|| type == TriggerType.STARTSWITH) {
+			if (type == TriggerType.EXACTMATCH || type == TriggerType.STARTSWITH) {
 				if (StringUtils.startsWithIgnoreCase(message, trigger)) {
 					isTrigger = true;
 					break;
@@ -277,8 +270,7 @@ public class GeekBot {
 			String[] split = message.split(" ");
 			for (User user : bot.getUsers(channel)) {
 				for (String token : split) {
-					if (token.equalsIgnoreCase(user.getNick())
-							|| token.equalsIgnoreCase(user.getNick() + ":")) {
+					if (token.equalsIgnoreCase(user.getNick()) || token.equalsIgnoreCase(user.getNick() + ":")) {
 						nickInMessage = true;
 						break;
 					}
@@ -292,8 +284,7 @@ public class GeekBot {
 		invokeTrigger(channel, method, buildEvent(channel));
 	}
 
-	private void invokeTrigger(String channel, final Method method,
-			final TriggerEvent event) {
+	private void invokeTrigger(String channel, final Method method, final TriggerEvent event) {
 		if (event == null) {
 			return;
 		}
@@ -303,10 +294,8 @@ public class GeekBot {
 			Object result = future.get(1, TimeUnit.MINUTES);
 			handleResultOfInvoke(channel, result);
 		} catch (Exception e) {
-			log.error(
-					"Error while invoking method "
-							+ method.getDeclaringClass().getSimpleName() + "#"
-							+ method.getName() + ": " + e.getMessage(), e);
+			log.error("Error while invoking method " + method.getDeclaringClass().getSimpleName() + "#" + method.getName() + ": "
+					+ e.getMessage(), e);
 		}
 
 	}
@@ -316,15 +305,11 @@ public class GeekBot {
 	}
 
 	@SuppressWarnings("unchecked")
-	private TriggerEvent buildEvent(final String channel, String message,
-			String author, String trigger) {
-		Collection<String> users = CollectionUtils.collect(
-				Arrays.asList(bot.getUsers(channel)),
+	private TriggerEvent buildEvent(final String channel, String message, String author, String trigger) {
+		Collection<String> users = CollectionUtils.collect(Arrays.asList(bot.getUsers(channel)),
 				new BeanToPropertyValueTransformer("nick"));
-		TriggerEvent event = new TriggerEventImpl(message, author, trigger,
-				users, utilsService.extractURL(message), nickInMessage(channel,
-						message), botNameInMessage(message),
-				isMessageTrigger(message), new MessageWriter() {
+		TriggerEvent event = new TriggerEventImpl(message, author, trigger, users, utilsService.extractURL(message),
+				nickInMessage(channel, message), botNameInMessage(message), isMessageTrigger(message), new MessageWriter() {
 					@Override
 					public void write(String message) {
 						sendMessage(channel, message);

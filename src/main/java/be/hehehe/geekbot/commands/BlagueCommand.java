@@ -27,25 +27,19 @@ public class BlagueCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	Logger log;
 
 	@Trigger("!blague")
-	@Help("Fetches a random blague from la-blague-du-jour.com")
+	@Help("Fetches a random blague from blaguesdemerde.fr")
 	public List<String> getRandomBlague() {
 		List<String> result = new ArrayList<String>();
-		String url = "http://www.la-blague-du-jour.com/blagues_au_hasard/Une_blague_aleatoire.html";
+		String url = "http://www.blaguesdemerde.fr/blagues-aleatoires";
 		try {
 			Document doc = Jsoup.parse(utilsService.getContent(url));
 
-			String cat = doc.select("p.Paratexte b a").text();
-			if (cat.startsWith("Monsieur et Madame")) {
-				return getRandomBlague();
-			}
-			cat = cat.substring(0, cat.indexOf("("));
-
-			String blague = doc.select("p.TexteBlague").html();
+			String blague = doc.select(".joke_text_contener").get(0).text();
 			List<String> lines = Arrays.asList(blague.split("<br />"));
 			for (String line : lines) {
 				result.add(StringEscapeUtils.unescapeHtml4(line));
@@ -56,7 +50,7 @@ public class BlagueCommand {
 				return getRandomBlague();
 			}
 
-			result.add(0, IRCUtils.bold("Mega Vanne") + " - " + cat);
+			result.add(0, IRCUtils.bold("Mega Vanne"));
 			result.add(IRCUtils.bold("http://www.instantrimshot.com/"));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

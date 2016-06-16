@@ -118,6 +118,10 @@ public class BundleService {
 		return getValue("google.key");
 	}
 
+	public String getGoogleCseId() {
+		return getValue("google.cseId");
+	}
+
 	public boolean isTest() {
 		return "true".equals(getValue("test"));
 	}

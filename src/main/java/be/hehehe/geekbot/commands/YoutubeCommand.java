@@ -9,7 +9,6 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.commands.GoogleCommand.Lang;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 
 /**
@@ -25,8 +24,6 @@ public class YoutubeCommand {
 	@Trigger(value = "!youtube", type = TriggerType.STARTSWITH)
 	@Help("Search YouTube for a video matching arguments")
 	public List<String> getYoutubeResults(TriggerEvent event) {
-		return googleCommand.google(
-				"site:www.youtube.com " + event.getMessage(), Lang.ENGLISH,
-				Mode.WEB);
+		return googleCommand.google("site:www.youtube.com " + event.getMessage(), Mode.WEB);
 	}
 }

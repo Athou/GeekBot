@@ -18,6 +18,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
+import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 /**
@@ -29,24 +30,12 @@ public class GoogleCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
+	@Inject
+	BundleService bundleService;
+
 	@Inject
 	Logger log;
-
-	public enum Lang {
-		FRENCH("fr"), ENGLISH("en");
-
-		private Lang(String lang) {
-			this.lang = lang;
-		}
-
-		private String lang;
-
-		@Override
-		public String toString() {
-			return lang;
-		}
-	}
 
 	public enum Mode {
 		WEB("web"), IMAGE("images");
@@ -66,40 +55,26 @@ public class GoogleCommand {
 	@Trigger(value = "!google", type = TriggerType.STARTSWITH)
 	@Help("Google search.")
 	public List<String> google(TriggerEvent event) {
-		return google(event.getMessage(), Lang.ENGLISH, Mode.WEB);
-	}
-
-	@Trigger(value = "!googlefr", type = TriggerType.STARTSWITH)
-	@Help("Google search (French).")
-	public List<String> googlefr(TriggerEvent event) {
-		return google(event.getMessage(), Lang.FRENCH, Mode.WEB);
+		return google(event.getMessage(), Mode.WEB);
 	}
 
 	@Trigger(value = "!image", type = TriggerType.STARTSWITH)
 	@Help("Google Image search.")
 	public List<String> image(TriggerEvent event) {
-		return google(event.getMessage(), Lang.ENGLISH, Mode.IMAGE);
+		return google(event.getMessage(), Mode.IMAGE);
 	}
 
-	@Trigger(value = "!imagefr", type = TriggerType.STARTSWITH)
-	@Help("Google Image search (French).")
-	public List<String> imagefr(TriggerEvent event) {
-		return google(event.getMessage(), Lang.FRENCH, Mode.IMAGE);
-	}
-
-	public List<String> google(String keywords, Lang lang, Mode mode) {
+	public List<String> google(String keywords, Mode mode) {
 		String result = "";
 		try {
-			String GOOGLE_API_URL = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&safe=off&lr=lang_"
-					+ lang + "&q=";
-			String GOOGLE_API_IMAGES = "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&safe=off&lr=lang_"
-					+ lang + "&q=";
-			String url;
-			if (mode == Mode.WEB) {
-				url = GOOGLE_API_URL + URLEncoder.encode(keywords, "UTF-8");
-			} else {
-				url = GOOGLE_API_IMAGES + URLEncoder.encode(keywords, "UTF-8");
+			String key = bundleService.getGoogleKey();
+			String cx = bundleService.getGoogleCseId();
+
+			String apiUrl = "https://www.googleapis.com/customsearch/v1?key=" + key + "&cx=" + cx;
+			if (mode == Mode.IMAGE) {
+				apiUrl += "&searchType=image";
 			}
+			String url = apiUrl + "&q=" + URLEncoder.encode(keywords, "UTF-8");
 			result = utilsService.getContent(url);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -112,37 +87,25 @@ public class GoogleCommand {
 		try {
 			JSONObject json = new JSONObject(source);
 
-			JSONArray ja = json.getJSONObject("responseData").getJSONArray(
-					"results");
+			JSONArray ja = json.getJSONArray("items");
 			JSONObject j = ja.getJSONObject(0);
 			if (mode == Mode.WEB) {
-				String firstLine = StringEscapeUtils.unescapeHtml4(IRCUtils
-						.bold(j.getString("titleNoFormatting")))
-						+ " - "
-						+ URLDecoder.decode(j.getString("url"), "UTF-8");
+				String firstLine = StringEscapeUtils.unescapeHtml4(IRCUtils.bold(j.getString("title"))) + " - "
+						+ URLDecoder.decode(j.getString("link"), "UTF-8");
 
 				result.add(firstLine);
 
-				String content = j.getString("content");
-				content = content.replaceAll("<b>", "");
-				content = content.replaceAll("</b>", "");
-				content = content.replaceAll("  ", "");
-
-				content = StringEscapeUtils.unescapeHtml4(content);
-
-				content = content.replaceAll("&quot;", "\"");
+				String content = j.getString("snippet");
+				content = content.replaceAll("\n", "");
 
 				result.add(content);
 			} else {
-				String s = json.getJSONObject("responseData")
-						.getJSONArray("results").getJSONObject(0)
-						.getString("unescapedUrl");
+				String s = json.getJSONArray("items").getJSONObject(0).getString("link");
 				result.add(IRCUtils.bold(s));
 			}
 
 		} catch (Exception e) {
-			result.add("Your search - " + keywords
-					+ " - did not match any documents.");
+			result.add("Your search - " + keywords + " - did not match any documents.");
 		}
 
 		return result;

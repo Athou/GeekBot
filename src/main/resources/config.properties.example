@@ -39,6 +39,7 @@ twitter.tokenSecret=
 
 # Google auth
 google.key = 
+google.cseId =
 
 # Discord bot name
 discord.botname = 

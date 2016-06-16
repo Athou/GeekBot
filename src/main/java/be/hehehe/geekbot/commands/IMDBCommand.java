@@ -17,7 +17,6 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.commands.GoogleCommand.Lang;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
@@ -42,9 +41,7 @@ public class IMDBCommand {
 	@Help("IMDb Movie search.")
 	public List<String> getResult(TriggerEvent event) {
 		String keywords = event.getMessage();
-		List<String> googleResult = googleCommand.google(
-				"site:http://www.imdb.com/title " + keywords, Lang.ENGLISH,
-				Mode.WEB);
+		List<String> googleResult = googleCommand.google("site:http://www.imdb.com/title " + keywords, Mode.WEB);
 		String[] split = googleResult.get(0).split("/");
 		String imdbID = null;
 
@@ -55,9 +52,7 @@ public class IMDBCommand {
 			}
 		}
 
-		String result = utilsService
-				.getContent("http://app.imdb.com/title/maindetails?tconst="
-						+ imdbID);
+		String result = utilsService.getContent("http://app.imdb.com/title/maindetails?tconst=" + imdbID);
 		return parse(result);
 	}
 
@@ -68,8 +63,7 @@ public class IMDBCommand {
 			JSONObject json = new JSONObject(source).getJSONObject("data");
 
 			String title = json.getString("title");
-			String url = "http://www.imdb.com/title/"
-					+ json.getString("tconst") + "/";
+			String url = "http://www.imdb.com/title/" + json.getString("tconst") + "/";
 			String year = json.getString("year");
 
 			String s = IRCUtils.bold(title);
@@ -89,8 +83,7 @@ public class IMDBCommand {
 			if (!json.isNull("rating") && !json.isNull("num_votes")) {
 				String rating = json.getString("rating");
 				String votes = json.getString("num_votes");
-				s = IRCUtils.bold("Rating: ") + rating + "/10 - " + votes
-						+ " votes - ";
+				s = IRCUtils.bold("Rating: ") + rating + "/10 - " + votes + " votes - ";
 			}
 
 			if (!json.isNull("genres")) {
@@ -108,10 +101,8 @@ public class IMDBCommand {
 			if (!json.isNull("directors_summary")) {
 				List<String> directors = new ArrayList<String>();
 
-				for (int i = 0; i < json.getJSONArray("directors_summary")
-						.length(); i++) {
-					JSONObject j2 = (JSONObject) json.getJSONArray(
-							"directors_summary").get(i);
+				for (int i = 0; i < json.getJSONArray("directors_summary").length(); i++) {
+					JSONObject j2 = (JSONObject) json.getJSONArray("directors_summary").get(i);
 					directors.add(j2.getJSONObject("name").getString("name"));
 
 				}
@@ -127,10 +118,8 @@ public class IMDBCommand {
 
 				List<String> actors = new ArrayList<String>();
 
-				for (int i = 0; i < json.getJSONArray("cast_summary").length()
-						&& i < 5; i++) {
-					JSONObject j2 = (JSONObject) json.getJSONArray(
-							"cast_summary").get(i);
+				for (int i = 0; i < json.getJSONArray("cast_summary").length() && i < 5; i++) {
+					JSONObject j2 = (JSONObject) json.getJSONArray("cast_summary").get(i);
 					actors.add(j2.getJSONObject("name").getString("name"));
 
 				}

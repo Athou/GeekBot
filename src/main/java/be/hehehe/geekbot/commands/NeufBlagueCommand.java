@@ -41,9 +41,9 @@ public class NeufBlagueCommand {
 		try {
 			URL url = new URL("http://9gagfr.com/random");
 			connection = (HttpURLConnection) url.openConnection();
-			connection.setInstanceFollowRedirects(false);
-			connection.connect();
-			String location = connection.getHeaderField("Location");
+			connection.addRequestProperty("User-Agent", "Mozilla/4.76");
+			IOUtils.toString(is = connection.getInputStream());
+			String location = connection.getURL().toString();
 
 			String content = utilsService.getContent(location);
 			Document document = Jsoup.parse(content);

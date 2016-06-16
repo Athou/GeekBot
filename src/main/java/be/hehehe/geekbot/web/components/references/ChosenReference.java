@@ -22,10 +22,8 @@ public class ChosenReference extends JavaScriptResourceReference {
 
 	@Override
 	public Iterable<? extends HeaderItem> getDependencies() {
-		return Arrays.<HeaderItem> asList(JavaScriptHeaderItem
-				.forReference(Bootstrap.responsive()), CssHeaderItem
-				.forReference(new CssResourceReference(ChosenReference.class,
-						"chosen.css")));
+		return Arrays.<HeaderItem> asList(JavaScriptHeaderItem.forReference(Bootstrap.responsive()),
+				CssHeaderItem.forReference(new CssResourceReference(ChosenReference.class, "chosen.css")));
 	}
 
 	public static void render(IHeaderResponse response) {

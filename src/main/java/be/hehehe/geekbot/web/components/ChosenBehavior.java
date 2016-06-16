@@ -14,8 +14,7 @@ public class ChosenBehavior extends Behavior {
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		ChosenReference.render(response);
-		String script = String.format("$('#%s').chosen()",
-				component.getMarkupId());
+		String script = String.format("$('#%s').chosen()", component.getMarkupId());
 		response.render(OnDomReadyHeaderItem.forScript(script));
 
 	}

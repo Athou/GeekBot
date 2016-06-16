@@ -32,8 +32,7 @@ public class HelpPage extends TemplatePage {
 	List<Method> triggers;
 
 	public HelpPage() {
-		ListView<TriggerModel> view = new ListView<TriggerModel>("class",
-				new MappedTriggerModel()) {
+		ListView<TriggerModel> view = new ListView<TriggerModel>("class", new MappedTriggerModel()) {
 
 			@Override
 			protected void populateItem(ListItem<TriggerModel> item) {
@@ -47,12 +46,8 @@ public class HelpPage extends TemplatePage {
 						Trigger trigger = method.getAnnotation(Trigger.class);
 						Help help = method.getAnnotation(Help.class);
 						item.add(new Label("name", trigger.value()));
-						item.add(new Label(
-								"type",
-								trigger.type() == TriggerType.STARTSWITH ? "starts with"
-										: "exact match"));
-						item.add(new Label("desc",
-								help == null ? "No description." : help.value()));
+						item.add(new Label("type", trigger.type() == TriggerType.STARTSWITH ? "starts with" : "exact match"));
+						item.add(new Label("desc", help == null ? "No description." : help.value()));
 					}
 				});
 			}
@@ -64,23 +59,21 @@ public class HelpPage extends TemplatePage {
 	protected String getTitle() {
 		return "Help";
 	}
-	
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		WicketUtils.loadCSS(response, HelpPage.class);
 	}
 
-	private class MappedTriggerModel extends
-			LoadableDetachableModel<List<TriggerModel>> {
+	private class MappedTriggerModel extends LoadableDetachableModel<List<TriggerModel>> {
 
 		@Override
 		protected List<TriggerModel> load() {
 			Map<Class<?>, List<Method>> map = Maps.newHashMap();
 			for (Method method : triggers) {
 				Trigger trigger = method.getAnnotation(Trigger.class);
-				if (trigger.type() == TriggerType.EXACTMATCH
-						|| trigger.type() == TriggerType.STARTSWITH) {
+				if (trigger.type() == TriggerType.EXACTMATCH || trigger.type() == TriggerType.STARTSWITH) {
 					List<Method> list = map.get(method.getDeclaringClass());
 					if (list == null) {
 						list = Lists.newArrayList();
@@ -96,11 +89,7 @@ public class HelpPage extends TemplatePage {
 				Collections.sort(methods, new Comparator<Method>() {
 					@Override
 					public int compare(Method o1, Method o2) {
-						return o1
-								.getAnnotation(Trigger.class)
-								.value()
-								.compareTo(
-										o2.getAnnotation(Trigger.class).value());
+						return o1.getAnnotation(Trigger.class).value().compareTo(o2.getAnnotation(Trigger.class).value());
 					}
 				});
 				list.add(new TriggerModel(key, methods));
@@ -110,8 +99,7 @@ public class HelpPage extends TemplatePage {
 
 				@Override
 				public int compare(TriggerModel o1, TriggerModel o2) {
-					return o1.getKlass().getSimpleName()
-							.compareTo(o2.getKlass().getSimpleName());
+					return o1.getKlass().getSimpleName().compareTo(o2.getKlass().getSimpleName());
 				}
 			});
 			return list;

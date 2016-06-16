@@ -8,8 +8,7 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 @Qualifier
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER,
-		ElementType.FIELD })
+@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Triggers {
 

@@ -35,7 +35,7 @@ public class EpisodesCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-	
+
 	@Inject
 	Logger log;
 
@@ -45,10 +45,8 @@ public class EpisodesCommand {
 		String seriesName = event.getMessage();
 		Map<String, String> showInfos = new HashMap<String, String>();
 		try {
-			String url = "http://services.tvrage.com/tools/quickinfo.php?show="
-					+ URLEncoder.encode(seriesName, "UTF-8");
-			for (String line : IOUtils.readLines(new StringReader(utilsService
-					.getContent(url)))) {
+			String url = "http://services.tvrage.com/tools/quickinfo.php?show=" + URLEncoder.encode(seriesName, "UTF-8");
+			for (String line : IOUtils.readLines(new StringReader(utilsService.getContent(url)))) {
 				String[] split = line.split("@");
 				if (split.length == 2) {
 					showInfos.put(split[0], split[1]);
@@ -66,15 +64,13 @@ public class EpisodesCommand {
 			list.add(IRCUtils.bold("Show Name: ") + showInfos.get("Show Name"));
 		}
 		if (showInfos.get("Next Episode") != null) {
-			list.add(IRCUtils.bold("Next Episode: ")
-					+ parseEpisode(showInfos.get("Next Episode")));
+			list.add(IRCUtils.bold("Next Episode: ") + parseEpisode(showInfos.get("Next Episode")));
 		} else {
 			list.add(IRCUtils.bold("Next Episode: ") + "N/A");
 		}
 
 		if (showInfos.get("Latest Episode") != null) {
-			list.add(IRCUtils.bold("Latest Episode: ")
-					+ parseEpisode(showInfos.get("Latest Episode")));
+			list.add(IRCUtils.bold("Latest Episode: ") + parseEpisode(showInfos.get("Latest Episode")));
 		}
 		if (showInfos.get("Show URL") != null) {
 			list.add(IRCUtils.bold("Show URL: ") + showInfos.get("Show URL"));
@@ -88,10 +84,8 @@ public class EpisodesCommand {
 		try {
 			String[] split = result.split(" ");
 			String dateString = split[split.length - 1];
-			Date date = new SimpleDateFormat("MMM/dd/yyyy", Locale.ENGLISH)
-					.parse(dateString);
-			dateString = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-					.format(date);
+			Date date = new SimpleDateFormat("MMM/dd/yyyy", Locale.ENGLISH).parse(dateString);
+			dateString = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(date);
 			split[split.length - 1] = " - " + dateString;
 			result = StringUtils.join(split, " ");
 

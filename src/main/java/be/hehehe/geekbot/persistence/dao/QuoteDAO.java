@@ -29,8 +29,7 @@ public class QuoteDAO extends GenericDAO<Quote> {
 
 		List<Predicate> predicates = Lists.newArrayList();
 		for (String keyword : keywords) {
-			Predicate p = builder.like(builder.lower(value),
-					"%" + keyword.toLowerCase() + "%");
+			Predicate p = builder.like(builder.lower(value), "%" + keyword.toLowerCase() + "%");
 			predicates.add(p);
 		}
 		query.where(predicates.toArray(new Predicate[] {}));

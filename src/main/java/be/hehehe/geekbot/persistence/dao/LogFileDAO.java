@@ -12,12 +12,10 @@ import com.google.common.collect.Lists;
 
 public class LogFileDAO {
 
-	public static final List<Level> LEVELS = Lists.newArrayList(Level.ALL,
-			Level.DEBUG, Level.INFO, Level.WARN, Level.ERROR);
+	public static final List<Level> LEVELS = Lists.newArrayList(Level.ALL, Level.DEBUG, Level.INFO, Level.WARN, Level.ERROR);
 
 	public List<String> getLines() throws IOException {
-		return FileUtils.readLines(new File(System.getenv("OPENSHIFT_LOG_DIR")
-				+ "geekbot.log"));
+		return FileUtils.readLines(new File(System.getenv("OPENSHIFT_LOG_DIR") + "geekbot.log"));
 	}
 
 	public List<String> getLines(Level selectedLevel) throws IOException {
@@ -31,9 +29,7 @@ public class LogFileDAO {
 				if (level == null && lastLineWasAdded) {
 					filteredLines.add(line);
 					lastLineWasAdded = true;
-				} else if (level != null
-						&& (selectedLevel == Level.ALL || level
-								.isGreaterOrEqual(selectedLevel))) {
+				} else if (level != null && (selectedLevel == Level.ALL || level.isGreaterOrEqual(selectedLevel))) {
 					filteredLines.add(line);
 					lastLineWasAdded = true;
 				} else {

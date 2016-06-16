@@ -39,17 +39,14 @@ public class TriggerEventImpl implements TriggerEvent {
 	 * 
 	 * @param messageWithoutTrigger
 	 */
-	public TriggerEventImpl(String messageWithoutTrigger, String url,
-			String author) {
+	public TriggerEventImpl(String messageWithoutTrigger, String url, String author) {
 		this.messageWithoutTrigger = messageWithoutTrigger;
 		this.url = url;
 		this.author = author;
 	}
 
-	public TriggerEventImpl(String message, String author, String trigger,
-			Collection<String> users, String url, boolean nickInMessage,
-			boolean botInMessage, boolean startsWithTrigger,
-			MessageWriter messageWriter, ScheduledExecutorService scheduler) {
+	public TriggerEventImpl(String message, String author, String trigger, Collection<String> users, String url, boolean nickInMessage,
+			boolean botInMessage, boolean startsWithTrigger, MessageWriter messageWriter, ScheduledExecutorService scheduler) {
 		this.message = message;
 		this.author = author;
 		this.users = users;

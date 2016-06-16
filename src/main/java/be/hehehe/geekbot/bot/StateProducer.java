@@ -15,8 +15,7 @@ public class StateProducer {
 
 	@Produces
 	public State getState(InjectionPoint injectionPoint) {
-		String className = injectionPoint.getMember().getDeclaringClass()
-				.getName();
+		String className = injectionPoint.getMember().getDeclaringClass().getName();
 		State state = states.get(className);
 		if (state == null) {
 			state = new StateImpl();

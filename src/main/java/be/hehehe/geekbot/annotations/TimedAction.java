@@ -8,8 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 
- * Execute a command repeatedly. Set the value in minutes. Default is 60
- * minutes.
+ * Execute a command repeatedly. Set the value in minutes. Default is 60 minutes.
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -7,8 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * Annotate a method (already annotated with @Trigger) to specify its help
- * string.
+ * Annotate a method (already annotated with @Trigger) to specify its help string.
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

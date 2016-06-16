@@ -31,8 +31,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		int count = (int) getCount(maxLength);
 		if (count > 0) {
 			int rand = random.nextInt(count) + 1;
-			connerie = Iterables.getOnlyElement(findAll(rand, 1, maxLength),
-					null);
+			connerie = Iterables.getOnlyElement(findAll(rand, 1, maxLength), null);
 		}
 		return connerie;
 	}
@@ -58,8 +57,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		return list.size();
 	}
 
-	private Connerie getConnerie(boolean spaces, int maxLength,
-			String... keywords) {
+	private Connerie getConnerie(boolean spaces, int maxLength, String... keywords) {
 		List<Connerie> list = getConneries(spaces, maxLength, keywords);
 		Connerie con = null;
 		if (!list.isEmpty()) {
@@ -68,8 +66,7 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		return con;
 	}
 
-	private List<Connerie> getConneries(boolean spaces, int maxLength,
-			String... keywords) {
+	private List<Connerie> getConneries(boolean spaces, int maxLength, String... keywords) {
 		CriteriaQuery<Connerie> query = builder.createQuery(Connerie.class);
 		Root<Connerie> root = query.from(Connerie.class);
 		Path<String> value = root.get("value");
@@ -78,11 +75,9 @@ public class ConnerieDAO extends GenericDAO<Connerie> {
 		for (String keyword : keywords) {
 			Predicate p = null;
 			if (spaces) {
-				p = builder.like(builder.lower(value),
-						"% " + keyword.toLowerCase() + " %");
+				p = builder.like(builder.lower(value), "% " + keyword.toLowerCase() + " %");
 			} else {
-				p = builder.like(builder.lower(value),
-						"%" + keyword.toLowerCase() + "%");
+				p = builder.like(builder.lower(value), "%" + keyword.toLowerCase() + "%");
 			}
 
 			predicates.add(p);

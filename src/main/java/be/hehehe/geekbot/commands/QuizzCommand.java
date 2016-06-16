@@ -62,8 +62,7 @@ public class QuizzCommand {
 
 	private static final Object lock = new Object();
 
-	private static final String[] STOPWORDS = new String[] { "un", "une", "de",
-			"des", "le", "la", "les", "en", "du" };
+	private static final String[] STOPWORDS = new String[] { "un", "une", "de", "des", "le", "la", "les", "en", "du" };
 
 	@Trigger(value = "!quizz")
 	@Help("Starts the quizz.")
@@ -126,15 +125,13 @@ public class QuizzCommand {
 				}
 			}
 		};
-		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, delay,
-				TimeUnit.SECONDS);
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, delay, TimeUnit.SECONDS);
 		state.put(NEXTQUESTION_TIMER, timer);
 
 	}
 
 	private void stopNextQuestionTimer() {
-		ScheduledFuture<?> timer = state.get(NEXTQUESTION_TIMER,
-				ScheduledFuture.class);
+		ScheduledFuture<?> timer = state.get(NEXTQUESTION_TIMER, ScheduledFuture.class);
 		if (timer != null) {
 			timer.cancel(true);
 		}
@@ -144,19 +141,16 @@ public class QuizzCommand {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("1 10: "
-						+ computeIndice(state.get(CURRENT_ANSWER, String.class))));
+				event.write(IRCUtils.bold("1 10: " + computeIndice(state.get(CURRENT_ANSWER, String.class))));
 			}
 
 		};
-		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 20,
-				TimeUnit.SECONDS);
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 20, TimeUnit.SECONDS);
 		state.put(INDICE_TIMER, timer);
 	}
 
 	private void stopIndiceTimer() {
-		ScheduledFuture<?> timer = state.get(INDICE_TIMER,
-				ScheduledFuture.class);
+		ScheduledFuture<?> timer = state.get(INDICE_TIMER, ScheduledFuture.class);
 		if (timer != null) {
 			timer.cancel(true);
 		}
@@ -166,20 +160,17 @@ public class QuizzCommand {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("Trop tard! ") + "La réponse était: "
-						+ state.get(CURRENT_ANSWER)
+				event.write(IRCUtils.bold("Trop tard! ") + "La réponse était: " + state.get(CURRENT_ANSWER)
 						+ ". Prochaine question dans quelques secondes ...");
 				nextQuestion(event, 10);
 			}
 		};
-		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 30,
-				TimeUnit.SECONDS);
+		ScheduledFuture<?> timer = event.getScheduler().schedule(thread, 30, TimeUnit.SECONDS);
 		state.put(TIMEOUT_TIMER, timer);
 	}
 
 	private void stopTimeoutTimer() {
-		ScheduledFuture<?> timer = state.get(TIMEOUT_TIMER,
-				ScheduledFuture.class);
+		ScheduledFuture<?> timer = state.get(TIMEOUT_TIMER, ScheduledFuture.class);
 		if (timer != null) {
 			timer.cancel(true);
 		}
@@ -189,15 +180,11 @@ public class QuizzCommand {
 	public void handlePossibleAnswer(TriggerEvent event) {
 		synchronized (lock) {
 			String answer = state.get(CURRENT_ANSWER, String.class);
-			if (answer != null && Boolean.TRUE.equals(state.get(ENABLED))
-					&& !event.isStartsWithTrigger()) {
+			if (answer != null && Boolean.TRUE.equals(state.get(ENABLED)) && !event.isStartsWithTrigger()) {
 				if (matches(event.getMessage(), answer)) {
 					stopIndiceTimer();
 					stopTimeoutTimer();
-					event.write(IRCUtils.bold("Bien joué " + event.getAuthor()
-							+ " ! ")
-							+ "La réponse était: "
-							+ answer
+					event.write(IRCUtils.bold("Bien joué " + event.getAuthor() + " ! ") + "La réponse était: " + answer
 							+ ". Prochaine question dans quelques secondes ...");
 					dao.giveOnePoint(event.getAuthor());
 					nextQuestion(event, 10);
@@ -275,8 +262,7 @@ public class QuizzCommand {
 	private String normalize(String source) {
 		source = source.replace("L'", "");
 		source = source.replace("l'", "");
-		source = StringUtils.trimToEmpty(utilsService.stripAccents(source))
-				.toUpperCase();
+		source = StringUtils.trimToEmpty(utilsService.stripAccents(source)).toUpperCase();
 
 		List<String> dest = Lists.newArrayList();
 		for (String word : Arrays.asList(source.split(" "))) {
@@ -298,8 +284,7 @@ public class QuizzCommand {
 	private List<String> getQuestions() throws IOException {
 		List<String> lines = state.get(QUESTIONS, List.class);
 		if (lines == null) {
-			lines = IOUtils.readLines(
-					getClass().getResourceAsStream("/quizz.txt"), "UTF-8");
+			lines = IOUtils.readLines(getClass().getResourceAsStream("/quizz.txt"), "UTF-8");
 			state.put(QUESTIONS, lines);
 		}
 		return lines;
@@ -308,8 +293,7 @@ public class QuizzCommand {
 	@Trigger("!score")
 	@Help("Prints Quizz scoreboard URL.")
 	public String score(TriggerEvent event) {
-		return IRCUtils.bold("Scoreboard: ")
-				+ bundleService.getWebServerRootPath() + "/quizz";
+		return IRCUtils.bold("Scoreboard: ") + bundleService.getWebServerRootPath() + "/quizz";
 	}
 
 	@Trigger(value = "!score merge", type = TriggerType.STARTSWITH)
@@ -325,7 +309,6 @@ public class QuizzCommand {
 			return e.getMessage();
 		}
 
-		return IRCUtils.bold("Merge Request Added: ") + "check "
-				+ bundleService.getWebServerRootPath() + "/quizz";
+		return IRCUtils.bold("Merge Request Added: ") + "check " + bundleService.getWebServerRootPath() + "/quizz";
 	}
 }

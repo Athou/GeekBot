@@ -26,16 +26,14 @@ public class QuizzDAO extends GenericDAO<QuizzPlayer> {
 	}
 
 	public List<QuizzPlayer> getPlayersOrderByPoints() {
-		CriteriaQuery<QuizzPlayer> query = builder
-				.createQuery(QuizzPlayer.class);
+		CriteriaQuery<QuizzPlayer> query = builder.createQuery(QuizzPlayer.class);
 		Root<QuizzPlayer> root = query.from(QuizzPlayer.class);
 		query.orderBy(builder.desc(root.get("points")));
 		return em.createQuery(query).getResultList();
 	}
 
 	public List<QuizzPlayer> getPlayersOrderByName() {
-		CriteriaQuery<QuizzPlayer> query = builder
-				.createQuery(QuizzPlayer.class);
+		CriteriaQuery<QuizzPlayer> query = builder.createQuery(QuizzPlayer.class);
 		Root<QuizzPlayer> root = query.from(QuizzPlayer.class);
 		query.orderBy(builder.asc(root.get("name")));
 		return em.createQuery(query).getResultList();

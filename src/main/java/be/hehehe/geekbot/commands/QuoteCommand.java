@@ -30,14 +30,12 @@ public class QuoteCommand {
 	@Help("Prints a random quote.")
 	public String getRandomQuote() {
 		int rand = new Random().nextInt((int) dao.getCount()) + 1;
-		return IRCUtils.bold("" + rand) + ". "
-				+ dao.findByNumber(rand).getQuote();
+		return IRCUtils.bold("" + rand) + ". " + dao.findByNumber(rand).getQuote();
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
 	@Help("Prints the specified quote.")
-	public List<String> getQuote(TriggerEvent event)
-			throws NumberFormatException {
+	public List<String> getQuote(TriggerEvent event) throws NumberFormatException {
 		String quoteIds = event.getMessage();
 		List<String> quotes = new ArrayList<String>();
 		String[] splitQuotes = quoteIds.split("[ ]");
@@ -46,8 +44,7 @@ public class QuoteCommand {
 			if (id > dao.getCount()) {
 				throw new NumberFormatException();
 			}
-			quotes.add(IRCUtils.bold("" + id) + ". "
-					+ dao.findByNumber(id).getQuote());
+			quotes.add(IRCUtils.bold("" + id) + ". " + dao.findByNumber(id).getQuote());
 		}
 		return quotes;
 
@@ -63,8 +60,7 @@ public class QuoteCommand {
 	@Trigger(value = "!findquote", type = TriggerType.STARTSWITH)
 	@Help("Prints a list of quotes matching the given keywords.")
 	public String findQuote(TriggerEvent event) {
-		List<String> keywordList = Arrays.asList(event.getMessage()
-				.split("[ ]"));
+		List<String> keywordList = Arrays.asList(event.getMessage().split("[ ]"));
 		List<Quote> quotes = dao.findByKeywords(keywordList);
 		String result = "";
 		if (quotes.isEmpty()) {

@@ -42,19 +42,18 @@ public class DansTonChatCommand {
 					break;
 				}
 			}
-			
-			if(item == null) {
+
+			if (item == null) {
 				throw new RuntimeException("No item found.");
 			}
-			
+
 			String content = item.getChildText("content");
 			String upvote = item.getChildText("vote_plus");
 			String downvote = item.getChildText("vote_minus");
 			for (String line : content.split(SystemUtils.LINE_SEPARATOR)) {
 				list.add(line);
 			}
-			list.add(IRCUtils.bold("LOL je sé pa ékrir MDR")
-					+ String.format(" (+%s/-%s)", upvote, downvote));
+			list.add(IRCUtils.bold("LOL je sé pa ékrir MDR") + String.format(" (+%s/-%s)", upvote, downvote));
 		} catch (Exception e) {
 			list.add("Could not contact DTC.");
 			log.error(e.getMessage(), e);

@@ -83,8 +83,7 @@ public class MemeCommand {
 
 	private void addPopular(int index) {
 		try {
-			String content = utilsService.getContent(String.format(
-					POPULAR_GENERATORS, index));
+			String content = utilsService.getContent(String.format(POPULAR_GENERATORS, index));
 			JSONObject json = new JSONObject(content);
 			JSONArray results = json.getJSONArray("result");
 			for (int i = 0; i < results.length(); i++) {
@@ -149,15 +148,13 @@ public class MemeCommand {
 			String login = bundle.getMemeGeneratorLogin();
 			String password = bundle.getMemeGeneratorPassword();
 
-			String url = String.format(CREATE_URL, login, password,
-					generatorId, imageId, text0, text1);
+			String url = String.format(CREATE_URL, login, password, generatorId, imageId, text0, text1);
 
 			String content = utilsService.getContent(url);
 
 			JSONObject json = new JSONObject(content);
 			JSONObject resultObject = json.getJSONObject("result");
-			String instanceImageUrl = resultObject
-					.getString("instanceImageUrl");
+			String instanceImageUrl = resultObject.getString("instanceImageUrl");
 			instanceImageUrl = instanceImageUrl.replace("400x", "800x");
 			result = instanceImageUrl;
 			String imgur = utilsService.mirrorImage(result);
@@ -176,8 +173,7 @@ public class MemeCommand {
 		int maxLength = 50;
 
 		if (like != null) {
-			Connerie connerie = dao.getRandomMatching(maxLength,
-					like.split(" "));
+			Connerie connerie = dao.getRandomMatching(maxLength, like.split(" "));
 			if (connerie != null) {
 				text = connerie.getValue();
 			}

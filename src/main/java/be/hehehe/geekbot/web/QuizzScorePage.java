@@ -29,8 +29,7 @@ public class QuizzScorePage extends TemplatePage {
 			}
 		};
 
-		ListView<QuizzPlayer> playersView = new PropertyListView<QuizzPlayer>(
-				"players", model) {
+		ListView<QuizzPlayer> playersView = new PropertyListView<QuizzPlayer>("players", model) {
 			@Override
 			protected void populateItem(ListItem<QuizzPlayer> item) {
 				item.add(new Label("rank", "" + (item.getIndex() + 1)));

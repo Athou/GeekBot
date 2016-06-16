@@ -31,21 +31,17 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
 
-		mountPage(String.format("log/#{%s}", LogViewerPage.PARAM_LOGLEVEL),
-				LogViewerPage.class);
+		mountPage(String.format("log/#{%s}", LogViewerPage.PARAM_LOGLEVEL), LogViewerPage.class);
 
 		getMarkupSettings().setStripWicketTags(true);
 	}
 
 	protected void setupCDI() {
 		try {
-			BeanManager beanManager = (BeanManager) new InitialContext()
-					.lookup("java:comp/BeanManager");
-			new CdiConfiguration(beanManager).setPropagation(
-					ConversationPropagation.NONE).configure(this);
+			BeanManager beanManager = (BeanManager) new InitialContext().lookup("java:comp/BeanManager");
+			new CdiConfiguration(beanManager).setPropagation(ConversationPropagation.NONE).configure(this);
 		} catch (NamingException e) {
-			throw new IllegalStateException("Unable to obtain CDI BeanManager",
-					e);
+			throw new IllegalStateException("Unable to obtain CDI BeanManager", e);
 		}
 	}
 

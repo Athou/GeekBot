@@ -64,10 +64,8 @@ public class HoroscopeCommand {
 	@Trigger(value = "!horoscope", type = TriggerType.EXACTMATCH)
 	@Help("Prints help on how to use this command.")
 	public String getHoroscopeHelp() {
-		String availableSigns = StringUtils.join(state.get(Map.class).keySet(),
-				", ");
-		return IRCUtils.bold("!horoscope <signe>") + " - Available signs : "
-				+ availableSigns;
+		String availableSigns = StringUtils.join(state.get(Map.class).keySet(), ", ");
+		return IRCUtils.bold("!horoscope <signe>") + " - Available signs : " + availableSigns;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -83,16 +81,14 @@ public class HoroscopeCommand {
 		try {
 			Map<String, String> mapping = state.get(Map.class);
 			String id = mapping.get(sign);
-			content = utilsService.getContent(String.format(
-					"http://fr.astrology.yahoo.com/horoscope/%s/", id));
+			content = utilsService.getContent(String.format("http://fr.astrology.yahoo.com/horoscope/%s/", id));
 			Document doc = Jsoup.parse(content);
 
 			Element horo = doc.select(".astro-tab-body").first();
 			line = horo.text();
 
 		} catch (Exception e) {
-			log.error("Could not parse HTML" + e.getMessage()
-					+ SystemUtils.LINE_SEPARATOR + content, e);
+			log.error("Could not parse HTML" + e.getMessage() + SystemUtils.LINE_SEPARATOR + content, e);
 		}
 
 		return line;

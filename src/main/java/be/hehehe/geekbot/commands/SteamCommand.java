@@ -44,8 +44,7 @@ public class SteamCommand {
 		try {
 			String url = "http://store.steampowered.com/feeds/news.xml";
 			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed rss = input.build(new StringReader(utilsService
-					.getContent(url)));
+			SyndFeed rss = input.build(new StringReader(utilsService.getContent(url)));
 
 			Iterator<SyndEntry> it = rss.getEntries().iterator();
 			String message = null;
@@ -54,9 +53,8 @@ public class SteamCommand {
 				String guid = item.getUri();
 				RSSFeed steam = dao.findByGUID(guid);
 				if (steam == null) {
-					message = IRCUtils.bold("Steam!") + " "
-							+ StringEscapeUtils.unescapeXml(item.getTitle())
-							+ " - " + utilsService.bitly(item.getLink());
+					message = IRCUtils.bold("Steam!") + " " + StringEscapeUtils.unescapeXml(item.getTitle()) + " - "
+							+ utilsService.bitly(item.getLink());
 					toReturn.add(message);
 					steam = new RSSFeed();
 					steam.setGuid(guid);

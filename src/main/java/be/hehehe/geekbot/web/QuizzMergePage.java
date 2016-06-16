@@ -56,24 +56,21 @@ public class QuizzMergePage extends TemplatePage {
 			IModel<List<String>> model = new LoadableDetachableModel<List<String>>() {
 				@Override
 				protected List<String> load() {
-					return Lists.transform(quizzDAO.getPlayersOrderByName(),
-							new Function<QuizzPlayer, String>() {
-								@Override
-								public String apply(QuizzPlayer input) {
-									return input.getName();
-								}
-							});
+					return Lists.transform(quizzDAO.getPlayersOrderByName(), new Function<QuizzPlayer, String>() {
+						@Override
+						public String apply(QuizzPlayer input) {
+							return input.getName();
+						}
+					});
 				}
 			};
 
 			add(new Button("submit-button"));
-			DropDownChoice<String> giverChoice = new DropDownChoice<String>(
-					"giver", giver, model);
+			DropDownChoice<String> giverChoice = new DropDownChoice<String>("giver", giver, model);
 			giverChoice.add(new ChosenBehavior());
 			add(giverChoice);
 
-			DropDownChoice<String> receiverChoice = new DropDownChoice<String>(
-					"receiver", receiver, model);
+			DropDownChoice<String> receiverChoice = new DropDownChoice<String>("receiver", receiver, model);
 			receiverChoice.add(new ChosenBehavior());
 			add(receiverChoice);
 
@@ -105,8 +102,7 @@ public class QuizzMergePage extends TemplatePage {
 				}
 			};
 
-			ListView<QuizzMergeRequest> requestsView = new PropertyListView<QuizzMergeRequest>(
-					"requests", model) {
+			ListView<QuizzMergeRequest> requestsView = new PropertyListView<QuizzMergeRequest>("requests", model) {
 				@Override
 				protected void populateItem(ListItem<QuizzMergeRequest> item) {
 					QuizzMergeRequest request = item.getModelObject();
@@ -130,8 +126,7 @@ public class QuizzMergePage extends TemplatePage {
 						}
 					};
 
-					boolean hasRole = getAuthSession().getRoles().contains(
-							Roles.ADMIN);
+					boolean hasRole = getAuthSession().getRoles().contains(Roles.ADMIN);
 					accept.setVisible(hasRole);
 					deny.setVisible(hasRole);
 

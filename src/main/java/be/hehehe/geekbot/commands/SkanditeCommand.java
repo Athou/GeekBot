@@ -19,8 +19,7 @@ import be.hehehe.geekbot.utils.HashAndByteCount;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 /**
- * Stores all links and gives an alert when a link has already been posted on
- * the chan.
+ * Stores all links and gives an alert when a link has already been posted on the chan.
  * 
  */
 @BotCommand
@@ -43,22 +42,15 @@ public class SkanditeCommand {
 			if (skandite == null) {
 				hashAndByteCount = utilsService.calculateHashAndByteCount(url);
 				if (hashAndByteCount != null) {
-					skandite = dao.findByHashAndByteCount(
-							hashAndByteCount.getHash(),
-							hashAndByteCount.getByteCount());
+					skandite = dao.findByHashAndByteCount(hashAndByteCount.getHash(), hashAndByteCount.getByteCount());
 				}
 			}
 
 			if (skandite != null) {
-				if (!StringUtils
-						.equals(skandite.getAuthor(), event.getAuthor())) {
-					String line = IRCUtils.bold("Skandite! ")
-							+ skandite.getUrl()
-							+ " linked "
-							+ utilsService.getTimeDifference(skandite
-									.getPostedDate()) + " ago by "
-							+ skandite.getAuthor() + " (" + skandite.getCount()
-							+ "x).";
+				if (!StringUtils.equals(skandite.getAuthor(), event.getAuthor())) {
+					String line = IRCUtils.bold("Skandite! ") + skandite.getUrl() + " linked "
+							+ utilsService.getTimeDifference(skandite.getPostedDate()) + " ago by " + skandite.getAuthor() + " ("
+							+ skandite.getCount() + "x).";
 					result.add(line);
 					skandite.setCount(skandite.getCount() + 1);
 					dao.update(skandite);

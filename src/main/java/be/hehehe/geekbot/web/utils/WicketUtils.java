@@ -14,22 +14,18 @@ import org.apache.wicket.util.template.PackageTextTemplate;
 public class WicketUtils {
 
 	public static JavaScriptHeaderItem buildJavaScriptHeaderItem(Class<?> klass) {
-		return JavaScriptHeaderItem
-				.forReference(new JavaScriptResourceReference(klass, klass
-						.getSimpleName() + ".js"));
+		return JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(klass, klass.getSimpleName() + ".js"));
 	}
 
 	public static void loadJS(IHeaderResponse response, Class<?> klass) {
 		response.render(buildJavaScriptHeaderItem(klass));
 	}
 
-	public static void loadJS(IHeaderResponse response, Class<?> klass,
-			Map<String, ? extends Object> variables) {
+	public static void loadJS(IHeaderResponse response, Class<?> klass, Map<String, ? extends Object> variables) {
 		OnDomReadyHeaderItem result = null;
 		PackageTextTemplate template = null;
 		try {
-			template = new PackageTextTemplate(klass, klass.getSimpleName()
-					+ ".js");
+			template = new PackageTextTemplate(klass, klass.getSimpleName() + ".js");
 			String script = template.asString(variables);
 			result = OnDomReadyHeaderItem.forScript(script);
 		} finally {
@@ -39,21 +35,18 @@ public class WicketUtils {
 	}
 
 	public static CssHeaderItem buildCssHeaderItem(Class<?> klass) {
-		return CssHeaderItem.forReference(new CssResourceReference(klass, klass
-				.getSimpleName() + ".css"));
+		return CssHeaderItem.forReference(new CssResourceReference(klass, klass.getSimpleName() + ".css"));
 	}
 
 	public static void loadCSS(IHeaderResponse response, Class<?> klass) {
 		response.render(buildCssHeaderItem(klass));
 	}
 
-	public static void loadCSS(IHeaderResponse response, Class<?> klass,
-			Map<String, ? extends Object> variables) {
+	public static void loadCSS(IHeaderResponse response, Class<?> klass, Map<String, ? extends Object> variables) {
 		CssHeaderItem result = null;
 		PackageTextTemplate template = null;
 		try {
-			template = new PackageTextTemplate(klass, klass.getSimpleName()
-					+ ".js");
+			template = new PackageTextTemplate(klass, klass.getSimpleName() + ".js");
 			String css = template.asString(variables);
 			result = CssHeaderItem.forCSS(css, null);
 		} finally {

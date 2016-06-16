@@ -18,13 +18,11 @@ public class NavigationItem extends Panel {
 
 		add(new AttributeModifier("class", new AbstractReadOnlyModel<String>() {
 			public String getObject() {
-				return getPage().getClass().equals(pageClass) ? "active"
-						: AttributeModifier.VALUELESS_ATTRIBUTE_REMOVE;
+				return getPage().getClass().equals(pageClass) ? "active" : AttributeModifier.VALUELESS_ATTRIBUTE_REMOVE;
 			}
 		}));
 
-		BookmarkablePageLink<TemplatePage> pageLink = new BookmarkablePageLink<TemplatePage>(
-				"a", page.getPageClass());
+		BookmarkablePageLink<TemplatePage> pageLink = new BookmarkablePageLink<TemplatePage>("a", page.getPageClass());
 		add(pageLink);
 
 		pageLink.add(new Label("link-name", page.getName()));

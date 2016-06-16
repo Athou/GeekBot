@@ -43,8 +43,7 @@ public class HelpCommand {
 		for (Method m : triggers) {
 			Trigger trigger = m.getAnnotation(Trigger.class);
 			TriggerType type = trigger.type();
-			if (type == TriggerType.EXACTMATCH
-					|| type == TriggerType.STARTSWITH) {
+			if (type == TriggerType.EXACTMATCH || type == TriggerType.STARTSWITH) {
 				set.add(trigger.value().trim());
 			}
 		}
@@ -60,9 +59,7 @@ public class HelpCommand {
 			if (m.isAnnotationPresent(Help.class)) {
 				Trigger trigger = m.getAnnotation(Trigger.class);
 				String help = m.getAnnotation(Help.class).value();
-				if (StringUtils.equals(event.getMessage().trim(),
-						trigger.value())
-						&& StringUtils.isNotBlank(help)) {
+				if (StringUtils.equals(event.getMessage().trim(), trigger.value()) && StringUtils.isNotBlank(help)) {
 					StringBuilder line = new StringBuilder(trigger.value());
 					if (trigger.type() == TriggerType.STARTSWITH) {
 						line.append(" <arguments>");

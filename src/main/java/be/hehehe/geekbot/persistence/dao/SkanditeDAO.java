@@ -23,8 +23,7 @@ public class SkanditeDAO extends GenericDAO<Skandite> {
 		Predicate condition1 = builder.equal(root.get("hash"), hash);
 		Predicate condition2 = builder.equal(root.get("byteCount"), byteCount);
 		query.where(builder.and(condition1, condition2));
-		return Iterables.getOnlyElement(em.createQuery(query).getResultList(),
-				null);
+		return Iterables.getOnlyElement(em.createQuery(query).getResultList(), null);
 	}
 
 	@Override

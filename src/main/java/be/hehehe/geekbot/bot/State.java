@@ -1,8 +1,8 @@
 package be.hehehe.geekbot.bot;
 
 /**
- * Injectable class serving as a temporary in-memory storage. Commands may store
- * objects in this structure for later use instead of using static fields.
+ * Injectable class serving as a temporary in-memory storage. Commands may store objects in this structure for later use instead of using
+ * static fields.
  * 
  * 
  */

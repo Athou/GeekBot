@@ -79,9 +79,7 @@ public class Own3dCommand {
 			try {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {
-					alerts.add(IRCUtils.bold(stream.getName())
-							+ " is now live on http://www.own3d.tv/live/"
-							+ stream.getId());
+					alerts.add(IRCUtils.bold(stream.getName()) + " is now live on http://www.own3d.tv/live/" + stream.getId());
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {
@@ -93,11 +91,9 @@ public class Own3dCommand {
 	}
 
 	private boolean getStreamStatus(Stream stream) throws Exception {
-		String url = "http://api.own3d.tv/liveCheck.php?live_id="
-				+ stream.getId();
+		String url = "http://api.own3d.tv/liveCheck.php?live_id=" + stream.getId();
 		Document doc = utilsService.parseXML(utilsService.getContent(url));
-		String isLive = doc.getRootElement().getChild("liveEvent")
-				.getChild("isLive").getText();
+		String isLive = doc.getRootElement().getChild("liveEvent").getChild("isLive").getText();
 		return Boolean.parseBoolean(isLive);
 	}
 

@@ -47,16 +47,14 @@ public abstract class TemplatePage extends WebPage {
 		Multimap<String, PageModel> pages = LinkedListMultimap.create();
 		pages.put("Home", new PageModel("Home Page", HomePage.class));
 		pages.put("Quizz", new PageModel("Scoreboard", QuizzScorePage.class));
-		pages.put("Quizz",
-				new PageModel("Merge Requests", QuizzMergePage.class));
+		pages.put("Quizz", new PageModel("Merge Requests", QuizzMergePage.class));
 		pages.put("Help", new PageModel("Triggers", HelpPage.class));
 		pages.put("Debug", new PageModel("View Logs", LogViewerPage.class));
 
 		RepeatingView repeatingView = new RepeatingView("nav-headers");
 
 		for (String category : pages.keySet()) {
-			repeatingView.add(new NavigationHeader(repeatingView.newChildId(),
-					category, pages.get(category)));
+			repeatingView.add(new NavigationHeader(repeatingView.newChildId(), category, pages.get(category)));
 		}
 		add(repeatingView);
 
@@ -67,11 +65,9 @@ public abstract class TemplatePage extends WebPage {
 		super.renderHead(response);
 		response.render(JavaScriptHeaderItem.forReference(Bootstrap.responsive()));
 		response.render(JavaScriptHeaderItem
-				.forReference(new JavaScriptResourceReference(
-						TemplatePage.class, TemplatePage.class.getSimpleName()
-								+ ".js")));
-		response.render(CssHeaderItem.forReference(new CssResourceReference(
-				TemplatePage.class, TemplatePage.class.getSimpleName() + ".css")));
+				.forReference(new JavaScriptResourceReference(TemplatePage.class, TemplatePage.class.getSimpleName() + ".js")));
+		response.render(
+				CssHeaderItem.forReference(new CssResourceReference(TemplatePage.class, TemplatePage.class.getSimpleName() + ".css")));
 	}
 
 	protected abstract String getTitle();

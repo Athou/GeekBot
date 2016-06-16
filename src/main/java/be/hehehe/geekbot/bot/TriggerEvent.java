@@ -15,16 +15,14 @@ public interface TriggerEvent {
 	/**
 	 * Returns the message that triggered this command, without the trigger.
 	 * 
-	 * @return the the message without the trigger, null for methods annotated
-	 *         with TimedAction
+	 * @return the the message without the trigger, null for methods annotated with TimedAction
 	 */
 	String getMessage();
 
 	/**
 	 * Returns the name of the author of the message;
 	 * 
-	 * @return the nick name of the author, null for methods annotated with
-	 *         TimedAction
+	 * @return the nick name of the author, null for methods annotated with TimedAction
 	 */
 	String getAuthor();
 
@@ -50,28 +48,23 @@ public interface TriggerEvent {
 	String getURL();
 
 	/**
-	 * Returns true if the message contains a nickname from one of the users on
-	 * the chan
+	 * Returns true if the message contains a nickname from one of the users on the chan
 	 * 
-	 * @return true if someone was highlighted, false if not or for methods
-	 *         annotated with TimedAction
+	 * @return true if someone was highlighted, false if not or for methods annotated with TimedAction
 	 */
 	boolean isNickInMessage();
 
 	/**
 	 * Returns true if the name of the bot is in the message
 	 * 
-	 * @return true if the bot was highlighted, false if not or for methods
-	 *         annotated with TimedAction
+	 * @return true if the bot was highlighted, false if not or for methods annotated with TimedAction
 	 */
 	boolean isBotInMessage();
 
 	/**
-	 * Returns true if the message starts with an existing trigger. Useful for
-	 * commands with TriggerType.EVERYTHING
+	 * Returns true if the message starts with an existing trigger. Useful for commands with TriggerType.EVERYTHING
 	 * 
-	 * @return true if the message starts with an existing trigger registered in
-	 *         the bot.
+	 * @return true if the message starts with an existing trigger registered in the bot.
 	 */
 	boolean isStartsWithTrigger();
 

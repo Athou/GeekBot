@@ -59,8 +59,7 @@ public class VDMCommand {
 		}
 
 		try {
-			String url = "http://api.betacie.com/view/" + vdmId
-					+ "/nocomment/?key=" + key + "&language=fr";
+			String url = "http://api.betacie.com/view/" + vdmId + "/nocomment/?key=" + key + "&language=fr";
 			String xml = utilsService.getContent(url);
 			Document doc = utilsService.parseXML(xml);
 
@@ -72,8 +71,7 @@ public class VDMCommand {
 			String downvote = item.getChild("deserved").getValue();
 
 			result.add(IRCUtils.bold("VDM") + " - " + text);
-			result.add(IRCUtils.bold("MOAR FAKE PLZ")
-					+ String.format(" (+%s/-%s)", upvote, downvote));
+			result.add(IRCUtils.bold("MOAR FAKE PLZ") + String.format(" (+%s/-%s)", upvote, downvote));
 
 		} catch (Exception e) {
 			result.add("Could not fetch a VDM for some reason.");

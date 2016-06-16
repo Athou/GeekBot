@@ -13,9 +13,8 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 
 /**
- * Mirrors images on imgur.com, useful for image hosts blocked at work. When the
- * trigger is invoked without arguments, the last url on the channel will be
- * mirrored.
+ * Mirrors images on imgur.com, useful for image hosts blocked at work. When the trigger is invoked without arguments, the last url on the
+ * channel will be mirrored.
  * 
  */
 @BotCommand
@@ -58,8 +57,7 @@ public class MirrorCommand {
 
 	private String handleURL(String message, TriggerEvent event) {
 		String result = null;
-		if (message.endsWith(".png") || message.endsWith(".jpg")
-				|| message.endsWith(".gif") || message.endsWith(".bmp")) {
+		if (message.endsWith(".png") || message.endsWith(".jpg") || message.endsWith(".gif") || message.endsWith(".bmp")) {
 			try {
 				result = utilsService.mirrorImage(message);
 			} catch (Exception e) {

@@ -43,25 +43,21 @@ public class LogViewerPage extends TemplatePage {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(levelsChoice = new DropDownChoice<Level>("levels",
-						getModel(), LogFileDAO.LEVELS));
+				add(levelsChoice = new DropDownChoice<Level>("levels", getModel(), LogFileDAO.LEVELS));
 			}
 
 			@Override
 			public void renderHead(IHeaderResponse response) {
 				super.renderHead(response);
-				JsStatement st = new JsStatement().$(levelsChoice).chain(
-						EventsHelper.change(JsScope
-								.quickScope(new JsStatement().$(this).chain(
-										EventsHelper.submit()))));
+				JsStatement st = new JsStatement().$(levelsChoice)
+						.chain(EventsHelper.change(JsScope.quickScope(new JsStatement().$(this).chain(EventsHelper.submit()))));
 				response.render(OnDomReadyHeaderItem.forScript(st.render()));
 			}
 
 			@Override
 			protected void onSubmit() {
 				super.onSubmit();
-				setResponsePage(LogViewerPage.class, new PageParameters().add(
-						PARAM_LOGLEVEL, getModelObject().toString()));
+				setResponsePage(LogViewerPage.class, new PageParameters().add(PARAM_LOGLEVEL, getModelObject().toString()));
 			}
 		};
 		add(form);
@@ -78,8 +74,7 @@ public class LogViewerPage extends TemplatePage {
 				} catch (IOException e) {
 					return "Could not read log file: " + e.getMessage();
 				}
-				return StringUtils.join(filteredLines,
-						SystemUtils.LINE_SEPARATOR);
+				return StringUtils.join(filteredLines, SystemUtils.LINE_SEPARATOR);
 			}
 		};
 
@@ -88,8 +83,7 @@ public class LogViewerPage extends TemplatePage {
 	}
 
 	private Level getLevel(PageParameters params) {
-		String levelStr = params.get(PARAM_LOGLEVEL).toString(
-				Level.ERROR.toString());
+		String levelStr = params.get(PARAM_LOGLEVEL).toString(Level.ERROR.toString());
 
 		Level level = null;
 		for (Level l : LogFileDAO.LEVELS) {

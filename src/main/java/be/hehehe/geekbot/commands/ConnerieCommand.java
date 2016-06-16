@@ -18,8 +18,7 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.IRCUtils;
 
 /**
- * Stores all lines spoken on the channel. The bot will also give one of those
- * sentences back when addressed or randomly in a conversation.
+ * Stores all lines spoken on the channel. The bot will also give one of those sentences back when addressed or randomly in a conversation.
  * 
  * 
  */
@@ -34,8 +33,7 @@ public class ConnerieCommand {
 		String message = event.getMessage();
 		List<String> result = new ArrayList<String>();
 		if (!event.hasURL()) {
-			if (!event.isNickInMessage() && message.length() > 9
-					&& !message.contains("<") && !message.contains(">")
+			if (!event.isNickInMessage() && message.length() > 9 && !message.contains("<") && !message.contains(">")
 					&& !event.isStartsWithTrigger()) {
 				Connerie connerie = new Connerie(event.getAuthor(), message);
 				dao.save(connerie);
@@ -77,8 +75,7 @@ public class ConnerieCommand {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {
 				int count = dao.getCountMatching(keywords.split(" "));
-				r = IRCUtils.bold("Stat count for \"" + keywords + "\" : ")
-						+ count;
+				r = IRCUtils.bold("Stat count for \"" + keywords + "\" : ") + count;
 			}
 		}
 		return r;

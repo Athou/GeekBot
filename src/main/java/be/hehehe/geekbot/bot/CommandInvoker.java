@@ -29,8 +29,7 @@ public class CommandInvoker {
 	public Future<Object> invoke(Method method, Object... args) {
 		Object result = null;
 
-		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName()
-				+ "#" + method.getName());
+		log.debug("Invoking: " + method.getDeclaringClass().getSimpleName() + "#" + method.getName());
 
 		Object instance = container.select(method.getDeclaringClass()).get();
 
@@ -45,9 +44,7 @@ public class CommandInvoker {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		log.debug("Done invoking: "
-				+ method.getDeclaringClass().getSimpleName() + "#"
-				+ method.getName());
+		log.debug("Done invoking: " + method.getDeclaringClass().getSimpleName() + "#" + method.getName());
 		return new AsyncResult<Object>(result);
 	}
 

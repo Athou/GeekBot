@@ -27,10 +27,8 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 			throw new QuizzMergeException("Players need to be different.");
 		}
 
-		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(
-				quizzDao.findByField("name", receiver), null);
-		QuizzPlayer givingPlayer = Iterables.getOnlyElement(
-				quizzDao.findByField("name", giver), null);
+		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(quizzDao.findByField("name", receiver), null);
+		QuizzPlayer givingPlayer = Iterables.getOnlyElement(quizzDao.findByField("name", giver), null);
 
 		if (receivingPlayer == null) {
 			throw new QuizzMergeException("Player not found: " + receiver);
@@ -49,14 +47,11 @@ public class QuizzMergeDAO extends GenericDAO<QuizzMergeRequest> {
 	public void executeMerge(Long id) {
 		QuizzMergeRequest request = findById(id);
 
-		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(
-				quizzDao.findByField("name", request.getReceiver()), null);
-		QuizzPlayer givingPlayer = Iterables.getOnlyElement(
-				quizzDao.findByField("name", request.getGiver()), null);
+		QuizzPlayer receivingPlayer = Iterables.getOnlyElement(quizzDao.findByField("name", request.getReceiver()), null);
+		QuizzPlayer givingPlayer = Iterables.getOnlyElement(quizzDao.findByField("name", request.getGiver()), null);
 
 		delete(request);
-		receivingPlayer.setPoints(receivingPlayer.getPoints()
-				+ givingPlayer.getPoints());
+		receivingPlayer.setPoints(receivingPlayer.getPoints() + givingPlayer.getPoints());
 		quizzDao.delete(givingPlayer);
 		quizzDao.update(receivingPlayer);
 

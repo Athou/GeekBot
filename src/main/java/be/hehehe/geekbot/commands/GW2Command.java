@@ -47,16 +47,14 @@ public class GW2Command {
 	}
 
 	private void handleRow(List<String> list, Element tr) {
-		List<ServerScore> serverScores = Arrays.asList(new ServerScore(),
-				new ServerScore(), new ServerScore());
+		List<ServerScore> serverScores = Arrays.asList(new ServerScore(), new ServerScore(), new ServerScore());
 		Elements tds = tr.select("td");
 
 		// rank
 		Element td = tds.get(1);
 		Elements ranks = td.select("span.badge");
 		for (int i = 0; i < 3; i++) {
-			serverScores.get(i).setRank(
-					Integer.parseInt(ranks.get(i).ownText()));
+			serverScores.get(i).setRank(Integer.parseInt(ranks.get(i).ownText()));
 		}
 
 		// Server name
@@ -69,8 +67,7 @@ public class GW2Command {
 		td = tds.get(2);
 		Elements scores = td.select("b");
 		for (int i = 0; i < 3; i++) {
-			serverScores.get(i).setScore(
-					scores.get(i).text().replace(" ", ".").trim());
+			serverScores.get(i).setScore(scores.get(i).text().replace(" ", ".").trim());
 		}
 
 		// income
@@ -91,8 +88,7 @@ public class GW2Command {
 		Elements select = td.select("small");
 		StringBuilder last = new StringBuilder();
 		last.append("-- last updated: ");
-		last.append(select.text().substring(select.text().indexOf(':') + 1)
-				.trim());
+		last.append(select.text().substring(select.text().indexOf(':') + 1).trim());
 		last.append(" --");
 		list.add(last.toString());
 

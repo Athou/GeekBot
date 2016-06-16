@@ -39,7 +39,7 @@ public class NeufBlagueCommand {
 		HttpURLConnection connection = null;
 		InputStream is = null;
 		try {
-			URL url = new URL("http://9blague.com/random");
+			URL url = new URL("http://9gagfr.com/random");
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setInstanceFollowRedirects(false);
 			connection.connect();
@@ -47,10 +47,9 @@ public class NeufBlagueCommand {
 
 			String content = utilsService.getContent(location);
 			Document document = Jsoup.parse(content);
-			String title = document.select("[property=og:title]").first()
-					.attr("content");
+			String title = document.select("[property=og:title]").first().attr("content");
 
-			Element imgElement = document.select(".img-wrap img").first();
+			Element imgElement = document.select("img.single-media").first();
 			if (imgElement != null) {
 				String imgSrc = imgElement.attr("src");
 				String imgur = utilsService.mirrorImage(imgSrc);
@@ -59,8 +58,7 @@ public class NeufBlagueCommand {
 				}
 			}
 
-			result = IRCUtils.bold("9Blague ! ") + title + " " + " - "
-					+ location;
+			result = IRCUtils.bold("9Blague ! ") + title + " " + " - " + location;
 		} catch (Exception e) {
 			result = "Could not contact 9blague";
 			log.error("Could not contact 9blague", e);

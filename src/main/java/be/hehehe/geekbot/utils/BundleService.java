@@ -70,8 +70,8 @@ public class BundleService {
 		return getValue("bitly.apikey");
 	}
 
-	public String getImgurApiKey() {
-		return getValue("imgur.apikey");
+	public String getImgurClientId() {
+		return getValue("imgur.clientId");
 	}
 
 	public String getVDMApiKey() {

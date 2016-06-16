@@ -22,7 +22,7 @@ bitly.login=
 bitly.apikey=
 
 # Imgur credentials
-imgur.apikey=
+imgur.clientId=
 
 # VDM api key
 vdm.apikey=

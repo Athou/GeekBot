@@ -52,8 +52,7 @@ public class BotUtilsService {
 	}
 
 	/**
-	 * Get the content of the specified URL only if the MIME type of the target
-	 * starts with mimeTypePrefix or if mimeTypePrefix is null.
+	 * Get the content of the specified URL only if the MIME type of the target starts with mimeTypePrefix or if mimeTypePrefix is null.
 	 * 
 	 * @param urlString
 	 * @param mimeTypePrefix
@@ -65,13 +64,11 @@ public class BotUtilsService {
 		try {
 			URL url = new URL(urlString);
 			URLConnection con = url.openConnection();
-			con.setRequestProperty("User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0; H010818)");
+			con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0; H010818)");
 			con.setConnectTimeout(30000);
 			con.setReadTimeout(30000);
 			String contentType = con.getContentType();
-			if (mimeTypePrefix == null
-					|| contentType.startsWith(mimeTypePrefix)) {
+			if (mimeTypePrefix == null || contentType.startsWith(mimeTypePrefix)) {
 				is = con.getInputStream();
 				result = IOUtils.toString(is);
 			}
@@ -84,8 +81,7 @@ public class BotUtilsService {
 	}
 
 	/**
-	 * Shortens the specified url if possible, returning the original url if
-	 * not.
+	 * Shortens the specified url if possible, returning the original url if not.
 	 * 
 	 * @param url
 	 * @return the shorten url, the original url if unable to do so.
@@ -97,13 +93,10 @@ public class BotUtilsService {
 		String apiKey = bundleService.getBitlyApiKey();
 		if (StringUtils.isNotBlank(login) && StringUtils.isNotBlank(apiKey)) {
 			try {
-				URL urlObject = new URL(
-						"http://api.bit.ly/shorten?version=2.0.1&longUrl="
-								+ url + "&login=" + login + "&apiKey=" + apiKey);
+				URL urlObject = new URL("http://api.bit.ly/shorten?version=2.0.1&longUrl=" + url + "&login=" + login + "&apiKey=" + apiKey);
 				result = IOUtils.toString(urlObject.openStream());
 				JSONObject json = new JSONObject(result);
-				result = json.getJSONObject("results").getJSONObject(url)
-						.getString("shortUrl");
+				result = json.getJSONObject("results").getJSONObject(url).getString("shortUrl");
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
 			} finally {
@@ -121,39 +114,27 @@ public class BotUtilsService {
 		OutputStreamWriter wr = null;
 		InputStream is = null;
 		try {
-			String apiKey = bundleService.getImgurApiKey();
-			if (StringUtils.isBlank(apiKey)) {
-				return "Imgur api key not set.";
+			String clientId = bundleService.getImgurClientId();
+			if (StringUtils.isBlank(clientId)) {
+				return "Imgur clientId not set.";
 			}
 
-			URL apiUrl = new URL("http://api.imgur.com/2/upload.json");
+			URL apiUrl = new URL("https://api.imgur.com/3/image");
 
-			String data = URLEncoder.encode("image", "UTF-8") + "="
-					+ URLEncoder.encode(urlString, "UTF-8");
-			data += "&" + URLEncoder.encode("key", "UTF-8") + "="
-					+ URLEncoder.encode(apiKey, "UTF-8");
-			data += "&" + URLEncoder.encode("type", "UTF-8") + "="
-					+ URLEncoder.encode("url", "UTF-8");
+			String data = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(urlString, "UTF-8");
+			data += "&" + URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode("URL", "UTF-8");
 
 			URLConnection apiCon = apiUrl.openConnection();
 			apiCon.setDoOutput(true);
 			apiCon.setDoInput(true);
+			apiCon.setRequestProperty("Authorization", "Client-ID " + clientId);
 			wr = new OutputStreamWriter(apiCon.getOutputStream());
 			wr.write(data);
 			wr.flush();
 			is = apiCon.getInputStream();
 			String json = IOUtils.toString(is);
 			JSONObject root = new JSONObject(json);
-			JSONObject node = root.getJSONObject("upload").getJSONObject(
-					"links");
-
-			String url = node.getString("original");
-
-			node = root.getJSONObject("upload");
-			node = node.getJSONObject("image");
-			Long size = node.getLong("size");
-			size = size / 1000;
-			result = url;
+			result = root.getJSONObject("data").getString("link");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {
@@ -184,8 +165,7 @@ public class BotUtilsService {
 	}
 
 	/**
-	 * Returns the first url found in the given string, or null if no url is
-	 * found.
+	 * Returns the first url found in the given string, or null if no url is found.
 	 * 
 	 * @param message
 	 * @return an url string or null if none found.
@@ -196,8 +176,7 @@ public class BotUtilsService {
 			return null;
 		}
 		for (String s : message.split(" ")) {
-			if (s.contains("http://") || s.contains("https://")
-					|| s.contains("www.")) {
+			if (s.contains("http://") || s.contains("https://") || s.contains("www.")) {
 				if (s.startsWith("www.")) {
 					s = "http://" + s;
 				}
@@ -238,8 +217,7 @@ public class BotUtilsService {
 	}
 
 	public String getTimeDifference(Date pastDate) {
-		Period period = new Period(pastDate.getTime(),
-				System.currentTimeMillis());
+		Period period = new Period(pastDate.getTime(), System.currentTimeMillis());
 		period = period.normalizedStandard(PeriodType.yearMonthDayTime());
 
 		PeriodFormatterBuilder builder = new PeriodFormatterBuilder();

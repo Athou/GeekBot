@@ -46,12 +46,12 @@ public class NeufBlagueCommand {
 			String location = connection.getURL().toString();
 
 			String content = utilsService.getContent(location);
-			Document document = Jsoup.parse(content);
+			Document document = Jsoup.parse(content, location);
 			String title = document.select("[property=og:title]").first().attr("content");
 
 			Element imgElement = document.select("img.single-media").first();
 			if (imgElement != null) {
-				String imgSrc = imgElement.attr("src");
+				String imgSrc = imgElement.attr("abs:src");
 				String imgur = utilsService.mirrorImage(imgSrc);
 				if (imgur != null) {
 					location = imgur;

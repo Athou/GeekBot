@@ -1,22 +1,22 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.StringReader;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -43,75 +43,64 @@ public class EpisodesCommand {
 	@Help("Information about a TV show from TVRage.com")
 	public List<String> getNextEpisode(TriggerEvent event) {
 		String seriesName = event.getMessage();
-		Map<String, String> showInfos = new HashMap<String, String>();
+
+		List<String> list = new ArrayList<String>();
 		try {
-			String url = "http://services.tvrage.com/tools/quickinfo.php?show=" + URLEncoder.encode(seriesName, "UTF-8");
-			for (String line : IOUtils.readLines(new StringReader(utilsService.getContent(url)))) {
-				String[] split = line.split("@");
-				if (split.length == 2) {
-					showInfos.put(split[0], split[1]);
+			String url = String.format("http://api.tvmaze.com/singlesearch/shows?q=%s&embed=episodes",
+					URLEncoder.encode(seriesName, "UTF-8"));
+			String content = utilsService.getContent(url);
+			JSONObject root = new JSONObject(content);
+			JSONObject embedded = root.getJSONObject("_embedded");
+			JSONArray episodes = embedded.getJSONArray("episodes");
+
+			JSONObject previous = null;
+			JSONObject next = null;
+			Date now = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			for (int i = 0; i < episodes.length(); i++) {
+				JSONObject episode = episodes.getJSONObject(i);
+				String airdateString = episode.getString("airdate");
+				if (airdateString != null) {
+					Date airdate = dateFormat.parse(airdateString);
+					if (airdate.before(now)) {
+						previous = episode;
+					} else if (next == null) {
+						next = episode;
+					}
 				}
 			}
+
+			list.add(IRCUtils.bold("Show Name: ") + root.getString("name"));
+			if (next != null) {
+				list.add(IRCUtils.bold("Next Episode: ") + parseEpisode(next));
+			} else {
+				list.add(IRCUtils.bold("Next Episode: ") + "N/A");
+			}
+			if (previous != null) {
+				list.add(IRCUtils.bold("Previous Episode: ") + parseEpisode(next));
+			} else {
+				list.add(IRCUtils.bold("Previous Episode: ") + "N/A");
+			}
+			list.add(IRCUtils.bold("Show URL: ") + root.getString("url"));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		return buildStrings(showInfos);
-	}
-
-	private List<String> buildStrings(Map<String, String> showInfos) {
-		List<String> list = new ArrayList<String>();
-		if (showInfos.get("Show Name") != null) {
-			list.add(IRCUtils.bold("Show Name: ") + showInfos.get("Show Name"));
-		}
-		if (showInfos.get("Next Episode") != null) {
-			list.add(IRCUtils.bold("Next Episode: ") + parseEpisode(showInfos.get("Next Episode")));
-		} else {
-			list.add(IRCUtils.bold("Next Episode: ") + "N/A");
-		}
-
-		if (showInfos.get("Latest Episode") != null) {
-			list.add(IRCUtils.bold("Latest Episode: ") + parseEpisode(showInfos.get("Latest Episode")));
-		}
-		if (showInfos.get("Show URL") != null) {
-			list.add(IRCUtils.bold("Show URL: ") + showInfos.get("Show URL"));
-		}
-
 		return list;
 	}
 
-	public String parseEpisode(String s) {
-		String result = s.replaceAll("\\^", " ");
-		try {
-			String[] split = result.split(" ");
-			String dateString = split[split.length - 1];
-			Date date = new SimpleDateFormat("MMM/dd/yyyy", Locale.ENGLISH).parse(dateString);
-			dateString = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(date);
-			split[split.length - 1] = " - " + dateString;
-			result = StringUtils.join(split, " ");
+	public String parseEpisode(JSONObject episode) throws JSONException, ParseException {
+		List<String> parts = new ArrayList<String>();
+		parts.add(episode.getString("name"));
 
-			date = DateUtils.truncate(date, Calendar.DATE);
-			Date now = DateUtils.truncate(new Date(), Calendar.DATE);
-			long diff = date.getTime() - now.getTime();
-			long diffDays = diff / (24 * 60 * 60 * 1000);
-			String add = "";
-			if (diffDays == 0) {
-				add = " (today)";
-			} else if (diffDays == 1) {
-				add = " (tomorrow)";
-			} else if (diffDays > 1) {
-				add = " (" + diffDays + " days from now)";
-			} else if (diffDays == -1) {
-				add = " (yesterday)";
-			} else if (diffDays < -1) {
-				diffDays = -diffDays;
-				add = " (" + diffDays + " days ago)";
-			}
-			result += add;
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			result = s.replaceAll("\\^", " ");
-		}
-		return result;
+		String day = episode.getString("airdate");
+		String time = episode.getString("airtime");
+		parts.add("- " + day + " " + time);
 
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(episode.getString("airdate") + episode.getString("airtime"));
+		PrettyTime prettyTime = new PrettyTime(Locale.FRENCH);
+		parts.add("(" + prettyTime.format(date) + ")");
+
+		return StringUtils.join(parts, " ");
 	}
+
 }

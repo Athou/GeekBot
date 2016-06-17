@@ -96,7 +96,7 @@ public class EpisodesCommand {
 		String time = episode.getString("airtime");
 		parts.add("- " + day + " " + time);
 
-		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(episode.getString("airdate") + episode.getString("airtime"));
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(day + " " + time);
 		PrettyTime prettyTime = new PrettyTime(Locale.FRENCH);
 		parts.add("(" + prettyTime.format(date) + ")");
 

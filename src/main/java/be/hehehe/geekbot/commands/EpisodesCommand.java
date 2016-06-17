@@ -74,7 +74,7 @@ public class EpisodesCommand {
 				list.add(IRCUtils.bold("Next Episode: ") + "N/A");
 			}
 			if (previous != null) {
-				list.add(IRCUtils.bold("Previous Episode: ") + parseEpisode(next));
+				list.add(IRCUtils.bold("Previous Episode: ") + parseEpisode(previous));
 			} else {
 				list.add(IRCUtils.bold("Previous Episode: ") + "N/A");
 			}

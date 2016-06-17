@@ -12,6 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import com.google.common.collect.Maps;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -20,8 +22,6 @@ import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Maps;
 
 /**
  * Horoscope from astrocenter.fr (French)
@@ -45,9 +45,9 @@ public class HoroscopeCommand {
 		Map<String, String> mapping = state.get(Map.class);
 		if (mapping == null) {
 			mapping = Maps.newLinkedHashMap();
-			mapping.put("belier", "bélier");
+			mapping.put("belier", "belier");
 			mapping.put("taureau", "taureau");
-			mapping.put("gemeaux", "gémeaux");
+			mapping.put("gemeaux", "gemeaux");
 			mapping.put("cancer", "cancer");
 			mapping.put("lion", "lion");
 			mapping.put("vierge", "vierge");
@@ -81,10 +81,10 @@ public class HoroscopeCommand {
 		try {
 			Map<String, String> mapping = state.get(Map.class);
 			String id = mapping.get(sign);
-			content = utilsService.getContent(String.format("http://fr.astrology.yahoo.com/horoscope/%s/", id));
+			content = utilsService.getContent(String.format("http://mon.astrocenter.fr/horoscope/quotidien/%s", id));
 			Document doc = Jsoup.parse(content);
 
-			Element horo = doc.select(".astro-tab-body").first();
+			Element horo = doc.select(".article-horoscope").first().child(0);
 			line = horo.text();
 
 		} catch (Exception e) {
@@ -93,5 +93,4 @@ public class HoroscopeCommand {
 
 		return line;
 	}
-
 }

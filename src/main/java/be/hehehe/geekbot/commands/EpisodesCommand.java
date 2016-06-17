@@ -100,10 +100,8 @@ public class EpisodesCommand {
 	}
 
 	private Date parseAirDate(JSONObject episode) throws JSONException, ParseException {
-		String airstamp = episode.getString("airstamp");
-		if (airstamp == null)
+		if (episode.isNull("airstamp"))
 			return null;
-
-		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(airstamp);
+		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(episode.getString("airstamp"));
 	}
 }

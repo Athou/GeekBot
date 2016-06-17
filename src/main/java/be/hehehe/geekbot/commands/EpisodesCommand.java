@@ -87,7 +87,8 @@ public class EpisodesCommand {
 
 	public String parseEpisode(JSONObject episode) throws JSONException, ParseException {
 		List<String> parts = new ArrayList<String>();
-		parts.add(episode.getString("name"));
+		parts.add(String.format("S%02dE%02d", episode.getString("season"), episode.getInt("number")));
+		parts.add(" - " + episode.getString("name"));
 
 		Date airdate = parseAirDate(episode);
 		parts.add("(" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(airdate));
@@ -105,5 +106,4 @@ public class EpisodesCommand {
 
 		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(airstamp);
 	}
-
 }

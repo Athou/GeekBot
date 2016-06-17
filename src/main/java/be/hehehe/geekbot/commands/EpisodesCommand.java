@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.commands;
 
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,12 +55,10 @@ public class EpisodesCommand {
 			JSONObject previous = null;
 			JSONObject next = null;
 			Date now = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			for (int i = 0; i < episodes.length(); i++) {
 				JSONObject episode = episodes.getJSONObject(i);
-				String airdateString = episode.getString("airdate");
-				if (airdateString != null) {
-					Date airdate = dateFormat.parse(airdateString);
+				Date airdate = parseAirDate(episode);
+				if (airdate != null) {
 					if (airdate.before(now)) {
 						previous = episode;
 					} else if (next == null) {
@@ -92,15 +89,21 @@ public class EpisodesCommand {
 		List<String> parts = new ArrayList<String>();
 		parts.add(episode.getString("name"));
 
-		String day = episode.getString("airdate");
-		String time = episode.getString("airtime");
-		parts.add("- " + day + " " + time);
+		Date airdate = parseAirDate(episode);
+		parts.add("(" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(airdate));
 
-		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(day + " " + time);
 		PrettyTime prettyTime = new PrettyTime(Locale.FRENCH);
-		parts.add("(" + prettyTime.format(date) + ")");
+		parts.add(", " + prettyTime.format(airdate) + ")");
 
 		return StringUtils.join(parts, " ");
+	}
+
+	private Date parseAirDate(JSONObject episode) throws JSONException, ParseException {
+		String airstamp = episode.getString("airstamp");
+		if (airstamp == null)
+			return null;
+
+		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX").parse(airstamp);
 	}
 
 }

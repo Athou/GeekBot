@@ -67,7 +67,8 @@ public class EpisodesCommand {
 				}
 			}
 
-			list.add(IRCUtils.bold("Show Name: ") + root.getString("name"));
+			list.add(IRCUtils.bold(root.getString("name")) + " http://www.imdb.com/title/"
+					+ root.getJSONObject("externals").getString("imdb"));
 			if (next != null) {
 				list.add(IRCUtils.bold("Next Episode: ") + parseEpisode(next));
 			} else {
@@ -78,7 +79,6 @@ public class EpisodesCommand {
 			} else {
 				list.add(IRCUtils.bold("Previous Episode: ") + "N/A");
 			}
-			list.add(IRCUtils.bold("Show URL: http://www.imdb.com/title/") + root.getJSONObject("externals").getString("imdb"));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

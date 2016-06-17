@@ -78,7 +78,7 @@ public class EpisodesCommand {
 			} else {
 				list.add(IRCUtils.bold("Previous Episode: ") + "N/A");
 			}
-			list.add(IRCUtils.bold("Show URL: ") + root.getString("url"));
+			list.add(IRCUtils.bold("Show URL: http://www.imdb.com/title/") + root.getJSONObject("externals").getString("imdb"));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

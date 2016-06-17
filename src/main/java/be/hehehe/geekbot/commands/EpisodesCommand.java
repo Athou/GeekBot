@@ -87,7 +87,7 @@ public class EpisodesCommand {
 
 	public String parseEpisode(JSONObject episode) throws JSONException, ParseException {
 		List<String> parts = new ArrayList<String>();
-		parts.add(String.format("S%02dE%02d", episode.getString("season"), episode.getInt("number")));
+		parts.add(String.format("S%02dE%02d", episode.getInt("season"), episode.getInt("number")));
 		parts.add(" - " + episode.getString("name"));
 
 		Date airdate = parseAirDate(episode);

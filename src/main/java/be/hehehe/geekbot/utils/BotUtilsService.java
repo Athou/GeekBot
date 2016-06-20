@@ -11,7 +11,6 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
-import java.util.Date;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,10 +23,6 @@ import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.joda.time.Period;
-import org.joda.time.PeriodType;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
 import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
@@ -214,40 +209,6 @@ public class BotUtilsService {
 			videoParam = videoParam.substring(0, indexOfSlash);
 		}
 		return videoParam;
-	}
-
-	public String getTimeDifference(Date pastDate) {
-		Period period = new Period(pastDate.getTime(), System.currentTimeMillis());
-		period = period.normalizedStandard(PeriodType.yearMonthDayTime());
-
-		PeriodFormatterBuilder builder = new PeriodFormatterBuilder();
-		builder.printZeroNever();
-
-		builder.appendYears();
-		builder.appendSuffix(" year", " years");
-		builder.appendSeparator(" ");
-
-		builder.appendMonths();
-		builder.appendSuffix(" month", " months");
-		builder.appendSeparator(" ");
-
-		builder.appendDays();
-		builder.appendSuffix(" day", " days");
-		builder.appendSeparator(" ");
-
-		builder.appendHours();
-		builder.appendSuffix(" hour", " hours");
-		builder.appendSeparator(" ");
-
-		builder.appendMinutes();
-		builder.appendSuffix(" minute", " minutes");
-		builder.appendSeparator(" ");
-
-		builder.appendSeconds();
-		builder.appendSuffix(" second", " seconds");
-		PeriodFormatter formatter = builder.toFormatter();
-
-		return formatter.print(period);
 	}
 
 	public HashAndByteCount calculateHashAndByteCount(String urlString) {

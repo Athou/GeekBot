@@ -1,6 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,23 +29,16 @@ public class SkanditeCommandTest extends ArquillianTest {
 				hashAndByteCount.setHash(urlString);
 				return hashAndByteCount;
 			}
-
-			@Override
-			public String getTimeDifference(Date pastDate) {
-				return "dummy";
-			}
 		};
 	}
 
 	@Test
 	public void skanditeTest() {
-		TriggerEvent event = new TriggerEventImpl("http://www.google.com",
-				"http://www.google.com", "author1");
+		TriggerEvent event = new TriggerEventImpl("http://www.google.com", "http://www.google.com", "author1");
 		List<String> result = skanditeCommand.handleSkandites(event);
 		Assert.assertTrue(result.isEmpty());
 
-		event = new TriggerEventImpl("http://www.google.com",
-				"http://www.google.com", "author2");
+		event = new TriggerEventImpl("http://www.google.com", "http://www.google.com", "author2");
 		result = skanditeCommand.handleSkandites(event);
 		Assert.assertFalse(result.isEmpty());
 	}

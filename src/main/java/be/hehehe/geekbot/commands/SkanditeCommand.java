@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -48,9 +49,9 @@ public class SkanditeCommand {
 
 			if (skandite != null) {
 				if (!StringUtils.equals(skandite.getAuthor(), event.getAuthor())) {
-					String line = IRCUtils.bold("Skandite! ") + skandite.getUrl() + " linked "
-							+ utilsService.getTimeDifference(skandite.getPostedDate()) + " ago by " + skandite.getAuthor() + " ("
-							+ skandite.getCount() + "x).";
+					PrettyTime prettyTime = new PrettyTime();
+					String line = IRCUtils.bold("Skandite! ") + skandite.getUrl() + " linked " + prettyTime.format(skandite.getPostedDate())
+							+ " by " + skandite.getAuthor() + " (" + skandite.getCount() + "x).";
 					result.add(line);
 					skandite.setCount(skandite.getCount() + 1);
 					dao.update(skandite);

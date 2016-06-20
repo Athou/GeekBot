@@ -26,6 +26,7 @@ public abstract class GenericDAO<T> {
 		em.persist(object);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void update(T... objects) {
 		for (Object object : objects) {
 			em.merge(object);

@@ -7,6 +7,7 @@ import java.net.URL;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -47,7 +48,7 @@ public class NeufBlagueCommand {
 
 			String content = utilsService.getContent(location);
 			Document document = Jsoup.parse(content, location);
-			String title = document.select("[property=og:title]").first().attr("content");
+			String title = StringEscapeUtils.unescapeHtml4(document.select("[property=og:title]").first().attr("content"));
 
 			Element imgElement = document.select("img.single-media").first();
 			if (imgElement != null) {

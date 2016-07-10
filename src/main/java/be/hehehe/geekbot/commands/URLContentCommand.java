@@ -10,16 +10,6 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.jsoup.Jsoup;
 
-import twitter4j.Status;
-import twitter4j.Twitter;
-import be.hehehe.geekbot.annotations.BotCommand;
-import be.hehehe.geekbot.annotations.Trigger;
-import be.hehehe.geekbot.annotations.TriggerType;
-import be.hehehe.geekbot.bot.TriggerEvent;
-import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
-
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -27,6 +17,16 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
+
+import be.hehehe.geekbot.annotations.BotCommand;
+import be.hehehe.geekbot.annotations.Trigger;
+import be.hehehe.geekbot.annotations.TriggerType;
+import be.hehehe.geekbot.bot.TriggerEvent;
+import be.hehehe.geekbot.utils.BotUtilsService;
+import be.hehehe.geekbot.utils.BundleService;
+import be.hehehe.geekbot.utils.IRCUtils;
+import twitter4j.Status;
+import twitter4j.Twitter;
 
 /**
  * 
@@ -105,7 +105,7 @@ public class URLContentCommand {
 			// twitter
 			else if (url.contains("twitter.com") && (url.contains("/status/") || url.contains("/statuses/"))) {
 
-				String[] split = url.split("/");
+				String[] split = url.split("[?]")[0].split("/");
 				String statusId = null;
 				for (int i = 0; i < split.length; i++) {
 					String token = split[i];

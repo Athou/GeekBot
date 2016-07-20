@@ -1,7 +1,6 @@
 package be.hehehe.geekbot.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +9,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.TextNode;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -32,20 +32,19 @@ public class BlagueCommand {
 	Logger log;
 
 	@Trigger("!blague")
-	@Help("Fetches a random blague from blaguesdemerde.fr")
+	@Help("Fetches a random blague from humour-blague.com")
 	public List<String> getRandomBlague() {
-		List<String> result = new ArrayList<String>();
-		String url = "http://www.blaguesdemerde.fr/blagues-aleatoires";
+		List<String> result = new ArrayList<>();
+		String url = "http://humour-blague.com/blagues-2/index.php";
 		try {
 			Document doc = Jsoup.parse(utilsService.getContent(url));
 
-			String blague = doc.select(".joke_text_contener").get(0).text();
-			List<String> lines = Arrays.asList(blague.split("<br />"));
-			for (String line : lines) {
-				result.add(StringEscapeUtils.unescapeHtml4(line));
+			List<TextNode> nodes = doc.select(".blague").get(0).textNodes();
+			for (TextNode node : nodes) {
+				result.add(StringEscapeUtils.unescapeHtml4(node.text()));
 			}
 
-			if (result.size() > 5) {
+			if (result.size() > 7) {
 				// joke too long
 				return getRandomBlague();
 			}

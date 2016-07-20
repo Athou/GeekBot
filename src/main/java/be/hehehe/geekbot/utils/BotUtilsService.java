@@ -60,6 +60,7 @@ public class BotUtilsService {
 			URL url = new URL(urlString);
 			URLConnection con = url.openConnection();
 			con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0; H010818)");
+			con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
 			con.setConnectTimeout(30000);
 			con.setReadTimeout(30000);
 			String contentType = con.getContentType();

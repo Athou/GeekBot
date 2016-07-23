@@ -114,7 +114,7 @@ public class GeekBot {
 
 				@Override
 				public void onMessage(String channel, String sender, String login, String hostname, String message) {
-					if (StringUtils.equals(sender, discordBotName)) {
+					if (StringUtils.startsWith(sender, discordBotName)) {
 						int start = message.indexOf('<');
 						int end = message.indexOf('>');
 

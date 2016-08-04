@@ -13,13 +13,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
+import com.google.common.collect.Lists;
+
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Lists;
 
 /**
  * Check twitch.tv feed status (configure feeds in twitch.properties)
@@ -78,7 +78,7 @@ public class TwitchCommand {
 			try {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {
-					alerts.add(IRCUtils.bold(stream.getName()) + " is now live on http://www.twitch.tv/" + stream.getName());
+					alerts.add("\\" + IRCUtils.bold(stream.getName()) + " is now live on http://www.twitch.tv/" + stream.getName());
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {

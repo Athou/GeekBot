@@ -78,7 +78,8 @@ public class TwitchCommand {
 			try {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {
-					alerts.add("\\" + IRCUtils.bold(stream.getName()) + " is now live on http://www.twitch.tv/" + stream.getName());
+					alerts.add(
+							IRCUtils.bold(stream.getName().replace("_", "")) + " is now live on http://www.twitch.tv/" + stream.getName());
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {

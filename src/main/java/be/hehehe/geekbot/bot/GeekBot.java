@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import be.hehehe.geekbot.annotations.RandomAction;
@@ -34,11 +33,8 @@ import be.hehehe.geekbot.utils.BundleService;
 @Singleton
 public class GeekBot {
 
-	private static final List<Class<?>> ALL = Lists.newArrayList();
-
 	private String botName;
 	private List<String> channels;
-	private Map<String, List<Class<?>>> channelCommands;
 
 	private List<Method> triggers;
 	private List<Method> randoms;
@@ -73,25 +69,6 @@ public class GeekBot {
 
 		botName = bundleService.getBotName();
 		channels = bundleService.getChannels();
-		channelCommands = Maps.newHashMap();
-
-		try {
-			for (String channel : channels) {
-				String property = bundleService.getValue("channel.command." + channel.replace("#", ""));
-				if ("ALL".equals(property)) {
-					channelCommands.put(channel.toUpperCase(), ALL);
-				} else {
-					List<Class<?>> list = Lists.newArrayList();
-					String[] classes = property.split(",");
-					for (String className : classes) {
-						list.add(Class.forName(className));
-					}
-					channelCommands.put(channel.toUpperCase(), list);
-				}
-			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
 
 		triggers = extension.getTriggers();
 		randoms = extension.getRandoms();
@@ -210,8 +187,7 @@ public class GeekBot {
 	}
 
 	private boolean isMethodAllowedToRun(String channel, Method method) {
-		List<Class<?>> commands = channelCommands.get(channel.toUpperCase());
-		return commands != null && (commands == ALL || commands.contains(method.getDeclaringClass()));
+		return true;
 	}
 
 	/**

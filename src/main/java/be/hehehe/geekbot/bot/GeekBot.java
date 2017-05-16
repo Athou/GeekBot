@@ -80,7 +80,7 @@ public class GeekBot {
 
 		if (connect) {
 			String token = bundleService.getDiscordToken();
-			bot = new DiscordBot(token, new MessageListener() {
+			bot = new DiscordBot(token, botName, new MessageListener() {
 
 				@Override
 				public void onMessage(String channel, String sender, String message) {

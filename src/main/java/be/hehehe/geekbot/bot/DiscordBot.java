@@ -21,12 +21,14 @@ public class DiscordBot extends ListenerAdapter {
 	@Inject
 	Logger log;
 
+	private String botName;
 	private MessageListener listener;
 
 	private JDA jda;
 	private Guild guild;
 
-	public DiscordBot(String token, MessageListener listener) {
+	public DiscordBot(String token, String botName, MessageListener listener) {
+		this.botName = botName;
 		this.listener = listener;
 		try {
 			jda = new JDABuilder(AccountType.BOT).setToken(token).addEventListener(this).buildBlocking();
@@ -38,7 +40,10 @@ public class DiscordBot extends ListenerAdapter {
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
-		listener.onMessage(event.getTextChannel().getName(), event.getMember().getEffectiveName(), event.getMessage().getContent());
+		String sender = event.getMember().getEffectiveName();
+		if (!botName.equalsIgnoreCase(sender)) {
+			listener.onMessage(event.getTextChannel().getName(), sender, event.getMessage().getContent());
+		}
 	}
 
 	public static interface MessageListener {
@@ -46,7 +51,7 @@ public class DiscordBot extends ListenerAdapter {
 	}
 
 	public void sendMessage(String channel, String message) {
-		guild.getTextChannelsByName(channel, true).get(0).sendMessage(message);
+		guild.getTextChannelsByName(channel, true).get(0).sendMessage(message).queue();
 	}
 
 	public List<String> getUsers(String channel) {

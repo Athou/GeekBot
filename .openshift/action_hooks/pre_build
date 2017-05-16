@@ -3,5 +3,5 @@
 # available.  Otherwise it will execute while your application is stopped
 # before the build step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
-PATH=$OPENSHIFT_DATA_DIR:$PATH
+export PATH=$OPENSHIFT_DATA_DIR:$PATH
 echo "pre-build hook, PATH is now: $PATH"

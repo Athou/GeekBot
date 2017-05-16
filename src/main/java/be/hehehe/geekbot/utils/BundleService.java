@@ -54,12 +54,8 @@ public class BundleService {
 		return Arrays.asList(getValue("channels").split(Pattern.quote(",")));
 	}
 
-	public String getServer() {
-		return getValue("server");
-	}
-
-	public int getPort() {
-		return Integer.parseInt(getValue("port"));
+	public String getDiscordToken() {
+		return getValue("discord.token");
 	}
 
 	public String getBitlyLogin() {

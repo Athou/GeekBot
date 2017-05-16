@@ -1,8 +1,6 @@
 package be.hehehe.geekbot.bot;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,18 +10,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import org.apache.commons.beanutils.BeanToPropertyValueTransformer;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.jibble.pircbot.User;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -33,7 +27,7 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
-import be.hehehe.geekbot.bot.IRCBot.MessageListener;
+import be.hehehe.geekbot.bot.DiscordBot.MessageListener;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 
@@ -52,7 +46,7 @@ public class GeekBot {
 	@Inject
 	GeekBotCDIExtension extension;
 
-	private IRCBot bot;
+	private DiscordBot bot;
 
 	@Inject
 	CommandInvoker invoker;
@@ -103,17 +97,16 @@ public class GeekBot {
 		randoms = extension.getRandoms();
 		setTimers(extension.getTimers());
 
-		String server = bundleService.getServer();
-		int port = bundleService.getPort();
 		boolean connect = !bundleService.isTest();
 
 		final String discordBotName = bundleService.getDiscordBotName();
 
 		if (connect) {
-			bot = new IRCBot(server, port, botName, channels, new MessageListener() {
+			String token = bundleService.getDiscordToken();
+			bot = new DiscordBot(token, new MessageListener() {
 
 				@Override
-				public void onMessage(String channel, String sender, String login, String hostname, String message) {
+				public void onMessage(String channel, String sender, String message) {
 					if (StringUtils.startsWith(sender, discordBotName)) {
 						int start = message.indexOf('<');
 						int end = message.indexOf('>');
@@ -125,11 +118,6 @@ public class GeekBot {
 				}
 			});
 		}
-	}
-
-	@PreDestroy
-	public void destroy() {
-		bot.quitServer("brb, reboot");
 	}
 
 	public void setTimers(List<Method> methods) {
@@ -268,9 +256,9 @@ public class GeekBot {
 		boolean nickInMessage = false;
 		if (message != null) {
 			String[] split = message.split(" ");
-			for (User user : bot.getUsers(channel)) {
+			for (String user : bot.getUsers(channel)) {
 				for (String token : split) {
-					if (token.equalsIgnoreCase(user.getNick()) || token.equalsIgnoreCase(user.getNick() + ":")) {
+					if (token.equalsIgnoreCase(user) || token.equalsIgnoreCase(user + ":")) {
 						nickInMessage = true;
 						break;
 					}
@@ -304,10 +292,8 @@ public class GeekBot {
 		return buildEvent(channel, null, null, null);
 	}
 
-	@SuppressWarnings("unchecked")
 	private TriggerEvent buildEvent(final String channel, String message, String author, String trigger) {
-		Collection<String> users = CollectionUtils.collect(Arrays.asList(bot.getUsers(channel)),
-				new BeanToPropertyValueTransformer("nick"));
+		List<String> users = bot.getUsers(channel);
 		TriggerEvent event = new TriggerEventImpl(message, author, trigger, users, utilsService.extractURL(message),
 				nickInMessage(channel, message), botNameInMessage(message), isMessageTrigger(message), new MessageWriter() {
 					@Override

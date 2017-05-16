@@ -38,7 +38,7 @@ public class RadioCommand {
 	Logger log;
 
 	@SuppressWarnings("unchecked")
-	@TimedAction(5)
+	@TimedAction(60)
 	public List<String> getLatestPost() {
 		List<String> toReturn = new ArrayList<>();
 		try {

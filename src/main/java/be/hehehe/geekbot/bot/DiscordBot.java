@@ -38,7 +38,7 @@ public class DiscordBot extends ListenerAdapter {
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
-		listener.onMessage(event.getGuild().getName(), event.getMember().getEffectiveName(), event.getMessage().getContent());
+		listener.onMessage(event.getTextChannel().getName(), event.getMember().getEffectiveName(), event.getMessage().getContent());
 	}
 
 	public static interface MessageListener {
@@ -46,10 +46,11 @@ public class DiscordBot extends ListenerAdapter {
 	}
 
 	public void sendMessage(String channel, String message) {
-		guild.getPublicChannel().sendMessage(message);
+		guild.getTextChannelsByName(channel, true).get(0).sendMessage(message);
 	}
 
 	public List<String> getUsers(String channel) {
-		return guild.getPublicChannel().getMembers().stream().map(m -> m.getNickname()).collect(Collectors.toList());
+		return guild.getTextChannelsByName(channel, true).get(0).getMembers().stream().map(m -> m.getNickname())
+				.collect(Collectors.toList());
 	}
 }

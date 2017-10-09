@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,12 +19,14 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * IMDB commands
  * 
  */
 @BotCommand
+@JBossLog
 public class IMDBCommand {
 
 	@Inject
@@ -33,9 +34,6 @@ public class IMDBCommand {
 
 	@Inject
 	GoogleCommand googleCommand;
-
-	@Inject
-	Logger log;
 
 	@Trigger(value = "!imdb", type = TriggerType.STARTSWITH)
 	@Help("IMDb Movie search.")
@@ -57,7 +55,7 @@ public class IMDBCommand {
 	}
 
 	private List<String> parse(String source) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 
 		try {
 			JSONObject json = new JSONObject(source).getJSONObject("data");
@@ -87,7 +85,7 @@ public class IMDBCommand {
 			}
 
 			if (!json.isNull("genres")) {
-				List<String> genres = new ArrayList<String>();
+				List<String> genres = new ArrayList<>();
 				JSONArray genresArray = json.getJSONArray("genres");
 				for (int i = 0; i < genresArray.length(); i++) {
 					String genre = (String) genresArray.get(i);
@@ -99,7 +97,7 @@ public class IMDBCommand {
 			result.add(s);
 			s = "";
 			if (!json.isNull("directors_summary")) {
-				List<String> directors = new ArrayList<String>();
+				List<String> directors = new ArrayList<>();
 
 				for (int i = 0; i < json.getJSONArray("directors_summary").length(); i++) {
 					JSONObject j2 = (JSONObject) json.getJSONArray("directors_summary").get(i);
@@ -116,7 +114,7 @@ public class IMDBCommand {
 			s = "";
 			if (!json.isNull("cast_summary")) {
 
-				List<String> actors = new ArrayList<String>();
+				List<String> actors = new ArrayList<>();
 
 				for (int i = 0; i < json.getJSONArray("cast_summary").length() && i < 5; i++) {
 					JSONObject j2 = (JSONObject) json.getJSONArray("cast_summary").get(i);
@@ -135,7 +133,7 @@ public class IMDBCommand {
 			log.error(e.getMessage(), e);
 		}
 
-		List<String> result2 = new ArrayList<String>();
+		List<String> result2 = new ArrayList<>();
 		for (String s : result) {
 			result2.add(StringEscapeUtils.unescapeHtml4(s));
 		}

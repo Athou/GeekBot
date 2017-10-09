@@ -17,7 +17,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 
 import com.google.common.collect.Maps;
 
@@ -29,8 +28,10 @@ import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.bot.DiscordBot.MessageListener;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
+import lombok.extern.jbosslog.JBossLog;
 
 @Singleton
+@JBossLog
 public class GeekBot {
 
 	private String botName;
@@ -52,9 +53,6 @@ public class GeekBot {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Inject
 	Instance<Object> container;

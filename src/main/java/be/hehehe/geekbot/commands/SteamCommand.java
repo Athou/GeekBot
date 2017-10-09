@@ -8,7 +8,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.log4j.Logger;
+
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
@@ -16,16 +19,14 @@ import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Checks Steam RSS news every minute
  * 
  */
 @BotCommand
+@JBossLog
 public class SteamCommand {
 
 	@Inject
@@ -34,13 +35,10 @@ public class SteamCommand {
 	@Inject
 	RSSFeedDAO dao;
 
-	@Inject
-	Logger log;
-
 	@SuppressWarnings("unchecked")
 	@TimedAction(1)
 	public List<String> getLatestPost() {
-		List<String> toReturn = new ArrayList<String>();
+		List<String> toReturn = new ArrayList<>();
 		try {
 			String url = "http://store.steampowered.com/feeds/news.xml";
 			SyndFeedInput input = new SyndFeedInput();

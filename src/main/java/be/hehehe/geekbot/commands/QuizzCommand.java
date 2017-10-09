@@ -11,7 +11,8 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+
+import com.google.common.collect.Lists;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -25,21 +26,18 @@ import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Lists;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Quizz !
  * 
  */
 @BotCommand
+@JBossLog
 public class QuizzCommand {
 
 	@Inject
 	State state;
-
-	@Inject
-	Logger log;
 
 	@Inject
 	BundleService bundleService;

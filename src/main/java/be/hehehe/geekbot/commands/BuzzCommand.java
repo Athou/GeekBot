@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
-
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
@@ -21,12 +19,14 @@ import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Fetches a random post from jeanmarcmorandini.com (French)
  * 
  */
 @BotCommand
+@JBossLog
 public class BuzzCommand {
 
 	@Inject
@@ -35,14 +35,11 @@ public class BuzzCommand {
 	@Inject
 	RSSFeedDAO dao;
 
-	@Inject
-	Logger log;
-
 	@SuppressWarnings("unchecked")
 	@Trigger("!buzz")
 	@Help("Fetches one of the latest posts from jeanmarcmorandini.com")
 	public List<String> getLatestBuzz() {
-		List<String> toReturn = new ArrayList<String>();
+		List<String> toReturn = new ArrayList<>();
 		try {
 			URL url = new URL("http://feeds.feedburner.com/jeanmarcmorandini/pExM?format=xml");
 			SyndFeedInput input = new SyndFeedInput();

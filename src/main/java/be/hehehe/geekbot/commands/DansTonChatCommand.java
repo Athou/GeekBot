@@ -5,18 +5,19 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
+
+import com.google.common.collect.Lists;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Lists;
+import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
+@JBossLog
 public class DansTonChatCommand {
 
 	// key from android apk
@@ -24,9 +25,6 @@ public class DansTonChatCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Trigger("!dtc")
 	public List<String> getRandom() {

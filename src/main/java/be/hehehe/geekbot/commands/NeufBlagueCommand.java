@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,12 +17,11 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
+@JBossLog
 public class NeufBlagueCommand {
-
-	@Inject
-	Logger log;
 
 	@Inject
 	BotUtilsService utilsService;

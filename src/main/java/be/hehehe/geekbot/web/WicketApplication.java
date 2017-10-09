@@ -31,8 +31,6 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		mountPage("quizz", QuizzScorePage.class);
 		mountPage("quizzmerge", QuizzMergePage.class);
 
-		mountPage(String.format("log/#{%s}", LogViewerPage.PARAM_LOGLEVEL), LogViewerPage.class);
-
 		getMarkupSettings().setStripWicketTags(true);
 	}
 

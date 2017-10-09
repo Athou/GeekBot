@@ -42,4 +42,5 @@ google.key =
 google.cseId =
 
 # Discord bot name
-discord.botname = 
+discord.botname= 
+discord.token=

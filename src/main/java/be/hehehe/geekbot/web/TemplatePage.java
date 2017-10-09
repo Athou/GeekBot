@@ -12,14 +12,14 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.web.auth.LoggedInButtonPanel;
 import be.hehehe.geekbot.web.auth.LoggedOutButtonPanel;
 import be.hehehe.geekbot.web.auth.WicketSession;
 import be.hehehe.geekbot.web.nav.NavigationHeader;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 @SuppressWarnings("serial")
 public abstract class TemplatePage extends WebPage {
@@ -49,7 +49,6 @@ public abstract class TemplatePage extends WebPage {
 		pages.put("Quizz", new PageModel("Scoreboard", QuizzScorePage.class));
 		pages.put("Quizz", new PageModel("Merge Requests", QuizzMergePage.class));
 		pages.put("Help", new PageModel("Triggers", HelpPage.class));
-		pages.put("Debug", new PageModel("View Logs", LogViewerPage.class));
 
 		RepeatingView repeatingView = new RepeatingView("nav-headers");
 

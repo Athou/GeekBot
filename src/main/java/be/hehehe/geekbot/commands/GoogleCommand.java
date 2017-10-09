@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,12 +19,14 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Google search, web or images
  * 
  */
 @BotCommand
+@JBossLog
 public class GoogleCommand {
 
 	@Inject
@@ -33,9 +34,6 @@ public class GoogleCommand {
 
 	@Inject
 	BundleService bundleService;
-
-	@Inject
-	Logger log;
 
 	public enum Mode {
 		WEB("web"), IMAGE("images");
@@ -83,7 +81,7 @@ public class GoogleCommand {
 	}
 
 	private List<String> parse(String source, String keywords, Mode mode) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		try {
 			JSONObject json = new JSONObject(source);
 

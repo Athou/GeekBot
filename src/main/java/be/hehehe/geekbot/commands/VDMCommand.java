@@ -5,9 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
+
+import com.google.common.collect.Lists;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -17,14 +18,14 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Lists;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Gives back a random VDM (French)
  * 
  */
 @BotCommand
+@JBossLog
 public class VDMCommand {
 
 	@Inject
@@ -32,9 +33,6 @@ public class VDMCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Trigger("!vdm")
 	@Help("Prints a random VDM.")

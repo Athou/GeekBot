@@ -3,11 +3,9 @@ package be.hehehe.geekbot.bot;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
 import javax.security.auth.login.LoginException;
 
-import org.apache.log4j.Logger;
-
+import lombok.extern.jbosslog.JBossLog;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -16,10 +14,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+@JBossLog
 public class DiscordBot extends ListenerAdapter {
-
-	@Inject
-	Logger log;
 
 	private String botName;
 	private MessageListener listener;

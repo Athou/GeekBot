@@ -1,6 +1,5 @@
 package be.hehehe.geekbot.commands;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -10,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.google.common.collect.Lists;
@@ -20,6 +18,7 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Check twitch.tv feed status (configure feeds in twitch.properties)
@@ -27,6 +26,7 @@ import be.hehehe.geekbot.utils.IRCUtils;
  * 
  */
 @BotCommand
+@JBossLog
 public class TwitchCommand {
 
 	@Inject
@@ -34,9 +34,6 @@ public class TwitchCommand {
 
 	@Inject
 	State state;
-
-	@Inject
-	Logger log;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
@@ -47,13 +44,8 @@ public class TwitchCommand {
 			Properties props = new Properties();
 			InputStream is = null;
 			try {
-				String configPath = "/twitch.properties";
-				String openshiftDataDir = System.getenv("OPENSHIFT_DATA_DIR");
-				if (openshiftDataDir != null) {
-					is = new FileInputStream(openshiftDataDir + configPath);
-				} else {
-					is = getClass().getResourceAsStream(configPath);
-				}
+				String configPath = "twitch.properties";
+				is = getClass().getResourceAsStream(configPath);
 				props.load(is);
 			} catch (Exception e) {
 				log.fatal("Could not load config file");

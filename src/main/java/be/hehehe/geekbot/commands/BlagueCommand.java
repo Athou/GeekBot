@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.TextNode;
@@ -16,6 +15,7 @@ import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Fetches a random blague from la-blague-du-jour.com (French)
@@ -23,13 +23,11 @@ import be.hehehe.geekbot.utils.IRCUtils;
  * 
  */
 @BotCommand
+@JBossLog
 public class BlagueCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Trigger("!blague")
 	@Help("Fetches a random blague from humour-blague.com")

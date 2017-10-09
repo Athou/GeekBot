@@ -12,9 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.google.common.collect.Lists;
 
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
@@ -27,17 +28,14 @@ import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
 import be.hehehe.geekbot.utils.IRCUtils;
-
-import com.google.common.collect.Lists;
+import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
+@JBossLog
 public class MemeCommand {
 
 	private static final String CREATE_URL = "http://version1.api.memegenerator.net/Instance_Create?username=%s&password=%s&languageCode=en&generatorID=%s&imageID=%s&text0=%s&text1=%s";
 	private static final String POPULAR_GENERATORS = "http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=%d&pageSize=24&days=3";
-
-	@Inject
-	Logger log;
 
 	@Inject
 	ConnerieDAO dao;

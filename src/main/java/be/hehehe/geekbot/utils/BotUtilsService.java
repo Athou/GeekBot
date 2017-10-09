@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -27,14 +26,14 @@ import org.json.JSONObject;
 
 import com.google.common.collect.Maps;
 
+import lombok.extern.jbosslog.JBossLog;
+
 @ApplicationScoped
+@JBossLog
 public class BotUtilsService {
 
 	@Inject
 	BundleService bundleService;
-
-	@Inject
-	Logger log;
 
 	/**
 	 * Get the content of the specified URL

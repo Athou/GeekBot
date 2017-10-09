@@ -2,8 +2,6 @@ package be.hehehe.geekbot.commands;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
-
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
@@ -25,9 +23,6 @@ public class MirrorCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Trigger("!mirror")
 	@Help("Mirrors the last link pasted on the chan.")

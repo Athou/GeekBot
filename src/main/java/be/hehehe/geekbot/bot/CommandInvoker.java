@@ -12,13 +12,11 @@ import javax.ejb.Singleton;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
+import lombok.extern.jbosslog.JBossLog;
 
 @Singleton
+@JBossLog
 public class CommandInvoker {
-
-	@Inject
-	Logger log;
 
 	@Inject
 	Instance<Object> container;
@@ -45,7 +43,7 @@ public class CommandInvoker {
 			log.error(e.getMessage(), e);
 		}
 		log.debug("Done invoking: " + method.getDeclaringClass().getSimpleName() + "#" + method.getName());
-		return new AsyncResult<Object>(result);
+		return new AsyncResult<>(result);
 	}
 
 }

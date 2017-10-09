@@ -11,7 +11,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,26 +23,25 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.IRCUtils;
+import lombok.extern.jbosslog.JBossLog;
 
 /**
  * Finds out the next air date of tv shows.
  * 
  */
 @BotCommand
+@JBossLog
 public class EpisodesCommand {
 
 	@Inject
 	BotUtilsService utilsService;
-
-	@Inject
-	Logger log;
 
 	@Trigger(value = "!next", type = TriggerType.STARTSWITH)
 	@Help("Information about a TV show from TVRage.com")
 	public List<String> getNextEpisode(TriggerEvent event) {
 		String seriesName = event.getMessage();
 
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		try {
 			String url = String.format("http://api.tvmaze.com/singlesearch/shows?q=%s&embed=episodes",
 					URLEncoder.encode(seriesName, "UTF-8"));
@@ -86,7 +84,7 @@ public class EpisodesCommand {
 	}
 
 	public String parseEpisode(JSONObject episode) throws JSONException, ParseException {
-		List<String> parts = new ArrayList<String>();
+		List<String> parts = new ArrayList<>();
 		parts.add(String.format("S%02dE%02d", episode.getInt("season"), episode.getInt("number")));
 		parts.add(" - " + episode.getString("name"));
 

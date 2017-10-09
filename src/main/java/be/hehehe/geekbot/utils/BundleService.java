@@ -9,16 +9,14 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+
+import lombok.extern.jbosslog.JBossLog;
 
 @ApplicationScoped
+@JBossLog
 public class BundleService {
-
-	@Inject
-	Logger log;
 
 	private Properties props;
 
@@ -27,14 +25,8 @@ public class BundleService {
 		props = new Properties();
 		InputStream is = null;
 		try {
-			String configPath = "/config.properties";
-			String openshiftDataDir = System.getenv("OPENSHIFT_DATA_DIR");
-			if (openshiftDataDir != null) {
-				is = new FileInputStream(openshiftDataDir + configPath);
-			} else {
-				is = getClass().getResourceAsStream(configPath);
-			}
-			props.load(is);
+			log.info("loading config file");
+			props.load(new FileInputStream("config.properties"));
 		} catch (Exception e) {
 			log.fatal("Could not load config file");
 		} finally {

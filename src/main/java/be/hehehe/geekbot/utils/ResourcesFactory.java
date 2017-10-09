@@ -4,10 +4,7 @@ import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -21,11 +18,6 @@ public class ResourcesFactory {
 
 	private Random random = new Random();
 	private Twitter twitter;
-
-	@Produces
-	public Logger getLogger(InjectionPoint ip) {
-		return Logger.getLogger(ip.getMember().getDeclaringClass());
-	}
 
 	@Produces
 	public Random getRandom() {

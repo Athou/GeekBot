@@ -1,5 +1,6 @@
 package be.hehehe.geekbot.bot;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -51,7 +53,12 @@ public class DiscordBot extends ListenerAdapter {
 	}
 
 	public List<String> getUsers(String channel) {
-		return guild.getTextChannelsByName(channel, true).get(0).getMembers().stream().map(m -> m.getNickname())
-				.collect(Collectors.toList());
+		List<TextChannel> channels = guild.getTextChannelsByName(channel, true);
+		if (channels.isEmpty()) {
+
+			return Collections.emptyList();
+		}
+
+		return channels.get(0).getMembers().stream().map(m -> m.getNickname()).collect(Collectors.toList());
 	}
 }

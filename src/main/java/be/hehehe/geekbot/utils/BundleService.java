@@ -28,7 +28,7 @@ public class BundleService {
 			log.info("loading config file");
 			props.load(new FileInputStream("config.properties"));
 		} catch (Exception e) {
-			log.fatal("Could not load config file");
+			log.fatal("Could not load config file", e);
 		} finally {
 			IOUtils.closeQuietly(is);
 		}

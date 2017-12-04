@@ -86,7 +86,7 @@ public class MemeCommand {
 			JSONArray results = json.getJSONArray("result");
 			for (int i = 0; i < results.length(); i++) {
 				JSONObject result = results.getJSONObject(i);
-				String generatorId = result.getString("generatorID");
+				String generatorId = String.valueOf(result.getInt("generatorID"));
 
 				String imageUrl = result.getString("imageUrl");
 				String[] tokens = imageUrl.split(Pattern.quote("/"));

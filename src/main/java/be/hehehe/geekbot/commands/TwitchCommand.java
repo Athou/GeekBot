@@ -1,5 +1,6 @@
 package be.hehehe.geekbot.commands;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -45,10 +46,9 @@ public class TwitchCommand {
 			InputStream is = null;
 			try {
 				String configPath = "twitch.properties";
-				is = getClass().getResourceAsStream(configPath);
-				props.load(is);
+				props.load(new FileInputStream(configPath));
 			} catch (Exception e) {
-				log.fatal("Could not load config file");
+				log.fatal("Could not load config file", e);
 			} finally {
 				IOUtils.closeQuietly(is);
 			}

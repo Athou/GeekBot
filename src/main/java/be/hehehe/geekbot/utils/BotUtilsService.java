@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class BotUtilsService {
 			String contentType = con.getContentType();
 			if (mimeTypePrefix == null || contentType.startsWith(mimeTypePrefix)) {
 				is = con.getInputStream();
-				result = IOUtils.toString(is);
+				result = IOUtils.toString(is, StandardCharsets.UTF_8);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>6.4.0</wicket.version>
-		<version.wildfly.swarm>2017.11.0</version.wildfly.swarm>
+		<thorntail.version>2.2.1.Final</thorntail.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -50,9 +50,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.wildfly.swarm</groupId>
+				<groupId>io.thorntail</groupId>
 				<artifactId>bom-all</artifactId>
-				<version>${version.wildfly.swarm}</version>
+				<version>${thorntail.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
@@ -62,9 +62,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.wildfly.swarm</groupId>
-				<artifactId>wildfly-swarm-plugin</artifactId>
-				<version>${version.wildfly.swarm}</version>
+				<groupId>io.thorntail</groupId>
+				<artifactId>thorntail-maven-plugin</artifactId>
+				<version>${thorntail.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -112,23 +112,23 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly.swarm</groupId>
+			<groupId>io.thorntail</groupId>
 			<artifactId>jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly.swarm</groupId>
+			<groupId>io.thorntail</groupId>
 			<artifactId>cdi</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly.swarm</groupId>
+			<groupId>io.thorntail</groupId>
 			<artifactId>ejb</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly.swarm</groupId>
+			<groupId>io.thorntail</groupId>
 			<artifactId>undertow</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly.swarm</groupId>
+			<groupId>io.thorntail</groupId>
 			<artifactId>logging</artifactId>
 		</dependency>
 
@@ -235,7 +235,13 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>3.0.0_198</version>
+			<version>3.8.1_441</version>
+			<exclusions>
+				<exclusion>
+					<groupId>club.minnced</groupId>
+					<artifactId>opus-java</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

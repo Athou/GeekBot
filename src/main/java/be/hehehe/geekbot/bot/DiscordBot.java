@@ -13,7 +13,6 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 @JBossLog
@@ -31,7 +30,7 @@ public class DiscordBot extends ListenerAdapter {
 		try {
 			jda = new JDABuilder(AccountType.BOT).setToken(token).addEventListener(this).buildBlocking();
 			guild = jda.getGuilds().get(0);
-		} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
+		} catch (LoginException | IllegalArgumentException | InterruptedException e) {
 			log.error(e.getMessage(), e);
 		}
 	}
@@ -40,7 +39,7 @@ public class DiscordBot extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		String sender = event.getMember().getEffectiveName();
 		if (!botName.equalsIgnoreCase(sender)) {
-			listener.onMessage(event.getTextChannel().getName(), sender, event.getMessage().getContent());
+			listener.onMessage(event.getTextChannel().getName(), sender, event.getMessage().getContentDisplay());
 		}
 	}
 

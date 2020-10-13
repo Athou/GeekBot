@@ -7,19 +7,18 @@ import java.util.stream.Collectors;
 import javax.security.auth.login.LoginException;
 
 import lombok.extern.jbosslog.JBossLog;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 @JBossLog
 public class DiscordBot extends ListenerAdapter {
 
-	private String botName;
-	private MessageListener listener;
+	private final String botName;
+	private final MessageListener listener;
 
 	private JDA jda;
 	private Guild guild;
@@ -28,9 +27,9 @@ public class DiscordBot extends ListenerAdapter {
 		this.botName = botName;
 		this.listener = listener;
 		try {
-			jda = new JDABuilder(AccountType.BOT).setToken(token).addEventListener(this).buildBlocking();
+			jda = JDABuilder.createDefault(token).addEventListeners(this).build().awaitReady();
 			guild = jda.getGuilds().get(0);
-		} catch (LoginException | IllegalArgumentException | InterruptedException e) {
+		} catch (LoginException | InterruptedException e) {
 			log.error(e.getMessage(), e);
 		}
 	}
@@ -43,8 +42,8 @@ public class DiscordBot extends ListenerAdapter {
 		}
 	}
 
-	public static interface MessageListener {
-		public void onMessage(String channel, String sender, String message);
+	public interface MessageListener {
+		void onMessage(String channel, String sender, String message);
 	}
 
 	public void sendMessage(String channel, String message) {

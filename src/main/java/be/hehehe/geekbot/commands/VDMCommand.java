@@ -17,7 +17,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -68,8 +68,8 @@ public class VDMCommand {
 			String upvote = item.getChild("agree").getValue();
 			String downvote = item.getChild("deserved").getValue();
 
-			result.add(IRCUtils.bold("VDM") + " - " + text);
-			result.add(IRCUtils.bold("MOAR FAKE PLZ") + String.format(" (+%s/-%s)", upvote, downvote));
+			result.add(DiscordUtils.bold("VDM") + " - " + text);
+			result.add(DiscordUtils.bold("MOAR FAKE PLZ") + String.format(" (+%s/-%s)", upvote, downvote));
 
 		} catch (Exception e) {
 			result.add("Could not fetch a VDM for some reason.");

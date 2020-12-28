@@ -14,7 +14,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Help;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -47,8 +47,8 @@ public class BlagueCommand {
 				return getRandomBlague();
 			}
 
-			result.add(0, IRCUtils.bold("Mega Vanne"));
-			result.add(IRCUtils.bold("http://www.instantrimshot.com/"));
+			result.add(0, DiscordUtils.bold("Mega Vanne"));
+			result.add(DiscordUtils.bold("http://www.instantrimshot.com/"));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			result.add("Could not contact " + url);

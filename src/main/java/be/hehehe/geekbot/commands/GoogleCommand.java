@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -88,7 +88,7 @@ public class GoogleCommand {
 			JSONArray ja = json.getJSONArray("items");
 			JSONObject j = ja.getJSONObject(0);
 			if (mode == Mode.WEB) {
-				String firstLine = StringEscapeUtils.unescapeHtml4(IRCUtils.bold(j.getString("title"))) + " - "
+				String firstLine = StringEscapeUtils.unescapeHtml4(DiscordUtils.bold(j.getString("title"))) + " - "
 						+ URLDecoder.decode(j.getString("link"), "UTF-8");
 
 				result.add(firstLine);
@@ -99,7 +99,7 @@ public class GoogleCommand {
 				result.add(content);
 			} else {
 				String s = json.getJSONArray("items").getJSONObject(0).getString("link");
-				result.add(IRCUtils.bold(s));
+				result.add(DiscordUtils.bold(s));
 			}
 
 		} catch (Exception e) {

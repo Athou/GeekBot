@@ -20,7 +20,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -63,7 +63,7 @@ public class HoroscopeCommand {
 	@Help("Prints help on how to use this command.")
 	public String getHoroscopeHelp() {
 		String availableSigns = StringUtils.join(state.get(Map.class).keySet(), ", ");
-		return IRCUtils.bold("!horoscope <signe>") + " - Available signs : " + availableSigns;
+		return DiscordUtils.bold("!horoscope <signe>") + " - Available signs : " + availableSigns;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
@@ -51,7 +51,7 @@ public class DansTonChatCommand {
 			for (String line : content.split(SystemUtils.LINE_SEPARATOR)) {
 				list.add(line);
 			}
-			list.add(IRCUtils.bold("LOL je sé pa ékrir MDR") + String.format(" (+%s/-%s)", upvote, downvote));
+			list.add(DiscordUtils.bold("LOL je sé pa ékrir MDR") + String.format(" (+%s/-%s)", upvote, downvote));
 		} catch (Exception e) {
 			list.add("Could not contact DTC.");
 			log.error(e.getMessage(), e);

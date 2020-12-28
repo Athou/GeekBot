@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -51,7 +51,7 @@ public class SteamCommand {
 				String guid = item.getUri();
 				RSSFeed steam = dao.findByGUID(guid);
 				if (steam == null) {
-					message = IRCUtils.bold("Steam!") + " " + StringEscapeUtils.unescapeXml(item.getTitle()) + " - "
+					message = DiscordUtils.bold("Steam!") + " " + StringEscapeUtils.unescapeXml(item.getTitle()) + " - "
 							+ utilsService.bitly(item.getLink());
 					toReturn.add(message);
 					steam = new RSSFeed();

@@ -16,8 +16,8 @@ import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.SkanditeDAO;
 import be.hehehe.geekbot.persistence.model.Skandite;
 import be.hehehe.geekbot.utils.BotUtilsService;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import be.hehehe.geekbot.utils.HashAndByteCount;
-import be.hehehe.geekbot.utils.IRCUtils;
 
 /**
  * Stores all links and gives an alert when a link has already been posted on the chan.
@@ -35,7 +35,7 @@ public class SkanditeCommand {
 	@Trigger(type = TriggerType.EVERYTHING)
 	public List<String> handleSkandites(TriggerEvent event) {
 
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		if (event.hasURL()) {
 			String url = event.getURL();
 			Skandite skandite = dao.findByURL(url);
@@ -50,8 +50,9 @@ public class SkanditeCommand {
 			if (skandite != null) {
 				if (!StringUtils.equals(skandite.getAuthor(), event.getAuthor())) {
 					PrettyTime prettyTime = new PrettyTime();
-					String line = IRCUtils.bold("Skandite! ") + skandite.getUrl() + " linked " + prettyTime.format(skandite.getPostedDate())
-							+ " by " + skandite.getAuthor() + " (" + skandite.getCount() + "x).";
+					String line = DiscordUtils.bold("Skandite! ") + DiscordUtils.linkWithoutPreview(skandite.getUrl()) + " linked "
+							+ prettyTime.format(skandite.getPostedDate()) + " by " + skandite.getAuthor() + " (" + skandite.getCount()
+							+ "x).";
 					result.add(line);
 					skandite.setCount(skandite.getCount() + 1);
 					dao.update(skandite);

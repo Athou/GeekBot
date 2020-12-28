@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.commands.GoogleCommand.Mode;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -64,7 +64,7 @@ public class IMDBCommand {
 			String url = "http://www.imdb.com/title/" + json.getString("tconst") + "/";
 			String year = json.getString("year");
 
-			String s = IRCUtils.bold(title);
+			String s = DiscordUtils.bold(title);
 			if (!"null".equals(year)) {
 				s += " (" + year + ")";
 			}
@@ -75,13 +75,13 @@ public class IMDBCommand {
 
 			if (!json.isNull("tagline")) {
 				String plot = json.getString("tagline");
-				result.add(IRCUtils.bold("Plot: ") + plot);
+				result.add(DiscordUtils.bold("Plot: ") + plot);
 			}
 			s = "";
 			if (!json.isNull("rating") && !json.isNull("num_votes")) {
 				String rating = json.getString("rating");
 				String votes = json.getString("num_votes");
-				s = IRCUtils.bold("Rating: ") + rating + "/10 - " + votes + " votes - ";
+				s = DiscordUtils.bold("Rating: ") + rating + "/10 - " + votes + " votes - ";
 			}
 
 			if (!json.isNull("genres")) {
@@ -104,7 +104,7 @@ public class IMDBCommand {
 					directors.add(j2.getJSONObject("name").getString("name"));
 
 				}
-				s = IRCUtils.bold("Directed by: ");
+				s = DiscordUtils.bold("Directed by: ");
 				for (String director : directors) {
 					s += director + ", ";
 				}
@@ -121,7 +121,7 @@ public class IMDBCommand {
 					actors.add(j2.getJSONObject("name").getString("name"));
 
 				}
-				s = IRCUtils.bold("Actors: ");
+				s = DiscordUtils.bold("Actors: ");
 				for (String actor : actors) {
 					s += actor + ", ";
 				}

@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.persistence.dao.RSSFeedDAO;
 import be.hehehe.geekbot.persistence.model.RSSFeed;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -56,7 +56,7 @@ public class BuzzCommand {
 					buzz.setGuid(item.getUri());
 					dao.save(buzz);
 					String urlBitly = utilsService.bitly(item.getLink());
-					message = IRCUtils.bold("EXCLU!") + " " + item.getTitle() + " - " + urlBitly;
+					message = DiscordUtils.bold("EXCLU!") + " " + item.getTitle() + " - " + urlBitly;
 					toReturn.add(message);
 					break;
 				}

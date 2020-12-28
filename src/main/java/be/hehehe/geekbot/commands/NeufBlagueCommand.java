@@ -16,7 +16,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
@@ -57,7 +57,7 @@ public class NeufBlagueCommand {
 				}
 			}
 
-			result = IRCUtils.bold("9Blague ! ") + title + " " + " - " + location;
+			result = DiscordUtils.bold("9Blague ! ") + title + " " + " - " + location;
 		} catch (Exception e) {
 			result = "Could not contact 9blague";
 			log.error("Could not contact 9blague", e);

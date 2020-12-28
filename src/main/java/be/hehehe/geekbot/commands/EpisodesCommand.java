@@ -22,7 +22,7 @@ import be.hehehe.geekbot.annotations.Trigger;
 import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -65,17 +65,17 @@ public class EpisodesCommand {
 				}
 			}
 
-			list.add(IRCUtils.bold(root.getString("name")) + " http://www.imdb.com/title/"
+			list.add(DiscordUtils.bold(root.getString("name")) + " http://www.imdb.com/title/"
 					+ root.getJSONObject("externals").getString("imdb"));
 			if (next != null) {
-				list.add(IRCUtils.bold("Next Episode: ") + parseEpisode(next));
+				list.add(DiscordUtils.bold("Next Episode: ") + parseEpisode(next));
 			} else {
-				list.add(IRCUtils.bold("Next Episode: ") + "N/A");
+				list.add(DiscordUtils.bold("Next Episode: ") + "N/A");
 			}
 			if (previous != null) {
-				list.add(IRCUtils.bold("Previous Episode: ") + parseEpisode(previous));
+				list.add(DiscordUtils.bold("Previous Episode: ") + parseEpisode(previous));
 			} else {
-				list.add(IRCUtils.bold("Previous Episode: ") + "N/A");
+				list.add(DiscordUtils.bold("Previous Episode: ") + "N/A");
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

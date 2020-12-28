@@ -14,7 +14,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.QuoteDAO;
 import be.hehehe.geekbot.persistence.model.Quote;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 
 /**
  * Quote engine. Store, find and get random quotes.
@@ -30,7 +30,7 @@ public class QuoteCommand {
 	@Help("Prints a random quote.")
 	public String getRandomQuote() {
 		int rand = new Random().nextInt((int) dao.getCount()) + 1;
-		return IRCUtils.bold("" + rand) + ". " + dao.findByNumber(rand).getQuote();
+		return DiscordUtils.bold("" + rand) + ". " + dao.findByNumber(rand).getQuote();
 	}
 
 	@Trigger(value = "!quote", type = TriggerType.STARTSWITH)
@@ -44,7 +44,7 @@ public class QuoteCommand {
 			if (id > dao.getCount()) {
 				throw new NumberFormatException();
 			}
-			quotes.add(IRCUtils.bold("" + id) + ". " + dao.findByNumber(id).getQuote());
+			quotes.add(DiscordUtils.bold("" + id) + ". " + dao.findByNumber(id).getQuote());
 		}
 		return quotes;
 
@@ -70,7 +70,7 @@ public class QuoteCommand {
 				result += " " + q.getNumber();
 			}
 		}
-		result = IRCUtils.bold("Matching quotes:") + result;
+		result = DiscordUtils.bold("Matching quotes:") + result;
 		return result;
 	}
 }

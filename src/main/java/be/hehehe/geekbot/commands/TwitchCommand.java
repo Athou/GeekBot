@@ -18,7 +18,7 @@ import be.hehehe.geekbot.annotations.BotCommand;
 import be.hehehe.geekbot.annotations.TimedAction;
 import be.hehehe.geekbot.bot.State;
 import be.hehehe.geekbot.utils.BotUtilsService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -71,7 +71,7 @@ public class TwitchCommand {
 				boolean isNowLive = getStreamStatus(stream);
 				if (!stream.isLive() && isNowLive) {
 					alerts.add(
-							IRCUtils.bold(stream.getName().replace("_", "")) + " is now live on http://www.twitch.tv/" + stream.getName());
+							DiscordUtils.bold(stream.getName().replace("_", "")) + " is now live on http://www.twitch.tv/" + stream.getName());
 				}
 				stream.setLive(isNowLive);
 			} catch (Exception e) {

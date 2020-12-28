@@ -27,7 +27,7 @@ import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 @BotCommand
@@ -163,7 +163,7 @@ public class MemeCommand {
 			log.error(e.getMessage(), e);
 			result = "Could not contact memegenerator: " + e.getMessage();
 		}
-		return IRCUtils.bold("10blague! ") + result;
+		return DiscordUtils.bold("10blague! ") + result;
 	}
 
 	private String getRandomText(String like) {

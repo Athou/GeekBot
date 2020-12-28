@@ -25,7 +25,7 @@ import be.hehehe.geekbot.persistence.dao.QuizzMergeDAO;
 import be.hehehe.geekbot.persistence.model.QuizzMergeException;
 import be.hehehe.geekbot.utils.BotUtilsService;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 import lombok.extern.jbosslog.JBossLog;
 
 /**
@@ -113,7 +113,7 @@ public class QuizzCommand {
 
 					state.put(CURRENT_ANSWER, answer);
 
-					event.write(IRCUtils.bold("Question! ") + question);
+					event.write(DiscordUtils.bold("Question! ") + question);
 
 					startIndiceTimer(event);
 					startTimeoutTimer(event);
@@ -139,7 +139,7 @@ public class QuizzCommand {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("1 10: " + computeIndice(state.get(CURRENT_ANSWER, String.class))));
+				event.write(DiscordUtils.bold("1 10: " + computeIndice(state.get(CURRENT_ANSWER, String.class))));
 			}
 
 		};
@@ -158,7 +158,7 @@ public class QuizzCommand {
 		Runnable thread = new Runnable() {
 			@Override
 			public void run() {
-				event.write(IRCUtils.bold("Trop tard! ") + "La réponse était: " + state.get(CURRENT_ANSWER)
+				event.write(DiscordUtils.bold("Trop tard! ") + "La réponse était: " + state.get(CURRENT_ANSWER)
 						+ ". Prochaine question dans quelques secondes ...");
 				nextQuestion(event, 10);
 			}
@@ -182,7 +182,7 @@ public class QuizzCommand {
 				if (matches(event.getMessage(), answer)) {
 					stopIndiceTimer();
 					stopTimeoutTimer();
-					event.write(IRCUtils.bold("Bien joué " + event.getAuthor() + " ! ") + "La réponse était: " + answer
+					event.write(DiscordUtils.bold("Bien joué " + event.getAuthor() + " ! ") + "La réponse était: " + answer
 							+ ". Prochaine question dans quelques secondes ...");
 					dao.giveOnePoint(event.getAuthor());
 					nextQuestion(event, 10);
@@ -291,7 +291,7 @@ public class QuizzCommand {
 	@Trigger("!score")
 	@Help("Prints Quizz scoreboard URL.")
 	public String score(TriggerEvent event) {
-		return IRCUtils.bold("Scoreboard: ") + bundleService.getWebServerRootPath() + "/quizz";
+		return DiscordUtils.bold("Scoreboard: ") + bundleService.getWebServerRootPath() + "/quizz";
 	}
 
 	@Trigger(value = "!score merge", type = TriggerType.STARTSWITH)
@@ -307,6 +307,6 @@ public class QuizzCommand {
 			return e.getMessage();
 		}
 
-		return IRCUtils.bold("Merge Request Added: ") + "check " + bundleService.getWebServerRootPath() + "/quizz";
+		return DiscordUtils.bold("Merge Request Added: ") + "check " + bundleService.getWebServerRootPath() + "/quizz";
 	}
 }

@@ -16,7 +16,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.annotations.Triggers;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.utils.BundleService;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 
 import com.google.common.collect.Lists;
 
@@ -38,7 +38,7 @@ public class HelpCommand {
 	@Help("Prints all triggers.")
 	public List<String> helpGeneral() {
 		List<String> result = Lists.newArrayList();
-		result.add(IRCUtils.bold("Triggers: "));
+		result.add(DiscordUtils.bold("Triggers: "));
 		Set<String> set = new LinkedHashSet<String>();
 		for (Method m : triggers) {
 			Trigger trigger = m.getAnnotation(Trigger.class);
@@ -65,7 +65,7 @@ public class HelpCommand {
 						line.append(" <arguments>");
 					}
 					line.append(" : ");
-					result.add(IRCUtils.bold(line.toString()) + help);
+					result.add(DiscordUtils.bold(line.toString()) + help);
 				}
 			}
 		}

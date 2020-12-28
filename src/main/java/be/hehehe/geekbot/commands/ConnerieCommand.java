@@ -15,7 +15,7 @@ import be.hehehe.geekbot.annotations.TriggerType;
 import be.hehehe.geekbot.bot.TriggerEvent;
 import be.hehehe.geekbot.persistence.dao.ConnerieDAO;
 import be.hehehe.geekbot.persistence.model.Connerie;
-import be.hehehe.geekbot.utils.IRCUtils;
+import be.hehehe.geekbot.utils.DiscordUtils;
 
 /**
  * Stores all lines spoken on the channel. The bot will also give one of those sentences back when addressed or randomly in a conversation.
@@ -75,7 +75,7 @@ public class ConnerieCommand {
 			keywords = keywords.trim();
 			if (keywords.length() > 1) {
 				int count = dao.getCountMatching(keywords.split(" "));
-				r = IRCUtils.bold("Stat count for \"" + keywords + "\" : ") + count;
+				r = DiscordUtils.bold("Stat count for \"" + keywords + "\" : ") + count;
 			}
 		}
 		return r;

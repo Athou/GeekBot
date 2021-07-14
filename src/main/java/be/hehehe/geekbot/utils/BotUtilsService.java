@@ -10,7 +10,6 @@ import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.Map;
 
@@ -43,7 +42,18 @@ public class BotUtilsService {
 	 * @return the content of the url, null if unable to fetch.
 	 */
 	public String getContent(String urlString) {
-		return getContent(urlString, null);
+		return getContent(urlString, "UTF-8", null);
+	}
+
+	/**
+	 * Get the content of the specified URL
+	 * 
+	 * @param urlString
+	 * @param characterEncoding
+	 * @return the content of the url, null if unable to fetch.
+	 */
+	public String getContent(String urlString, String characterEncoding) {
+		return getContent(urlString, characterEncoding, null);
 	}
 
 	/**
@@ -53,7 +63,7 @@ public class BotUtilsService {
 	 * @param mimeTypePrefix
 	 * @return the content of the url, null if unable to fetch.
 	 */
-	public String getContent(String urlString, String mimeTypePrefix) {
+	public String getContent(String urlString, String characterEncoding, String mimeTypePrefix) {
 		String result = null;
 		InputStream is = null;
 		try {
@@ -66,7 +76,7 @@ public class BotUtilsService {
 			String contentType = con.getContentType();
 			if (mimeTypePrefix == null || contentType.startsWith(mimeTypePrefix)) {
 				is = con.getInputStream();
-				result = IOUtils.toString(is, StandardCharsets.UTF_8);
+				result = IOUtils.toString(is, characterEncoding);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -215,7 +225,7 @@ public class BotUtilsService {
 	public HashAndByteCount calculateHashAndByteCount(String urlString) {
 		HashAndByteCount hashAndByteCount = new HashAndByteCount();
 
-		String content = getContent(urlString, "image/");
+		String content = getContent(urlString, "UTF-8", "image/");
 		if (content != null) {
 			byte[] bytes = content.getBytes();
 

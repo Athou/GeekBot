@@ -71,6 +71,10 @@ public class HoroscopeCommand {
 		String line = null;
 		try {
 			String id = mapping.get(sign);
+			if (id == null) {
+				return null;
+			}
+
 			String url = String.format("https://www.mon-horoscope-du-jour.com/horoscopes/quotidien/%s.htm", id);
 			content = utilsService.getContent(url, StandardCharsets.ISO_8859_1.name());
 			Document doc = Jsoup.parse(content);

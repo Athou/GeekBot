@@ -41,9 +41,8 @@
 
 	<repositories>
 		<repository>
-			<id>bintray-dv8fromtheworld-maven</id>
-			<name>bintray</name>
-			<url>https://dl.bintray.com/dv8fromtheworld/maven</url>
+			<id>dv8fromtheworld-maven</id>
+			<url>https://m2.dv8tion.net/releases</url>
 		</repository>
 	</repositories>
 
@@ -235,7 +234,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>4.2.0_184</version>
+			<version>4.3.0_339</version>
 			<exclusions>
 				<exclusion>
 					<groupId>club.minnced</groupId>
